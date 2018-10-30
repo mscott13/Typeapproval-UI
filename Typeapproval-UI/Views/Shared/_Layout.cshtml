@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<head>
+    <title>@ViewBag.Title</title>
+
+    <link href="~/Content/semantic.css" rel="stylesheet" />
+    <link href="~/Content/site.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="ui tiny top inverted borderless menu">
+        <div class="ui fluid container">
+            <a class="header item" href="~/home">
+                <i class="home icon"></i>
+                Home
+            </a>
+            <div class="item">
+                <div class="ui small left icon input">
+                    <input type="text" placeholder="Search applications..." style="width:300px">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+            <a class="header item" href="~/new" data-content="Create a new Type Approval application" data-position="bottom center" data-variation="inverted mini">
+                <i class="sticky note icon"></i>
+                New
+            </a>
+            <a class="header item" href="~/certificates" data-content="View approved applications" data-position="bottom center" data-variation="inverted mini">
+                <i class="file alternate icon"></i>
+                Certificates
+            </a>
+
+            <a class="header item" href="~/certificates" data-content="Incomplete applications" data-position="bottom center" data-variation="inverted mini">
+                <i class="folder icon"></i>
+                Saved Applications
+            </a>
+
+            <div class="right menu">
+                <a class="item">
+                    <i class="bell icon"></i>
+                </a>
+                <div class="ui top left pointing dropdown item" data-content="Sign out" data-position="bottom center" data-variation="inverted mini">
+                    <img class="ui circular image" src="~/images/avatar.png" width="20" height="20" />
+                    <i class="dropdown icon"></i>
+                    <div class="menu transition">
+                        <div class="user header">
+                            Signed in as <b>@Session["name"]</b>
+                        </div>
+                        <div class="divider"></div>
+                        <a class="item">
+                            <i class="sign-out icon"></i>
+                            Sign Out
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui container">
+        <div class="content-spacing"></div>
+        @RenderBody()
+    </div>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/semantic.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.ui.dropdown').dropdown();
+            $('.ui.dropdown').popup();
+            $('.ui.small.red.label').popup();
+            $('.header.item').popup();
+            $('.ui.sticky').sticky({
+                context: '#context'
+            });
+            $('.ui.radio.checkbox').checkbox();
+            $('#step1_to_next').click(function () {
+                window.location = "/new/step2";
+            });
+            $('#step2_to_prev').click(function () {
+                window.location = "/new";
+            });
+            $('#new_application').click(function () {
+                window.location = "/new";
+            });
+        });
+    </script>
+</body>

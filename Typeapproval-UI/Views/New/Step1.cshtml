@@ -1,0 +1,162 @@
+﻿
+@{
+    ViewData["Title"] = "New application";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="ui grid">
+    <div class="four wide column">
+        <div class="ui sticky">
+            <div class="ui ignored tiny info message">
+                <div class="header">
+                    Form controls
+                </div>
+                <p>This section allows you to <b>save</b> form details for later or <b>reset</b> the fields if needed.</p>
+            </div>
+            <div class="ui tiny two item menu">
+                <a class="item"><i class="grey save icon"></i> Save</a>
+                <a class="item"><i class="grey file icon"></i>Reset fields</a>
+            </div>
+        </div>
+    </div>
+    <div class="twelve wide column">
+        <div class="ui one column grid">
+            <div class="column">
+                <div class="ui tiny three top attached steps">
+                    <div class="active step">
+                        <i class="address card icon"></i>
+                        <div class="content">
+                            <div class="title">Applicant Information</div>
+                            <div class="description">Enter applicant details</div>
+                        </div>
+                    </div>
+                    <div class="disabled step">
+                        <i class="hdd icon"></i>
+                        <div class="content">
+                            <div class="title">Equipment Information</div>
+                            <div class="description">Description of Equipment</div>
+                        </div>
+                    </div>
+                    <div class="disabled step">
+                        <i class="upload icon"></i>
+                        <div class="content">
+                            <div class="title">Upload Files</div>
+                            <div class="description">Add files relevant to this application</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="context" class="ui clearing attached segment">
+                    <a class="ui grey ribbon label">1. &nbsp Applicant</a>
+                    <form class="ui small form">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Name</label>
+                                <select class="ui search dropdown" name="applicant_name">
+                                    <option value="">Name</option>
+                                    <option value="AL">Alabama</option>
+                                    <option value="AK">Alaska</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label>Telephone<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="eg. 1876-555-5555" name="telephone" type="text">
+                                    <i class="phone volume icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="three fields">
+                            <div class="field">
+                                <label>Address<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="eg. 12 Beckford Street" name="address" type="text">
+                                    <i class="address book icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Fax<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="eg. 1876-555-5555" name="fax" type="text">
+                                    <i class="fax icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>City/Town<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="eg. Kingston" name="address" type="text">
+                                    <i class="map marker alternate icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Contact Person<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="eg. John Brown" name="manufacturer_fax" type="text">
+                                    <i class="user circle icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Nationality<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="eg. Jamaica" name="address" type="text">
+                                    <i class="globe icon"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a class="ui grey ribbon label">2. &nbsp Manufacturer</a>
+                        <div class="three fields">
+                            <div class="field">
+                                <label>Name</label>
+                                <select class="ui search dropdown" name="manufacturer_name">
+                                    <option value="">Name</option>
+                                    <option value="AL">Alabama</option>
+                                    <option value="AK">Alaska</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label>Telephone<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="eg. 1876-555-5555" name="telephone" type="text">
+                                    <i class="phone volume icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Address<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="eg. 12 Beckford Street" name="address" type="text">
+                                    <i class="address book icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Fax<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="eg. 1876-555-5555" name="manufacturer_fax" type="text">
+                                    <i class="fax icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Contact Person<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="eg. John Brown" name="manufacturer_fax" type="text">
+                                    <i class="user circle icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="one field">
+
+
+                            <button id="step1_to_next" type="button" class="ui tiny right floated right labeled icon button">
+                                <i class="right arrow icon"></i>
+                                Next
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
