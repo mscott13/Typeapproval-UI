@@ -37,7 +37,7 @@
                 <a class="item">
                     <i class="bell icon"></i>
                 </a>
-                <div class="ui top left pointing dropdown item" data-content="Sign out" data-position="bottom center" data-variation="inverted mini">
+                <div class="ui top left pointing dropdown item" data-content="Account options" data-position="bottom center" data-variation="inverted mini">
                     <img class="ui circular image" src="~/images/avatar.png" width="20" height="20" />
                     <i class="dropdown icon"></i>
                     <div class="menu transition">
@@ -45,7 +45,7 @@
                             Signed in as <b>@Session["name"]</b>
                         </div>
                         <div class="divider"></div>
-                        <a class="item">
+                        <a id="sign_out" class="item">
                             <i class="sign-out icon"></i>
                             Sign Out
                         </a>
@@ -61,6 +61,7 @@
 
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/semantic.min.js"></script>
+    <script src="~/Scripts/site.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.ui.dropdown').dropdown();

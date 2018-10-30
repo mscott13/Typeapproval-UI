@@ -12,7 +12,7 @@ namespace Typeapproval_UI.Controllers
 {
     public class AccountController : Controller
     {
-        public ActionResult login()
+        public ActionResult Login()
         {
             if (Session["key"] != null)
             {
@@ -70,6 +70,13 @@ namespace Typeapproval_UI.Controllers
             {
                 return View(login);
             }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage Logout()
+        {
+            Session.Clear();
+            return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
         }
 
     }

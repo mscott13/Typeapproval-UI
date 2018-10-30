@@ -15,35 +15,15 @@ namespace Typeapproval_UI
 
             routes.MapRoute(
                 name: "Login",
-                url: "account/{action}",
+                url: "account/login",
                 defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
             );
 
-           
-
             routes.MapRoute(
-                name: "Certificates",
-                url: "certificates/{action}/{id}",
-                defaults: new { controller = "Certificates", action = "Index", id = UrlParameter.Optional }
+                name: "Logout",
+                url: "account/logout",
+                defaults: new { controller = "Account", action = "Logout", id = UrlParameter.Optional }
             );
-
-            routes.MapRoute(
-                name: "New",
-                url: "new/{action}",
-                defaults: new { controller = "New", action = "Step1", id = UrlParameter.Optional }
-            );
-
-            routes.MapRoute(
-                name: "Search",
-                url: "search/{action}/{id}",
-                defaults: new { controller = "Search", action = "Index", id = UrlParameter.Optional }
-            );
-
-            routes.MapRoute(
-               name: "Home",
-               url: "{controller}/{action}/{id}",
-               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-           );
         }
 
         protected void Application_Start()
