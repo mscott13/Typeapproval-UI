@@ -12,6 +12,9 @@ namespace Typeapproval_UI.Controllers
 {
     public class AccountController : Controller
     {
+        [HttpGet]
+        [Route("account/login")]
+        [Route("account")]
         public ActionResult Login()
         {
             if (Session["key"] != null)
@@ -26,8 +29,8 @@ namespace Typeapproval_UI.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-       
+        [Route("account/login")]
+        [Route("account")]
         public async Task<ActionResult> Login(Models.Login login)
         {
             if (ModelState.IsValid)
@@ -72,12 +75,19 @@ namespace Typeapproval_UI.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
+        [Route("account/logout")]
         public HttpResponseMessage Logout()
         {
             Session.Clear();
             return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
         }
 
+        [HttpGet]
+        [Route("account/register")]
+        public ActionResult Register()
+        {
+            return View();
+        }
     }
 }

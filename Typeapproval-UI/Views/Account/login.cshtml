@@ -16,7 +16,7 @@
     @using (Html.BeginForm("Login", "Account", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-        
+
         <div class="login_form_container">
             <div class="logo">
                 <img src="~/Content/images/Spectrum-Management-Authority.png" draggable="false" />
@@ -51,7 +51,7 @@
     <div class="other_options_container">
         <div class="other_options">
             <div class="ui small buttons">
-                <button class="ui button">Create an account</button>
+                <button id="btn_create_account" class="ui button">Create an account</button>
                 <div class="or"></div>
                 <button class="ui button">Recover credentials</button>
             </div>
@@ -59,8 +59,9 @@
     </div>
 
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script> 
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Scripts/semantic.min.js"></script>
+    <script src="~/Scripts/site.js"></script>
 </body>
 </html>

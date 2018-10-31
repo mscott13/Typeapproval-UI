@@ -1,0 +1,97 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="~/Content/register.css" rel="stylesheet" />
+    <link href="~/Content/semantic.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="register_form_container">
+        <div class="logo">
+            <img src="~/Content/images/Spectrum-Management-Authority.png" draggable="false" />
+        </div>
+        <div class="ui large form">
+            <div class="ui stacked segment">
+                <div class="ui medium header">
+                    Create a new account
+                </div>
+                <div class="register_form_controls">
+                    <div id="register_form" class="ui form">
+                        <div class="field">
+                            <label>Username</label>
+                            <div class="ui left icon input">
+                                <input placeholder="" name="reg_username" type="text">
+                                <i class="user icon"></i>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Client company<span style="margin-left:5px; font-style:italic; font-weight:100 !important; float:right; color:dimgrey;">company not found? add it <a href="#">here</a></span></label>
+                            <select class="ui search dropdown" name="company_list">
+                                <option value="">Choose company</option>
+                                <option value="AL">ATDI Parabolic ITU R-1245</option>
+                                <option value="AK">ATDI Parabolic ITU R-1428</option>
+                                <option value="AK">ATDI Parabolic ITU R-419</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Email address</label>
+                            <div class="ui left icon input">
+                                <input placeholder="" name="reg_email" type="text">
+                                <i class="at icon"></i>
+                            </div>
+                        </div>
+                        <div class="two fields">
+                            <div class="field">
+                                <label>First name</label>
+                                <div class="ui left icon input">
+                                    <input placeholder="" name="reg_firstName" type="text">
+                                    <i class="quote left icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Last name</label>
+                                <div class="ui right icon input">
+                                    <input placeholder="" name="reg_LastName" type="text">
+                                    <i class="quote right icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Password</label>
+                                <div class="ui left icon input">
+                                    <input placeholder="" name="reg_password" type="password">
+                                    <i class="lock open icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Confirm password</label>
+                                <div class="ui left icon input">
+                                    <input placeholder="" name="reg_confirmPassword" type="password">
+                                    <i class="lock icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <button id="btn_register" class="ui fluid blue active button">
+                                Create account
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/semantic.min.js"></script>
+    <script src="~/Scripts/site.js"></script>
+</body>
+</html>

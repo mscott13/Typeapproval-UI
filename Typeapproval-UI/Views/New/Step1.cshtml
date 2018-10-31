@@ -50,12 +50,11 @@
                     <form class="ui small form">
                         <div class="two fields">
                             <div class="field">
-                                <label>Name</label>
-                                <select class="ui search dropdown" name="applicant_name">
-                                    <option value="">Name</option>
-                                    <option value="AL">Alabama</option>
-                                    <option value="AK">Alaska</option>
-                                </select>
+                                <label>Name<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="John Brown" name="applicant_name" type="text">
+                                    <i class="user icon"></i>
+                                </div>
                             </div>
                             <div class="field">
                                 <label>Telephone<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>

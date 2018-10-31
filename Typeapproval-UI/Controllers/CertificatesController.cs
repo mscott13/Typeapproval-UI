@@ -8,6 +8,8 @@ namespace Typeapproval_UI.Controllers
 {
     public class CertificatesController : Controller
     {
+        [HttpGet]
+        [Route("certificates")]
         public ActionResult Index()
         {
             return View();

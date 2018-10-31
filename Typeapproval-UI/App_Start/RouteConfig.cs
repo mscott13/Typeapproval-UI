@@ -12,23 +12,13 @@ namespace Typeapproval_UI
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
-                name: "Login",
-                url: "account/login",
-                defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
+                name: "Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
-
-            routes.MapRoute(
-                name: "Logout",
-                url: "account/logout",
-                defaults: new { controller = "Account", action = "Logout", id = UrlParameter.Optional }
-            );
-        }
-
-        protected void Application_Start()
-        {
-            RegisterRoutes(RouteTable.Routes);
         }
     }
 }

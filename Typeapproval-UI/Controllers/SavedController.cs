@@ -6,8 +6,10 @@ using System.Web.Mvc;
 
 namespace Typeapproval_UI.Controllers
 {
-    public class HomeController : Controller
+    public class SavedController : Controller
     {
+        [HttpGet]
+        [Route("saved")]
         public ActionResult Index()
         {
             return View();
