@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -52,7 +52,7 @@ namespace Typeapproval_UI.Controllers
                     Session["user_type"] = obj.user_type;
                     Session["name"] = obj.name;
                     string status = obj.status;
-                    return RedirectToAction("", "Home");
+                    return Json(new { success = true, responseText = "credentials verified" }, JsonRequestBehavior.AllowGet);
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 {
@@ -60,18 +60,16 @@ namespace Typeapproval_UI.Controllers
                     dynamic obj = JsonConvert.DeserializeObject<dynamic>(json);
                     string status = obj.status;
 
-                    ModelState.AddModelError("", "Check username and password");
-                    return View(login);
+                    return Json(new { success = false, responseText = "Check username or password" }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Bad request");
-                    return View(login);
+                    return Json(new { success = false, responseText = "bad request" }, JsonRequestBehavior.AllowGet);
                 }
             }
             else
             {
-                return View(login);
+                return Json(new { success = false, responseText = "Check parameters" }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -88,6 +86,29 @@ namespace Typeapproval_UI.Controllers
         public ActionResult Register()
         {
             return View();
+        }
+
+        private List<ClientCompany> getClients(string clientCompany)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:54367/api/data/ClientCompanyList?q="+ clientCompany);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    string json =  response.Content.ReadAsStringAsync().Result;
+                    List<ClientCompany> clientCompanies = JsonConvert.DeserializeObject<List<ClientCompany>>(json);
+                    return clientCompanies;
+                }
+                else
+                {
+                    return new List<ClientCompany>();
+                }
+            }
+           
         }
     }
 }

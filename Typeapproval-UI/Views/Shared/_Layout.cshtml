@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <head>
-    @{ 
+    @{
         if (Session["key"] == null)
         {
             Response.Redirect("~/account");
@@ -13,16 +13,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <div class="ui tiny top inverted borderless menu">
+    <div class="ui small top inverted borderless menu">
         <div class="ui fluid container">
             <a class="header item" href="~/home">
                 <i class="home icon"></i>
                 Home
             </a>
             <div class="item">
-                <div class="ui small left icon input">
-                    <input type="text" placeholder="Search applications..." style="width:300px">
-                    <i class="search icon"></i>
+                <div class="ui small fluid category search">
+                    <div class="ui icon input">
+                        <input style="width:300px;" class="prompt" type="text" placeholder="Search applications...">
+                        <i class="search icon"></i>
+                    </div>
+                    <div class="results"></div>
                 </div>
             </div>
             <a class="header item" href="~/new/step-1" data-content="Create a new Type Approval application" data-position="bottom center" data-variation="inverted mini">
@@ -44,7 +47,7 @@
                     <i class="bell icon"></i>
                 </a>
                 <div class="ui top left pointing dropdown item" data-content="Account options" data-position="bottom center" data-variation="inverted mini">
-                    <img class="ui circular image" src="~/Content/images/avatar.png" width="20" height="20" />
+                    <img class="ui rounded image" src="~/Content/images/avatar.png" width="20" height="20" />
                     <i class="dropdown icon"></i>
                     <div class="menu transition">
                         <div class="user header">
@@ -66,6 +69,7 @@
     </div>
 
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="~/Scripts/semantic.min.js"></script>
+    <script src="~/Scripts/semantic.js"></script>
+       <script src="~/Scripts/jquery.marcopolo.min.js"></script>
     <script src="~/Scripts/site.js"></script>
 </body>

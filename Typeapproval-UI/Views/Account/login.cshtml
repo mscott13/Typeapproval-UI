@@ -13,55 +13,54 @@
     <link href="~/Content/semantic.css" rel="stylesheet" />
 </head>
 <body>
-    @using (Html.BeginForm("Login", "Account", FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
+    @Html.AntiForgeryToken()
 
-        <div class="login_form_container">
-            <div class="logo">
-                <img src="~/Content/images/Spectrum-Management-Authority.png" draggable="false" />
-            </div>
-            <div class="ui large form">
-                <div class="ui stacked segment">
+    <div class="login_form_container">
+        <div class="logo">
+            <img src="~/Content/images/Spectrum-Management-Authority.png" draggable="false" />
+        </div>
+        <div class="ui large form">
+            <div class="ui stacked segment">
 
-                    <div class="ui medium header">
-                        Login
-                        <div class="sub header">Type approval management system</div>
+                <div class="ui medium header">
+                    Login
+                    <div class="sub header">Type approval management system</div>
+                </div>
+
+                <div class="login_form_controls">
+                    <div class="ui fluid left icon input">
+                        <input spellcheck="false" autocomplete="off" placeholder="Username" name="reg_username" type="text">
+                        <i class="users icon"></i>
                     </div>
-
-                    <div class="login_form_controls">
-                        <div class="ui fluid left icon input">
-                            @Html.TextBoxFor(login => login.username, new { placeholder = "Username", autocomplete = "off" })
-                            <i class="users icon"></i>
-                        </div>
-                        <div class="spacing" />
-                        <div class="ui fluid left icon input">
-                            @Html.EditorFor(login => login.password, new { htmlAttributes = new { placeholder = "Password" } })
-                            <i class="icon key"></i>
-                        </div>
-                        <div class="spacing" />
-                        <button type="submit" class="fluid ui blue button">Login</button>
+                    <div class="spacing"></div>
+                    <div class="ui fluid left icon input">
+                        <input placeholder="Password" name="reg_password" type="password">
+                        <i class="icon key"></i>
                     </div>
-                    @Html.ValidationSummary(true, "", new { style = "color:red;" })
+                    <div class="spacing"></div>
+                    <button id="btn_login" type="button" class="fluid ui blue button">Login</button>
                 </div>
             </div>
         </div>
-    }
 
-    <div class="other_options_container">
-        <div class="other_options">
-            <div class="ui small buttons">
-                <button id="btn_create_account" class="ui button">Create an account</button>
-                <div class="or"></div>
-                <button class="ui button">Recover credentials</button>
+        <div class="other_options_container">
+            <div class="other_options">
+                <div class="ui small buttons">
+                    <button id="btn_create_account" class="ui button">Create an account</button>
+                    <div class="or"></div>
+                    <button class="ui button">Recover credentials</button>
+                </div>
             </div>
         </div>
     </div>
 
+ 
+
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script> 
+    <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/Scripts/semantic.min.js"></script>
+    <script src="~/Scripts/semantic.js"></script>
+    <script src="~/Scripts/jquery.marcopolo.min.js"></script>
     <script src="~/Scripts/site.js"></script>
 </body>
 </html>

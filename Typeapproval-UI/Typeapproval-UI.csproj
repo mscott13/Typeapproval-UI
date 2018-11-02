@@ -156,6 +156,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClientCompany.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\TypeApproval.cs" />
     <Compile Include="Models\TypeApprovalDetail.cs" />
@@ -171,6 +172,7 @@
     <Content Include="Content\images\Spectrum-Management-Authority.png" />
     <Content Include="Content\login.css" />
     <Content Include="Content\register.css" />
+    <Content Include="Content\search_result_styles.css" />
     <Content Include="Content\semantic.css" />
     <Content Include="Content\themes\basic\assets\fonts\icons.svg" />
     <Content Include="Content\themes\default\assets\fonts\brand-icons.svg" />
@@ -216,12 +218,13 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.marcopolo.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\semantic.min.js" />
+    <Content Include="Scripts\semantic.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
