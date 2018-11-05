@@ -96,7 +96,7 @@
                             <div class="field">
                                 <label>Contact Person</label>
                                 <div class="ui left icon input">
-                                    <input readonly placeholder="eg. John Brown" name="manufacturer_fax" type="text" value="@company.contactPerson">
+                                    <input readonly placeholder="eg. John Brown" name="applicant_contact_person" type="text" value="@company.contactPerson">
                                     <i class="user circle icon"></i>
                                 </div>
                             </div>
@@ -114,21 +114,21 @@
                             <div class="field">
                                 <label>Name</label>
                                 <div class="ui left icon input">
-                                    <input id="search_manufacturers" autocomplete="off"  placeholder="Name" name="manufacturer_name" type="text">
+                                    <input id="search_manufacturers" autocomplete="off" placeholder="Name" name="manufacturer_name" type="text" value="@Session["manufacturer_name"]">
                                     <i class="users icon"></i>
                                 </div>
                             </div>
                             <div class="field">
                                 <label>Telephone<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>
                                 <div class="ui left icon input">
-                                    <input readonly placeholder="eg. 1876-555-5555" name="manufacturer_telephone" type="text">
+                                    <input readonly placeholder="eg. 1876-555-5555" name="manufacturer_telephone" type="text" value="@Session["manufacturer_tel"]">
                                     <i class="phone volume icon"></i>
                                 </div>
                             </div>
                             <div class="field">
                                 <label>Address<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>
                                 <div class="ui left icon input">
-                                    <input readonly placeholder="eg. 12 Beckford Street" name="manufacturer_address" type="text">
+                                    <input readonly placeholder="eg. 12 Beckford Street" name="manufacturer_address" type="text" value="@Session["manufacturer_address"]">
                                     <i class="address book icon"></i>
                                 </div>
                             </div>
@@ -137,26 +137,67 @@
                             <div class="field">
                                 <label>Fax<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>
                                 <div class="ui left icon input">
-                                    <input readonly placeholder="eg. 1876-555-5555" name="manufacturer_fax" type="text">
+                                    <input readonly placeholder="eg. 1876-555-5555" name="manufacturer_fax" type="text" value="@Session["manufacturer_fax"]">
                                     <i class="fax icon"></i>
                                 </div>
                             </div>
                             <div class="field">
                                 <label>Contact Person<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>
                                 <div class="ui left icon input">
-                                    <input readonly placeholder="eg. John Brown" name="manufacturer_contact_person" type="text">
+                                    <input readonly placeholder="eg. John Brown" name="manufacturer_contact_person" type="text" value="@Session["manufacturer_contact_person"]">
                                     <i class="user circle icon"></i>
                                 </div>
                             </div>
                         </div>
+                        <a class="ui grey ribbon label">3. &nbsp Repair service provider</a>
+
+                        <div class="three fields">
+                            <div class="field">
+                                <label>Name</label>
+                                <div class="ui left icon input">
+                                    <input id="provider_name" autocomplete="off" placeholder="Name" name="provider_name" type="text" value="@Session["provider_name"]">
+                                    <i class="users icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Telephone</label>
+                                <div class="ui left icon input">
+                                    <input placeholder="eg. 1876-555-5555" name="provider_telephone" type="text" value="@Session["provider_telephone"]">
+                                    <i class="phone volume icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Address</label>
+                                <div class="ui left icon input">
+                                    <input placeholder="eg. 12 Beckford Street" name="provider_address" type="text" value="@Session["provider_address"]">
+                                    <i class="address book icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Fax</label>
+                                <div class="ui left icon input">
+                                    <input placeholder="eg. 1876-555-5555" name="provider_fax" type="text" value="@Session["provider_fax"]">
+                                    <i class="fax icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Contact Person</label>
+                                <div class="ui left icon input">
+                                    <input placeholder="eg. John Brown" name="provider_contact_person" type="text" value="@Session["provider_contact_person"]">
+                                    <i class="user circle icon"></i>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="one field">
-
-
                             <button id="step1_to_next" type="button" class="ui tiny right floated right labeled icon button">
                                 <i class="right arrow icon"></i>
                                 Next
                             </button>
                         </div>
+
                     </form>
                 </div>
             </div>

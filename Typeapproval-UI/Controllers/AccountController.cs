@@ -31,7 +31,7 @@ namespace Typeapproval_UI.Controllers
         [HttpPost]
         [Route("account/login")]
         [Route("account")]
-        public async Task<ActionResult> Login(Models.Login login)
+        public async Task<ActionResult> Login(Login login)
         {
             if (ModelState.IsValid)
             {

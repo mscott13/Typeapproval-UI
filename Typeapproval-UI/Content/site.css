@@ -25,6 +25,12 @@ body {
     background-color: #EFF2EF !important;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; 
+}
+
 .ui.menu 
 {
     border-radius: 0px !important;
@@ -46,10 +52,6 @@ body {
 #type_approval_results tbody tr td
 {
     padding: 10px;
-}
-
-tr:nth-child(even) {
-    background: #DCE1D8;
 }
 
 #search_results_title 

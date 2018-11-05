@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using Typeapproval_UI.Models;
 
 namespace Typeapproval_UI.Controllers
 {
@@ -47,6 +48,13 @@ namespace Typeapproval_UI.Controllers
                 else
                 {
                     ViewData["company"] = obj;
+                    Session["applicant_name"] = (string)obj.name;
+                    Session["applicant_tel"] = (string)obj.telephone;
+                    Session["applicant_address"] = (string)obj.address;
+                    Session["applicant_fax"] = (string)obj.fax;
+                    Session["applicant_city_town"] = (string)obj.cityTown;
+                    Session["applicant_contact_person"] = (string)obj.contactPerson;
+                    Session["applicant_nationality"] = (string)obj.nationality;
                 }
                 return View();
             }
@@ -63,6 +71,32 @@ namespace Typeapproval_UI.Controllers
         public ActionResult Step2()
         {
             return View();
+        }
+
+        [HttpPost]
+        [Route("save/step-1")]
+        public ActionResult SessionSave1(Form form)
+        {
+            Session["manufacturer_name"] = form.manufacturer_name;
+            Session["manufacturer_tel"] = form.manufacturer_tel;
+            Session["manufacturer_address"] = form.manufacturer_address;
+            Session["manufacturer_fax"] = form.manufacturer_fax;
+            Session["manufacturer_contact_person"] = form.manufacturer_contact_person;
+            Session["provider_name"] = form.provider_name;
+            Session["provider_telephone"] = form.provider_telephone;
+            Session["provider_address"] = form.provider_address;
+            Session["provider_fax"] = form.provider_fax;
+            Session["provider_contact_person"] = form.provider_contact_person;
+
+            return Json(new { success = true, responseText = "state saved" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [Route("save/step-2")]
+        public ActionResult SessionSave2(Form form)
+        {
+           
+            return Json(new { success = true, responseText = "state saved" }, JsonRequestBehavior.AllowGet);
         }
     }
 }

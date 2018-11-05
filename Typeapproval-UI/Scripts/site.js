@@ -58,7 +58,33 @@
         ;
 
     $('#step1_to_next').click(function () {
-        window.location = "/new/step-2";
+
+        var jsonObj = new Object();
+        jsonObj.manufacturer_name             = $("input[name=manufacturer_name]").val();
+        jsonObj.manufacturer_tel              = $("input[name=manufacturer_telephone]").val();
+        jsonObj.manufacturer_address          = $("input[name=manufacturer_address]").val();
+        jsonObj.manufacturer_fax              = $("input[name=manufacturer_fax]").val();
+        jsonObj.manufacturer_contact_person   = $("input[name=manufacturer_contact_person]").val();
+        jsonObj.provider_name                 = $("input[name=provider_name]").val();
+        jsonObj.provider_telephone            = $("input[name=provider_telephone]").val();
+        jsonObj.provider_address              = $("input[name=provider_address]").val();
+        jsonObj.provider_fax                  = $("input[name=provider_fax]").val();
+        jsonObj.provider_contact_person       = $("input[name=provider_contact_person]").val();
+
+        var json = JSON.stringify(jsonObj);
+        $.ajax({
+            type: "POST",
+            url: "/save/step-1",
+            contentType: "application/json; charset=utf-8",
+            data: json,
+            success: function (data) {
+                console.log(data);
+                window.location = "/new/step-2";
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
     });
 
     $('#step2_to_prev').click(function () {
@@ -73,10 +99,10 @@
         window.location.href = "/account/register";
     });
 
- 
+
 
     $("#register_form").form({
-        keyboardShortcuts:false,
+        keyboardShortcuts: false,
         fields: {
             reg_username: {
                 rules: [
@@ -202,8 +228,7 @@
                 if (data.success === true) {
                     window.location.href = "/account";
                 }
-                else
-                {
+                else {
                     displayLoginError("Check your login credentials then try again.");
                 }
             },
@@ -270,8 +295,7 @@
                     addError("Passwords do not match", PASSWORD);
                     addError("Passwords do not match", CONFIRM);
                 }
-                else
-                {
+                else {
                     clearError(PASSWORD);
                     clearError(CONFIRM);
                 }
@@ -315,20 +339,27 @@
         url: "http://localhost:54367/api/data/ClientCompanyList",
         delay: 50,
         minChars: 3,
-        required: true,
         formatItem: function (data, $item) {
             return data.name;
         },
         onSelect: function (data, $item) {
-            $("#search_manufacturers").val(data.name);
-            $("#search_manufacturers").attr("data-clientid", data.clientId);
-            $("input[name=manufacturer_telephone]").val(data.telephone);
-            $("input[name=manufacturer_address]").val(data.address);
-            $("input[name=manufacturer_fax]").val(data.fax);
-            $("input[name=manufacturer_contact_person]").val(data.contactPerson);
+
+            if (jQuery.type(data) === "string")
+            {
+                $("#search_manufacturers").val(data);
+            }
+            else
+            {
+                $("#search_manufacturers").val(data.name);
+                $("#search_manufacturers").attr("data-clientid", data.clientId);
+                $("input[name=manufacturer_telephone]").val(data.telephone);
+                $("input[name=manufacturer_address]").val(data.address);
+                $("input[name=manufacturer_fax]").val(data.fax);
+                $("input[name=manufacturer_contact_person]").val(data.contactPerson);
+            }
         },
         formatError: function ($item, jqXHR, textStatus, errorThrown) {
-            var e = errorThrown;
+            console.log(errorThrown);
         }
     });
 
@@ -382,17 +413,91 @@
         }
     }
 
-    function displayLoginError(message)
-    {
-        var html =  '<div id="login_error" class="ui tiny negative floating message">' +
-                    ' <p>'+message+'</p>' +
-                    '</div>';
+    function displayLoginError(message) {
+        var html = '<div id="login_error" class="ui tiny negative floating message">' +
+            ' <p>' + message + '</p>' +
+            '</div>';
 
         $(html).insertAfter(".ui.stacked.segment");
     }
 
-    function clearLoginError()
-    {
+    function clearLoginError() {
         $('#login_error').remove();
+    }
+
+    $("body").on("click", ".ui.button.add_record", function () {
+        addRecord($(this).parent().parent().parent());
+    });
+
+    $("body").on("click", ".ui.button.delete_record", function () {
+        var count = $('#table_frequencies tr').length;
+        if (count!==1)
+        {
+            var record = $(this).parent().parent().parent();
+            deleteRecord(record);
+        }
+    });
+
+    function addRecord(target) {
+        
+    $('.ui.dropdown').dropdown();
+        var html =
+            '<tr id="record_2">' +
+            '<td class="collapsing">' +
+                '<div class="ui fluid tiny icon buttons">' +
+                    '<button class="ui button delete_record"><i class="minus icon"></i></button>' +
+                    '<button class="ui button add_record"><i class="add icon"></i></button>' +
+                '</div>' +
+            '</td >' +
+
+            '<td>' +
+            '<div class="ui transparent input">' +
+            '<input type="text" placeholder="lower mhz" style="width:100%">' +
+            '</div>' +
+            ' </td>' +
+
+            '<td>' +
+            '<div class="ui transparent input">' +
+            '<input type="text" placeholder="upper mhz" style="width:100%">' +
+            '</div>' +
+            '</td>' +
+
+            '<td>' +
+            '<div class="ui transparent input">' +
+            '<input type="text" placeholder="power" style="width:100%">' +
+            '</div>' +
+            '</td>' +
+
+            '<td>' +
+            '<div class="ui transparent input">' +
+            '<input type="text" placeholder="tolerance" style="width:100%">' +
+            '</div>' +
+            '</td>' +
+
+            '<td>' +
+            '<div class="ui transparent input">' +
+            '<input type="text" placeholder="emmission desig..." style="width:100%">' +
+            '</div>' +
+            '</td>' +
+
+            '<td>' +
+            '<div class="ui fluid dropdown">' +
+            '<div class="text"></div>' +
+            '<i class="dropdown icon"></i>' +
+            '<div class="menu">' +
+            '<div class="item">R</div>' +
+            '<div class="item">T</div>' +
+            '</div>' +
+            '</div>' +
+            '</td>' +
+
+            ' </tr>';
+        $(html).insertAfter(target);
+        $('.ui.dropdown').dropdown();
+    }
+
+    function deleteRecord(target)
+    {
+        $(target).remove();
     }
 });
