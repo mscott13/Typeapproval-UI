@@ -20,7 +20,7 @@
     $('.ui.small.category.search')
         .search({
             type: 'category',
-            minCharacters: 2,
+            minCharacters: 1,
             apiSettings: {
                 onResponse: function (apiResponse) {
                     var
@@ -295,7 +295,7 @@
 
     //marcopolo lib usage
     $("#search_clients").marcoPolo({
-        url: "http://localhost:54367/api/data/ClientCompanyList?clientId=-1",
+        url: "http://localhost:54367/api/data/ClientCompanyList",
         delay: 50,
         minChars: 3,
         required: true,
@@ -305,6 +305,27 @@
         onSelect: function (data, $item) {
             $("#search_clients").val(data.name);
             $("#search_clients").attr("data-clientid", data.clientId);
+        },
+        formatError: function ($item, jqXHR, textStatus, errorThrown) {
+            var e = errorThrown;
+        }
+    });
+
+    $("#search_manufacturers").marcoPolo({
+        url: "http://localhost:54367/api/data/ClientCompanyList",
+        delay: 50,
+        minChars: 3,
+        required: true,
+        formatItem: function (data, $item) {
+            return data.name;
+        },
+        onSelect: function (data, $item) {
+            $("#search_manufacturers").val(data.name);
+            $("#search_manufacturers").attr("data-clientid", data.clientId);
+            $("input[name=manufacturer_telephone]").val(data.telephone);
+            $("input[name=manufacturer_address]").val(data.address);
+            $("input[name=manufacturer_fax]").val(data.fax);
+            $("input[name=manufacturer_contact_person]").val(data.contactPerson);
         },
         formatError: function ($item, jqXHR, textStatus, errorThrown) {
             var e = errorThrown;

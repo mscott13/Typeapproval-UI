@@ -2,6 +2,11 @@
 @{
     ViewData["Title"] = "New application";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    dynamic company = ViewData["company"];
+}
+
+@section Styles {
+    <link href="~/Content/search_result_styles.css" rel="stylesheet" />
 }
 
 <div class="ui grid">
@@ -30,14 +35,14 @@
                             <div class="description">Enter applicant details</div>
                         </div>
                     </div>
-                    <div class="disabled step">
+                    <div class="readonly step">
                         <i class="hdd icon"></i>
                         <div class="content">
                             <div class="title">Equipment Information</div>
                             <div class="description">Description of Equipment</div>
                         </div>
                     </div>
-                    <div class="disabled step">
+                    <div class="readonly step">
                         <i class="upload icon"></i>
                         <div class="content">
                             <div class="title">Upload Files</div>
@@ -50,55 +55,55 @@
                     <form class="ui form">
                         <div class="two fields">
                             <div class="field">
-                                <label>Name<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <label>Name</label>
                                 <div class="ui left icon input">
-                                    <input readonly placeholder="John Brown" name="applicant_name" type="text">
+                                    <input readonly placeholder="John Brown" name="applicant_name" type="text" value="@company.name">
                                     <i class="user icon"></i>
                                 </div>
                             </div>
                             <div class="field">
-                                <label>Telephone<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <label>Telephone</label>
                                 <div class="ui left icon input">
-                                    <input readonly placeholder="eg. 1876-555-5555" name="telephone" type="text">
+                                    <input readonly placeholder="eg. 1876-555-5555" name="telephone" type="text" value="@company.telephone">
                                     <i class="phone volume icon"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="three fields">
                             <div class="field">
-                                <label>Address<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <label>Address</label>
                                 <div class="ui left icon input">
-                                    <input readonly placeholder="eg. 12 Beckford Street" name="address" type="text">
+                                    <input readonly placeholder="eg. 12 Beckford Street" name="address" type="text" value="@company.address">
                                     <i class="address book icon"></i>
                                 </div>
                             </div>
                             <div class="field">
-                                <label>Fax<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <label>Fax</label>
                                 <div class="ui left icon input">
-                                    <input readonly placeholder="eg. 1876-555-5555" name="fax" type="text">
+                                    <input readonly placeholder="eg. 1876-555-5555" name="fax" type="text" value="@company.fax">
                                     <i class="fax icon"></i>
                                 </div>
                             </div>
                             <div class="field">
-                                <label>City/Town<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <label>City/Town</label>
                                 <div class="ui left icon input">
-                                    <input readonly placeholder="eg. Kingston" name="address" type="text">
+                                    <input readonly placeholder="eg. Kingston" name="address" type="text" value="@company.cityTown">
                                     <i class="map marker alternate icon"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="two fields">
                             <div class="field">
-                                <label>Contact Person<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <label>Contact Person</label>
                                 <div class="ui left icon input">
-                                    <input readonly placeholder="eg. John Brown" name="manufacturer_fax" type="text">
+                                    <input readonly placeholder="eg. John Brown" name="manufacturer_fax" type="text" value="@company.contactPerson">
                                     <i class="user circle icon"></i>
                                 </div>
                             </div>
                             <div class="field">
-                                <label>Nationality<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <label>Nationality</label>
                                 <div class="ui left icon input">
-                                    <input readonly placeholder="eg. Jamaica" name="address" type="text">
+                                    <input readonly placeholder="eg. Jamaica" name="address" type="text" value="@company.nationality">
                                     <i class="globe icon"></i>
                                 </div>
                             </div>
@@ -108,39 +113,38 @@
                         <div class="three fields">
                             <div class="field">
                                 <label>Name</label>
-                                <select class="ui search dropdown" name="manufacturer_name">
-                                    <option value="">Name</option>
-                                    <option value="AL">Alabama</option>
-                                    <option value="AK">Alaska</option>
-                                </select>
+                                <div class="ui left icon input">
+                                    <input id="search_manufacturers" autocomplete="off"  placeholder="Name" name="manufacturer_name" type="text">
+                                    <i class="users icon"></i>
+                                </div>
                             </div>
                             <div class="field">
-                                <label>Telephone<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <label>Telephone<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>
                                 <div class="ui left icon input">
-                                    <input readonly placeholder="eg. 1876-555-5555" name="telephone" type="text">
+                                    <input readonly placeholder="eg. 1876-555-5555" name="manufacturer_telephone" type="text">
                                     <i class="phone volume icon"></i>
                                 </div>
                             </div>
                             <div class="field">
-                                <label>Address<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <label>Address<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>
                                 <div class="ui left icon input">
-                                    <input readonly placeholder="eg. 12 Beckford Street" name="address" type="text">
+                                    <input readonly placeholder="eg. 12 Beckford Street" name="manufacturer_address" type="text">
                                     <i class="address book icon"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="two fields">
                             <div class="field">
-                                <label>Fax<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <label>Fax<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>
                                 <div class="ui left icon input">
                                     <input readonly placeholder="eg. 1876-555-5555" name="manufacturer_fax" type="text">
                                     <i class="fax icon"></i>
                                 </div>
                             </div>
                             <div class="field">
-                                <label>Contact Person<span style="margin-left:5px;" class="ui disabled mini label">read only</span></label>
+                                <label>Contact Person<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>
                                 <div class="ui left icon input">
-                                    <input readonly placeholder="eg. John Brown" name="manufacturer_fax" type="text">
+                                    <input readonly placeholder="eg. John Brown" name="manufacturer_contact_person" type="text">
                                     <i class="user circle icon"></i>
                                 </div>
                             </div>
