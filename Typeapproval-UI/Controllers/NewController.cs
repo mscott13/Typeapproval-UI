@@ -16,8 +16,22 @@ namespace Typeapproval_UI.Controllers
     {
         [HttpGet]
         [Route("new/step-1")]
-        public ActionResult Step1()
+        public ActionResult Step1(string from)
         {
+            if (from == null)
+            {
+                Session.Remove("manufacturer_name");
+                Session.Remove("manufacturer_tel");
+                Session.Remove("manufacturer_address");
+                Session.Remove("manufacturer_fax");
+                Session.Remove("manufacturer_contact_person");
+                Session.Remove("provider_name");
+                Session.Remove("provider_telephone");
+                Session.Remove("provider_address");
+                Session.Remove("provider_fax");
+                Session.Remove("provider_contact_person");
+            }
+
             var client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:54367/api/data/");
             client.DefaultRequestHeaders.Accept.Clear();

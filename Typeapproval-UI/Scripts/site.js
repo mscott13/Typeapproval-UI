@@ -88,7 +88,7 @@
     });
 
     $('#step2_to_prev').click(function () {
-        window.location = "/new/step-1";
+        window.location = "/new/step-1?from=prev";
     });
 
     $('#new_application').click(function () {
@@ -499,5 +499,10 @@
     function deleteRecord(target)
     {
         $(target).remove();
+    }
+
+    function saveApplication()
+    {
+
     }
 });
