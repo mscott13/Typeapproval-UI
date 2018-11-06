@@ -87,6 +87,57 @@
         });
     });
 
+    $("#step2_to_next").click(function () {
+        var jsonObj = new Object();
+        jsonObj.equipment_type         = $("input[name=equipment_type]").val();
+        jsonObj.equipment_description  = $("textarea[name=equipment_description]").val();
+        jsonObj.product_identification = $("input[name=product_identification]").val();
+        jsonObj.refNum                 = $("input[name=refNum]").val();
+        jsonObj.make                   = $("input[name=make]").val();
+        jsonObj.software               = $("input[name=software]").val();
+        jsonObj.type_of_equipment      = $(".ui.radio.checkbox.checked").children("input").val();
+        jsonObj.other                  = $("input[name=other_equipment]").val();
+
+        var i = 0; var frequencies = [];
+        $("#table_frequencies tr").each(function () {
+            var obj = {};
+            obj["sequence"]        = ++i;
+            obj["lower_freq"]      = $(this).find("input[name=lower_mhz]").val();
+            obj["upper_freq"]      = $(this).find("input[name=upper_mhz]").val();
+            obj["power"]           = $(this).find("input[name=power]").val();
+            obj["tolerance"]       = $(this).find("input[name=tolerance]").val();
+            obj["emmission_desig"] = $(this).find("input[name=emmission_desig]").val();
+            obj["freq_type"]       = $(this).find(".menu").find(".item.active.selected").html();
+            frequencies.push(obj);
+        });
+
+        jsonObj.frequencies = frequencies;
+        jsonObj.antenna_type = $("#antenna_type_dropdown").find(".menu").find(".item.active.selected").html();
+        jsonObj.antenna_gain   = $("input[name=antenna_gain]").val();
+        jsonObj.channel       = $("input[name=channels]").val();
+        jsonObj.separation     = $("input[name=separation]").val();
+        jsonObj.aspect         = $("input[name=aspect]").val();
+        jsonObj.compatibility  = $("input[name=compatibility]").val();
+        jsonObj.security       = $("input[name=security]").val();
+        jsonObj.equipment_comm_type = $("#equipment_type_dropdown").find(".menu").find(".item.active.selected").html();
+        jsonObj.fee_code = $("#fee_code_dropdown").find(".menu").find(".item.active.selected").html();
+
+        var json = JSON.stringify(jsonObj);
+        $.ajax({
+            type: "POST",
+            url: "/save/step-2",
+            contentType: "application/json; charset=utf-8",
+            data: json,
+            success: function (data) {
+                console.log(data);
+                //navigate to next step
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    });
+
     $('#step2_to_prev').click(function () {
         window.location = "/new/step-1?from=prev";
     });
@@ -452,31 +503,31 @@
 
             '<td>' +
             '<div class="ui transparent input">' +
-            '<input type="text" placeholder="lower mhz" style="width:100%">' +
+            ' <input type="number" placeholder="lower mhz" style="width:100%" name="lower_mhz">' +
             '</div>' +
             ' </td>' +
 
             '<td>' +
             '<div class="ui transparent input">' +
-            '<input type="text" placeholder="upper mhz" style="width:100%">' +
+            '<input type="number" placeholder="upper mhz" style="width:100%" name="upper_mhz">' +
             '</div>' +
             '</td>' +
 
             '<td>' +
             '<div class="ui transparent input">' +
-            '<input type="text" placeholder="power" style="width:100%">' +
+            '<input type="number" placeholder="power" style="width:100%" name="power">' +
             '</div>' +
             '</td>' +
 
             '<td>' +
             '<div class="ui transparent input">' +
-            '<input type="text" placeholder="tolerance" style="width:100%">' +
+            '<input type="number" placeholder="tolerance" style="width:100%" name="tolerance">' +
             '</div>' +
             '</td>' +
 
             '<td>' +
             '<div class="ui transparent input">' +
-            '<input type="text" placeholder="emmission desig..." style="width:100%">' +
+            '<input type="text" placeholder="emmission desig..." style="width:100%" name="emmission_desig">' +
             '</div>' +
             '</td>' +
 

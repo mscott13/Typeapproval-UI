@@ -109,7 +109,24 @@ namespace Typeapproval_UI.Controllers
         [Route("save/step-2")]
         public ActionResult SessionSave2(Form form)
         {
-           
+            Session["equipment_type"] = form.equipment_type;
+            Session["equipment_description"] = form.equipment_description;
+            Session["product_identification"] = form.product_identification;
+            Session["refNum"] = form.refNum;
+            Session["make"] = form.make;
+            Session["software"] = form.software;
+            Session["type_of_equipment"] = form.type_of_equipment;
+            Session["other"] = form.other;
+            Session["antenna_type"] = form.antenna_type;
+            Session["antenna_gain"] = form.antenna_gain;
+            Session["channel"] = form.channel;
+            Session["separation"] = form.separation;
+            Session["aspect"] = form.aspect;
+            Session["compatibility"] = form.compatibility;
+            Session["security"] = form.security;
+            Session["equipment_comm_type"] = form.equipment_comm_type;
+            Session["fee_code"] = form.fee_code;
+            Session["frequencies"] = form.frequencies;
             return Json(new { success = true, responseText = "state saved" }, JsonRequestBehavior.AllowGet);
         }
     }

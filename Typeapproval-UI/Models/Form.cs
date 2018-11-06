@@ -37,7 +37,8 @@ namespace Typeapproval_UI.Models
         public string other { get; set; }
         public string antenna_type { get; set; }
         public string antenna_gain { get; set; }
-        public string channel_separation { get; set; }
+        public string channel { get; set; }
+        public string separation { get; set; }
         public string aspect { get; set; }
         public string compatibility { get; set; }
         public string security { get; set; }
