@@ -1,0 +1,205 @@
+﻿
+@{
+    ViewData["Title"] = "New application";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    dynamic company = ViewData["company"];
+}
+
+@section Styles {
+    <link href="~/Content/search_result_styles.css" rel="stylesheet" />
+}
+
+<div class="ui grid">
+    <div class="four wide column">
+        <div class="ui sticky">
+            <div class="ui ignored small info message">
+                <div class="header">
+                    Form controls
+                </div>
+                <p>This section allows you to <b>save</b> an incomplete application for later use. </p>
+            </div>
+            <div class="ui tiny one item menu">
+                <a class="item"><i class="grey save icon"></i> Save application</a>
+            </div>
+        </div>
+    </div>
+    <div class="twelve wide column">
+        <div class="ui one column grid">
+            <div class="column">
+                <div class="ui tiny three top attached steps">
+                    <div class="active step">
+                        <i class="address card icon"></i>
+                        <div class="content">
+                            <div class="title">Applicant Information</div>
+                            <div class="description">Enter applicant details</div>
+                        </div>
+                    </div>
+                    <div class="readonly step">
+                        <i class="hdd icon"></i>
+                        <div class="content">
+                            <div class="title">Equipment Information</div>
+                            <div class="description">Description of Equipment</div>
+                        </div>
+                    </div>
+                    <div class="readonly step">
+                        <i class="upload icon"></i>
+                        <div class="content">
+                            <div class="title">Upload Files</div>
+                            <div class="description">Add files relevant to this application</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="context" class="ui clearing attached segment">
+                    <a class="ui grey ribbon label">1. &nbsp Applicant</a>
+                    <form class="ui form">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Name</label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="John Brown" name="applicant_name" type="text" value="@company.name">
+                                    <i class="user icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Telephone</label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="eg. 1876-555-5555" name="telephone" type="text" value="@company.telephone">
+                                    <i class="phone volume icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="three fields">
+                            <div class="field">
+                                <label>Address</label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="eg. 12 Beckford Street" name="address" type="text" value="@company.address">
+                                    <i class="address book icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Fax</label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="eg. 1876-555-5555" name="fax" type="text" value="@company.fax">
+                                    <i class="fax icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>City/Town</label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="eg. Kingston" name="address" type="text" value="@company.cityTown">
+                                    <i class="map marker alternate icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Contact Person</label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="eg. John Brown" name="applicant_contact_person" type="text" value="@company.contactPerson">
+                                    <i class="user circle icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Nationality</label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="eg. Jamaica" name="address" type="text" value="@company.nationality">
+                                    <i class="globe icon"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a class="ui grey ribbon label">2. &nbsp Manufacturer</a>
+                        <div class="three fields">
+                            <div class="field">
+                                <label>Name</label>
+                                <div class="ui left icon input">
+                                    <input id="search_manufacturers" autocomplete="off" placeholder="Name" name="manufacturer_name" type="text">
+                                    <i class="users icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Telephone<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="eg. 1876-555-5555" name="manufacturer_telephone" type="text">
+                                    <i class="phone volume icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Address<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="eg. 12 Beckford Street" name="manufacturer_address" type="text">
+                                    <i class="address book icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Fax<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="eg. 1876-555-5555" name="manufacturer_fax" type="text">
+                                    <i class="fax icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Contact Person<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>
+                                <div class="ui left icon input">
+                                    <input readonly placeholder="eg. John Brown" name="manufacturer_contact_person" type="text">
+                                    <i class="user circle icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="ui grey ribbon label">3. &nbsp Repair service provider</a>
+
+                        <div class="three fields">
+                            <div class="field">
+                                <label>Name</label>
+                                <div class="ui left icon input">
+                                    <input id="provider_name" autocomplete="off" placeholder="Name" name="provider_name" type="text">
+                                    <i class="users icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Telephone</label>
+                                <div class="ui left icon input">
+                                    <input placeholder="eg. 1876-555-5555" name="provider_telephone" type="text">
+                                    <i class="phone volume icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Address</label>
+                                <div class="ui left icon input">
+                                    <input placeholder="eg. 12 Beckford Street" name="provider_address" type="text">
+                                    <i class="address book icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Fax</label>
+                                <div class="ui left icon input">
+                                    <input placeholder="eg. 1876-555-5555" name="provider_fax" type="text">
+                                    <i class="fax icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Contact Person</label>
+                                <div class="ui left icon input">
+                                    <input placeholder="eg. John Brown" name="provider_contact_person" type="text">
+                                    <i class="user circle icon"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="one field">
+                            <button id="step1_to_next" type="button" class="ui tiny right floated right labeled icon button">
+                                <i class="right arrow icon"></i>
+                                Next
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

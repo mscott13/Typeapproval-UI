@@ -161,6 +161,7 @@
     <Compile Include="Models\Frequency.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Step1.cs" />
+    <Compile Include="Models\Step2.cs" />
     <Compile Include="Models\TypeApproval.cs" />
     <Compile Include="Models\TypeApprovalDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -215,6 +216,7 @@
     <Content Include="Content\themes\material\assets\fonts\icons.ttf" />
     <Content Include="Content\themes\material\assets\fonts\icons.woff" />
     <Content Include="Content\themes\material\assets\fonts\icons.woff2" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

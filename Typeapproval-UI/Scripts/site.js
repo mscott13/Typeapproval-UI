@@ -112,15 +112,15 @@
         });
 
         jsonObj.frequencies = frequencies;
-        jsonObj.antenna_type = $("#antenna_type_dropdown").find(".menu").find(".item.active.selected").html();
-        jsonObj.antenna_gain   = $("input[name=antenna_gain]").val();
-        jsonObj.channel       = $("input[name=channels]").val();
-        jsonObj.separation     = $("input[name=separation]").val();
-        jsonObj.aspect         = $("input[name=aspect]").val();
-        jsonObj.compatibility  = $("input[name=compatibility]").val();
-        jsonObj.security       = $("input[name=security]").val();
+        jsonObj.antenna_type        = $("#antenna_type_dropdown").find(".menu").find(".item.active.selected").html();
+        jsonObj.antenna_gain        = $("input[name=antenna_gain]").val();
+        jsonObj.channel             = $("input[name=channels]").val();
+        jsonObj.separation          = $("input[name=separation]").val();
+        jsonObj.aspect              = $("input[name=aspect]").val();
+        jsonObj.compatibility       = $("input[name=compatibility]").val();
+        jsonObj.security            = $("input[name=security]").val();
         jsonObj.equipment_comm_type = $("#equipment_type_dropdown").find(".menu").find(".item.active.selected").html();
-        jsonObj.fee_code = $("#fee_code_dropdown").find(".menu").find(".item.active.selected").html();
+        jsonObj.fee_code            = $("#fee_code_dropdown").find(".menu").find(".item.active.selected").html();
 
         var json = JSON.stringify(jsonObj);
         $.ajax({

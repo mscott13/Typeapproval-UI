@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="ui grid">
+    <div class="five wide column">
+        <div class="ui fluid card">
+            <div class="content">
+                <div class="header">Recent Documents</div>
+            </div>
+            <div class="content">
+                <div class="ui small feed">
+                    <div class="event">
+                        <div class="content">
+                            <div class="description">
+                                No certificates were found on your account.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="extra content">
+                <button id="new_application" type="button" class="ui mini basic button">
+                    <i class="icon sticky note"></i>
+                    New
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="eleven wide column">
+        <h5 class="ui header">
+            <div class="content">
+                <i class="icon clock outline"></i>
+                Activity
+            </div>
+        </h5>
+        <div class="ui divider"></div>
+        <div class="ui center aligned segment">
+            <p>Nothing done yet!</p>
+        </div>
+    </div>
+</div>
