@@ -129,5 +129,99 @@ namespace Typeapproval_UI.Controllers
             Session["frequencies"] = form.frequencies;
             return Json(new { success = true, responseText = "state saved" }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        [Route("retrieve/step-1")]
+        public ActionResult RestoreStep1() 
+        {
+            bool initialized = PrepareStep1Session();
+            Step1 step1 = new Step1();
+            step1.manufacturer_name = Session["manufacturer_name"].ToString();
+            step1.manufacturer_tel = Session["manufacturer_tel"].ToString();
+            step1.manufacturer_address = Session["manufacturer_address"].ToString();
+            step1.manufacturer_fax = Session["manufacturer_fax"].ToString();
+            step1.manufacturer_contact_person = Session["manufacturer_contact_person"].ToString();
+            step1.provider_name = Session["provider_name"].ToString();
+            step1.provider_telephone = Session["provider_telephone"].ToString();
+            step1.provider_address = Session["provider_address"].ToString();
+            step1.provider_fax = Session["provider_fax"].ToString();
+            step1.provider_contact_person = Session["provider_contact_person"].ToString();
+
+            return Json(new { step1, data_present = initialized }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        [Route("retrieve/step-2")]
+        public ActionResult RestoreStep2()
+        {
+            return null;
+        }
+
+        private bool PrepareStep1Session()
+        {
+            bool initialized = true;
+
+            if (Session["manufacturer_name"] == null)
+            {
+                Session["manufacturer_name"] = "";
+                initialized = false;
+            }
+
+            if (Session["manufacturer_tel"] == null)
+            {
+                Session["manufacturer_tel"] = "";
+                initialized = false;
+            }
+
+            if (Session["manufacturer_address"] == null)
+            {
+                Session["manufacturer_address"] = "";
+                initialized = false;
+            }
+
+            if (Session["manufacturer_fax"] == null)
+            {
+                Session["manufacturer_fax"] = "";
+                initialized = false;
+            }
+
+            if (Session["manufacturer_contact_person"] == null)
+            {
+                Session["manufacturer_contact_person"] = "";
+                initialized = false;
+            }
+
+            if (Session["provider_name"] == null)
+            {
+                Session["provider_name"] = "";
+                initialized = false;
+            }
+
+            if (Session["provider_telephone"] == null)
+            {
+                Session["provider_telephone"] = "";
+                initialized = false;
+            }
+
+            if (Session["provider_address"] == null)
+            {
+                Session["provider_address"] = "";
+                initialized = false;
+            }
+
+            if (Session["provider_fax"] == null)
+            {
+                Session["provider_fax"] = "";
+                initialized = false;
+            }
+
+            if (Session["provider_contact_person"] == null)
+            {
+                Session["provider_contact_person"] = "";
+                initialized = false;
+            }
+
+            return initialized;
+        }
     }
 }
