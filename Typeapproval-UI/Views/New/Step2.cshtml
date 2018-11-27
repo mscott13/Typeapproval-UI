@@ -4,6 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section Scripts{
+    <script src="~/Scripts/step2-restore.js"></script>
+}
+
+
 <div class="ui grid">
     <div class="four wide column">
         <div class="ui sticky">
@@ -94,7 +99,7 @@
                             </div>
                         </div>
 
-                        <div class="inline fields">
+                        <div id="equipent_types_handle" class="inline fields">
                             <label>Type of equipment</label>
                             <div class="field">
                                 <div class="ui radio checkbox">

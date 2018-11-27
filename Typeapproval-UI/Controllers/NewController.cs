@@ -154,7 +154,28 @@ namespace Typeapproval_UI.Controllers
         [Route("retrieve/step-2")]
         public ActionResult RestoreStep2()
         {
-            return null;
+            bool initialized = PrepareStep2Session();
+            Step2 step2 = new Step2();
+            step2.equipment_type = Session["equipment_type"].ToString();
+            step2.equipment_description = Session["equipment_description"].ToString();
+            step2.product_identification = Session["product_identification"].ToString();
+            step2.ref_num = Session["refNum"].ToString();
+            step2.make = Session["make"].ToString();
+            step2.software = Session["software"].ToString();
+            step2.equipment_types = Session["type_of_equipment"].ToString();
+            step2.other_equipment = Session["other"].ToString();
+            step2.antenna_type = Session["antenna_type"].ToString();
+            step2.antenna_gain = Session["antenna_gain"].ToString();
+            step2.channels = Session["channel"].ToString();
+            step2.separation = Session["separation"].ToString();
+            step2.aspect = Session["aspect"].ToString();
+            step2.compatibility = Session["compatibility"].ToString();
+            step2.security = Session["security"].ToString();
+            step2.equipment_comm_type = Session["equipment_comm_type"].ToString();
+            step2.fee_code = Session["fee_code"].ToString();
+            step2.frequencies = (List<Frequency>)Session["frequencies"];
+
+            return Json(new { step2, data_present = initialized }, JsonRequestBehavior.AllowGet);
         }
 
         private bool PrepareStep1Session()
@@ -218,6 +239,121 @@ namespace Typeapproval_UI.Controllers
             if (Session["provider_contact_person"] == null)
             {
                 Session["provider_contact_person"] = "";
+                initialized = false;
+            }
+
+            return initialized;
+        }
+
+        private bool PrepareStep2Session()
+        {
+            bool initialized = true;
+            if (Session["equipment_type"] == null)
+            {
+                Session["equipment_type"] = "";
+                initialized = false;
+            }
+
+            if (Session["equipment_description"] == null)
+            {
+                Session["equipment_description"] = "";
+                initialized = false;
+            }
+
+            if (Session["product_identification"] == null)
+            {
+                Session["product_identification"] = "";
+                initialized = false;
+            }
+
+            if (Session["refNum"] == null)
+            {
+                Session["refNum"] = "";
+                initialized = false;
+            }
+
+            if (Session["make"] == null)
+            {
+                Session["make"] = "";
+                initialized = false;
+            }
+
+            if (Session["software"] == null)
+            {
+                Session["software"] = "";
+                initialized = false;
+            }
+
+            if (Session["type_of_equipment"] == null)
+            {
+                Session["type_of_equipment"] = "";
+                initialized = false;
+            }
+
+            if (Session["other"] == null)
+            {
+                Session["other"] = "";
+                initialized = false;
+            }
+
+            if (Session["antenna_type"] == null)
+            {
+                Session["antenna_type"] = "";
+                initialized = false;
+            }
+
+            if (Session["antenna_gain"] == null)
+            {
+                Session["antenna_gain"] = "";
+                initialized = false;
+            }
+
+            if (Session["channel"] == null)
+            {
+                Session["channel"] = "";
+                initialized = false;
+            }
+
+            if (Session["separation"] == null)
+            {
+                Session["separation"] = "";
+                initialized = false;
+            }
+
+            if (Session["aspect"] == null)
+            {
+                Session["aspect"] = "";
+                initialized = false;
+            }
+
+            if (Session["compatibility"] == null)
+            {
+                Session["compatibility"] = "";
+                initialized = false;
+            }
+
+            if (Session["security"] == null)
+            {
+                Session["security"] = "";
+                initialized = false;
+            }
+
+            if (Session["equipment_comm_type"] == null)
+            {
+                Session["equipment_comm_type"] = "";
+                initialized = false;
+            }
+
+            if (Session["fee_code"] == null)
+            {
+                Session["fee_code"] = "";
+                initialized = false;
+            }
+
+            if (Session["frequencies"] == null)
+            {
+                List<Frequency> frequencies = new List<Frequency>();
+                Session["frequencies"] = frequencies;
                 initialized = false;
             }
 
