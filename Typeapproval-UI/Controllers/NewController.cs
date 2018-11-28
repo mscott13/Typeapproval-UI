@@ -30,6 +30,25 @@ namespace Typeapproval_UI.Controllers
                 Session.Remove("provider_address");
                 Session.Remove("provider_fax");
                 Session.Remove("provider_contact_person");
+
+                Session.Remove("equipment_type");
+                Session.Remove("equipment_description");
+                Session.Remove("product_identification");
+                Session.Remove("refNum");
+                Session.Remove("make");
+                Session.Remove("software");
+                Session.Remove("type_of_equipment");
+                Session.Remove("other");
+                Session.Remove("antenna_type");
+                Session.Remove("antenna_gain");
+                Session.Remove("channel");
+                Session.Remove("separation");
+                Session.Remove("aspect");
+                Session.Remove("compatibility");
+                Session.Remove("security");
+                Session.Remove("equipment_comm_type");
+                Session.Remove("fee_code");
+                Session.Remove("frequencies");
             }
 
             var client = new HttpClient();
@@ -91,6 +110,7 @@ namespace Typeapproval_UI.Controllers
         [Route("save/step-1")]
         public ActionResult SessionSave1(Form form)
         {
+            form.RemoveNulls();
             Session["manufacturer_name"] = form.manufacturer_name;
             Session["manufacturer_tel"] = form.manufacturer_tel;
             Session["manufacturer_address"] = form.manufacturer_address;
@@ -109,6 +129,7 @@ namespace Typeapproval_UI.Controllers
         [Route("save/step-2")]
         public ActionResult SessionSave2(Form form)
         {
+            form.RemoveNulls();
             Session["equipment_type"] = form.equipment_type;
             Session["equipment_description"] = form.equipment_description;
             Session["product_identification"] = form.product_identification;
@@ -248,7 +269,7 @@ namespace Typeapproval_UI.Controllers
         private bool PrepareStep2Session()
         {
             bool initialized = true;
-            if (Session["equipment_type"] == null)
+             if (Session["equipment_type"] == null)
             {
                 Session["equipment_type"] = "";
                 initialized = false;
@@ -291,6 +312,7 @@ namespace Typeapproval_UI.Controllers
             }
 
             if (Session["other"] == null)
+
             {
                 Session["other"] = "";
                 initialized = false;

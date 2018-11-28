@@ -40,7 +40,7 @@ namespace Typeapproval_UI.Controllers
                     read.Wait();
                     json = read.Result;
 
-                    typeApprovals = (List<TypeApproval>)JsonConvert.DeserializeObject(json);
+                    typeApprovals = JsonConvert.DeserializeObject<List<TypeApproval>>(json);
                 }
                 else
                 {
