@@ -7,7 +7,6 @@
     const PASSWORD = 'grp_password';
     const CONFIRM = 'grp_confirm';
 
-    $('.ui.dropdown').dropdown();
     $('.ui.dropdown').popup();
     $('.ui.small.red.label').popup();
     $('.header.item').popup();
@@ -90,7 +89,7 @@
     $("#step2_to_next").click(function () {
         var jsonObj = new Object();
         jsonObj.equipment_type         = $("input[name=equipment_type]").val();
-        jsonObj.equipment_description  = $("textarea[name=equipment_description]").val();
+        jsonObj.equipment_description  = $("textarea[name=equipment_description]").val(); 
         jsonObj.product_identification = $("input[name=product_identification]").val();
         jsonObj.refNum                 = $("input[name=refNum]").val();
         jsonObj.make                   = $("input[name=make]").val();
@@ -490,9 +489,8 @@
 
     function addRecord(target) {
         
-    $('.ui.dropdown').dropdown();
         var html =
-            '<tr id="record_2">' +
+            '<tr>' +
             '<td class="collapsing">' +
                 '<div class="ui fluid tiny icon buttons">' +
                     '<button class="ui button delete_record"><i class="minus icon"></i></button>' +

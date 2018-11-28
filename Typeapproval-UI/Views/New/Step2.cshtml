@@ -19,7 +19,7 @@
                 <p>This section allows you to <b>save</b> an incomplete application for later use. </p>
             </div>
             <div class="ui tiny one item menu">
-                <a class="item"><i class="grey save icon"></i> Save application</a>
+                <a class="item"><i class="grey save icon"></i> Save for later</a>
             </div>
         </div>
     </div>
@@ -147,7 +147,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="table_frequencies">
-                                    <tr id="record_1">
+                                    <tr>
                                         <td class="collapsing">
                                             <div class="ui fluid tiny icon buttons">
                                                 <button class="ui button delete_record"><i class="minus icon"></i></button>
@@ -180,7 +180,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <div class="ui fluid dropdown">
+                                            <div class="ui fluid dropdown freq_type">
                                                 <div class="text"></div>
                                                 <i class="dropdown icon"></i>
                                                 <div class="menu">
@@ -196,7 +196,7 @@
                         <div class="three fields">
                             <div class="field">
                                 <label>Antenna Type</label>
-                                <div id="antenna_type_dropdown" class="ui fluid selection dropdown">
+                                <div id="antenna_type_dropdown" class="ui fluid selection dropdown antenna">
                                     <i class="dropdown icon"></i>
                                     <span class="default text">Select Type</span>
                                     <div class="menu">
@@ -217,7 +217,7 @@
                                     <div class="field">
                                         <label>Channels (khz)</label>
                                         <div class="ui left icon input">
-                                            <input placeholder="" name="channels" type="text">
+                                            <input placeholder="" name="channel" type="text">
                                             <i class="rss icon"></i>
                                         </div>
                                     </div>
@@ -254,13 +254,12 @@
                         <div class="two fields">
                             <div class="field">
                                 <label>Equipment type</label>
-                                <div id="equipment_type_dropdown" class="ui fluid selection dropdown">
+                                <div id="equipment_type_dropdown" class="ui fluid selection dropdown equipment">
                                     <i class="dropdown icon"></i>
                                     <span class="default text">Select Type</span>
                                     <div class="menu">
                                         <div class="item">Satellite Systems</div>
                                         <div class="item">PABX</div>
-                                        <div class="item">Radio Systems</div>
                                         <div class="item">Radio Systems</div>
                                         <div class="item">Telecomms Equipment</div>
                                         <div class="item">Miscellaneous</div>

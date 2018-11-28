@@ -94,7 +94,6 @@ namespace Typeapproval_UI.Controllers
             else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
                 //return to login
-                
             }
             return View();
         }
