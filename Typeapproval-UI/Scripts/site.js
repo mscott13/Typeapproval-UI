@@ -10,10 +10,15 @@
     $('.ui.dropdown').popup();
     $('.ui.small.red.label').popup();
     $('.header.item').popup();
-    $('.ui.radio.checkbox').checkbox();
 
     $('.ui.sticky').sticky({
         context: '#context'
+    });
+
+    $('.ui.top.left.pointing.dropdown.item').dropdown({
+        onChange: function (val) {
+          
+        }
     });
 
     $('.ui.small.category.search')
@@ -42,7 +47,7 @@
                                 results: []
                             };
                         }
-                        // add result to category
+
                         response.results[type].results.push({
                             title: item.title,
                             description: item.description,
@@ -53,8 +58,7 @@
                 },
                 url: '//localhost:54367/api/search/allcategories?q={query}'
             }
-        })
-        ;
+        });
 
     $('#step1_to_next').click(function () {
 
@@ -113,7 +117,7 @@
         jsonObj.frequencies = frequencies;
         jsonObj.antenna_type        = $("#antenna_type_dropdown").find(".menu").find(".item.active.selected").html();
         jsonObj.antenna_gain        = $("input[name=antenna_gain]").val();
-        jsonObj.channel             = $("input[name=channels]").val();
+        jsonObj.channel             = $("input[name=channel]").val();
         jsonObj.separation          = $("input[name=separation]").val();
         jsonObj.aspect              = $("input[name=aspect]").val();
         jsonObj.compatibility       = $("input[name=compatibility]").val();
@@ -129,7 +133,7 @@
             data: json,
             success: function (data) {
                 console.log(data);
-                //navigate to next step
+                window.location = "/new/step-3";
             },
             error: function (data) {
                 console.log(data);
@@ -138,7 +142,11 @@
     });
 
     $('#step2_to_prev').click(function () {
-        window.location = "/new/step-1?from=prev";
+        window.location = "/new/step-1?from=step-2";
+    });
+
+    $('#step3_to_prev').click(function () {
+        window.location = "/new/step-2?from=step-3";
     });
 
     $('#new_application').click(function () {
@@ -147,6 +155,10 @@
 
     $("#btn_create_account").click(function () {
         window.location.href = "/account/register";
+    });
+
+    $('#btn_add_documents').click(function () {
+        $('#upload_files').trigger('click');
     });
 
     $("#register_form").form({
@@ -222,14 +234,14 @@
                 $("#btn_register").addClass("disabled loading");
 
                 var jsonObj = new Object();
-                jsonObj.username = $("input[name=reg_username]").val();
-                jsonObj.password = $("input[name=reg_password]").val();
+                jsonObj.username   = $("input[name=reg_username]").val();
+                jsonObj.password   = $("input[name=reg_password]").val();
                 jsonObj.first_name = $("input[name=reg_firstName]").val();
-                jsonObj.last_name = $("input[name=reg_lastName]").val();
-                jsonObj.email = $("input[name=reg_email]").val();
-                jsonObj.company = $("input[name=reg_clients]").val();
-                jsonObj.user_type = 0;
-                jsonObj.clientId = $("#search_clients").data("clientid");
+                jsonObj.last_name  = $("input[name=reg_lastName]").val();
+                jsonObj.email      = $("input[name=reg_email]").val();
+                jsonObj.company    = $("input[name=reg_clients]").val();
+                jsonObj.user_type  = 0;
+                jsonObj.clientId   = $("#search_clients").data("clientid");
 
                 var json = JSON.stringify(jsonObj);
                 $.ajax({
@@ -253,7 +265,6 @@
             }
         }
     });
-
 
     $("#btn_login").click(function () {
         $("#btn_login").addClass("disabled loading");
@@ -365,7 +376,6 @@
         });
     });
 
-    //marcopolo lib usage
     $("#search_clients").marcoPolo({
         url: "http://localhost:54367/api/data/ClientCompanyList",
         delay: 50,
@@ -475,15 +485,20 @@
     }
 
     $("body").on("click", ".ui.button.add_record", function () {
-        addRecord($(this).parent().parent().parent());
+        addRecord($('#table_frequencies'));
     });
 
     $("body").on("click", ".ui.button.delete_record", function () {
         var count = $('#table_frequencies tr').length;
-        if (count!==1)
-        {
+        if (count !== 1) {
             var record = $(this).parent().parent().parent();
             deleteRecord(record);
+        }
+        else
+        {
+            var _record = $(this).parent().parent().parent();
+            deleteRecord(_record);
+            addRecord($('#table_frequencies'));
         }
     });
 
@@ -540,7 +555,7 @@
             '</td>' +
 
             ' </tr>';
-        $(html).insertAfter(target);
+        $(target).append(html);
         $('.ui.dropdown').dropdown();
     }
 

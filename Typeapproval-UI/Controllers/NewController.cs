@@ -105,6 +105,13 @@ namespace Typeapproval_UI.Controllers
             return View();
         }
 
+        [HttpGet]
+        [Route("new/step-3")]
+        public ActionResult Step3()
+        {
+            return View();
+        }
+
         [HttpPost]
         [Route("save/step-1")]
         public ActionResult SessionSave1(Form form)
@@ -196,6 +203,52 @@ namespace Typeapproval_UI.Controllers
             step2.frequencies = (List<Frequency>)Session["frequencies"];
 
             return Json(new { step2, data_present = initialized }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        [Route("retrieve/step-3")]
+        public ActionResult GetCurrentApplication()
+        {
+            Form form = new Form();
+            form.applicant_name = Session["applicant_name"].ToString();
+            form.applicant_tel = Session["applicant_tel"].ToString();
+            form.applicant_address = Session["applicant_address"].ToString();
+            form.applicant_fax = Session["applicant_fax"].ToString();
+            form.applicant_city_town = Session["applicant_city_town"].ToString();
+            form.applicant_contact_person = Session["applicant_contact_person"].ToString();
+            form.applicant_nationality = Session["applicant_nationality"].ToString();
+
+            form.manufacturer_name = Session["manufacturer_name"].ToString();
+            form.manufacturer_tel = Session["manufacturer_tel"].ToString();
+            form.manufacturer_address = Session["manufacturer_address"].ToString();
+            form.manufacturer_fax = Session["manufacturer_fax"].ToString();
+            form.manufacturer_contact_person = Session["manufacturer_contact_person"].ToString();
+            form.provider_name = Session["provider_name"].ToString();
+            form.provider_telephone = Session["provider_telephone"].ToString();
+            form.provider_address = Session["provider_address"].ToString();
+            form.provider_fax = Session["provider_fax"].ToString();
+            form.provider_contact_person = Session["provider_contact_person"].ToString();
+
+            form.equipment_type = Session["equipment_type"].ToString();
+            form.equipment_description = Session["equipment_description"].ToString();
+            form.product_identification = Session["product_identification"].ToString();
+            form.refNum = Session["refNum"].ToString();
+            form.make = Session["make"].ToString();
+            form.software = Session["software"].ToString();
+            form.type_of_equipment = Session["type_of_equipment"].ToString();
+            form.other = Session["other"].ToString();
+            form.antenna_type = Session["antenna_type"].ToString();
+            form.antenna_gain = Session["antenna_gain"].ToString();
+            form.channel = Session["channel"].ToString();
+            form.separation = Session["separation"].ToString();
+            form.aspect = Session["aspect"].ToString();
+            form.compatibility = Session["compatibility"].ToString();
+            form.security = Session["security"].ToString();
+            form.equipment_comm_type = Session["equipment_comm_type"].ToString();
+            form.fee_code = Session["fee_code"].ToString();
+            form.frequencies = (List<Frequency>)Session["frequencies"];
+
+            return Json(new { form }, JsonRequestBehavior.AllowGet);
         }
 
         private bool PrepareStep1Session()

@@ -2,19 +2,39 @@
 
     $('.ui.fluid.selection.dropdown.equipment').dropdown({
         onChange: function (val) {
-            alert(val);
+            set_fee_code_options(val);
+        }
+    });
+
+    $('.ui.fluid.selection.dropdown.fee_code').dropdown({
+        onChange: function (val) {
+           
         }
     });
 
     $('.ui.fluid.selection.dropdown.antenna').dropdown({
         onChange: function (val) {
-            alert(val);
         }
     });
 
     $('.ui.fluid.dropdown.freq_type').dropdown({
         onChange: function (val) {
-            alert(val);
+        }
+    });
+
+    $('.ui.radio.checkbox.equipment_types').checkbox({
+        onChecked: function ()
+        {
+            if ($(this).val() == 'Other')
+            {
+                $("input[name=other_equipment]").val('');
+                $("input[name=other_equipment]").parent().removeClass('disabled');
+            }
+            else
+            {
+                $("input[name=other_equipment]").val('');
+                $("input[name=other_equipment]").parent().addClass('disabled');
+            }
         }
     });
 
@@ -63,7 +83,7 @@
             html +=
 
                 '<td>' +
-                '<div class="ui fluid dropdown">' +
+                '<div class="ui fluid dropdown freq_type">' +
                 '<div class="text">' + freq_type + '</div>' +
                 '<i class="dropdown icon"></i>' +
                 '<div class="menu">' +
@@ -73,12 +93,11 @@
                 '</div>' +
                 '</td>';
         }
-        else if (freq_type == 'T')
-        {
+        else if (freq_type == 'T') {
             html +=
 
-            '<td>' +
-                '<div class="ui fluid dropdown">' +
+                '<td>' +
+                '<div class="ui fluid dropdown freq_type">' +
                 '<div class="text">' + freq_type + '</div>' +
                 '<i class="dropdown icon"></i>' +
                 '<div class="menu">' +
@@ -88,12 +107,28 @@
                 '</div>' +
                 '</td>';
         }
+        else
+        {
+            html +=
+
+            '<td>' +
+                '<div class="ui fluid dropdown freq_type">' +
+                '<div class="text"></div>' +
+                '<i class="dropdown icon"></i>' +
+                '<div class="menu">' +
+                '<div class="item">R</div>' +
+                '<div class="item">T</div>' +
+                '</div>' +
+                '</div>' +
+                '</td>';
+        }
 
         html+= '</tr>';
         $(target).append(html);
     }
 
-    function restore_step2() {
+    function restore_step2()
+    {
         $.ajax({
             type: "GET",
             url: "/retrieve/step-2",
@@ -108,12 +143,18 @@
                     $("input[name=make]").val(data.step2.make);
                     $("input[name=software]").val(data.step2.software);
 
-                    set_equipment_type_checked(data.step2.equipment_types);
+                    set_equipment_type_checked(data.step2.equipment_types, data.step2.other_equipment);
                     set_antenna_type_dropdown(data.step2.antenna_type);
                     set_equipment_comm_type(data.step2.equipment_comm_type);
+                    set_fee_code_options(data.step2.equipment_comm_type.toLowerCase());
+                    set_fee_code_type(data.step2.fee_code);
 
                     var target = $('#table_frequencies');
-                    $(target).find("tr").remove();
+
+                    if (data.step2.frequencies.length > 0)
+                    {
+                        $(target).find("tr").remove();
+                    }
 
                     for (var i = 0; i < data.step2.frequencies.length; i++)
                     {
@@ -125,7 +166,12 @@
                         var freq_type       = data.step2.frequencies[i].freq_type;
 
                         addRecord(target, lower_freq, upper_freq, power, tolerance, emmission_desig, freq_type);
-                    }  // $('.ui.dropdown').dropdown();
+                    }
+
+                    $('.ui.fluid.dropdown.freq_type').dropdown({
+                        onChange: function (val) {
+                        }
+                    });
 
                     $("input[name=aspect]").val(data.step2.aspect);
                     $("input[name=antenna_gain]").val(data.step2.antenna_gain);
@@ -141,13 +187,19 @@
         });
     }
 
-    function set_equipment_type_checked(type)
+    function set_equipment_type_checked(type, other)
     {
         var radio_options = $('#equipent_types_handle .ui.radio.checkbox');
         $.each(radio_options, function (i, object) {
             if ($(object).find("input").val() == type) {
                 $(object).checkbox('check');
                 console.log("checked: " + type);
+
+                if (type == 'Other')
+                {
+                    $("input[name=other_equipment]").val(other);
+                    $("input[name=other_equipment]").removeClass('disabled');
+                }
             }
         });
     }
@@ -178,7 +230,8 @@
     {
         var comm_options = $('#equipment_type_dropdown .menu .item');
         $.each(comm_options, function (i, object) {
-            if ($(object).text() == type) {
+            if ($(object).text() == type)
+            {
                 var span_text = $(object).parent().parent().find(".text");
                 $(object).addClass('active selected');
 
@@ -191,6 +244,86 @@
                 console.log($(object).text());
             }
         });
+    }
+
+    function set_fee_code_type(type)
+    {
+        var fee_code_options = $('#fee_code_dropdown .menu .item');
+        $.each(fee_code_options, function (i, object) {
+            if ($(object).text() == type) {
+                var span_text = $(object).parent().parent().find(".text");
+                $(object).addClass('active selected');
+
+                $(span_text).text(type);
+                $(span_text).removeClass('default');
+            }
+            else
+            {
+                console.log($(object).text());
+            }
+        });
+    }
+
+    function set_fee_code_options(type)
+    {
+        var fee_code_dropdown = $('.ui.fluid.selection.dropdown.fee_code');
+        var span_text = $(fee_code_dropdown).find('.text');
+        var menu_holder = $(fee_code_dropdown).find('.menu');
+
+        var html = '';
+
+        switch (type)
+        {
+            case "pabx":
+                html =
+                    '<div class="item">PABX with less than 24 ports</div>' +
+                    '<div class="item">PABX with than 128-256 ports</div>' +
+                    '<div class="item">PABX with than 24-48 ports</div>' +
+                    '<div class="item">PABX with than 48-128 ports</div>' +
+                    '<div class="item">PABX with more than 256 ports</div>';
+                break;
+            case "satellite systems":
+                html =
+                    '<div class="item">Satellite Earth Station</div>' +
+                    '<div class="item">VSAT Terminals</div>';
+                break;
+            case "radio systems":
+                html =
+                    '<div class="item">Low Power Devices</div>' +
+                    '<div class="item">Radio Interface Equipment</div>' +
+                    '<div class="item">Radio Transmitters</div>' +
+                    '<div class="item">Wireless MicroPhones</div>';
+                break;
+            case "telecomms equipment":
+                html =
+                    '<div class="item">Answering Machines</div>' +
+                    '<div class="item">Basic Telephones</div>' +
+                    '<div class="item">Cordless Telephones</div>' +
+                    '<div class="item">Dealership</div>' +
+                    '<div class="item">Facsimile</div>' +
+                    '<div class="item">FM Transmitters</div>' +
+                    '<div class="item">Ham Radios</div>' +
+                    '<div class="item">Modems</div>' +
+                    '<div class="item">Multiplex Equipment (Voice/Data)</div>' +
+                    '<div class="item">Others</div>' +
+                    '<div class="item">Satcom</div>';
+                break;
+            case "miscellaneous":
+                html =
+                    '<div class="item">Alarm Systems</div>' +
+                    '<div class="item">Other</div>' +
+                    '<div class="item">Renewal for TA</div>' +
+                    '<div class="item">Sticker Fee</div>' +
+                    '<div class="item">TA Fee with Wire Transfer Charge</div>';
+                break;
+            default:
+                html = '<div class="item">Empty</div>';
+                break;
+        }
+
+        $(menu_holder).find('.item').remove();
+        $(span_text).text("Select Type");
+        $(menu_holder).append(html);
     }
 
     restore_step2();

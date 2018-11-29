@@ -233,6 +233,7 @@
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\step1-restore.js" />
     <Content Include="Scripts\step2-restore.js" />
+    <Content Include="Scripts\step3-restore.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -252,6 +253,7 @@
     <Content Include="Views\Certificates\Index.cshtml" />
     <Content Include="Views\Saved\Index.cshtml" />
     <Content Include="Views\Account\register.cshtml" />
+    <Content Include="Views\New\Step3.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewData["Title"] = "New application";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+    <script src="~/Scripts/step3-restore.js"></script>
+}
+
+
+<div class="ui grid">
+    <div class="four wide column">
+        <div class="ui sticky">
+            <div class="ui ignored small info message">
+                <div class="header">
+                    Form controls
+                </div>
+                <p>This section allows you to <b>save</b> an incomplete application for later use. </p>
+            </div>
+            <div class="ui tiny two item menu">
+                <a class="item"><i class="grey save icon"></i> Save for later</a>
+                <a class="item"><i class="grey trash icon"></i> Cancel application</a>
+            </div>
+        </div>
+    </div>
+    <div class="twelve wide column">
+        <div class="ui one column grid">
+            <div class="column">
+                <div class="ui tiny three top attached steps">
+                    <div class="disabled completed step">
+                        <i class="address card icon"></i>
+                        <div class="content">
+                            <div class="title">Applicant Information</div>
+                            <div class="description">Enter applicant details</div>
+                        </div>
+                    </div>
+                    <div class="disabled completed step">
+                        <i class="hdd icon"></i>
+                        <div class="content">
+                            <div class="title">Equipment Information</div>
+                            <div class="description">Description of Equipment</div>
+                        </div>
+                    </div>
+                    <div class="active step">
+                        <i class="upload icon"></i>
+                        <div class="content">
+                            <div class="title">Upload Files</div>
+                            <div class="description">Add files relevant to this application</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="context" class="ui clearing attached segment">
+                    <div class="ui form">
+
+                        <div class="ui placeholder segment">
+                            <div class="ui icon header">
+                                <i class="pdf file outline icon"></i>
+                                Add files relevant to this application
+                            </div>
+                            <div id="btn_add_documents" class="ui small primary button">Add Documents</div>
+                        </div>
+                        <input id="upload_files" multiple type="file" style="display: none" />
+
+                        <div class="one field">
+                            <button id="step3_to_finish" type="button" class="ui tiny right floated blue button">
+                                Upload and Finish
+                            </button>
+
+                            <button id="step3_to_prev" type="button" class="ui tiny left floated left labeled icon button">
+                                <i class="left arrow icon"></i>
+                                Previous
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

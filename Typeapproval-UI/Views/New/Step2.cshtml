@@ -18,8 +18,9 @@
                 </div>
                 <p>This section allows you to <b>save</b> an incomplete application for later use. </p>
             </div>
-            <div class="ui tiny one item menu">
+            <div class="ui tiny two item menu">
                 <a class="item"><i class="grey save icon"></i> Save for later</a>
+                <a class="item"><i class="grey trash icon"></i> Cancel application</a>
             </div>
         </div>
     </div>
@@ -62,7 +63,7 @@
                         <div class="one field">
                             <div class="field">
                                 <label>Brief description of the equipment (to be used in the list of approved equipment and in the certificate of approval)</label>
-                                <textarea rows="6" name="equipment_description"></textarea>
+                                <textarea rows="4" name="equipment_description"></textarea>
                             </div>
 
                         </div>
@@ -102,25 +103,25 @@
                         <div id="equipent_types_handle" class="inline fields">
                             <label>Type of equipment</label>
                             <div class="field">
-                                <div class="ui radio checkbox">
+                                <div class="ui radio checkbox equipment_types">
                                     <input type="radio" name="equipment_types" tabindex="0" class="hidden" value="Transmitter">
                                     <label>Transmitter</label>
                                 </div>
                             </div>
                             <div class="field">
-                                <div class="ui radio checkbox">
+                                <div class="ui radio checkbox equipment_types">
                                     <input type="radio" name="equipment_types" tabindex="0" class="hidden" value="Receiver">
                                     <label>Receiver</label>
                                 </div>
                             </div>
                             <div class="field">
-                                <div class="ui radio checkbox">
+                                <div class="ui radio checkbox equipment_types">
                                     <input type="radio" name="equipment_types" tabindex="0" class="hidden" value="Transceiver">
                                     <label>Transceiver</label>
                                 </div>
                             </div>
                             <div class="field">
-                                <div class="ui radio checkbox">
+                                <div class="ui radio checkbox equipment_types">
                                     <input type="radio" name="equipment_types" tabindex="0" class="hidden" value="Other">
                                     <label>Other</label>
                                 </div>
@@ -268,7 +269,7 @@
                             </div>
                             <div class="field">
                                 <label>Fee Code</label>
-                                <div id="fee_code_dropdown" class="ui fluid selection dropdown">
+                                <div id="fee_code_dropdown" class="ui fluid selection dropdown fee_code">
                                     <i class="dropdown icon"></i>
                                     <span class="default text">Select Type</span>
                                     <div class="menu">
