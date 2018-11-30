@@ -2,12 +2,14 @@
 
     var json_form; 
     var files;
+    var form_status;
 
     $.ajax({
         type: "GET",
         url: "/retrieve/step-3",
         success: function (data) {
             json_form = JSON.stringify(data.form);
+            form_status = data.form.completed;
         },
         error: function (data) {
             console.log(data);
@@ -18,13 +20,21 @@
 
         files = ($('#upload_files'))[0].files;
         remove_files_table();
-        add_file_table();
+
+        if (files.length > 0) {
+            add_file_table();
+            $('#step3_to_finish').removeClass('disabled');
+        }
+        else
+        {
+            $('#step3_to_finish').addClass('disabled');
+        }
 
         for (var i = 0; i < files.length; i++)
         {
             var filename = files[i].name;
             var size = Math.ceil(files[i].size / 1000);
-            var sz_str = size + 'KB';
+            var sz_str = size + ' Kb';
             var type = files[i].type;
 
             add_file_to_table(filename, type, sz_str);
@@ -32,27 +42,44 @@
     });
 
     $('#step3_to_finish').click(function () {
-        var form_data = new FormData();
-        form_data.append("json_form", json_form);
+        if (form_status)
+            {
+            var btn_finish = $(this);
+            btn_finish.addClass('disabled loading');
 
-        for (var i = 0; i < files.length; i++)
-        {
-            form_data.append(i, files[i]);
-        }
+            var form_data = new FormData();
+            form_data.append("json_form", json_form);
 
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:54367/api/upload/multiple",
-            processData: false,
-            contentType: false,
-            data: form_data,
-            success: function (data) {
-                console.log(data);
-            },
-            error: function (data) {
-                console.log(data);
+            for (var i = 0; i < files.length; i++) {
+                form_data.append(i, files[i]);
             }
-        });
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:54367/api/upload/multiple",
+                processData: false,
+                contentType: false,
+                data: form_data,
+                success: function (data) {
+                    console.log(data);
+                    btn_finish.removeClass('disabled loading');
+                    addApplicationStatus('Application saved with application ID: <b>'+data+'</b>')
+                },
+                error: function (data) {
+                    console.log(data);
+                    btn_finish.removeClass('disabled loading');
+                }
+            });
+        }
+        else
+        {
+            //display dialog indicating form not completed;
+            $('.ui.basic.modal.minfo')
+                .modal({
+                    closable: false,
+                    blurring: true
+                }).modal('show');
+        }
     });
 
     function add_file_to_table(name, type, size)
@@ -75,7 +102,6 @@
                     '<td>' + '<i class="file word icon"></i>' + name + '' + '</td>' +
                     '<td>' + type + '</td>' +
                     '<td>' + size + '</td>' +
-                    '+<td><i class="close link icon file_record"></i></td>' +
                     '</tr>';
 
                 $(file_table).find('tbody').append(html_default);
@@ -96,5 +122,15 @@
     function remove_files_table()
     {
         $('.ui.selectable.table.files').remove();
+    }
+
+    function addApplicationStatus(html) {
+        var raw = '<div class="ui attached warning message application">' +
+            '<i class="info icon"></i>' +
+            html +
+            '</div>';
+
+
+        $(raw).insertAfter('.ui.tiny.three.top.attached.steps');
     }
 });

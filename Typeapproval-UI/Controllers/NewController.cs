@@ -60,7 +60,7 @@ namespace Typeapproval_UI.Controllers
             param.access_key = Session["key"];
             var content = new StringContent(JsonConvert.SerializeObject(param), Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response =  client.PostAsync("applicantInfo", content).Result;
+            HttpResponseMessage response = client.PostAsync("applicantInfo", content).Result;
             if (response.IsSuccessStatusCode)
             {
                 string json = response.Content.ReadAsStringAsync().Result;
@@ -159,7 +159,7 @@ namespace Typeapproval_UI.Controllers
 
         [HttpGet]
         [Route("retrieve/step-1")]
-        public ActionResult RestoreStep1() 
+        public ActionResult RestoreStep1()
         {
             bool initialized = PrepareStep1Session();
             Step1 step1 = new Step1();
@@ -250,6 +250,7 @@ namespace Typeapproval_UI.Controllers
             form.equipment_comm_type = Session["equipment_comm_type"].ToString();
             form.fee_code = Session["fee_code"].ToString();
             form.frequencies = (List<Frequency>)Session["frequencies"];
+            form.completed = CheckFormCompleted(form);
 
             return Json(new { form }, JsonRequestBehavior.AllowGet);
         }
@@ -324,7 +325,7 @@ namespace Typeapproval_UI.Controllers
         private bool PrepareStep2Session()
         {
             bool initialized = true;
-             if (Session["equipment_type"] == null)
+            if (Session["equipment_type"] == null)
             {
                 Session["equipment_type"] = "";
                 initialized = false;
@@ -436,5 +437,218 @@ namespace Typeapproval_UI.Controllers
 
             return initialized;
         }
+
+        private bool CheckFormCompleted(Form form)
+        {
+            bool status = true;
+            #region applicant_info
+            if (form.applicant_name == null || form.applicant_name == "")
+            {
+                status = false;
+            }
+
+            if (form.applicant_tel == null || form.applicant_tel == "")
+            {
+                status = false;
+            }
+
+            if (form.applicant_address == null || form.applicant_address == "")
+            {
+                status = false;
+            }
+
+            if (form.applicant_fax == null || form.applicant_fax == "")
+            {
+                status = false;
+            }
+
+            if (form.applicant_city_town == null || form.applicant_city_town == "")
+            {
+                status = false;
+            }
+
+            if (form.applicant_contact_person == null || form.applicant_contact_person == "")
+            {
+                status = false;
+            }
+
+            if (form.applicant_nationality == null || form.applicant_nationality == "")
+            {
+                status = false;
+            }
+            #endregion
+
+            #region manufacturer/provider
+            if (form.manufacturer_name == null || form.manufacturer_name == "")
+            {
+                status = false;
+            }
+
+            if (form.manufacturer_tel == null || form.manufacturer_tel == "")
+            {
+                status = false;
+            }
+
+            if (form.manufacturer_address == null || form.manufacturer_address == "")
+            {
+                status = false;
+            }
+
+            if (form.manufacturer_fax == null || form.manufacturer_fax == "")
+            {
+                status = false;
+            }
+
+            if (form.manufacturer_contact_person == null || form.manufacturer_contact_person == "")
+            {
+                status = false;
+            }
+
+            if (form.provider_name == null || form.provider_name == "")
+            {
+                status = false;
+            }
+
+            if (form.provider_telephone == null || form.provider_telephone == "")
+            {
+                status = false;
+            }
+
+            if (form.provider_address == null || form.provider_address == "")
+            {
+                status = false;
+            }
+
+            if (form.provider_fax == null || form.provider_fax == "")
+            {
+                status = false;
+            }
+
+            if (form.provider_contact_person == null || form.provider_contact_person == "")
+            {
+                status = false;
+            }
+            #endregion
+
+            #region equipment_details
+            if (form.equipment_type == null || form.equipment_type == "")
+            {
+                status = false;
+            }
+
+            if (form.equipment_description == null || form.equipment_description == "")
+            {
+                status = false;
+            }
+
+            if (form.product_identification == null || form.product_identification == "")
+            {
+                status = false;
+            }
+
+            if (form.refNum == null || form.refNum == "")
+            {
+                status = false;
+            }
+
+            if (form.make == null || form.make == "")
+            {
+                status = false;
+            }
+
+            if (form.software == null || form.software == "")
+            {
+                status = false;
+            }
+
+            if (form.type_of_equipment == null || form.type_of_equipment == "")
+            {
+                status = false;
+            }
+            else if (form.type_of_equipment == "Others")
+            {
+                if (form.other == null || form.other == "")
+                {
+                    status = false;
+                }
+            }
+
+            if (form.antenna_type == null || form.antenna_type == "")
+            {
+                status = false;
+            }
+
+            if (form.antenna_gain == null || form.antenna_gain == "")
+            {
+                status = false;
+            }
+
+            if (form.channel == null || form.channel == "")
+            {
+                status = false;
+            }
+
+            if (form.separation == null || form.separation == "")
+            {
+                status = false;
+            }
+
+            if (form.aspect == null || form.aspect == "")
+            {
+                status = false;
+            }
+
+            if (form.compatibility == null || form.compatibility == "")
+            {
+                status = false;
+            }
+
+            if (form.security == null || form.security == "")
+            {
+                status = false;
+            }
+
+            if (form.equipment_comm_type == null || form.equipment_comm_type == "")
+            {
+                status = false;
+            }
+
+            if (form.fee_code == null || form.fee_code == "")
+            {
+                status = false;
+            }
+            #endregion
+
+            #region frequency_details
+            for (int i = 0; i < form.frequencies.Count; i++)
+            {
+                if (form.frequencies[i].lower_freq == null || form.frequencies[i].lower_freq == "")
+                {
+                    status = false;
+                }
+
+                if (form.frequencies[i].upper_freq == null || form.frequencies[i].upper_freq == "")
+                {
+                    status = false;
+                }
+
+                if (form.frequencies[i].power == null || form.frequencies[i].power == "")
+                {
+                    status = false;
+                }
+
+                if (form.frequencies[i].emmission_desig == null || form.frequencies[i].emmission_desig == "")
+                {
+                    status = false;
+                }
+
+                if (form.frequencies[i].freq_type == null || form.frequencies[i].freq_type == "")
+                {
+                    status = false;
+                }
+            }
+            #endregion
+            return status;
+        } 
     }
 }

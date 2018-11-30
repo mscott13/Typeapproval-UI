@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-
+   
     const USERNAME = 'grp_username';
     const EMAIL = 'grp_email';
     const FNAME = 'grp_fname';
@@ -140,6 +140,30 @@
             }
         });
     });
+
+    $('.item.save_later').click(function () {
+        console.log("saving application...");
+
+        $.ajax({
+            type: "GET",
+            url: "/retrieve/step-3",
+            success: function (data) {
+                var json_form = JSON.stringify(data.form);
+
+
+
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+
+    });
+
+    $('.item.cancel_app').click(function () {
+        console.log("cancelling application...");
+    });
+
 
     $('#step2_to_prev').click(function () {
         window.location = "/new/step-1?from=step-2";
@@ -562,5 +586,16 @@
     function deleteRecord(target)
     {
         $(target).remove();
+    }
+
+    function addApplicationStatus(html)
+    {
+        var raw =   '<div class="ui attached warning message application">' +
+                    '<i class="info icon"></i>' +
+                    html +
+                    '</div>';
+
+       
+        $(raw).insertAfter('.ui.tiny.three.top.attached.steps');
     }
 });
