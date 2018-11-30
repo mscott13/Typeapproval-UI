@@ -51,6 +51,7 @@ namespace Typeapproval_UI.Controllers
                     Session["key"] = obj.access_key;
                     Session["user_type"] = obj.user_type;
                     Session["name"] = obj.name;
+                    Session["username"] = obj.username;
                     string status = obj.status;
                     return Json(new { success = true, responseText = "credentials verified" }, JsonRequestBehavior.AllowGet);
                 }

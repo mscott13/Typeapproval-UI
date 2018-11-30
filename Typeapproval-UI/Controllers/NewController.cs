@@ -210,6 +210,9 @@ namespace Typeapproval_UI.Controllers
         public ActionResult GetCurrentApplication()
         {
             Form form = new Form();
+            form.access_key = Session["key"].ToString();
+            form.username = Session["username"].ToString();
+
             form.applicant_name = Session["applicant_name"].ToString();
             form.applicant_tel = Session["applicant_tel"].ToString();
             form.applicant_address = Session["applicant_address"].ToString();
