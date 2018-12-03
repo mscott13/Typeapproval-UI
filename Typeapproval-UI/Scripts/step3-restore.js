@@ -9,7 +9,7 @@
         url: "/retrieve/step-3",
         success: function (data) {
             json_form = JSON.stringify(data.form);
-            form_status = data.form.completed;
+            form_status = data.form.status;
         },
         error: function (data) {
             console.log(data);
@@ -42,17 +42,17 @@
     });
 
     $('#step3_to_finish').click(function () {
-        if (form_status)
+        if (form_status == 'completed')
             {
-            var btn_finish = $(this);
-            btn_finish.addClass('disabled loading');
+                var btn_finish = $(this);
+                btn_finish.addClass('disabled loading');
 
-            var form_data = new FormData();
-            form_data.append("json_form", json_form);
+                var form_data = new FormData();
+                form_data.append("json_form", json_form);
 
-            for (var i = 0; i < files.length; i++) {
-                form_data.append(i, files[i]);
-            }
+                for (var i = 0; i < files.length; i++) {
+                    form_data.append(i, files[i]);
+                 }
 
             $.ajax({
                 type: "POST",
@@ -63,7 +63,16 @@
                 success: function (data) {
                     console.log(data);
                     btn_finish.removeClass('disabled loading');
-                    addApplicationStatus('Application saved with application ID: <b>'+data+'</b>')
+
+                    $('.ui.modal.upload-status').find(".content p").html("Your application was submitted with ID: <b>" + data + "</b>. Your application will be reviewed and processed.");
+                    $('.ui.modal.upload-status')
+                        .modal({
+                            closable: false,
+                            blurring: false,
+                            onApprove: function () {
+                                window.location = "/home";
+                            }
+                        }).modal('show');
                 },
                 error: function (data) {
                     console.log(data);
@@ -80,6 +89,12 @@
                 }).modal('show');
         }
     });
+
+    $('.ui.basic.modal.upload-status')
+        .modal({
+            closable: false,
+            blurring: true
+        }).modal('show');
 
     function add_file_to_table(name, type, size)
     {
