@@ -11,9 +11,9 @@ namespace Typeapproval_UI.Models
                 access_key = "";
             }
 
-            if (applicationId == null)
+            if (application_id == null)
             {
-                applicationId = "";
+                application_id = "";
             }
 
             if (username == null)
@@ -195,10 +195,45 @@ namespace Typeapproval_UI.Models
             {
                 frequencies = new List<Frequency>();
             }
+            else
+            {
+                for (int i = 0; i < frequencies.Count; i++)
+                {
+                    if (frequencies[i].lower_freq == null)
+                    {
+                        frequencies[i].lower_freq = "";
+                    }
+
+                    if (frequencies[i].upper_freq == null)
+                    {
+                        frequencies[i].upper_freq = "";
+                    }
+
+                    if (frequencies[i].power == null)
+                    {
+                        frequencies[i].power = "";
+                    }
+
+                    if (frequencies[i].tolerance == null)
+                    {
+                        frequencies[i].tolerance = "";
+                    }
+
+                    if (frequencies[i].emmission_desig == null)
+                    {
+                        frequencies[i].emmission_desig = "";
+                    }
+
+                    if (frequencies[i].freq_type == null)
+                    {
+                        frequencies[i].freq_type = "";
+                    }
+                }
+            }
         }
 
         public string access_key { get; set; }
-        public string applicationId { get; set; }
+        public string application_id { get; set; }
         public string username { get; set; }
         public string applicant_name { get; set; }
         public string applicant_tel { get; set; }
@@ -235,6 +270,6 @@ namespace Typeapproval_UI.Models
         public string equipment_comm_type { get; set; }
         public string fee_code { get; set; }
         public List<Frequency> frequencies { get; set; }
-        public bool completed { get; set; }
+        public string status { get; set; }
     }
 }

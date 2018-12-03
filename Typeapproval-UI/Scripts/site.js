@@ -141,27 +141,135 @@
         });
     });
 
-    $('.item.save_later').click(function () {
-        console.log("saving application...");
+    $('.ui.blue.button.save_app.s2').click(function () {
+        var btn_save = $(this);
+        $(btn_save).addClass("disabled loading");
 
+        var jsonObj = new Object();
+        jsonObj.equipment_type = $("input[name=equipment_type]").val();
+        jsonObj.equipment_description = $("textarea[name=equipment_description]").val();
+        jsonObj.product_identification = $("input[name=product_identification]").val();
+        jsonObj.refNum = $("input[name=refNum]").val();
+        jsonObj.make = $("input[name=make]").val();
+        jsonObj.software = $("input[name=software]").val();
+        jsonObj.type_of_equipment = $(".ui.radio.checkbox.checked").children("input").val();
+        jsonObj.other = $("input[name=other_equipment]").val();
+
+        var i = 0; var frequencies = [];
+        $("#table_frequencies tr").each(function () {
+            var obj = {};
+            obj["sequence"] = ++i;
+            obj["lower_freq"] = $(this).find("input[name=lower_mhz]").val();
+            obj["upper_freq"] = $(this).find("input[name=upper_mhz]").val();
+            obj["power"] = $(this).find("input[name=power]").val();
+            obj["tolerance"] = $(this).find("input[name=tolerance]").val();
+            obj["emmission_desig"] = $(this).find("input[name=emmission_desig]").val();
+            obj["freq_type"] = $(this).find(".menu").find(".item.active.selected").html();
+            frequencies.push(obj);
+        });
+
+        jsonObj.frequencies = frequencies;
+        jsonObj.antenna_type = $("#antenna_type_dropdown").find(".menu").find(".item.active.selected").html();
+        jsonObj.antenna_gain = $("input[name=antenna_gain]").val();
+        jsonObj.channel = $("input[name=channel]").val();
+        jsonObj.separation = $("input[name=separation]").val();
+        jsonObj.aspect = $("input[name=aspect]").val();
+        jsonObj.compatibility = $("input[name=compatibility]").val();
+        jsonObj.security = $("input[name=security]").val();
+        jsonObj.equipment_comm_type = $("#equipment_type_dropdown").find(".menu").find(".item.active.selected").html();
+        jsonObj.fee_code = $("#fee_code_dropdown").find(".menu").find(".item.active.selected").html();
+
+        var json = JSON.stringify(jsonObj);
         $.ajax({
-            type: "GET",
-            url: "/retrieve/step-3",
+            type: "POST",
+            url: "/save/step-2",
+            contentType: "application/json; charset=utf-8",
+            data: json,
             success: function (data) {
-                var json_form = JSON.stringify(data.form);
-
-
-
+                $.ajax({
+                    type: "GET",
+                    url: "/new/post-current-app",
+                    success: function (data) {
+                        if (data.responseText == "posted") {
+                            addApplicationStatus("Application saved with ID: <b>" + data.app_id + "<b>");
+                            $(btn_save).removeClass("disabled loading");
+                            $(btn_save).html("Saved");
+                        }
+                        else if (data.responseText == "updated") {
+                            console.log("application updated");
+                            $(btn_save).removeClass("disabled loading");
+                            $(btn_save).html("Saved");
+                        }
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
             },
             error: function (data) {
                 console.log(data);
             }
         });
-
     });
 
-    $('.item.cancel_app').click(function () {
+    $('.ui.blue.button.save_app.s1').click(function () {
+        var btn_save = $(this);
+        $(btn_save).addClass("disabled loading");
+
+        /////////////////////// Saving data to session /////////////////////////
+        var jsonObj = new Object();
+        jsonObj.manufacturer_name = $("input[name=manufacturer_name]").val();
+        jsonObj.manufacturer_tel = $("input[name=manufacturer_telephone]").val();
+        jsonObj.manufacturer_address = $("input[name=manufacturer_address]").val();
+        jsonObj.manufacturer_fax = $("input[name=manufacturer_fax]").val();
+        jsonObj.manufacturer_contact_person = $("input[name=manufacturer_contact_person]").val();
+        jsonObj.provider_name = $("input[name=provider_name]").val();
+        jsonObj.provider_telephone = $("input[name=provider_telephone]").val();
+        jsonObj.provider_address = $("input[name=provider_address]").val();
+        jsonObj.provider_fax = $("input[name=provider_fax]").val();
+        jsonObj.provider_contact_person = $("input[name=provider_contact_person]").val();
+
+        var json = JSON.stringify(jsonObj);
+        $.ajax({
+            type: "POST",
+            url: "/save/step-1",
+            contentType: "application/json; charset=utf-8",
+            data: json,
+            success: function (data) {
+                $.ajax({
+                    type: "GET",
+                    url: "/new/post-current-app",
+                    success: function (data) {
+                        if (data.responseText == "posted") {
+                            addApplicationStatus("Application saved with ID: <b>" + data.app_id + "<b>");
+                            $(btn_save).removeClass("disabled loading");
+                            $(btn_save).html("Saved");
+                        }
+                        else if (data.responseText == "updated") {
+                            console.log("application updated");
+                            $(btn_save).removeClass("disabled loading");
+                            $(btn_save).html("Saved");
+                        }
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+        /////////////////////// Saving data to session /////////////////////////
+    });
+
+    $('.ui.button.cancel_app').click(function () {
         console.log("cancelling application...");
+
+        $('.ui.basic.modal.cancel-confirm')
+            .modal({
+                closable: false
+            }).modal('show');
     });
 
 

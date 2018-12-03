@@ -18,10 +18,22 @@
                 </div>
                 <p>This section allows you to <b>save</b> an incomplete application for later use. </p>
             </div>
-            <div class="ui tiny two item menu">
-                <a class="item save_later"><i class="grey save icon"></i> Save for later</a>
-                <a class="item cancel_app"><i class="grey trash icon"></i> Cancel application</a>
-            </div>
+            @{
+                if (Session["save_state"] != null)
+                {
+                    <div class="fluid ui tiny buttons">
+                        <button class="ui button cancel_app">Cancel</button>
+                        <button class="ui blue button save_app s1">Saved</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="fluid ui tiny buttons">
+                        <button class="ui button cancel_app">Cancel</button>
+                        <button class="ui blue button save_app s2">Save for later</button>
+                    </div>
+                }
+            }
         </div>
     </div>
     <div class="twelve wide column">
@@ -50,8 +62,15 @@
                         </div>
                     </div>
                 </div>
+                @if (Session["application_id"] != null)
+                {
+                    <div class="ui small attached warning message application">
+                        <i class="info icon"></i>
+                        Application saved with ID: <b>@Session["application_id"].ToString()</b>
+                    </div>
+                }
                 <div id="context" class="ui clearing attached segment">
-                    <div class="ui form">
+                    <div class="ui small form">
                         <a class="ui grey ribbon label">3. &nbsp Equipment Description</a>
                         <div class="inline field">
                             <label>Type of equipment (modem, telefax, telephone)</label>
@@ -292,6 +311,26 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="ui basic modal cancel-confirm">
+    <div class="ui icon header">
+        <i class="trash icon"></i>
+        Confirmation
+    </div>
+    <div class="content">
+        <p style="text-align:center;">Are you sure you want to cancel this application? This action cannot be undone.</p>
+    </div>
+    <div class="actions">
+        <div class="ui grey button">
+            <i class="trash icon"></i>
+            Decline
+        </div>
+        <div class="ui blue ok button">
+            <i class="checkmark icon"></i>
+            Confirm
         </div>
     </div>
 </div>

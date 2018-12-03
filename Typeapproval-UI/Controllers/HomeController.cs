@@ -10,6 +10,8 @@ namespace Typeapproval_UI.Controllers
     {
         public ActionResult Index()
         {
+            Session.Remove("save_state");
+            Session.Remove("application_id");
             Session.Remove("manufacturer_name");
             Session.Remove("manufacturer_tel");
             Session.Remove("manufacturer_address");

@@ -20,6 +20,8 @@ namespace Typeapproval_UI.Controllers
         {
             if (from == null)
             {
+                Session.Remove("save_state");
+                Session.Remove("application_id");
                 Session.Remove("manufacturer_name");
                 Session.Remove("manufacturer_tel");
                 Session.Remove("manufacturer_address");
@@ -206,10 +208,112 @@ namespace Typeapproval_UI.Controllers
         }
 
         [HttpGet]
+        [Route("new/get-save-state")]
+        public ActionResult GetFormSaveState()
+        {
+            if (Session["save_state"] == null)
+            {
+                return Json(new { state = "unsaved" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { state = "saved" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
         [Route("retrieve/step-3")]
         public ActionResult GetCurrentApplication()
         {
             Form form = new Form();
+            form.access_key = Session["key"].ToString();
+            form.username = Session["username"].ToString();
+
+            if (Session["application_id"] != null)
+            {
+                form.application_id = Session["application_id"].ToString();
+            }
+            
+            form.applicant_name = Session["applicant_name"].ToString();
+            form.applicant_tel = Session["applicant_tel"].ToString();
+            form.applicant_address = Session["applicant_address"].ToString();
+            form.applicant_fax = Session["applicant_fax"].ToString();
+            form.applicant_city_town = Session["applicant_city_town"].ToString();
+            form.applicant_contact_person = Session["applicant_contact_person"].ToString();
+            form.applicant_nationality = Session["applicant_nationality"].ToString();
+
+            form.manufacturer_name = Session["manufacturer_name"].ToString();
+            form.manufacturer_tel = Session["manufacturer_tel"].ToString();
+            form.manufacturer_address = Session["manufacturer_address"].ToString();
+            form.manufacturer_fax = Session["manufacturer_fax"].ToString();
+            form.manufacturer_contact_person = Session["manufacturer_contact_person"].ToString();
+            form.provider_name = Session["provider_name"].ToString();
+            form.provider_telephone = Session["provider_telephone"].ToString();
+            form.provider_address = Session["provider_address"].ToString();
+            form.provider_fax = Session["provider_fax"].ToString();
+            form.provider_contact_person = Session["provider_contact_person"].ToString();
+
+            form.equipment_type = Session["equipment_type"].ToString();
+            form.equipment_description = Session["equipment_description"].ToString();
+            form.product_identification = Session["product_identification"].ToString();
+            form.refNum = Session["refNum"].ToString();
+            form.make = Session["make"].ToString();
+            form.software = Session["software"].ToString();
+            form.type_of_equipment = Session["type_of_equipment"].ToString();
+            form.other = Session["other"].ToString();
+            form.antenna_type = Session["antenna_type"].ToString();
+            form.antenna_gain = Session["antenna_gain"].ToString();
+            form.channel = Session["channel"].ToString();
+            form.separation = Session["separation"].ToString();
+            form.aspect = Session["aspect"].ToString();
+            form.compatibility = Session["compatibility"].ToString();
+            form.security = Session["security"].ToString();
+            form.equipment_comm_type = Session["equipment_comm_type"].ToString();
+            form.fee_code = Session["fee_code"].ToString();
+            form.frequencies = (List<Frequency>)Session["frequencies"];
+
+            if (CheckFormCompleted(form))
+            {
+                form.status = "completed";
+            }
+            else
+            {
+                form.status = "incomplete";
+            }
+
+            return Json(new { form }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        [Route("new/current_app_id")]
+        public ActionResult GetCurrentApplicationId()
+        {
+            if (Session["application_id"] == null)
+            {
+                return Json(new { app_id = "" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                string application_id = Session["application_id"].ToString();
+                return Json(new { app_id = application_id }, JsonRequestBehavior.AllowGet);
+            }
+           
+        }
+
+        [HttpGet]
+        [Route("new/post-current-app")]
+        public ActionResult PostCurrentApplication()
+        {
+           var step1_status = PrepareStep1Session();
+           var step2_status = PrepareStep2Session();
+            
+            #region form
+            Form form = new Form();
+            if (Session["application_id"] != null)
+            {
+                form.application_id = Session["application_id"].ToString();
+            }
+
             form.access_key = Session["key"].ToString();
             form.username = Session["username"].ToString();
 
@@ -250,9 +354,46 @@ namespace Typeapproval_UI.Controllers
             form.equipment_comm_type = Session["equipment_comm_type"].ToString();
             form.fee_code = Session["fee_code"].ToString();
             form.frequencies = (List<Frequency>)Session["frequencies"];
-            form.completed = CheckFormCompleted(form);
 
-            return Json(new { form }, JsonRequestBehavior.AllowGet);
+            if (CheckFormCompleted(form))
+            {
+                form.status = "completed";
+            }
+            else
+            {
+                form.status = "incomplete";
+            }
+            #endregion
+
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            
+            var content = new StringContent(JsonConvert.SerializeObject(form), Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = client.PostAsync("CreateApplication",content).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string result = response.Content.ReadAsStringAsync().Result;
+                result = result.Replace("\"", string.Empty);
+                if (result == "updated")
+                {
+                    Session["save_state"] = "saved";
+                    return Json(new { responseText = "updated" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    Session["application_id"] = result;
+                    Session["save_state"] = "saved";
+                    return Json(new { responseText = "posted", app_id = result }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(new { responseText = "not posted" }, JsonRequestBehavior.AllowGet);
+            }
+
         }
 
         private bool PrepareStep1Session()

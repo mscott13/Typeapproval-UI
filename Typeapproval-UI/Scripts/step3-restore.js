@@ -73,7 +73,6 @@
         }
         else
         {
-            //display dialog indicating form not completed;
             $('.ui.basic.modal.minfo')
                 .modal({
                     closable: false,

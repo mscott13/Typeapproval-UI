@@ -12,6 +12,8 @@ namespace Typeapproval_UI.Controllers
         [Route("certificates")]
         public ActionResult Index()
         {
+            Session.Remove("save_state");
+            Session.Remove("application_id");
             Session.Remove("manufacturer_name");
             Session.Remove("manufacturer_tel");
             Session.Remove("manufacturer_address");
