@@ -4,17 +4,6 @@
     var files;
     var form_status;
 
-    $.ajax({
-        type: "GET",
-        url: "/retrieve/step-3",
-        success: function (data) {
-            json_form = JSON.stringify(data.form);
-            form_status = data.form.status;
-        },
-        error: function (data) {
-            console.log(data);
-        }
-    });
 
     $('body').on('change', '#upload_files', function () {
 
@@ -42,59 +31,71 @@
     });
 
     $('#step3_to_finish').click(function () {
-        if (form_status == 'completed')
-            {
-                var btn_finish = $(this);
-                btn_finish.addClass('disabled loading');
+        var btn_finish = $(this);
+        btn_finish.addClass('disabled loading');
 
-                var form_data = new FormData();
-                form_data.append("json_form", json_form);
+        $.ajax({
+            type: "GET",
+            url: "/retrieve/step-3",
+            success: function (data) {
+                json_form = JSON.stringify(data.form);
+                form_status = data.form.status;
 
-                for (var i = 0; i < files.length; i++) {
-                    form_data.append(i, files[i]);
-                 }
+                if (form_status == 'completed') {
+                    var form_data = new FormData();
+                    form_data.append("json_form", json_form);
 
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:54367/api/upload/multiple",
-                processData: false,
-                contentType: false,
-                data: form_data,
-                success: function (data) {
-                    console.log(data);
-                    btn_finish.removeClass('disabled loading');
+                    for (var i = 0; i < files.length; i++) {
+                        form_data.append(i, files[i]);
+                    }
 
-                    $('.ui.modal.upload-status').find(".content p").html("Your application was submitted with ID: <b>" + data + "</b>. Your application will be reviewed and processed.");
-                    $('.ui.modal.upload-status')
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:54367/api/upload/multiple",
+                        processData: false,
+                        contentType: false,
+                        data: form_data,
+                        success: function (data) {
+                            console.log(data);
+                            btn_finish.removeClass('disabled loading');
+
+                            var html = "<p style='text-align: center;'>Your application was submitted with ID: <b>" + data + "</b>. Your application will be reviewed and processed.</p>" +
+                                '<div class="ui raised segment">' +
+                                '< p > Sample invoice here</p>' +
+                                '</div >';
+
+                            $('.ui.modal.upload-status').find(".content").html(html);
+                            $('.ui.modal.upload-status')
+                                .modal({
+                                    closable: false,
+                                    blurring: false,
+                                    onApprove: function () {
+                                        window.location = "/home";
+                                    }
+                                }).modal('show');
+                        },
+                        error: function (data) {
+                            console.log(data);
+                            btn_finish.removeClass('disabled loading');
+                        }
+                    });
+                }
+                else {
+                    $('.ui.modal.minfo')
                         .modal({
                             closable: false,
-                            blurring: false,
-                            onApprove: function () {
-                                window.location = "/home";
-                            }
+                            blurring: false
                         }).modal('show');
-                },
-                error: function (data) {
+
                     console.log(data);
                     btn_finish.removeClass('disabled loading');
                 }
-            });
-        }
-        else
-        {
-            $('.ui.basic.modal.minfo')
-                .modal({
-                    closable: false,
-                    blurring: true
-                }).modal('show');
-        }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
     });
-
-    $('.ui.basic.modal.upload-status')
-        .modal({
-            closable: false,
-            blurring: true
-        }).modal('show');
 
     function add_file_to_table(name, type, size)
     {

@@ -354,15 +354,7 @@ namespace Typeapproval_UI.Controllers
             form.equipment_comm_type = Session["equipment_comm_type"].ToString();
             form.fee_code = Session["fee_code"].ToString();
             form.frequencies = (List<Frequency>)Session["frequencies"];
-
-            if (CheckFormCompleted(form))
-            {
-                form.status = "completed";
-            }
-            else
-            {
-                form.status = "incomplete";
-            }
+            form.status = "incomplete";
             #endregion
 
                 var client = new HttpClient();

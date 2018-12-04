@@ -12,9 +12,9 @@
                     $("input[name=manufacturer_fax]").val(data.step1.manufacturer_fax);
                     $("input[name=manufacturer_contact_person]").val(data.step1.manufacturer_contact_person);
 
-                    $("input[name=provider_name]").val(data.step1.manufacturer_tel);
-                    $("input[name=provider_telephone]").val(data.step1.manufacturer_address);
-                    $("input[name=provider_address]").val(data.step1.manufacturer_fax);
+                    $("input[name=provider_name]").val(data.step1.provider_name);
+                    $("input[name=provider_telephone]").val(data.step1.provider_telephone);
+                    $("input[name=provider_address]").val(data.step1.provider_address);
                     $("input[name=provider_fax]").val(data.step1.provider_fax);
                     $("input[name=provider_contact_person]").val(data.step1.provider_contact_person);
                 }
