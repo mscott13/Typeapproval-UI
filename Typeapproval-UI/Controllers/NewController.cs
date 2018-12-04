@@ -357,7 +357,7 @@ namespace Typeapproval_UI.Controllers
             form.status = "incomplete";
             #endregion
 
-                var client = new HttpClient();
+            var client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:54367/api/data/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -378,6 +378,7 @@ namespace Typeapproval_UI.Controllers
                 {
                     Session["application_id"] = result;
                     Session["save_state"] = "saved";
+
                     return Json(new { responseText = "posted", app_id = result }, JsonRequestBehavior.AllowGet);
                 }
             }
