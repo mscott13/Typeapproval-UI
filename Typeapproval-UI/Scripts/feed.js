@@ -9,6 +9,24 @@
             data: {},
             success: function (data) {
                 console.log(data);
+                initializeFeed(data.userActivities);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+
+    function getRecentDocs() {
+        $.ajax({
+            type: "GET",
+            url: "/home/get-recents",
+            contentType: "application/json; charset=utf-8",
+            data: {},
+            success: function (data) {
+                console.log(data);
+                initializeRecentDocs(data.recentDocuments);
             },
             error: function (data) {
                 console.log(data);
@@ -26,35 +44,37 @@
         var UPDATE = "Update";
 
         var target = $('.ui.aligned.segment').find(".ui.divider");
-        for (var i = 0; i < data.length; i++) 
-        {
-            var html = '';
-            switch (data.type)
-            {
-                case ACCOUNT_TYPE:
-                    break;
-                case APPROVAL_TYPE:
-                     html =
+        if (data.length > 0) {
+            for (var i = data.length - 1; i > -1; i--) {
+                var html = '';
+                if (data[i].type == ACCOUNT_TYPE) {
+                    //implementing soon
+                }
+                else if (data[i].type == APPROVAL_TYPE) {
+                    //implementing soon
+                }
+                else if (data[i].type == SUBMISSION_TYPE) {
+                    html =
                         '<div class="ui feed">' +
                         '<div class="event">' +
                         '<div class="label">' +
-                        '<i class="green check circle icon"></i>' +
+                        '<i class="check circle icon"></i>' +
                         '</div>' +
                         '<div class="content">' +
                         '<div class="summary">' +
-                        'Submission Successful' +
+                        '' + data[i].type + '' +
                         '<div class="date">' +
-                        '04.12.2018 08:29 pm' +
+                        '' + data[i].date + '' +
                         '</div>' +
                         '</div>' +
                         '<div class="extra text">' +
-                        '200933-44089-4944 application was submitted successfully.' +
+                        '<a>' + data[i].description + '</a> application was submitted successfully.' +
                         '</div>' +
                         '</div>' +
                         '</div>' +
                         '</div>';
-                    break;
-                case CANCELLATION_TYPE:
+                }
+                else if (data[i].type == CANCELLATION_TYPE) {
                     html =
                         '<div class="ui feed">' +
                         '<div class="event">' +
@@ -63,74 +83,101 @@
                         '</div>' +
                         '<div class="content">' +
                         '<div class="summary">' +
-                        ' Application Cancelled' +
+                        ' ' + data[i].type + '' +
                         '<div class="date">' +
-                        '04.12.2018 08:29 pm' +
+                        '' + data[i].date + '' +
                         '</div>' +
                         '</div>' +
                         '<div class="extra text">' +
-                        'Application with ID: 2003-300040-2033 was cancelled' +
+                        'Application with ID: <a>' + data.description + '</a> was cancelled' +
                         '</div>' +
                         '</div>' +
                         '</div>' +
                         '</div>';
-                    break;
-                case NEW_APPLICATION_TYPE:
+                }
+
+                else if (data[i].type == NEW_APPLICATION_TYPE) {
                     html =
-                        html =
                         '<div class="ui feed">' +
                         '<div class="event">' +
                         '<div class="label">' +
-                        '<i class="blue file alternate icon"></i>' +
+                        '<i class="file alternate icon"></i>' +
                         '</div>' +
                         '<div class="content">' +
                         '<div class="summary">' +
-                        'New Application' +
+                        '' + data[i].type + '' +
                         ' <div class="date">' +
-                        '04.12.2018 08:29 pm' +
+                        '' + data[i].date + '' +
                         '</div>' +
                         '</div>' +
                         '<div class="extra text">' +
-                        'Application was created with ID: <a><u>2003-33004-30033</u></a>.' +
+                        'Application was created with ID: <a>' + data[i].description + '</a>.' +
                         '</div>' +
                         '<div class="meta">' +
-                        'status: incomplete' +
+                        '' + data[i].extras + '' +
                         '</div>' +
                         '</div>' +
                         '</div>' +
                         '</div>';
-                    break;
-                case SUBMISSION_TYPE:
-                    break;
-                case UPDATE:
+                }
+                else if (data[i].type == UPDATE) {
                     html =
                         '<div class="ui feed">' +
                         '<div class="event">' +
                         '<div class="label">' +
-                        '<i class="red clipboard icon"></i>' +
+                        '<i class="pencil alternate icon"></i>' +
                         '</div>' +
                         '<div class="content">' +
                         '<div class="summary">' +
-                        'Application Update' +
+                        '' + data[i].type + '' +
                         '<div class="date">' +
-                        '04.12.2018 08:29 pm' +
+                        '' + data[i].date + '' +
                         '</div>' +
                         '</div>' +
                         '<div class="extra text">' +
-                        '200933-44089-4944 application was updated' +
+                        '<a>' + data[i].description + '</a> application was updated' +
                         '</div>' +
                         '<div class="meta">' +
-                        'status: incomplete' +
+                        '' + data[i].extras + '' +
                         '</div>' +
                         '</div>' +
                         '</div>' +
                         '</div>';
-                    break;
+                }
+                $(html).insertAfter(target);
             }
         }
-
-        $(html).insertAfter(target);
+        else
+        {
+            var htm = '<p>No activities found on your account</p>';
+            $(htm).insertAfter(target);
+        }
     }
 
+    function initializeRecentDocs(data) {
+        if (data.length > 0) {
+            var target = $('#recentDocs .ui.relaxed.divided.list');
+            for (var i = 0; i < data.length; i++) {
+                var html =
+                    '<div class="item">' +
+                    '<i class="large file alternate middle aligned icon"></i>' +
+                    '<div class="content">' +
+                    ' <a class="header">' + data[i].application_id + '</a>' +
+                    '<div class="description">Last updated: ' + data[i].last_update + '</div>' +
+                    '</div>' +
+                    '</div>';
+
+                $(target).append(html);
+            }
+        }
+        else
+        {
+            $('#recentDocs').find('.ui.relaxed.divided.list').remove();
+            $('#recentDocs').html("No recent documents found.");
+        }
+    }
+
+
+    getRecentDocs();
     getFeed();
 });

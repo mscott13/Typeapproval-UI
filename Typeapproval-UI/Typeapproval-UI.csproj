@@ -161,10 +161,12 @@
     <Compile Include="Models\Form.cs" />
     <Compile Include="Models\Frequency.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\RecentDocuments.cs" />
     <Compile Include="Models\Step1.cs" />
     <Compile Include="Models\Step2.cs" />
     <Compile Include="Models\TypeApproval.cs" />
     <Compile Include="Models\TypeApprovalDetail.cs" />
+    <Compile Include="Models\UserActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

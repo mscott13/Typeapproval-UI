@@ -65,7 +65,31 @@ namespace Typeapproval_UI.Controllers
             if (response.IsSuccessStatusCode)
             {
                 string _result_ = response.Content.ReadAsStringAsync().Result;
-                return Json(new { result = _result_ }, JsonRequestBehavior.AllowGet);
+                List<UserActivity> userActivities = JsonConvert.DeserializeObject<List<UserActivity>>(_result_);
+                return Json(new { userActivities }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { result = "no data" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        [Route("home/get-recents")]
+        public ActionResult GetRecentDocuments()
+        {
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var content = new StringContent(JsonConvert.SerializeObject(Session["key"].ToString()), Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = client.PostAsync("GetRecentDocuments", content).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string _result_ = response.Content.ReadAsStringAsync().Result;
+                List<RecentDocuments> recentDocuments = JsonConvert.DeserializeObject<List<RecentDocuments>>(_result_);
+                return Json(new { recentDocuments }, JsonRequestBehavior.AllowGet);
             }
             else
             {
