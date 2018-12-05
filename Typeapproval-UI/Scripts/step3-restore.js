@@ -59,10 +59,7 @@
                             console.log(data);
                             btn_finish.removeClass('disabled loading');
 
-                            var html = "<p style='text-align: center;'>Your application was submitted with ID: <b>" + data + "</b>. Your application will be reviewed and processed.</p>" +
-                                '<div class="ui raised segment">' +
-                                '< p > Sample invoice here</p>' +
-                                '</div >';
+                            var html = "<p style='text-align: center;'>Your application was submitted with ID: <b>" + data + "</b>. Your application will be reviewed and processed.</p>";
 
                             $('.ui.modal.upload-status').find(".content").html(html);
                             $('.ui.modal.upload-status')

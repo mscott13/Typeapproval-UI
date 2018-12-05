@@ -1,0 +1,61 @@
+﻿.paragraph_ovrd 
+{
+    margin:0 !important;
+    padding:0 !important;
+}
+
+
+#fieldset_main {
+    -moz-border-radius: 16px;
+    border-radius: 16px;
+    -webkit-border-radius: 16px;
+    border-color: #2E2E2E;
+    border-style: solid;
+    margin-left: 20px;
+    padding-bottom: 15px;
+}
+
+#fieldset_invoice {
+
+    margin-top:80px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;
+    -webkit-border-radius: 16px;
+    border-color: #2E2E2E;
+    border-style: solid;
+    margin-left: 20px;
+    padding-bottom: 24px;
+}
+
+u {
+    text-decoration: none;
+    border-bottom: 2px solid black;
+}
+
+.header_override {
+    
+    font-family: sans-serif !important;
+}
+
+.row_override {
+    background-color: #f1f1f1;
+    padding-top: 10px;
+    padding-bottom: 1px;
+}
+
+.row_override_v2 {
+    padding-bottom: 0px !important;
+}
+
+.row_override_v3 {
+    padding-top: 4px !important;
+    padding-bottom: 0px !important;
+}
+
+
+.separator {
+    border-top: 4px solid #2E2E2E;
+    padding:0;
+    margin:0;
+}
+​

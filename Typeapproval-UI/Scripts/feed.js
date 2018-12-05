@@ -68,7 +68,7 @@
                         '</div>' +
                         '</div>' +
                         '<div class="extra text">' +
-                        '<a>' + data[i].description + '</a> application was submitted successfully.' +
+                        '<a>' + data[i].description + '</a> application was submitted successfully' +
                         '</div>' +
                         '</div>' +
                         '</div>' +
@@ -111,7 +111,7 @@
                         '</div>' +
                         '</div>' +
                         '<div class="extra text">' +
-                        'Application was created with ID: <a>' + data[i].description + '</a>.' +
+                        'Application was created with ID: <a>' + data[i].description + '</a>' +
                         '</div>' +
                         '<div class="meta">' +
                         '' + data[i].extras + '' +
@@ -162,7 +162,7 @@
             for (var i = 0; i < data.length; i++) {
                 var html =
                     '<div class="item">' +
-                    '<i class="large file alternate middle aligned icon"></i>' +
+                    '<i class="large blue file alternate middle aligned icon"></i>' +
                     '<div class="content">' +
                     ' <a class="header">' + data[i].application_id + '</a>' +
                     '<div class="description">Last updated: ' + data[i].last_update + '</div>' +
