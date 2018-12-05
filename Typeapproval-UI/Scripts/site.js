@@ -622,7 +622,7 @@
     }
 
     function displayLoginError(message) {
-        var html = '<div id="login_error" class="ui tiny negative floating message">' +
+        var html = '<div id="login_error" class="ui small negative floating message">' +
             ' <p>' + message + '</p>' +
             '</div>';
 

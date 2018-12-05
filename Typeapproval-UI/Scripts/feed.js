@@ -146,9 +146,11 @@
                 }
                 $(html).insertAfter(target);
             }
+            $('.ui.tiny.active.centered.inline.text.loader.feed').remove();
         }
         else
         {
+            $('.ui.tiny.active.centered.inline.text.loader.feed').remove();
             var htm = '<p>No activities found on your account</p>';
             $(htm).insertAfter(target);
         }
@@ -169,9 +171,11 @@
 
                 $(target).append(html);
             }
+            $('.ui.tiny.active.centered.inline.text.loader.docs').remove();
         }
         else
         {
+            $('.ui.tiny.active.centered.inline.text.loader.docs').remove();
             $('#recentDocs').find('.ui.relaxed.divided.list').remove();
             $('#recentDocs').html("No recent documents found.");
         }

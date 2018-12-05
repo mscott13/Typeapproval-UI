@@ -225,6 +225,9 @@ namespace Typeapproval_UI.Controllers
         [Route("retrieve/step-3")]
         public ActionResult GetCurrentApplication()
         {
+            PrepareStep1Session();
+            PrepareStep2Session();
+
             Form form = new Form();
             form.access_key = Session["key"].ToString();
             form.username = Session["username"].ToString();
@@ -392,6 +395,41 @@ namespace Typeapproval_UI.Controllers
         private bool PrepareStep1Session()
         {
             bool initialized = true;
+
+            if (Session["applicant_name"] == null)
+            {
+                Session["applicant_name"] = "";
+            }
+
+            if (Session["applicant_tel"] == null)
+            {
+                Session["applicant_tel"] = "";
+            }
+
+            if (Session["applicant_address"] == null)
+            {
+                Session["applicant_address"] = "";
+            }
+
+            if (Session["applicant_fax"] == null)
+            {
+                Session["applicant_fax"] = "";
+            }
+
+            if (Session["applicant_city_town"] == null)
+            {
+                Session["applicant_city_town"] = "";
+            }
+
+            if (Session["applicant_contact_person"] == null)
+            {
+                Session["applicant_contact_person"] = "";
+            }
+
+            if (Session["applicant_nationality"] == null)
+            {
+                Session["applicant_nationality"] = "";
+            }
 
             if (Session["manufacturer_name"] == null)
             {
