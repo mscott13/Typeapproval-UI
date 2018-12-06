@@ -61,7 +61,7 @@
 
                             var html = "<p style='text-align: center;'>Your application was submitted with ID: <b>" + data + "</b>. Your application will be reviewed and processed.</p>";
 
-                            $('.ui.modal.upload-status').find(".content").html(html);
+                            $('.ui.modal.upload-status').find(".content").prepend(html);
                             $('.ui.modal.upload-status')
                                 .modal({
                                     closable: false,

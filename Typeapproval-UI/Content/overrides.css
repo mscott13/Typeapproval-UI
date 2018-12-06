@@ -1,7 +1,14 @@
-﻿.paragraph_ovrd 
-{
-    margin:0 !important;
-    padding:0 !important;
+﻿.paragraph_ovrd {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-weight:300;
+}
+
+.paragraph_ovrd_v2 {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 12px;
+    font-weight: bold !important;
 }
 
 
@@ -23,8 +30,9 @@
     -webkit-border-radius: 16px;
     border-color: #2E2E2E;
     border-style: solid;
-    margin-left: 20px;
-    padding-bottom: 24px;
+    
+    padding-top: 17px;
+    padding-bottom: 50px;
 }
 
 u {
@@ -39,8 +47,8 @@ u {
 
 .row_override {
     background-color: #f1f1f1;
-    padding-top: 10px;
-    padding-bottom: 1px;
+    padding-top: 10px !important;
+    padding-bottom: 0px !important;
 }
 
 .row_override_v2 {
@@ -49,6 +57,11 @@ u {
 
 .row_override_v3 {
     padding-top: 4px !important;
+    padding-bottom: 0px !important;
+}
+
+.row_override_v4 {
+    padding-top: 10px !important;
     padding-bottom: 0px !important;
 }
 
