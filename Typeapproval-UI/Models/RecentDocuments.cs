@@ -11,5 +11,6 @@ namespace Typeapproval_UI.Models
         public string date { get; set; }
         public string status { get; set; }
         public string last_update { get; set; }
+        public string current_status { get; set; }
     }
 }

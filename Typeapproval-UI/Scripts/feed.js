@@ -1,5 +1,43 @@
 ﻿$(document).ready(function () {
-  
+
+    $('body').on('click', '.form_edit', function () {
+
+        var appid = $(this).data('appid');
+        var html = '<div class="ui tiny active centered inline text loader feed ginfo">Getting info...</div>';
+        $('.ui.tiny.modal.ginfo').find(".content").find(".ui.tiny.active.centered.inline.text.loader.feed.ginfo").remove();
+        $('.ui.tiny.modal.ginfo').find(".content").append(html);
+
+        var modal = $('.ui.tiny.modal.ginfo')
+            .modal({
+                inverted: true,
+                closable: false
+            });
+
+        $(modal).modal('show');
+        $.ajax({
+            type: "GET",
+            url: "/new/edit",
+            contentType: "application/json; charset=utf-8",
+            data: { "application_id": appid },
+            success: function (data) {
+                if (data.responseText == 'ready') {
+                    setTimeout(function () {
+                        window.location = "/new/step-1?from=home";
+                    }, 500);
+                }
+                else
+                {
+                    //appropriate action here
+                }
+
+            },
+            error: function (data) {
+                $(modal).modal('hide');
+            }
+        });
+    });
+
+       
     function getFeed()
     {
         $.ajax({
@@ -70,6 +108,11 @@
                         '<div class="extra text">' +
                         '<a>' + data[i].description + '</a> application was submitted successfully' +
                         '</div>' +
+                        '<div class="meta">' +
+                        '<a class="like">' +
+                        '<i class="eye icon"></i> Preview' +
+                        '</a>' +
+                        '</div>' +
                         '</div>' +
                         '</div>' +
                         '</div>';
@@ -95,30 +138,63 @@
                         '</div>' +
                         '</div>';
                 }
-
+         
                 else if (data[i].type == NEW_APPLICATION_TYPE) {
-                    html =
-                        '<div class="ui feed">' +
-                        '<div class="event">' +
-                        '<div class="label">' +
-                        '<i class="file alternate icon"></i>' +
-                        '</div>' +
-                        '<div class="content">' +
-                        '<div class="summary">' +
-                        '' + data[i].type + '' +
-                        ' <div class="date">' +
-                        '' + data[i].date + '' +
-                        '</div>' +
-                        '</div>' +
-                        '<div class="extra text">' +
-                        'Application was created with ID: <a>' + data[i].description + '</a>' +
-                        '</div>' +
-                        '<div class="meta">' +
-                        '' + data[i].extras + '' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>';
+
+                    if (data[i].current_status == 'completed')
+                    {
+
+                        html =
+                            '<div class="ui feed">' +
+                            '<div class="event">' +
+                            '<div class="label">' +
+                            '<i class="file alternate icon"></i>' +
+                            '</div>' +
+                            '<div class="content">' +
+                            '<div class="summary">' +
+                            '' + data[i].type + '' +
+                            ' <div class="date">' +
+                            '' + data[i].date + '' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="extra text">' +
+                            'Application was created with ID: <a>' + data[i].description + '</a>' +
+                            '</div>' +
+                            '<div class="meta">' +
+                            'status: ' + data[i].extras + '' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+                    }
+                    else
+                    {
+                        html =
+                            '<div class="ui feed">' +
+                            '<div class="event">' +
+                            '<div class="label">' +
+                            '<i class="file alternate icon"></i>' +
+                            '</div>' +
+                            '<div class="content">' +
+                            '<div class="summary">' +
+                            '' + data[i].type + '' +
+                            ' <div class="date">' +
+                            '' + data[i].date + '' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="extra text">' +
+                            'Application was created with ID: <a>' + data[i].description + '</a>' +
+                            '</div>' +
+                            '<div class="meta">' +
+                            'status: ' + data[i].extras + '&nbsp&nbsp|&nbsp&nbsp' +
+                            '<a data-appID="' + data[i].description + '"class="like form_edit">' +
+                            '<i class="edit icon"></i> Edit' +
+                            '</a>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+                    }
                 }
                 else if (data[i].type == UPDATE) {
                     html =
@@ -162,7 +238,7 @@
             for (var i = 0; i < data.length; i++) {
                 var html =
                     '<div class="item">' +
-                    '<i class="large blue file alternate middle aligned icon"></i>' +
+                    '<i class="blue calendar check outline middle aligned icon"></i>' +
                     '<div class="content">' +
                     ' <a class="header">' + data[i].application_id + '</a>' +
                     '<div class="description">Last updated: ' + data[i].last_update + '</div>' +

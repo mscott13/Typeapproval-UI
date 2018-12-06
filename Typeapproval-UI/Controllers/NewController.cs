@@ -101,6 +101,77 @@ namespace Typeapproval_UI.Controllers
         }
 
         [HttpGet]
+        [Route("new/edit")]
+        public ActionResult Edit(string application_id)
+        {
+            dynamic param = new ExpandoObject();
+            param.application_id = application_id;
+            param.access_key = Session["key"].ToString();
+
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var content = new StringContent(JsonConvert.SerializeObject(param), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = client.PostAsync("GetApplication", content).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string result = response.Content.ReadAsStringAsync().Result;
+                Form form = JsonConvert.DeserializeObject<Form>(result);
+                RestoreToSession(form);
+                return Json(new { responseText = "ready" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { responseText = "unavailable" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private void RestoreToSession(Form form)
+        {
+            Session["save_state"] = "saved";
+            Session["application_id"] = form.application_id;
+            Session["applicant_name"] = form.applicant_name;
+            Session["applicant_tel"] = form.applicant_tel;
+            Session["applicant_address"] = form.applicant_address;
+            Session["applicant_fax"] = form.applicant_fax;
+            Session["applicant_city_town"] = form.applicant_city_town;
+            Session["applicant_contact_person"] = form.applicant_contact_person;
+            Session["applicant_nationality"] = form.applicant_nationality;
+
+            Session["manufacturer_name"] = form.manufacturer_name;
+            Session["manufacturer_tel"] = form.manufacturer_tel;
+            Session["manufacturer_address"] = form.manufacturer_address;
+            Session["manufacturer_fax"] = form.manufacturer_fax;
+            Session["manufacturer_contact_person"] = form.manufacturer_contact_person;
+            Session["provider_name"] = form.provider_name;
+            Session["provider_telephone"] = form.provider_telephone;
+            Session["provider_address"] = form.provider_address;
+            Session["provider_fax"] = form.provider_fax;
+            Session["provider_contact_person"] = form.provider_contact_person;
+
+            Session["equipment_type"] = form.equipment_type;
+            Session["equipment_description"] = form.equipment_description;
+            Session["product_identification"] = form.product_identification;
+            Session["refNum"] = form.refNum;
+            Session["make"] = form.make;
+            Session["software"] = form.software;
+            Session["type_of_equipment"] = form.type_of_equipment;
+            Session["other"] = form.other;
+            Session["antenna_type"] = form.antenna_type;
+            Session["antenna_gain"] = form.antenna_gain;
+            Session["channel"] = form.channel;
+            Session["separation"] = form.separation;
+            Session["aspect"] = form.aspect;
+            Session["compatibility"] = form.compatibility;
+            Session["security"] = form.security;
+            Session["equipment_comm_type"] = form.equipment_comm_type;
+            Session["fee_code"] = form.fee_code;
+            Session["frequencies"] = form.frequencies;
+        }
+
+        [HttpGet]
         [Route("new/step-2")]
         public ActionResult Step2()
         {

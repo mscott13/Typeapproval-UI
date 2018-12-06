@@ -13,5 +13,6 @@ namespace Typeapproval_UI.Models
         public string extras { get; set; }
         public int priority { get; set; }
         public string date { get; set; }
+        public string current_status { get; set; }
     }
 }
