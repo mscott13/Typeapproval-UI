@@ -108,11 +108,6 @@
                         '<div class="extra text">' +
                         '<a>' + data[i].description + '</a> application was submitted successfully' +
                         '</div>' +
-                        '<div class="meta">' +
-                        '<a class="like">' +
-                        '<i class="eye icon"></i> Preview' +
-                        '</a>' +
-                        '</div>' +
                         '</div>' +
                         '</div>' +
                         '</div>';
@@ -160,8 +155,8 @@
                             '<div class="extra text">' +
                             'Application was created with ID: <a>' + data[i].description + '</a>' +
                             '</div>' +
-                            '<div class="meta">' +
-                            'status: ' + data[i].extras + '' +
+                        '<div class="meta">' +
+                        'status: ' + data[i].current_status + '' +
                             '</div>' +
                             '</div>' +
                             '</div>' +
@@ -212,9 +207,6 @@
                         '</div>' +
                         '<div class="extra text">' +
                         '<a>' + data[i].description + '</a> application was updated' +
-                        '</div>' +
-                        '<div class="meta">' +
-                        '' + data[i].extras + '' +
                         '</div>' +
                         '</div>' +
                         '</div>' +
