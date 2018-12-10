@@ -4,3 +4,66 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section Scripts{
+    <script src="~/Scripts/saved-apps.js"></script>
+}
+
+@section Styles{
+
+}
+
+<div class="ui grid">
+    <div class="five wide column">
+        <div class="ui sticky saved-docs">
+            <div class="ui icon ignored small info message">
+                <i class="info icon"></i>
+                <div class="content">
+                    <p>Choose an application below to display a non-editable preview.</p>
+                </div>
+            </div>
+            <div class="ui fluid card">
+                <div class="content">
+                    <div class="header">
+                        Your Applications
+                    </div>
+                </div>
+                <div id="savedDocs" class="content">
+                    <div class="ui tiny active centered inline text loader saved-docs">Getting info...</div>
+                </div>
+                <div class="extra content">
+                    <button id="edit_application" type="button" class="ui mini button">
+                        <i class="icon pencil alternate"></i>
+                        Edit
+                    </button>
+                    <button id="delete_application" type="button" class="ui mini right floated button">
+                        <i class="icon trash"></i>
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="eleven wide column">
+        @{
+            if (Convert.ToInt32(Session["saved_count"]) == 0)
+            {
+                <div class="ui raised placeholder segment">
+                    <div class="ui icon header">
+                        <i class="file alternate icon"></i>
+                        No saved applications found on your account
+                    </div>
+                    <div id="btn_new_application" class="ui primary button">Create Application</div>
+                </div>
+            }
+            else
+            {
+                <div id="context" class="ui raised segment">
+                    <div id="preview" class="content">
+                        <div class="ui tiny active centered inline text loader saved-docs-preview">Getting info...</div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+

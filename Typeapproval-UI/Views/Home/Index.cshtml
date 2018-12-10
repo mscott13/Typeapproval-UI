@@ -8,9 +8,13 @@
     <script src="~/Scripts/feed.js"></script>
 }
 
+@section Styles{
+    <link href="~/Content/overrides.css" rel="stylesheet" />
+}
+
+
 <div class="ui grid">
     <div class="five wide column">
-
         <div class="ui icon message">
             <i class="info icon"></i>
             <div class="content">
@@ -51,6 +55,13 @@
 
 <div style="width:150px !important;" class="ui tiny modal ginfo">
     <div id="getinfo" class="content">
-        
+
+    </div>
+</div>
+
+<div class="ui long modal">
+    <div class="header">Application Preview</div>
+    <div id="preview" class="content">
+
     </div>
 </div>

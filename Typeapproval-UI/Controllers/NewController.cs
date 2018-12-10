@@ -128,6 +128,33 @@ namespace Typeapproval_UI.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("new/preview")]
+        public ActionResult Preview(string application_id)
+        {
+            dynamic param = new ExpandoObject();
+            param.application_id = application_id;
+            param.access_key = Session["key"].ToString();
+
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var content = new StringContent(JsonConvert.SerializeObject(param), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = client.PostAsync("GetApplication", content).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string result = response.Content.ReadAsStringAsync().Result;
+                Form form = JsonConvert.DeserializeObject<Form>(result);
+                return Json(new {form }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { responseText = "unavailable" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         private void RestoreToSession(Form form)
         {
             Session["save_state"] = "saved";

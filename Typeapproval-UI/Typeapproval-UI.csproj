@@ -162,6 +162,7 @@
     <Compile Include="Models\Frequency.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\RecentDocuments.cs" />
+    <Compile Include="Models\SavedApplications.cs" />
     <Compile Include="Models\Step1.cs" />
     <Compile Include="Models\Step2.cs" />
     <Compile Include="Models\TypeApproval.cs" />
@@ -230,6 +231,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\saved-apps.js" />
     <Content Include="Scripts\semantic.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\step1-restore.js" />

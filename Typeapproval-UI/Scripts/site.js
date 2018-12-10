@@ -11,7 +11,12 @@
     $('.ui.small.red.label').popup();
     $('.header.item').popup();
 
-    $('.ui.sticky').sticky({
+    $('.ui.sticky._form').sticky({
+        context: '#context'
+    });
+
+    $('.ui.sticky.saved-docs').sticky({
+        observeChanges: true,
         context: '#context'
     });
 
@@ -19,6 +24,10 @@
         onChange: function (val) {
 
         }
+    });
+
+    $('#btn_new_application').click(function () {
+        window.location = '/new/step-1';
     });
 
     $('.ui.small.category.search')
