@@ -3,6 +3,57 @@
     $('body').on('click', '.ui.divided.selection.list .item', function () {
         $('.ui.divided.selection.list .item').removeClass('active');
         $(this).toggleClass("active");
+
+        $('#preview').html('<div class="ui tiny active centered inline text loader saved-docs-preview">Getting info...</div>');
+
+        $.ajax({
+            type: "GET",
+            url: "/new/preview",
+            contentType: "application/json; charset=utf-8",
+            data: { "application_id": $(this).data('appid') },
+            success: function (data) {
+                initializePreview(data.form);
+            },
+            error: function (data) {
+                $('.ui.tiny.active.centered.inline.text.loader.saved-docs-preview').remove();
+            }
+        });
+    });
+
+    $('#edit_application').click(function () {
+
+        var appid = $('.active.item').data('appid');
+        var html = '<div class="ui tiny active centered inline text loader feed ginfo">Getting info...</div>';
+        $('.ui.tiny.modal.ginfo').find(".content").find(".ui.tiny.active.centered.inline.text.loader.feed.ginfo").remove();
+        $('.ui.tiny.modal.ginfo').find(".content").append(html);
+
+        var modal = $('.ui.tiny.modal.ginfo')
+            .modal({
+                inverted: true,
+                closable: false
+            });
+
+        $(modal).modal('show');
+        $.ajax({
+            type: "GET",
+            url: "/new/edit",
+            contentType: "application/json; charset=utf-8",
+            data: { "application_id": appid },
+            success: function (data) {
+                if (data.responseText == 'ready') {
+                    setTimeout(function () {
+                        window.location = "/new/step-1?from=home";
+                    }, 500);
+                }
+                else {
+                    //appropriate action here
+                }
+
+            },
+            error: function (data) {
+                $(modal).modal('hide');
+            }
+        });
     });
 
     $.ajax({
@@ -89,7 +140,7 @@
             for (var i = 0; i < data.length; i++) {
                 if (i == 0) {
                     html_inner +=
-                        '<div class="active item">' +
+                        '<div class="active item" data-appid=' + data[i].application_id +'>' +
                         '<div class="content">' +
                         '<div class="header">' + data[i].application_id + '</div>' +
                         'Last update:' + data[i].last_updated + '' +
@@ -98,7 +149,7 @@
                 }
                 else {
                     html_inner +=
-                        '<div class="active item">' +
+                        '<div class="item" data-appid=' + data[i].application_id +'>' +
                         '<div class="content">' +
                         '<div class="header">' + data[i].application_id + '</div>' +
                         'Last update:' + data[i].last_updated + '' +

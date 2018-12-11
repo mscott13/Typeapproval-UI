@@ -17,7 +17,7 @@
 
     $('.ui.sticky.saved-docs').sticky({
         observeChanges: true,
-        context: '#context'
+        context: '.context'
     });
 
     $('.ui.top.left.pointing.dropdown.item').dropdown({
@@ -25,6 +25,7 @@
 
         }
     });
+
 
     $('#btn_new_application').click(function () {
         window.location = '/new/step-1';

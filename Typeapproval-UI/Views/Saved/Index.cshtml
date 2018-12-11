@@ -35,9 +35,9 @@
                         <i class="icon pencil alternate"></i>
                         Edit
                     </button>
-                    <button id="delete_application" type="button" class="ui mini right floated button">
+                    <button id="cancel_application" type="button" class="ui mini right floated basic red button">
                         <i class="icon trash"></i>
-                        Delete
+                        Cancel
                     </button>
                 </div>
             </div>
@@ -47,7 +47,7 @@
         @{
             if (Convert.ToInt32(Session["saved_count"]) == 0)
             {
-                <div class="ui raised placeholder segment">
+                <div style="min-height: 0px !important;" class="ui raised placeholder segment">
                     <div class="ui icon header">
                         <i class="file alternate icon"></i>
                         No saved applications found on your account
@@ -57,13 +57,24 @@
             }
             else
             {
-                <div id="context" class="ui raised segment">
-                    <div id="preview" class="content">
-                        <div class="ui tiny active centered inline text loader saved-docs-preview">Getting info...</div>
+                <div class="ui progress" data-percent="74">
+                    <div class="bar">
+                        <div class="progress"></div>
                     </div>
+                    <div class="label">Application progress</div>
+                </div>
+
+                <div id="preview" class="content context">
+                    <div class="ui tiny active centered inline text loader saved-docs-preview">Getting info...</div>
                 </div>
             }
         }
+    </div>
+</div>
+
+<div style="width:150px !important;" class="ui tiny modal ginfo">
+    <div id="getinfo" class="content">
+
     </div>
 </div>
 
