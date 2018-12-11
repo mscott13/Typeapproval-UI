@@ -1,4 +1,6 @@
-﻿.paragraph_ovrd {
+﻿@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
+
+.paragraph_ovrd {
     margin: 0 !important;
     padding: 0 !important;
     font-weight:300;
@@ -71,4 +73,12 @@ u {
     padding:0;
     margin:0;
 }
-​
+
+#cert_gea 
+{
+    margin-top: 5px;
+    text-align:center;
+    font-size: 22px;
+    font-family: Arial;
+    font-weight:normal;
+}

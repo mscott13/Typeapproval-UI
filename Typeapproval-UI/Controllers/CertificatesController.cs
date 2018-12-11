@@ -19,11 +19,6 @@ namespace Typeapproval_UI.Controllers
             Session.Remove("manufacturer_address");
             Session.Remove("manufacturer_fax");
             Session.Remove("manufacturer_contact_person");
-            Session.Remove("provider_name");
-            Session.Remove("provider_telephone");
-            Session.Remove("provider_address");
-            Session.Remove("provider_fax");
-            Session.Remove("provider_contact_person");
 
             Session.Remove("equipment_type");
             Session.Remove("equipment_description");

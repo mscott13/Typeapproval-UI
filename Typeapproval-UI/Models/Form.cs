@@ -81,31 +81,6 @@ namespace Typeapproval_UI.Models
                 manufacturer_contact_person = "";
             }
 
-            if (provider_name == null)
-            {
-                provider_name = "";
-            }
-
-            if (provider_telephone == null)
-            {
-                provider_telephone = "";
-            }
-
-            if (provider_address == null)
-            {
-                provider_address = "";
-            }
-
-            if (provider_fax == null)
-            {
-                provider_fax = "";
-            }
-
-            if (provider_contact_person == null)
-            {
-                provider_contact_person = "";
-            }
-
             if (equipment_type == null)
             {
                 equipment_type = "";
@@ -247,11 +222,6 @@ namespace Typeapproval_UI.Models
         public string manufacturer_address { get; set; }
         public string manufacturer_fax { get; set; }
         public string manufacturer_contact_person { get; set; }
-        public string provider_name { get; set; }
-        public string provider_telephone { get; set; }
-        public string provider_address { get; set; }
-        public string provider_fax { get; set; }
-        public string provider_contact_person { get; set; }
         public string equipment_type { get; set; }
         public string equipment_description { get; set; }
         public string product_identification { get; set; }

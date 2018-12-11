@@ -27,11 +27,6 @@ namespace Typeapproval_UI.Controllers
                 Session.Remove("manufacturer_address");
                 Session.Remove("manufacturer_fax");
                 Session.Remove("manufacturer_contact_person");
-                Session.Remove("provider_name");
-                Session.Remove("provider_telephone");
-                Session.Remove("provider_address");
-                Session.Remove("provider_fax");
-                Session.Remove("provider_contact_person");
 
                 Session.Remove("equipment_type");
                 Session.Remove("equipment_description");
@@ -172,12 +167,6 @@ namespace Typeapproval_UI.Controllers
             Session["manufacturer_address"] = form.manufacturer_address;
             Session["manufacturer_fax"] = form.manufacturer_fax;
             Session["manufacturer_contact_person"] = form.manufacturer_contact_person;
-            Session["provider_name"] = form.provider_name;
-            Session["provider_telephone"] = form.provider_telephone;
-            Session["provider_address"] = form.provider_address;
-            Session["provider_fax"] = form.provider_fax;
-            Session["provider_contact_person"] = form.provider_contact_person;
-
             Session["equipment_type"] = form.equipment_type;
             Session["equipment_description"] = form.equipment_description;
             Session["product_identification"] = form.product_identification;
@@ -222,11 +211,6 @@ namespace Typeapproval_UI.Controllers
             Session["manufacturer_address"] = form.manufacturer_address;
             Session["manufacturer_fax"] = form.manufacturer_fax;
             Session["manufacturer_contact_person"] = form.manufacturer_contact_person;
-            Session["provider_name"] = form.provider_name;
-            Session["provider_telephone"] = form.provider_telephone;
-            Session["provider_address"] = form.provider_address;
-            Session["provider_fax"] = form.provider_fax;
-            Session["provider_contact_person"] = form.provider_contact_person;
 
             return Json(new { success = true, responseText = "state saved" }, JsonRequestBehavior.AllowGet);
         }
@@ -268,12 +252,7 @@ namespace Typeapproval_UI.Controllers
             step1.manufacturer_address = Session["manufacturer_address"].ToString();
             step1.manufacturer_fax = Session["manufacturer_fax"].ToString();
             step1.manufacturer_contact_person = Session["manufacturer_contact_person"].ToString();
-            step1.provider_name = Session["provider_name"].ToString();
-            step1.provider_telephone = Session["provider_telephone"].ToString();
-            step1.provider_address = Session["provider_address"].ToString();
-            step1.provider_fax = Session["provider_fax"].ToString();
-            step1.provider_contact_person = Session["provider_contact_person"].ToString();
-
+         
             return Json(new { step1, data_present = initialized }, JsonRequestBehavior.AllowGet);
         }
 
@@ -348,11 +327,6 @@ namespace Typeapproval_UI.Controllers
             form.manufacturer_address = Session["manufacturer_address"].ToString();
             form.manufacturer_fax = Session["manufacturer_fax"].ToString();
             form.manufacturer_contact_person = Session["manufacturer_contact_person"].ToString();
-            form.provider_name = Session["provider_name"].ToString();
-            form.provider_telephone = Session["provider_telephone"].ToString();
-            form.provider_address = Session["provider_address"].ToString();
-            form.provider_fax = Session["provider_fax"].ToString();
-            form.provider_contact_person = Session["provider_contact_person"].ToString();
 
             form.equipment_type = Session["equipment_type"].ToString();
             form.equipment_description = Session["equipment_description"].ToString();
@@ -431,11 +405,6 @@ namespace Typeapproval_UI.Controllers
             form.manufacturer_address = Session["manufacturer_address"].ToString();
             form.manufacturer_fax = Session["manufacturer_fax"].ToString();
             form.manufacturer_contact_person = Session["manufacturer_contact_person"].ToString();
-            form.provider_name = Session["provider_name"].ToString();
-            form.provider_telephone = Session["provider_telephone"].ToString();
-            form.provider_address = Session["provider_address"].ToString();
-            form.provider_fax = Session["provider_fax"].ToString();
-            form.provider_contact_person = Session["provider_contact_person"].ToString();
 
             form.equipment_type = Session["equipment_type"].ToString();
             form.equipment_description = Session["equipment_description"].ToString();
@@ -556,36 +525,6 @@ namespace Typeapproval_UI.Controllers
             if (Session["manufacturer_contact_person"] == null)
             {
                 Session["manufacturer_contact_person"] = "";
-                initialized = false;
-            }
-
-            if (Session["provider_name"] == null)
-            {
-                Session["provider_name"] = "";
-                initialized = false;
-            }
-
-            if (Session["provider_telephone"] == null)
-            {
-                Session["provider_telephone"] = "";
-                initialized = false;
-            }
-
-            if (Session["provider_address"] == null)
-            {
-                Session["provider_address"] = "";
-                initialized = false;
-            }
-
-            if (Session["provider_fax"] == null)
-            {
-                Session["provider_fax"] = "";
-                initialized = false;
-            }
-
-            if (Session["provider_contact_person"] == null)
-            {
-                Session["provider_contact_person"] = "";
                 initialized = false;
             }
 
@@ -748,7 +687,7 @@ namespace Typeapproval_UI.Controllers
             }
             #endregion
 
-            #region manufacturer/provider
+            #region manufacturer
             if (form.manufacturer_name == null || form.manufacturer_name == "")
             {
                 status = false;
@@ -770,31 +709,6 @@ namespace Typeapproval_UI.Controllers
             }
 
             if (form.manufacturer_contact_person == null || form.manufacturer_contact_person == "")
-            {
-                status = false;
-            }
-
-            if (form.provider_name == null || form.provider_name == "")
-            {
-                status = false;
-            }
-
-            if (form.provider_telephone == null || form.provider_telephone == "")
-            {
-                status = false;
-            }
-
-            if (form.provider_address == null || form.provider_address == "")
-            {
-                status = false;
-            }
-
-            if (form.provider_fax == null || form.provider_fax == "")
-            {
-                status = false;
-            }
-
-            if (form.provider_contact_person == null || form.provider_contact_person == "")
             {
                 status = false;
             }
@@ -898,21 +812,6 @@ namespace Typeapproval_UI.Controllers
                 }
 
                 if (form.frequencies[i].upper_freq == null || form.frequencies[i].upper_freq == "")
-                {
-                    status = false;
-                }
-
-                if (form.frequencies[i].power == null || form.frequencies[i].power == "")
-                {
-                    status = false;
-                }
-
-                if (form.frequencies[i].emmission_desig == null || form.frequencies[i].emmission_desig == "")
-                {
-                    status = false;
-                }
-
-                if (form.frequencies[i].freq_type == null || form.frequencies[i].freq_type == "")
                 {
                     status = false;
                 }

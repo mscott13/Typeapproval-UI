@@ -1,5 +1,9 @@
 ﻿$(document).ready(function () {
 
+    $('#btn_new_application').click(function () {
+        window.location = '/new/step-1';
+    });
+
     $('body').on('click', '.ui.divided.selection.list .item', function () {
         $('.ui.divided.selection.list .item').removeClass('active');
         $(this).toggleClass("active");
@@ -63,18 +67,26 @@
         data: {},
         success: function (data) {
             initializeSavedApps(data.savedApplications);
-            $.ajax({
-                type: "GET",
-                url: "/new/preview",
-                contentType: "application/json; charset=utf-8",
-                data: { "application_id": data.savedApplications[0].application_id },
-                success: function (data) {
-                    initializePreview(data.form);
-                },
-                error: function (data) {
-                    $('.ui.tiny.active.centered.inline.text.loader.saved-docs-preview').remove();
-                }
-            });
+
+            if (data.savedApplications.length > 0) {
+                $.ajax({
+                    type: "GET",
+                    url: "/new/preview",
+                    contentType: "application/json; charset=utf-8",
+                    data: { "application_id": data.savedApplications[0].application_id },
+                    success: function (data) {
+                        initializePreview(data.form);
+                    },
+                    error: function (data) {
+                        $('.ui.tiny.active.centered.inline.text.loader.saved-docs-preview').remove();
+                    }
+                });
+            }
+            else
+            {
+
+            }
+            
         },
         error: function (data) {
             console.log(data);

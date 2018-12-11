@@ -174,6 +174,7 @@
     <Content Include="Content\images\avatar.png" />
     <Content Include="Content\images\dust_scratches.png" />
     <Content Include="Content\images\invoice_logo.PNG" />
+    <Content Include="Content\images\jarms2.jpg" />
     <Content Include="Content\images\paper_1.png" />
     <Content Include="Content\images\Spectrum-Management-Authority.png" />
     <Content Include="Content\login.css" />
@@ -219,6 +220,7 @@
     <Content Include="Content\themes\material\assets\fonts\icons.woff2" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\dom-to-image.js" />
     <Content Include="Scripts\feed.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

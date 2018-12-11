@@ -6,6 +6,7 @@
 
 @section Scripts{
     <script src="~/Scripts/feed.js"></script>
+    <script src="~/Scripts/dom-to-image.js"></script>
 }
 
 @section Styles{
@@ -22,9 +23,9 @@
             </div>
         </div>
 
-        <div class="ui fluid card">
+        <div class="ui fluid raised card">
             <div class="content">
-                <div class="header">Recent Applications</div>
+                <div class="header">Completed Applications</div>
             </div>
             <div id="recentDocs" class="content">
                 <div class="ui relaxed divided list">
@@ -38,9 +39,19 @@
                 </button>
             </div>
         </div>
+
+        <div class="ui fluid raised card">
+            <div class="content">
+                <div class="header">Certificates</div>
+            </div>
+            <div id="certificates" class="content">
+                No certificates found on your account.
+            </div>
+        </div>
+
     </div>
     <div class="eleven wide column">
-        <div class="ui aligned segment">
+        <div class="ui raised aligned segment">
             <h5 class="ui header">
                 <div class="content">
                     <i class="large icon clock outline"></i>
