@@ -555,7 +555,7 @@
     });
 
     $("#search_manufacturers").marcoPolo({
-        url: "http://localhost:54367/api/data/ClientCompanyList",
+        url: "http://localhost:54367/api/data/ManufacturersDetail",
         delay: 50,
         minChars: 3,
         required: true,
@@ -569,7 +569,7 @@
             }
             else {
                 $("#search_manufacturers").val(data.name);
-                $("#search_manufacturers").attr("data-clientid", data.clientId);
+                $("#search_manufacturers").attr("data-clientid", "0");
                 $("input[name=manufacturer_telephone]").val(data.telephone);
                 $("input[name=manufacturer_address]").val(data.address);
                 $("input[name=manufacturer_fax]").val(data.fax);

@@ -14,18 +14,18 @@
 }
 
 
-<div class="ui grid">
+<div style="margin-left:14px !important; margin-right:14px !important;" class="ui grid">
     <div class="five wide column">
         <div class="ui icon ignored small info message">
             <i class="info icon"></i>
             <div class="content">
-                <p>Recently completed applications within <b>10 days</b> will be displayed below.</p>
+                <p>Recently licensed applications within <b>10 days</b> will be displayed below.</p>
             </div>
         </div>
 
         <div class="ui fluid raised card">
             <div class="content">
-                <h4 class="ui header">Completed Applications</h4>
+                <h4 class="ui header">Licensed Applications</h4>
             </div>
             <div id="recentDocs" class="content">
                 <div class="ui relaxed divided list">
@@ -62,11 +62,34 @@
             <h5 class="ui header">
                 <div class="content">
                     <i class="large icon clock outline"></i>
-                    Activity
+                    Recent Activity
                 </div>
             </h5>
             <div class="ui divider"></div>
-            <div class="ui tiny active centered inline text loader feed">Getting info...</div>
+
+            <table class="ui single line table">
+                <thead>
+                    <tr>
+                        <th>Application ID</th>
+                        <th>Manufacturer</th>
+                        <th>Model</th>
+                        <th>Created Date</th>
+                        <th>Last Update</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>8ed91c11-4fac-4802-9812-39b3ecae7a96</td>
+                        <td>Dell Inc.</td>
+                        <td>1000CP03S</td>
+                        <td>12/11/2018 1:29 pm</td>
+                        <td>12/11/2018 2:48 pm</td>
+                        <td>Not submitted</td>
+                    </tr>
+                </tbody>
+            </table>
+
         </div>
     </div>
 </div>
