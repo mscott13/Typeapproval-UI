@@ -172,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\images\avatar.png" />
+    <Content Include="Content\images\copy_watermark.jpg" />
     <Content Include="Content\images\dust_scratches.png" />
     <Content Include="Content\images\invoice_logo.PNG" />
     <Content Include="Content\images\jarms2.jpg" />
