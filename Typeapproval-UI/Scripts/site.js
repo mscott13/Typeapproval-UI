@@ -26,7 +26,6 @@
         }
     });
 
-
     $('#btn_new_application').click(function () {
         window.location = '/new/step-1';
     });
@@ -446,7 +445,7 @@
                 $("#btn_login").removeClass("disabled loading");
 
                 if (data.success === true) {
-                    window.location.href = "/account";
+                    window.location.href = "/grid";
                 }
                 else {
                     displayLoginError("Check your login credentials then try again.");

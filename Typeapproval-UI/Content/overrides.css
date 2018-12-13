@@ -53,6 +53,7 @@ u {
     padding-bottom: 0px !important;
 }
 
+
 .row_override_v1 {
     padding-bottom: 0px !important;
     padding-top: 0px !important;
@@ -129,4 +130,9 @@ u {
     FONT-WEIGHT: bold;
     margin-left: 5px;
     margin-right: 5px;
+}
+
+.italic_content 
+{
+    font-style:italic;
 }

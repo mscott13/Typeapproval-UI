@@ -18,7 +18,11 @@
         <div class="ui fluid container">
             <a class="header item" href="~/home">
                 <i class="home icon"></i>
-                Home
+                Dashboard
+            </a>
+            <a class="header item" href="~/home">
+                <i class="th icon"></i>
+                Main
             </a>
             <div class="item">
                 <div class="ui small fluid category search">
@@ -61,8 +65,18 @@
             </div>
         </div>
     </div>
-    <div class="ui fluid container">
-        @RenderBody()
+    <div class="ui grid">
+       <div class="row">
+           <div class="one wide column">
+
+           </div>
+           <div class="fourteen wide column">
+               @RenderBody()
+           </div>
+           <div class="one wide column">
+
+           </div>
+       </div>
     </div>
 
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
