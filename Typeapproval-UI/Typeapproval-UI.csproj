@@ -172,6 +172,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\custom.css" />
     <Content Include="Content\images\avatar.png" />
     <Content Include="Content\images\copy_watermark.jpg" />
     <Content Include="Content\images\dust_scratches.png" />
@@ -224,6 +225,7 @@
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\dom-to-image.js" />
     <Content Include="Scripts\feed.js" />
+    <Content Include="Scripts\grid.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />

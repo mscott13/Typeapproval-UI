@@ -13,75 +13,93 @@
     <link href="~/Content/overrides.css" rel="stylesheet" />
 </head>
 <body>
-    <div style="padding-top:200px;" class="ui container">
-        <div class="ui three column grid">
-            <div class="row row_override_v1">
-                <div style="padding:0 !important;" class="column">
-                   <div class="grid_item">
-                       <h2 class="ui icon header">
-                           <i class="settings icon"></i>
-                           <div class="content">
-                               Account Settings
-                               <div class="sub header">Manage your account settings and set e-mail preferences.</div>
-                           </div>
-                       </h2>
-                   </div>
-                </div>
-                <div style="padding:0 !important;" class="column">
-                    <div class="grid_item">
-                        <h2 class="ui icon header">
-                            <i class="settings icon"></i>
-                            <div class="content">
-                                Account Settings
-                                <div class="sub header">Manage your account settings and set e-mail preferences.</div>
-                            </div>
-                        </h2>
-                    </div>
-                </div>
-                <div style="padding:0 !important;" class="column">
-                    <div class="grid_item">
-                        <h2 class="ui icon header">
-                            <i class="settings icon"></i>
-                            <div class="content">
-                                Account Settings
-                                <div class="sub header">Manage your account settings and set e-mail preferences.</div>
-                            </div>
-                        </h2>
-                    </div>
-                </div>
+    <div class="ui tiny secondary  menu">
+        <div class="ui item">
+            <div class="header item">
+                <i class="th large icon"></i>
+                Main
             </div>
-            <div class="row row_override_v1">
-                <div style="padding:0 !important;" class="column">
-                    <div class="grid_item">
-                        <h2 class="ui icon header">
-                            <i class="settings icon"></i>
-                            <div class="content">
-                                Account Settings
-                                <div class="sub header">Manage your account settings and set e-mail preferences.</div>
-                            </div>
-                        </h2>
+        </div>
+        <div class="right menu">
+            <div class="ui item">
+                Signed in as:&nbsp;&nbsp;<i>@Session["name"]</i>
+            </div>
+            <div class="ui item">
+                <a style="text-decoration:underline !important;" id="sign_out" href="#">Sign out</a>
+            </div>
+        </div>
+    </div>
+    <div style="padding-top:10vh;" class="ui container">
+        <div class="grid_shadow">
+            <div class="ui three column internally celled grid">
+                <div class="row row_override_v1">
+                    <div style="padding:0 !important;" class="column">
+                        <div id="dashboard" class="grid_item">
+                            <h2 class="ui blue icon center aligned medium header">
+                                <i class="th large icon"></i>
+                                <div class="content">
+                                    Dashboard
+                                    <div style="margin-top:10px;" class="sub header"><i>Show at a glance information about currently active applications</i></div>
+                                </div>
+                            </h2>
+                        </div>
+                    </div>
+                    <div style="padding:0 !important;" class="column">
+                        <div  id="type_approval" class="grid_item">
+                            <h2 class="ui blue icon center aligned medium header">
+                                <i class="file alternate icon"></i>
+                                <div class="content">
+                                    Type Approvals
+                                    <div style="margin-top:10px;" class="sub header"><i>Create a new type approval application</i></div>
+                                </div>
+                            </h2>
+                        </div>
+                    </div>
+                    <div style="padding:0 !important;" class="column">
+                        <div  id="marine_license" class="grid_item">
+                            <h2 class="ui disabled blue icon center aligned medium header">
+                                <i class="file alternate icon"></i>
+                                <div class="content">
+                                    Marine License
+                                    <div style="margin-top:10px;" class="sub header"><i>Create a new marine license application</i></div>
+                                </div>
+                            </h2>
+                        </div>
                     </div>
                 </div>
-                <div style="padding:0 !important;" class="column">
-                    <div class="grid_item">
-                        <h2 class="ui icon header">
-                            <i class="settings icon"></i>
-                            <div class="content">
-                                Account Settings
-                                <div class="sub header">Manage your account settings and set e-mail preferences.</div>
-                            </div>
-                        </h2>
+                <div class="row row_override_v1">
+                    <div style="padding:0 !important;" class="column">
+                        <div  id="microwave" class="grid_item">
+                            <h2 class="ui disabled blue icon center aligned medium header">
+                                <i class="file alternate icon"></i>
+                                <div class="content">
+                                    Microwave
+                                    <div style="margin-top:10px;" class="sub header"><i>Create a new microwave application</i></div>
+                                </div>
+                            </h2>
+                        </div>
                     </div>
-                </div>
-                <div style="padding:0 !important;" class="column">
-                    <div class="grid_item">
-                        <h2 class="ui icon header">
-                            <i class="settings icon"></i>
-                            <div class="content">
-                                Account Settings
-                                <div class="sub header">Manage your account settings and set e-mail preferences.</div>
-                            </div>
-                        </h2>
+                    <div style="padding:0 !important;" class="column">
+                        <div  id="private_radio" class="grid_item">
+                            <h2 class="ui blue disabled icon center aligned medium header">
+                                <i class="file alternate icon"></i>
+                                <div class="content">
+                                    Private Radio
+                                    <div style="margin-top:10px;" class="sub header"><i>Create a new private radio application</i></div>
+                                </div>
+                            </h2>
+                        </div>
+                    </div>
+                    <div style="padding:0 !important;" class="column">
+                        <div  id="account_settings" class="grid_item">
+                            <h2 class="ui disabled blue icon center aligned medium header">
+                                <i class="settings icon"></i>
+                                <div class="content">
+                                    Account Settings
+                                    <div style="margin-top:10px;" class="sub header"><i>Edit your personal profile and application preferences here</i></div>
+                                </div>
+                            </h2>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -89,5 +107,6 @@
     </div>
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script src="~/Scripts/semantic.js"></script>
+    <script src="~/Scripts/grid.js"></script>
 </body>
 </html>
