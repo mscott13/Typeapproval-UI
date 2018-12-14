@@ -1,17 +1,25 @@
 ﻿.grid_item {
     width: 100%;
     height: 100%;
-    padding:20px;
-    cursor:pointer;
-    transition:0.5s;
+    padding: 20px;
+    cursor: pointer;
+    transition: 0.5s;
 }
 
-    .grid_item:hover {
-        background-color: #EAF3FA;
-    }
+.grid_item:hover {
+    background-color: #EAF3FA;
+}
 
-    .grid_shadow {
-        width: auto;
-        height: auto;
-        box-shadow: 0 0px 20px rgba(0, 0, 0, 0.05), 0 6px 10px rgba(0, 0, 0, 0.01);
-    }
+.grid_shadow {
+    width: auto;
+    height: auto;
+    box-shadow: 0 0px 20px rgba(0, 0, 0, 0.05), 0 6px 10px rgba(0, 0, 0, 0.01);
+}
+
+.font-size-adjust
+{
+    font-size:14px !important;
+}
+
+
+

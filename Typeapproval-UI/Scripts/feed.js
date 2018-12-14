@@ -65,6 +65,11 @@
         });
     });
 
+    $('.license_view').click(function () {
+        window.location = "/certificates";
+    });
+
+
     function initializePreview(data)
     {
         $('.actions').remove();
