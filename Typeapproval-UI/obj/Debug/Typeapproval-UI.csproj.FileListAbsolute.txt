@@ -266,8 +266,8 @@ C:\Users\Mark Scott\Desktop\Git-Repositories\Typeapproval-UI\Typeapproval-UI\bin
 C:\Users\Mark Scott\Desktop\Git-Repositories\Typeapproval-UI\Typeapproval-UI\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\Mark Scott\Desktop\Git-Repositories\Typeapproval-UI\Typeapproval-UI\bin\Microsoft.AI.Web.xml
 C:\Users\Mark Scott\Desktop\Git-Repositories\Typeapproval-UI\Typeapproval-UI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Mark Scott\Desktop\Git-Repositories\Typeapproval-UI\Typeapproval-UI\obj\Debug\Typeapproval-UI.csprojAssemblyReference.cache
 C:\Users\Mark Scott\Desktop\Git-Repositories\Typeapproval-UI\Typeapproval-UI\obj\Debug\Typeapproval-UI.csproj.CoreCompileInputs.cache
 C:\Users\Mark Scott\Desktop\Git-Repositories\Typeapproval-UI\Typeapproval-UI\obj\Debug\Typeapproval-UI.csproj.CopyComplete
 C:\Users\Mark Scott\Desktop\Git-Repositories\Typeapproval-UI\Typeapproval-UI\obj\Debug\Typeapproval-UI.dll
 C:\Users\Mark Scott\Desktop\Git-Repositories\Typeapproval-UI\Typeapproval-UI\obj\Debug\Typeapproval-UI.pdb
+C:\Users\Mark Scott\Desktop\Git-Repositories\Typeapproval-UI\Typeapproval-UI\obj\Debug\Typeapproval-UI.csprojAssemblyReference.cache

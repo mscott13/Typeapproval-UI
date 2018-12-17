@@ -14,97 +14,109 @@
 }
 
 
-<div class="ui grid">
-    <div class="four wide column">
-        <div class="ui sticky _form">
-            <div class="ui ignored small info message">
-                <div class="header">
-                    Form controls
-                </div>
-                <p>This section allows you to <b>save</b> an incomplete application for later use. </p>
-            </div>
-            @{
-                if (Session["save_state"] != null)
-                {
-                    <div class="fluid ui tiny buttons">
-                        <button class="ui button cancel_app">Cancel</button>
-                        <button class="ui blue button save_app s3">Saved</button>
-                    </div>
-                }
-                else
-                {
-                    <div class="fluid ui tiny buttons">
-                        <button class="ui button cancel_app">Cancel</button>
-                        <button class="ui blue button save_app s3">Save for later</button>
-                    </div>
-                }
-            }
-        </div>
-    </div>
-    <div class="twelve wide column">
-        <div class="ui one column grid">
-            <div class="column">
-                <div class="ui tiny three top attached steps">
-                    <div class="disabled completed step">
-                        <i class="address card icon"></i>
-                        <div class="content">
-                            <div class="title">Applicant Information</div>
-                            <div class="description">Enter applicant details</div>
+    <div class="ui container override">
+        <div class="ui grid">
+            <div class="four wide column">
+                <div class="ui sticky _form">
+                    <div class="ui ignored small info message">
+                        <div class="header">
+                            Form controls
                         </div>
+                        <p>This section allows you to <b>save</b> an incomplete application for later use. </p>
                     </div>
-                    <div class="disabled completed step">
-                        <i class="hdd icon"></i>
-                        <div class="content">
-                            <div class="title">Equipment Information</div>
-                            <div class="description">Description of Equipment</div>
-                        </div>
-                    </div>
-                    <div class="active step">
-                        <i class="upload icon"></i>
-                        <div class="content">
-                            <div class="title">Upload Files</div>
-                            <div class="description">Add files relevant to this application</div>
-                        </div>
-                    </div>
-                </div>
-                @if (Session["application_id"] != null)
-                {
-                    <div class="ui attached warning message application">
-                        <i class="info icon"></i>
-                        Application saved with ID: <b>@Session["application_id"].ToString()</b>
-                    </div>
-                }
-                <div id="context" class="ui clearing attached raised segment">
-                    <div class="ui form">
-
-                        
-
-                        <div class="ui placeholder raised segment">
-                            <div class="ui icon header">
-                                <i class="pdf file outline icon"></i>
-                                Add files relevant to this application
+                    @{
+                        if (Session["save_state"] != null)
+                        {
+                            <div class="fluid ui tiny buttons">
+                                <button class="ui button cancel_app">Cancel</button>
+                                <button class="ui blue button save_app s3">Update</button>
                             </div>
-                            <div id="btn_add_documents" class="ui small primary button">Add Documents</div>
+                        }
+                        else
+                        {
+                            <div class="fluid ui tiny buttons">
+                                <button class="ui button cancel_app">Cancel</button>
+                                <button class="ui blue button save_app s3">Save for later</button>
+                            </div>
+                        }
+                    }
+                    <div class="ui fluid card">
+                        <div class="content">
+                            <h4 class="ui header">
+                                Saved Applications
+                            </h4>
                         </div>
+                        <div id="savedDocs" class="content">
+                            <div class="ui tiny active centered inline text loader saved-docs">Getting info...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="twelve wide column">
+                <div class="ui one column grid">
+                    <div class="column">
+                        <div class="ui tiny three top attached steps">
+                            <div class="disabled completed step">
+                                <i class="address card icon"></i>
+                                <div class="content">
+                                    <div class="title">Applicant Information</div>
+                                    <div class="description">Enter applicant details</div>
+                                </div>
+                            </div>
+                            <div class="disabled completed step">
+                                <i class="hdd icon"></i>
+                                <div class="content">
+                                    <div class="title">Equipment Information</div>
+                                    <div class="description">Description of Equipment</div>
+                                </div>
+                            </div>
+                            <div class="active step">
+                                <i class="upload icon"></i>
+                                <div class="content">
+                                    <div class="title">Upload Files</div>
+                                    <div class="description">Add files relevant to this application</div>
+                                </div>
+                            </div>
+                        </div>
+                        @if (Session["application_id"] != null)
+                        {
+                            <div class="ui attached warning message application">
+                                <i class="info icon"></i>
+                                Application saved with ID: <b>@Session["application_id"].ToString()</b>
+                            </div>
+                        }
+                        <div id="context" class="ui clearing attached raised segment">
+                            <div class="ui form">
 
-                        <input id="upload_files" multiple type="file" style="display: none" />
 
-                        <div class="one field">
-                            <button id="step3_to_finish" type="button" class="ui tiny right floated blue disabled button">
-                                Upload and Finish
-                            </button>
 
-                            <button id="step3_to_prev" type="button" class="ui tiny left floated left labeled icon button">
-                                <i class="left arrow icon"></i>
-                                Previous
-                            </button>
+                                <div class="ui placeholder raised segment">
+                                    <div class="ui icon header">
+                                        <i class="pdf file outline icon"></i>
+                                        Add files relevant to this application
+                                    </div>
+                                    <div id="btn_add_documents" class="ui small primary button">Add Documents</div>
+                                </div>
+
+                                <input id="upload_files" multiple type="file" style="display: none" />
+
+                                <div class="one field">
+                                    <button id="step3_to_finish" type="button" class="ui tiny right floated blue disabled button">
+                                        Upload and Finish
+                                    </button>
+
+                                    <button id="step3_to_prev" type="button" class="ui tiny left floated left labeled icon button">
+                                        <i class="left arrow icon"></i>
+                                        Previous
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 <div class="ui modal minfo">
     <div class="ui icon header">

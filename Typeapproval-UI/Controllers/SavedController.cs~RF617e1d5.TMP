@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -81,21 +81,6 @@ namespace Typeapproval_UI.Controllers
                 string _result_ = response.Content.ReadAsStringAsync().Result;
                 List<Models.SavedApplications> savedApplications = JsonConvert.DeserializeObject<List<Models.SavedApplications>>(_result_);
                 Session["saved_count"] = savedApplications.Count;
-
-                for (int i = 0; i < savedApplications.Count; i++)
-                {
-                    if (Session["application_id"] != null)
-                    {
-                        if (savedApplications[i].application_id == Session["application_id"].ToString())
-                        {
-                            savedApplications[i].active = true;
-                        }
-                        else
-                        {
-                            savedApplications[i].active = false;
-                        }
-                    }
-                }
                 return Json(new { savedApplications }, JsonRequestBehavior.AllowGet);
             }
             else

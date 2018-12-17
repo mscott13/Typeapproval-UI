@@ -12,10 +12,5 @@ namespace Typeapproval_UI.Models
         public string manufacturer_address { get; set; }
         public string manufacturer_fax { get; set; }
         public string manufacturer_contact_person { get; set; }
-        public string provider_name { get; set; }
-        public string provider_telephone { get; set; }
-        public string provider_address { get; set; }
-        public string provider_fax { get; set; }
-        public string provider_contact_person { get; set; }
     }
 }

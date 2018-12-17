@@ -4,26 +4,6 @@
         window.location = '/new/step-1';
     });
 
-    $('body').on('click', '.ui.divided.selection.list .item', function () {
-        $('.ui.divided.selection.list .item').removeClass('active');
-        $(this).toggleClass("active");
-
-        $('#preview').html('<div class="ui tiny active centered inline text loader saved-docs-preview">Getting info...</div>');
-
-        $.ajax({
-            type: "GET",
-            url: "/new/preview",
-            contentType: "application/json; charset=utf-8",
-            data: { "application_id": $(this).data('appid') },
-            success: function (data) {
-                initializePreview(data.form);
-            },
-            error: function (data) {
-                $('.ui.tiny.active.centered.inline.text.loader.saved-docs-preview').remove();
-            }
-        });
-    });
-
     $('#edit_application').click(function () {
 
         var appid = $('.active.item').data('appid');

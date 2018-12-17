@@ -1,5 +1,76 @@
 ﻿$(document).ready(function () {
 
+    $('body').on('click', '.ui.divided.selection.list .item', function () {
+        $('.ui.divided.selection.list .item').removeClass('active');
+        $(this).toggleClass("active");
+
+        $.ajax({
+            type: "GET",
+            url: "/new/edit",
+            contentType: "application/json; charset=utf-8",
+            data: { "application_id": $(this).data('appid') },
+            success: function (data) {
+                restore_step2();
+            },
+            error: function (data) {
+            }
+        });
+    });
+
+    $.ajax({
+        type: "GET",
+        url: "/saved/get-documents",
+        contentType: "application/json; charset=utf-8",
+        data: {},
+        success: function (data) {
+            initializeSavedApps(data.savedApplications);
+        },
+        error: function (data) {
+            console.log(data);
+        }
+    });
+
+    function initializeSavedApps(data) {
+        if (data.length > 0) {
+            $('.ui.tiny.active.centered.inline.text.loader.saved-docs').remove();
+            var html_main =
+                '<div class="ui divided selection list">' +
+                '</div >';
+
+            $('#savedDocs').html('');
+            $('#savedDocs').append(html_main);
+
+            var html_inner = '';
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].active === true) {
+                    html_inner +=
+                        '<div class="active item" data-appid=' + data[i].application_id + '>' +
+                        '<div class="content">' +
+                        '<div class="header">' + data[i].application_id + '</div>' +
+                        'Last update:' + data[i].last_updated + '' +
+                        '</div>' +
+                        '</div>';
+                }
+                else {
+                    html_inner +=
+                        '<div class="item" data-appid=' + data[i].application_id + '>' +
+                        '<div class="content">' +
+                        '<div class="header">' + data[i].application_id + '</div>' +
+                        'Last update:' + data[i].last_updated + '' +
+                        '</div>' +
+                        '</div>';
+                }
+
+            }
+
+            $('.ui.divided.selection.list').append(html_inner);
+        }
+        else {
+            $('.ui.tiny.active.centered.inline.text.loader.saved-docs').remove();
+            $('#savedDocs').html('No saved applications found on your account.');
+        }
+    }
+
     $('.ui.fluid.selection.dropdown.equipment').dropdown({
         onChange: function (val) {
             set_fee_code_options(val);
@@ -25,7 +96,7 @@
     $('.ui.radio.checkbox.equipment_types').checkbox({
         onChecked: function ()
         {
-            if ($(this).val() == 'Other')
+            if ($(this).val() === 'Other')
             {
                 $("input[name=other_equipment]").val('');
                 $("input[name=other_equipment]").parent().removeClass('disabled');
@@ -79,7 +150,7 @@
             '</div>' +
             '</td>';
 
-        if (freq_type == 'R') {
+        if (freq_type === 'R') {
             html +=
 
                 '<td>' +
@@ -93,7 +164,7 @@
                 '</div>' +
                 '</td>';
         }
-        else if (freq_type == 'T') {
+        else if (freq_type === 'T') {
             html +=
 
                 '<td>' +
@@ -191,11 +262,11 @@
     {
         var radio_options = $('#equipent_types_handle .ui.radio.checkbox');
         $.each(radio_options, function (i, object) {
-            if ($(object).find("input").val() == type) {
+            if ($(object).find("input").val() === type) {
                 $(object).checkbox('check');
                 console.log("checked: " + type);
 
-                if (type == 'Other')
+                if (type === 'Other')
                 {
                     $("input[name=other_equipment]").val(other);
                     $("input[name=other_equipment]").removeClass('disabled');
@@ -209,7 +280,7 @@
         var antenna_options = $("#antenna_type_dropdown .menu .item");
         $.each(antenna_options, function (i, object) {
 
-            if ($(object).text() == type)
+            if ($(object).text() === type)
             {
                 var span_text = $(object).parent().parent().find(".text");
                 $(object).addClass('active selected');
@@ -230,7 +301,7 @@
     {
         var comm_options = $('#equipment_type_dropdown .menu .item');
         $.each(comm_options, function (i, object) {
-            if ($(object).text() == type)
+            if ($(object).text() === type)
             {
                 var span_text = $(object).parent().parent().find(".text");
                 $(object).addClass('active selected');
@@ -250,7 +321,7 @@
     {
         var fee_code_options = $('#fee_code_dropdown .menu .item');
         $.each(fee_code_options, function (i, object) {
-            if ($(object).text() == type) {
+            if ($(object).text() === type) {
                 var span_text = $(object).parent().parent().find(".text");
                 $(object).addClass('active selected');
 
