@@ -7,6 +7,7 @@ namespace Typeapproval_UI.Models
 {
     public class Step2
     {
+        public string application_id { get; set; }
         public string equipment_type { get; set; }
         public string equipment_description { get; set; }
         public string product_identification { get; set; }

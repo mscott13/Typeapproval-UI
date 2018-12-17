@@ -241,5 +241,6 @@ namespace Typeapproval_UI.Models
         public string fee_code { get; set; }
         public List<Frequency> frequencies { get; set; }
         public string status { get; set; }
+        public string category { get; set; }
     }
 }

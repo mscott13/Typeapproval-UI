@@ -250,6 +250,28 @@
                     $("input[name=separation]").val(data.step2.separation);
                     $("input[name=compatibility]").val(data.step2.compatibility);
                     $("input[name=security]").val(data.step2.security);
+
+                    if (data.step1.application_id !== '')
+                    {
+                        if ($('.ui.small.attached.warning.message.application').length === 0) {
+                            var attatched_header =
+                                '<div class="ui small attached warning message application">' +
+                                '<i class="info icon"></i>' +
+                                ' Application saved with ID: <b>' + data.step2.application_id + '</b>' +
+                                '</div>';
+
+                            $(attatched_header).insertAfter('.ui.tiny.three.top.attached.steps');
+                        }
+                        else {
+                            var html =
+                                '<i class="info icon"></i>' +
+                                'Application saved with ID: <b>' + data.step2.application_id + '</b>';
+
+                            $('.ui.small.attached.warning.message.application').html(html);
+                        }
+                    }
+
+                    $('.ui.blue.button.save_app.s2').html('Update');
                 }
             },
             error: function (data) {
@@ -395,6 +417,11 @@
         $(menu_holder).find('.item').remove();
         $(span_text).text("Select Type");
         $(menu_holder).append(html);
+    }
+
+    function reset_step_2()
+    {
+
     }
 
     restore_step2();

@@ -82,12 +82,37 @@
                     $("input[name=manufacturer_address]").val(data.step1.manufacturer_address);
                     $("input[name=manufacturer_fax]").val(data.step1.manufacturer_fax);
                     $("input[name=manufacturer_contact_person]").val(data.step1.manufacturer_contact_person);
+
+                    if (data.step1.application_id !== '')
+                    {
+                        if ($('.ui.small.attached.warning.message.application').length === 0) {
+                            var attatched_header =
+                                '<div class="ui small attached warning message application">' +
+                                '<i class="info icon"></i>' +
+                                ' Application saved with ID: <b>' + data.step1.application_id + '</b>' +
+                                '</div>';
+
+                            $(attatched_header).insertAfter('.ui.tiny.three.top.attached.steps');
+                        }
+                        else {
+                            var html =
+                                '<i class="info icon"></i>' +
+                                'Application saved with ID: <b>' + data.step1.application_id + '</b>';
+
+                            $('.ui.small.attached.warning.message.application').html(html);
+                        }
+                    }
                 }
             },
             error: function (data) {
                 console.log(data);
             }
         });
+    }
+
+    function reset_step_1()
+    {
+
     }
 
     restore_step1();

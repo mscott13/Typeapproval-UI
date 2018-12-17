@@ -252,7 +252,15 @@ namespace Typeapproval_UI.Controllers
             step1.manufacturer_address = Session["manufacturer_address"].ToString();
             step1.manufacturer_fax = Session["manufacturer_fax"].ToString();
             step1.manufacturer_contact_person = Session["manufacturer_contact_person"].ToString();
-         
+
+            if (Session["application_id"] != null)
+            {
+                step1.application_id = Session["application_id"].ToString();
+            }
+            else
+            {
+                step1.application_id = "";
+            }
             return Json(new { step1, data_present = initialized }, JsonRequestBehavior.AllowGet);
         }
 
@@ -280,6 +288,15 @@ namespace Typeapproval_UI.Controllers
             step2.equipment_comm_type = Session["equipment_comm_type"].ToString();
             step2.fee_code = Session["fee_code"].ToString();
             step2.frequencies = (List<Frequency>)Session["frequencies"];
+
+            if (Session["application_id"] != null)
+            {
+                step2.application_id = Session["application_id"].ToString();
+            }
+            else
+            {
+                step2.application_id = "";
+            }
 
             return Json(new { step2, data_present = initialized }, JsonRequestBehavior.AllowGet);
         }
@@ -424,7 +441,8 @@ namespace Typeapproval_UI.Controllers
             form.equipment_comm_type = Session["equipment_comm_type"].ToString();
             form.fee_code = Session["fee_code"].ToString();
             form.frequencies = (List<Frequency>)Session["frequencies"];
-            form.status = "incomplete";
+            form.status = Commons.Constants.INCOMPLETE_TYPE;
+            form.category = Commons.Constants.TYPE_APPROVAL;
             #endregion
 
             var client = new HttpClient();
@@ -456,7 +474,6 @@ namespace Typeapproval_UI.Controllers
             {
                 return Json(new { responseText = "not posted" }, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         private bool PrepareStep1Session()

@@ -12,5 +12,6 @@ namespace Typeapproval_UI.Models
         public string manufacturer_address { get; set; }
         public string manufacturer_fax { get; set; }
         public string manufacturer_contact_person { get; set; }
+        public string application_id { get; set; }
     }
 }
