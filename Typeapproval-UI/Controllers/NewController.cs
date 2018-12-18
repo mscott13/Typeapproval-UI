@@ -16,38 +16,9 @@ namespace Typeapproval_UI.Controllers
     {
         [HttpGet]
         [Route("new/step-1")]
-        public ActionResult Step1(string from)
+        public ActionResult Step1(string from, string preview, string edit)
         {
-            if (from == null)
-            {
-                Session.Remove("save_state");
-                Session.Remove("application_id");
-                Session.Remove("manufacturer_name");
-                Session.Remove("manufacturer_tel");
-                Session.Remove("manufacturer_address");
-                Session.Remove("manufacturer_fax");
-                Session.Remove("manufacturer_contact_person");
-
-                Session.Remove("equipment_type");
-                Session.Remove("equipment_description");
-                Session.Remove("product_identification");
-                Session.Remove("refNum");
-                Session.Remove("make");
-                Session.Remove("software");
-                Session.Remove("type_of_equipment");
-                Session.Remove("other");
-                Session.Remove("antenna_type");
-                Session.Remove("antenna_gain");
-                Session.Remove("channel");
-                Session.Remove("separation");
-                Session.Remove("aspect");
-                Session.Remove("compatibility");
-                Session.Remove("security");
-                Session.Remove("equipment_comm_type");
-                Session.Remove("fee_code");
-                Session.Remove("frequencies");
-            }
-
+            #region load default information
             var client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:54367/api/data/");
             client.DefaultRequestHeaders.Accept.Clear();
@@ -86,12 +57,69 @@ namespace Typeapproval_UI.Controllers
                     Session["applicant_contact_person"] = (string)obj.contactPerson;
                     Session["applicant_nationality"] = (string)obj.nationality;
                 }
-                return View();
+             
             }
             else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
                 //return to login
             }
+            #endregion
+
+            if (from == null)
+            {
+                Session.Remove("save_state");
+                Session.Remove("application_id");
+                Session.Remove("manufacturer_name");
+                Session.Remove("manufacturer_tel");
+                Session.Remove("manufacturer_address");
+                Session.Remove("manufacturer_fax");
+                Session.Remove("manufacturer_contact_person");
+
+                Session.Remove("equipment_type");
+                Session.Remove("equipment_description");
+                Session.Remove("product_identification");
+                Session.Remove("refNum");
+                Session.Remove("make");
+                Session.Remove("software");
+                Session.Remove("type_of_equipment");
+                Session.Remove("other");
+                Session.Remove("antenna_type");
+                Session.Remove("antenna_gain");
+                Session.Remove("channel");
+                Session.Remove("separation");
+                Session.Remove("aspect");
+                Session.Remove("compatibility");
+                Session.Remove("security");
+                Session.Remove("equipment_comm_type");
+                Session.Remove("fee_code");
+                Session.Remove("frequencies");
+            }
+
+            if (edit != null)
+            {
+                dynamic _param = new ExpandoObject();
+                _param.application_id = edit;
+                _param.access_key = Session["key"].ToString();
+
+                var _client = new HttpClient();
+                _client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                _client.DefaultRequestHeaders.Accept.Clear();
+                _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var _content = new StringContent(JsonConvert.SerializeObject(_param), Encoding.UTF8, "application/json");
+                HttpResponseMessage _response = _client.PostAsync("GetApplication", _content).Result;
+                if (_response.IsSuccessStatusCode)
+                {
+                    string result = _response.Content.ReadAsStringAsync().Result;
+                    Form form = JsonConvert.DeserializeObject<Form>(result);
+                    RestoreToSession(form);
+                }
+            }
+            else if (preview != null)
+            {
+
+            }
+
             return View();
         }
 

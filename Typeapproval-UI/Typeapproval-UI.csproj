@@ -159,9 +159,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ClientCompany.cs" />
+    <Compile Include="Models\Dashboard.cs" />
     <Compile Include="Models\Form.cs" />
     <Compile Include="Models\Frequency.cs" />
+    <Compile Include="Models\LicensedApplication.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\PendingApproval.cs" />
+    <Compile Include="Models\RecentActivity.cs" />
     <Compile Include="Models\RecentDocuments.cs" />
     <Compile Include="Models\SavedApplications.cs" />
     <Compile Include="Models\Step1.cs" />
@@ -293,9 +297,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>63616</DevelopmentServerPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:63616/</IISUrl>
+          <IISUrl>http://localhost:3348/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

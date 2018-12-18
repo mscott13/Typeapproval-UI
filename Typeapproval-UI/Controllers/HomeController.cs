@@ -16,34 +16,62 @@ namespace Typeapproval_UI.Controllers
     {
         public ActionResult Index()
         {
-            Session.Remove("save_state");
-            Session.Remove("application_id");
-            Session.Remove("manufacturer_name");
-            Session.Remove("manufacturer_tel");
-            Session.Remove("manufacturer_address");
-            Session.Remove("manufacturer_fax");
-            Session.Remove("manufacturer_contact_person");
+            var ob = Session["key"];
+            if (Session["key"] == null)
+            {
+                Response.Redirect("~/account");
+                return RedirectToAction("", "account");
+            }
+            else
+            {
 
-            Session.Remove("equipment_type");
-            Session.Remove("equipment_description");
-            Session.Remove("product_identification");
-            Session.Remove("refNum");
-            Session.Remove("make");
-            Session.Remove("software"); 
-            Session.Remove("type_of_equipment"); 
-            Session.Remove("other");
-            Session.Remove("antenna_type"); 
-            Session.Remove("antenna_gain"); 
-            Session.Remove("channel");
-            Session.Remove("separation");
-            Session.Remove("aspect"); 
-            Session.Remove("compatibility");
-            Session.Remove("security");
-            Session.Remove("equipment_comm_type");
-            Session.Remove("fee_code");
-            Session.Remove("frequencies");
+                Session.Remove("save_state");
+                Session.Remove("application_id");
+                Session.Remove("manufacturer_name");
+                Session.Remove("manufacturer_tel");
+                Session.Remove("manufacturer_address");
+                Session.Remove("manufacturer_fax");
+                Session.Remove("manufacturer_contact_person");
 
-            return View();
+                Session.Remove("equipment_type");
+                Session.Remove("equipment_description");
+                Session.Remove("product_identification");
+                Session.Remove("refNum");
+                Session.Remove("make");
+                Session.Remove("software");
+                Session.Remove("type_of_equipment");
+                Session.Remove("other");
+                Session.Remove("antenna_type");
+                Session.Remove("antenna_gain");
+                Session.Remove("channel");
+                Session.Remove("separation");
+                Session.Remove("aspect");
+                Session.Remove("compatibility");
+                Session.Remove("security");
+                Session.Remove("equipment_comm_type");
+                Session.Remove("fee_code");
+                Session.Remove("frequencies");
+
+                var client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var content = new StringContent(JsonConvert.SerializeObject(Session["key"].ToString()), Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = client.PostAsync("GetDashboardFeed", content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    string _result_ = response.Content.ReadAsStringAsync().Result;
+                    Dashboard dashboard = JsonConvert.DeserializeObject<Dashboard>(_result_);
+                    return View(dashboard);
+                }
+                else
+                {
+                    Dashboard dashboard = new Dashboard();
+                    return View(dashboard);
+                }
+            }
+
         }
 
         [HttpGet]
@@ -85,6 +113,29 @@ namespace Typeapproval_UI.Controllers
                 string _result_ = response.Content.ReadAsStringAsync().Result;
                 List<RecentDocuments> recentDocuments = JsonConvert.DeserializeObject<List<RecentDocuments>>(_result_);
                 return Json(new { recentDocuments }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { result = "no data" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        [Route("home/get-dashboard-feed")]
+        public ActionResult GetDashboardData()
+        {
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var content = new StringContent(JsonConvert.SerializeObject(Session["key"].ToString()), Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = client.PostAsync("GetDashboardFeed", content).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string _result_ = response.Content.ReadAsStringAsync().Result;
+                Dashboard dashboard = JsonConvert.DeserializeObject<Dashboard>(_result_);
+                return Json(new { dashboard }, JsonRequestBehavior.AllowGet);
             }
             else
             {

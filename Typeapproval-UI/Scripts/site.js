@@ -437,7 +437,7 @@
         var json = JSON.stringify(jsonObj);
         $.ajax({
             type: "POST",
-            url: "http://localhost:63616/account/login",
+            url: "http://localhost:3348/account/login",
             contentType: "application/json; charset=utf-8",
             data: json,
             success: function (data) {

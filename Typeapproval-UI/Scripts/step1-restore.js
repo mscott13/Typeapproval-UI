@@ -46,7 +46,7 @@
                     html_inner +=
                         '<div class="active item" data-appid=' + data[i].application_id + '>' +
                         '<div class="content">' +
-                        '<div class="header">' + data[i].application_id + '</div>' +
+                        '<h4 class="ui blue header">' + data[i].application_id + '</h4>' +
                         'Last update:' + data[i].last_updated + '' +
                         '</div>' +
                         '</div>';
@@ -55,7 +55,7 @@
                     html_inner +=
                         '<div class="item" data-appid=' + data[i].application_id + '>' +
                         '<div class="content">' +
-                        '<div class="header">' + data[i].application_id + '</div>' +
+                        '<h4 class="ui blue header">' + data[i].application_id + '</h4>' +
                         'Last update:' + data[i].last_updated + '' +
                         '</div>' +
                         '</div>';

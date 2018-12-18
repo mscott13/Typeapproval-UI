@@ -14,7 +14,7 @@
             contentType: "application/json; charset=utf-8",
             data: { "application_id": $(this).data('appid') },
             success: function (data) {
-                restore_step1();
+               
             },
             error: function (data) {
             }
@@ -51,17 +51,16 @@
                     html_inner +=
                         '<div class="active item" data-appid=' + data[i].application_id + '>' +
                         '<div class="content">' +
-                        '<div class="header">' + data[i].application_id + '</div>' +
+                        '<h4 class="ui blue header">' + data[i].application_id + '</h4>' +
                         'Last update:' + data[i].last_updated + '' +
                         '</div>' +
                         '</div>';
                 }
-                else
-                {
+                else {
                     html_inner +=
                         '<div class="item" data-appid=' + data[i].application_id + '>' +
                         '<div class="content">' +
-                        '<div class="header">' + data[i].application_id + '</div>' +
+                        '<h4 class="ui blue header">' + data[i].application_id + '</h4>' +
                         'Last update:' + data[i].last_updated + '' +
                         '</div>' +
                         '</div>';

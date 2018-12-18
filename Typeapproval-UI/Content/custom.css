@@ -21,5 +21,40 @@
     font-size:14px !important;
 }
 
+.status_incomplete {
+    color: #F3A738;
+    font-weight: bold;
+}
+
+.status_submitted {
+    color: #23395B;
+    font-weight: bold;
+}
+
+.status_pending {
+    color: #2E2C2F;
+    font-weight: bold;
+}
+
+.status_rejected {
+    color: #C74E4C;
+    font-weight: bold;
+}
+
+.status_invoiced {
+    color: #70C1B3;
+    font-weight: bold;
+}
+
+.status_licensed {
+    color: #70C1B3;
+    font-weight: bold;
+}
+
+
+
+
+
+
 
 
