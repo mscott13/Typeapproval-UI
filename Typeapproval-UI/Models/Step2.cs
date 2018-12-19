@@ -26,5 +26,6 @@ namespace Typeapproval_UI.Models
         public string security { get; set; }
         public string equipment_comm_type { get; set; }
         public string fee_code { get; set; }
+        public string additional_info { get; set; }
     }
 }

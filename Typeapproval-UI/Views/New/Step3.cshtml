@@ -14,91 +14,137 @@
 }
 
 
-    <div class="ui container override">
-        <div class="ui grid">
-            <div class="four wide column">
-                <div class="ui sticky _form">
-                    <div class="ui ignored small info message">
-                        <div class="header">
-                            Form controls
-                        </div>
-                        <p>This section allows you to <b>save</b> an incomplete application for later use. </p>
+<div class="ui container override">
+    <div class="ui grid">
+        <div class="four wide column">
+            <div class="ui sticky _form">
+                <div class="ui ignored small info message">
+                    <div class="header">
+                        Form controls
                     </div>
-                    @{
-                        if (Session["save_state"] != null)
-                        {
-                            <div class="fluid ui tiny buttons">
-                                <button class="ui button cancel_app">Cancel</button>
-                                <button class="ui blue button save_app s3">Update</button>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="fluid ui tiny buttons">
-                                <button class="ui button cancel_app">Cancel</button>
-                                <button class="ui blue button save_app s3">Save for later</button>
-                            </div>
-                        }
+                    <p>This section allows you to <b>save</b> an incomplete application for later use. </p>
+                </div>
+                @{
+                    if (Session["save_state"] != null)
+                    {
+                        <div class="fluid ui tiny buttons">
+                            <button class="ui button cancel_app">Cancel</button>
+                            <button class="ui blue button save_app s3">Update</button>
+                        </div>
                     }
-                    <div class="ui fluid card">
-                        <div class="content">
-                            <h4 class="ui header">
-                                Saved Applications
-                            </h4>
+                    else
+                    {
+                        <div class="fluid ui tiny buttons">
+                            <button class="ui button cancel_app">Cancel</button>
+                            <button class="ui blue button save_app s3">Save for later</button>
                         </div>
-                        <div id="savedDocs" class="content">
-                            <div class="ui tiny active centered inline text loader saved-docs">Getting info...</div>
-                        </div>
+                    }
+                }
+                <div class="ui fluid card">
+                    <div class="content">
+                        <h4 class="ui header">
+                            Saved Applications
+                        </h4>
+                    </div>
+                    <div id="savedDocs" class="content">
+                        <div class="ui tiny active centered inline text loader saved-docs">Getting info...</div>
                     </div>
                 </div>
             </div>
-            <div class="twelve wide column">
-                <div class="ui one column grid">
-                    <div class="column">
-                        <div class="ui tiny three top attached steps">
-                            <div class="disabled completed step">
-                                <i class="address card icon"></i>
-                                <div class="content">
-                                    <div class="title">Applicant Information</div>
-                                    <div class="description">Enter applicant details</div>
-                                </div>
-                            </div>
-                            <div class="disabled completed step">
-                                <i class="hdd icon"></i>
-                                <div class="content">
-                                    <div class="title">Equipment Information</div>
-                                    <div class="description">Description of Equipment</div>
-                                </div>
-                            </div>
-                            <div class="active step">
-                                <i class="upload icon"></i>
-                                <div class="content">
-                                    <div class="title">Upload Files</div>
-                                    <div class="description">Add files relevant to this application</div>
-                                </div>
+        </div>
+        <div class="twelve wide column">
+            <div class="ui one column grid">
+                <div class="column">
+                    <div class="ui tiny three top attached steps">
+                        <div class="disabled completed step">
+                            <i class="address card icon"></i>
+                            <div class="content">
+                                <div class="title">Applicant Information</div>
+                                <div class="description">Enter applicant details</div>
                             </div>
                         </div>
-                        @if (Session["application_id"] != null)
-                        {
-                            <div class="ui attached warning message application">
-                                <i class="info icon"></i>
-                                Application saved with ID: <b>@Session["application_id"].ToString()</b>
+                        <div class="disabled completed step">
+                            <i class="hdd icon"></i>
+                            <div class="content">
+                                <div class="title">Equipment Information</div>
+                                <div class="description">Description of Equipment</div>
                             </div>
-                        }
-                        <div id="context" class="ui clearing attached raised segment">
+                        </div>
+                        <div class="active step">
+                            <i class="upload icon"></i>
+                            <div class="content">
+                                <div class="title">Upload Files</div>
+                                <div class="description">Add files relevant to this application</div>
+                            </div>
+                        </div>
+                    </div>
+                    @if (Session["application_id"] != null)
+                    {
+                        <div class="ui attached warning message application">
+                            <i class="info icon"></i>
+                            Application saved with ID: <b>@Session["application_id"].ToString()</b>
+                        </div>
+                    }
+                    <div id="context" class="ui clearing attached raised segment">
+                        <div class="ui form">
                             <div class="ui form">
+                                <a class="ui grey ribbon label">4. &nbsp Attatched Documents and Equipment</a>
 
-
-
-                                <div class="ui placeholder raised segment">
-                                    <div class="ui icon header">
-                                        <i class="pdf file outline icon"></i>
-                                        Add files relevant to this application
+                                <div style="margin-top: 13px !important;" class="field">
+                                    <div class="ui read-only checkbox">
+                                        <input type="checkbox" name="example">
+                                        <label>Technical Specifications of Equipment&nbsp;&nbsp;<a id="tech_spec" style="text-decoration:underline !important; cursor:pointer !important;"><i class="file pdf icon"></i>attach pdf</a></label>
                                     </div>
-                                    <div id="btn_add_documents" class="ui small primary button">Add Documents</div>
                                 </div>
 
-                                <input id="upload_files" multiple type="file" style="display: none" />
+                                <div style="margin-top: 13px !important;" class="field">
+                                    <div class="ui read-only checkbox">
+                                        <input type="checkbox" name="example">
+                                        <label>A copy of the test report (EMC, RF Safety etc) of the technical characteristics of the radio communication equipment, issued by a recognized test or certification body.&nbsp;&nbsp;<a id="test_report" style="text-decoration:underline !important; cursor:pointer !important;"><i class="file pdf icon"></i>attach pdf</a></label>
+                                    </div>
+                                </div>
+
+
+                                <div style="margin-top: 13px !important;" class="field">
+                                    <div class="ui read-only checkbox">
+                                        <input type="checkbox" name="example">
+                                        <label>A copy of accreditation certificate of test or certification body&nbsp;&nbsp;<a id="accreditation" style="text-decoration:underline !important; cursor:pointer !important;"><i class="file pdf icon"></i>attach pdf</a></label>
+                                    </div>
+                                </div>
+
+
+                                <div style="margin-top: 13px !important;" class="two fields">
+                                    <div class="field">
+                                        <label>Name of test or certification institution</label>
+                                        <div class="ui input">
+                                            <input autocomplete="new-password" placeholder="" name="institution" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label>Country</label>
+                                        <div class="ui input">
+                                            <input autocomplete="new-password" placeholder="" name="country" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="margin-top: 13px !important;" class="field">
+                                    <p>
+                                        <i>
+                                            <b>
+                                                I hereby certify that all information provided above and the document attached hereto are true
+                                                and correct, and I shall comply with the policies and procedures on Type Approval
+                                                Certification of Radio equipment and any regulation or order relevant to radio
+                                                communication equipment in Jamaica.
+                                            </b>
+
+                                        </i>
+                                    </p>
+                                </div>
+
+                                <input id="file_tech_spec"  type="file" style="display: none" />
+                                <input id="file_test_report"  type="file" style="display: none" />
+                                <input id="file_accreditation"  type="file" style="display: none" />
 
                                 <div class="one field">
                                     <button id="step3_to_finish" type="button" class="ui tiny right floated blue disabled button">
@@ -118,271 +164,271 @@
         </div>
     </div>
 
-<div class="ui modal minfo">
-    <div class="ui icon header">
-        <i class="file excel icon"></i>
-        Missing Information
-    </div>
-    <div class="content">
-        <p style="text-align:center;">The application is not completed. Please review the form for missing information, correct them, then return to this page.</p>
-    </div>
-    <div class="actions">
-        <div class="ui blue ok button">
-            <i class="checkmark icon"></i>
-            Ok
+    <div class="ui modal minfo">
+        <div class="ui icon header">
+            <i class="file excel icon"></i>
+            Missing Information
+        </div>
+        <div class="content">
+            <p style="text-align:center;">The application is not completed. Please review the form for missing information, correct them, then return to this page.</p>
+        </div>
+        <div class="actions">
+            <div class="ui blue ok button">
+                <i class="checkmark icon"></i>
+                Ok
+            </div>
         </div>
     </div>
-</div>
 
-<div class="ui basic modal cancel-confirm">
-    <div class="ui icon header">
-        <i class="trash icon"></i>
-        Confirmation
-    </div>
-    <div class="content">
-        <p style="text-align:center;">Are you sure you want to cancel this application? This action cannot be undone.</p>
-    </div>
-    <div class="actions">
-        <div class="ui grey button">
+    <div class="ui basic modal cancel-confirm">
+        <div class="ui icon header">
             <i class="trash icon"></i>
-            Decline
+            Confirmation
         </div>
-        <div class="ui blue ok button">
-            <i class="checkmark icon"></i>
-            Confirm
+        <div class="content">
+            <p style="text-align:center;">Are you sure you want to cancel this application? This action cannot be undone.</p>
+        </div>
+        <div class="actions">
+            <div class="ui grey button">
+                <i class="trash icon"></i>
+                Decline
+            </div>
+            <div class="ui blue ok button">
+                <i class="checkmark icon"></i>
+                Confirm
+            </div>
         </div>
     </div>
-</div>
 
-<div class="ui modal upload-status">
-    <div class="ui icon header">
-        <i class="blue check icon"></i>
-        Application Complete
-    </div>
-    <div class="content">
-        <div id="sample_invoice" class="ui raised segment">
-            <div class="ui one column grid">
-                <div class="row">
-                    <div class="column">
-                        <img class="ui medium image" src="~/Content/images/invoice_logo.PNG">
+    <div class="ui modal upload-status">
+        <div class="ui icon header">
+            <i class="blue check icon"></i>
+            Application Complete
+        </div>
+        <div class="content">
+            <div id="sample_invoice" class="ui raised segment">
+                <div class="ui one column grid">
+                    <div class="row">
+                        <div class="column">
+                            <img class="ui medium image" src="~/Content/images/invoice_logo.PNG">
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="column">
-                        <h3 class="ui center aligned header header_override">Sample Invoice</h3>
-                        <div class="ui two column grid">
-                            <div class="row">
-                                <div class="eleven wide column">
-                                    <fieldset id="fieldset_main">
-                                        <p>Customer #   xxxxx-x</p>
-                                        <h4 class="ui header header_override">Entirety LLC</h4>
-                                        <p class="paragraph_ovrd">16165 Monterey Rd. Suite 203,</p>
-                                        <p class="paragraph_ovrd">Morgan Hill, CA 95037</p>
-                                        <p class="paragraph_ovrd">16165 Monterey Rd. Suite</p>
-                                        <p class="paragraph_ovrd">Morgan Hill, CA 9503</p>
-                                    </fieldset>
+                    <div class="row">
+                        <div class="column">
+                            <h3 class="ui center aligned header header_override">Sample Invoice</h3>
+                            <div class="ui two column grid">
+                                <div class="row">
+                                    <div class="eleven wide column">
+                                        <fieldset id="fieldset_main">
+                                            <p>Customer #   xxxxx-x</p>
+                                            <h4 class="ui header header_override">Entirety LLC</h4>
+                                            <p class="paragraph_ovrd">16165 Monterey Rd. Suite 203,</p>
+                                            <p class="paragraph_ovrd">Morgan Hill, CA 95037</p>
+                                            <p class="paragraph_ovrd">16165 Monterey Rd. Suite</p>
+                                            <p class="paragraph_ovrd">Morgan Hill, CA 9503</p>
+                                        </fieldset>
+                                    </div>
+                                    <div class="five wide column">
+                                        <fieldset style="width:250px;" id="fieldset_invoice">
+                                            <div class="ui two column grid">
+                                                <div class="row row_override_v3">
+                                                    <div class="seven wide column">
+                                                        <h4 class="ui header header_override">Invoice #</h4>
+                                                    </div>
+                                                    <div class="nine wide column">
+                                                        <h4 class="ui header header_override">xxxxx</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="row row_override_v3">
+                                                    <div class="seven wide column">
+                                                        <p class="paragraph_ovrd">Date:</p>
+                                                    </div>
+                                                    <div class="nine wide column">
+                                                        <p class="paragraph_ovrd">12/3/2018</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
                                 </div>
-                                <div class="five wide column">
-                                    <fieldset style="width:250px;" id="fieldset_invoice">
+                            </div>
+
+                            <div class="ui two column grid">
+                                <div class="row">
+                                    <div class="ten wide column">
+                                        <h5 style="margin-bottom:0;" class="ui header header_override"><u>Type Approval Equipment</u></h5>
+                                        <h5 style="margin-top:5px;" class="ui header header_override">Manufacturer:  Denso Corporation</h5>
+                                    </div>
+                                    <div class="six wide column">
+                                        <h5 style="margin-top:20px;" class="ui header header_override">Model:  Denso Corporation</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin:30px 0px 0px 0px;" class="ui three column grid">
+                                <div class="row row_override">
+                                    <div class="column">
+                                        <h5 class="ui header header_override">Details of Fee Charges</h5>
+                                    </div>
+                                    <div class="column">
+                                        <h5 class="ui header header_override">Qty.</h5>
+                                    </div>
+                                    <div class="column">
+                                        <h5 class="ui right aligned header header_override">Total Amount <br />(US$)</h5>
+                                    </div>
+                                </div>
+                                <div class="row row_override_v2">
+                                    <div class="column">
+                                        <p>Processing fees Type Approval Certification (PRS50)</p>
+                                    </div>
+                                    <div class="column">
+                                        <p style="margin-left:40px;">1.00</p>
+                                    </div>
+                                    <div class="column">
+                                        <p style="text-align:right;">$350.00</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin:0px 0px 0px 0px;" class="ui two column grid">
+                                <div class="row row_override_v2">
+                                    <div class="six wide column">
+
+                                    </div>
+                                    <div class="ten wide column">
+                                        <hr class="separator" />
+                                    </div>
+                                </div>
+                                <div class="row row_override_v3">
+                                    <div class="six wide column">
+
+                                    </div>
+                                    <div class="ten wide column">
+                                        <div class="ui two column grid">
+                                            <div class="row">
+                                                <div class="column">
+                                                    <h4 style="margin-left:80px;" class="ui header header_override">Total</h4>
+                                                </div>
+                                                <div class="column">
+                                                    <h4 class="ui  right aligned header header_override">$350.00</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:50px;" class="ui two column grid">
+                                <div class="row">
+                                    <div style="margin-left:40px;" class="fifteen wide column">
                                         <div class="ui two column grid">
                                             <div class="row row_override_v3">
-                                                <div class="seven wide column">
-                                                    <h4 class="ui header header_override">Invoice #</h4>
+                                                <div class="four wide column">
+                                                    <h4 class="ui header header_override">Wire Transfer Details</h4>
                                                 </div>
-                                                <div class="nine wide column">
-                                                    <h4 class="ui header header_override">xxxxx</h4>
+                                                <div class="twelve wide column">
+
                                                 </div>
                                             </div>
                                             <div class="row row_override_v3">
-                                                <div class="seven wide column">
-                                                    <p class="paragraph_ovrd">Date:</p>
+                                                <div class="four wide column">
+                                                    <p class="paragraph_ovrd_v2">Correspondent Bank:</p>
                                                 </div>
-                                                <div class="nine wide column">
-                                                    <p class="paragraph_ovrd">12/3/2018</p>
+                                                <div class="twelve wide column">
+                                                    <p class="paragraph_ovrd_v2">Citibank N. A.</p>
+                                                </div>
+                                            </div>
+                                            <div class="row row_override_v3">
+                                                <div class="four wide column">
+                                                    <p class="paragraph_ovrd_v2"></p>
+                                                </div>
+                                                <div class="twelve wide column">
+                                                    <p class="paragraph_ovrd_v2">111 Wall Street,</p>
+                                                </div>
+                                            </div>
+                                            <div class="row row_override_v3">
+                                                <div class="four wide column">
+                                                    <p class="paragraph_ovrd_v2"></p>
+                                                </div>
+                                                <div class="twelve wide column">
+                                                    <p class="paragraph_ovrd_v2">New York, NY 10043</p>
+                                                </div>
+                                            </div>
+                                            <div class="row row_override_v3">
+                                                <div class="four wide column">
+                                                    <p class="paragraph_ovrd_v2">Swift</p>
+                                                </div>
+                                                <div class="twelve wide column">
+                                                    <p class="paragraph_ovrd_v2">CITIUS33</p>
+                                                </div>
+                                            </div>
+                                            <div class="row row_override_v3">
+                                                <div class="four wide column">
+                                                    <p class="paragraph_ovrd_v2">ABA No.:</p>
+                                                </div>
+                                                <div class="twelve wide column">
+                                                    <p class="paragraph_ovrd_v2">021000089</p>
+                                                </div>
+                                            </div>
+                                            <div class="row row_override_v4">
+                                                <div class="four wide column">
+                                                    <p class="paragraph_ovrd_v2">Beneficiary</p>
+                                                </div>
+                                                <div class="twelve wide column">
+                                                    <p class="paragraph_ovrd_v2">First Global Bank Limited</p>
+                                                </div>
+                                            </div>
+                                            <div class="row row_override_v3">
+                                                <div class="four wide column">
+                                                    <p class="paragraph_ovrd_v2"></p>
+                                                </div>
+                                                <div class="twelve wide column">
+                                                    <p class="paragraph_ovrd_v2">BIC (Swift): FILBJMKN</p>
+                                                </div>
+                                            </div>
+                                            <div class="row row_override_v3">
+                                                <div class="four wide column">
+                                                    <p class="paragraph_ovrd_v2"></p>
+                                                </div>
+                                                <div class="twelve wide column">
+                                                    <p class="paragraph_ovrd_v2">28-48 Barbados Avenue, Kingston 5, Jamaica, W.I.</p>
+                                                </div>
+                                            </div>
+                                            <div class="row row_override_v3">
+                                                <div class="four wide column">
+                                                    <p class="paragraph_ovrd_v2"></p>
+                                                </div>
+                                                <div class="twelve wide column">
+                                                    <p class="paragraph_ovrd_v2">For further Credit to Spectrum Management Authority</p>
+                                                </div>
+                                            </div>
+                                            <div class="row row_override_v3">
+                                                <div class="four wide column">
+                                                    <p class="paragraph_ovrd_v2"></p>
+                                                </div>
+                                                <div class="twelve wide column">
+                                                    <p class="paragraph_ovrd_v2">Account # 99</p>
                                                 </div>
                                             </div>
                                         </div>
-                                    </fieldset>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="ui two column grid">
-                            <div class="row">
-                                <div class="ten wide column">
-                                    <h5 style="margin-bottom:0;" class="ui header header_override"><u>Type Approval Equipment</u></h5>
-                                    <h5 style="margin-top:5px;" class="ui header header_override">Manufacturer:  Denso Corporation</h5>
-                                </div>
-                                <div class="six wide column">
-                                    <h5 style="margin-top:20px;" class="ui header header_override">Model:  Denso Corporation</h5>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="margin:30px 0px 0px 0px;" class="ui three column grid">
-                            <div class="row row_override">
-                                <div class="column">
-                                    <h5 class="ui header header_override">Details of Fee Charges</h5>
-                                </div>
-                                <div class="column">
-                                    <h5 class="ui header header_override">Qty.</h5>
-                                </div>
-                                <div class="column">
-                                    <h5 class="ui right aligned header header_override">Total Amount <br />(US$)</h5>
-                                </div>
-                            </div>
-                            <div class="row row_override_v2">
-                                <div class="column">
-                                    <p>Processing fees Type Approval Certification (PRS50)</p>
-                                </div>
-                                <div class="column">
-                                    <p style="margin-left:40px;">1.00</p>
-                                </div>
-                                <div class="column">
-                                    <p style="text-align:right;">$350.00</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="margin:0px 0px 0px 0px;" class="ui two column grid">
-                            <div class="row row_override_v2">
-                                <div class="six wide column">
-
-                                </div>
-                                <div class="ten wide column">
-                                    <hr class="separator" />
-                                </div>
-                            </div>
-                            <div class="row row_override_v3">
-                                <div class="six wide column">
-
-                                </div>
-                                <div class="ten wide column">
-                                    <div class="ui two column grid">
-                                        <div class="row">
-                                            <div class="column">
-                                                <h4 style="margin-left:80px;" class="ui header header_override">Total</h4>
-                                            </div>
-                                            <div class="column">
-                                                <h4 class="ui  right aligned header header_override">$350.00</h4>
-                                            </div>
-                                        </div>
+                                    </div>
+                                    <div class="one wide column">
                                     </div>
                                 </div>
                             </div>
+
+                            <h5 style="margin-left:40px; margin-top:35px;" class="ui header header_override">NB: A bank charge of US$17.50 is incurred for wire transfer transactions.</h5>
+
                         </div>
-                        <div style="margin-top:50px;" class="ui two column grid">
-                            <div class="row">
-                                <div style="margin-left:40px;" class="fifteen wide column">
-                                    <div class="ui two column grid">
-                                        <div class="row row_override_v3">
-                                            <div class="four wide column">
-                                                <h4 class="ui header header_override">Wire Transfer Details</h4>
-                                            </div>
-                                            <div class="twelve wide column">
-
-                                            </div>
-                                        </div>
-                                        <div class="row row_override_v3">
-                                            <div class="four wide column">
-                                                <p class="paragraph_ovrd_v2">Correspondent Bank:</p>
-                                            </div>
-                                            <div class="twelve wide column">
-                                                <p class="paragraph_ovrd_v2">Citibank N. A.</p>
-                                            </div>
-                                        </div>
-                                        <div class="row row_override_v3">
-                                            <div class="four wide column">
-                                                <p class="paragraph_ovrd_v2"></p>
-                                            </div>
-                                            <div class="twelve wide column">
-                                                <p class="paragraph_ovrd_v2">111 Wall Street,</p>
-                                            </div>
-                                        </div>
-                                        <div class="row row_override_v3">
-                                            <div class="four wide column">
-                                                <p class="paragraph_ovrd_v2"></p>
-                                            </div>
-                                            <div class="twelve wide column">
-                                                <p class="paragraph_ovrd_v2">New York, NY 10043</p>
-                                            </div>
-                                        </div>
-                                        <div class="row row_override_v3">
-                                            <div class="four wide column">
-                                                <p class="paragraph_ovrd_v2">Swift</p>
-                                            </div>
-                                            <div class="twelve wide column">
-                                                <p class="paragraph_ovrd_v2">CITIUS33</p>
-                                            </div>
-                                        </div>
-                                        <div class="row row_override_v3">
-                                            <div class="four wide column">
-                                                <p class="paragraph_ovrd_v2">ABA No.:</p>
-                                            </div>
-                                            <div class="twelve wide column">
-                                                <p class="paragraph_ovrd_v2">021000089</p>
-                                            </div>
-                                        </div>
-                                        <div class="row row_override_v4">
-                                            <div class="four wide column">
-                                                <p class="paragraph_ovrd_v2">Beneficiary</p>
-                                            </div>
-                                            <div class="twelve wide column">
-                                                <p class="paragraph_ovrd_v2">First Global Bank Limited</p>
-                                            </div>
-                                        </div>
-                                        <div class="row row_override_v3">
-                                            <div class="four wide column">
-                                                <p class="paragraph_ovrd_v2"></p>
-                                            </div>
-                                            <div class="twelve wide column">
-                                                <p class="paragraph_ovrd_v2">BIC (Swift): FILBJMKN</p>
-                                            </div>
-                                        </div>
-                                        <div class="row row_override_v3">
-                                            <div class="four wide column">
-                                                <p class="paragraph_ovrd_v2"></p>
-                                            </div>
-                                            <div class="twelve wide column">
-                                                <p class="paragraph_ovrd_v2">28-48 Barbados Avenue, Kingston 5, Jamaica, W.I.</p>
-                                            </div>
-                                        </div>
-                                        <div class="row row_override_v3">
-                                            <div class="four wide column">
-                                                <p class="paragraph_ovrd_v2"></p>
-                                            </div>
-                                            <div class="twelve wide column">
-                                                <p class="paragraph_ovrd_v2">For further Credit to Spectrum Management Authority</p>
-                                            </div>
-                                        </div>
-                                        <div class="row row_override_v3">
-                                            <div class="four wide column">
-                                                <p class="paragraph_ovrd_v2"></p>
-                                            </div>
-                                            <div class="twelve wide column">
-                                                <p class="paragraph_ovrd_v2">Account # 99</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="one wide column">
-                                </div>
-                            </div>
-                        </div>
-
-                        <h5 style="margin-left:40px; margin-top:35px;" class="ui header header_override">NB: A bank charge of US$17.50 is incurred for wire transfer transactions.</h5>
-
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="actions">
-        <div class="ui blue ok button">
-            <i class="checkmark icon"></i>
-            Finish
+        <div class="actions">
+            <div class="ui blue ok button">
+                <i class="checkmark icon"></i>
+                Finish
+            </div>
         </div>
     </div>
-</div>
 
 

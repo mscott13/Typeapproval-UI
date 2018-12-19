@@ -128,11 +128,7 @@
         jsonObj.antenna_gain = $("input[name=antenna_gain]").val();
         jsonObj.channel = $("input[name=channel]").val();
         jsonObj.separation = $("input[name=separation]").val();
-        jsonObj.aspect = $("input[name=aspect]").val();
-        jsonObj.compatibility = $("input[name=compatibility]").val();
-        jsonObj.security = $("input[name=security]").val();
-        jsonObj.equipment_comm_type = $("#equipment_type_dropdown").find(".menu").find(".item.active.selected").html();
-        jsonObj.fee_code = $("#fee_code_dropdown").find(".menu").find(".item.active.selected").html();
+        jsonObj.additional_info = $("textarea[name=additional_information]").val();
 
         var json = JSON.stringify(jsonObj);
         $.ajax({
@@ -178,12 +174,12 @@
                     type: "GET",
                     url: "/new/post-current-app",
                     success: function (data) {
-                        if (data.responseText == "posted") {
+                        if (data.responseText === "posted") {
                             addApplicationStatus("Application saved with ID: <b>" + data.app_id + "<b>");
                             $(btn_save).removeClass("disabled loading");
                             $(btn_save).html("Saved");
                         }
-                        else if (data.responseText == "updated") {
+                        else if (data.responseText === "updated") {
                             console.log("application updated");
                             $(btn_save).removeClass("disabled loading");
                             $(btn_save).html("Saved");
@@ -233,11 +229,7 @@
         jsonObj.antenna_gain = $("input[name=antenna_gain]").val();
         jsonObj.channel = $("input[name=channel]").val();
         jsonObj.separation = $("input[name=separation]").val();
-        jsonObj.aspect = $("input[name=aspect]").val();
-        jsonObj.compatibility = $("input[name=compatibility]").val();
-        jsonObj.security = $("input[name=security]").val();
-        jsonObj.equipment_comm_type = $("#equipment_type_dropdown").find(".menu").find(".item.active.selected").html();
-        jsonObj.fee_code = $("#fee_code_dropdown").find(".menu").find(".item.active.selected").html();
+        jsonObj.additional_info = $("textarea[name=additional_information]").val();
 
         var json = JSON.stringify(jsonObj);
         $.ajax({
@@ -250,12 +242,12 @@
                     type: "GET",
                     url: "/new/post-current-app",
                     success: function (data) {
-                        if (data.responseText == "posted") {
+                        if (data.responseText === "posted") {
                             addApplicationStatus("Application saved with ID: <b>" + data.app_id + "<b>");
                             $(btn_save).removeClass("disabled loading");
                             $(btn_save).html("Saved");
                         }
-                        else if (data.responseText == "updated") {
+                        else if (data.responseText === "updated") {
                             console.log("application updated");
                             $(btn_save).removeClass("disabled loading");
                             $(btn_save).html("Saved");

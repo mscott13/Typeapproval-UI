@@ -60,7 +60,6 @@
                         '</div>' +
                         '</div>';
                 }
-
             }
 
             $('.ui.divided.selection.list').append(html_inner);
@@ -216,9 +215,6 @@
 
                     set_equipment_type_checked(data.step2.equipment_types, data.step2.other_equipment);
                     set_antenna_type_dropdown(data.step2.antenna_type);
-                    set_equipment_comm_type(data.step2.equipment_comm_type);
-                    set_fee_code_options(data.step2.equipment_comm_type.toLowerCase());
-                    set_fee_code_type(data.step2.fee_code);
 
                     var target = $('#table_frequencies');
 
@@ -244,12 +240,12 @@
                         }
                     });
 
-                    $("input[name=aspect]").val(data.step2.aspect);
                     $("input[name=antenna_gain]").val(data.step2.antenna_gain);
                     $("input[name=channel]").val(data.step2.channels);
                     $("input[name=separation]").val(data.step2.separation);
-                    $("input[name=compatibility]").val(data.step2.compatibility);
-                    $("input[name=security]").val(data.step2.security);
+                    $("textarea[name=additional_information]").val(data.step2.additional_info);
+                   
+                   
 
                     if (data.step1.application_id !== '')
                     {

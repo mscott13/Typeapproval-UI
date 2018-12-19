@@ -1,7 +1,9 @@
 ﻿$(document).ready(function () {
 
     var json_form; 
-    var files;
+    var file_tech_spec;
+    var file_test_report;
+    var file_accreditation;
     var form_status;
 
     $('body').on('click', '.ui.divided.selection.list .item', function () {
@@ -20,6 +22,58 @@
             }
         });
     });
+
+
+    //////////////////////////////////////////////// HANDLING FILES HERE ///////////////////////////////////////////////
+    $('#tech_spec').click(function () {
+        $('#file_tech_spec').trigger('click');
+    });
+
+    $('#test_report').click(function () {
+        $('#file_test_report').trigger('click');
+    });
+
+    $('#accreditation').click(function () {
+        $('#file_accreditation').trigger('click');
+    });
+
+    $('body').on('change', '#file_tech_spec', function () {
+
+        file_tech_spec = ($('#file_tech_spec'))[0].files;
+
+        for (var i = 0; i < file_tech_spec.length; i++) {
+            var filename = file_tech_spec[i].name;
+            var size = Math.ceil(file_tech_spec[i].size / 1000);
+            var sz_str = size + ' Kb';
+            var type = file_tech_spec[i].type;
+        }
+    });
+
+    $('body').on('change', '#file_test_report', function () {
+
+        file_test_report = ($('#file_test_report'))[0].files;
+
+        for (var i = 0; i < file_test_report.length; i++) {
+            var filename = file_test_report[i].name;
+            var size = Math.ceil(file_test_report[i].size / 1000);
+            var sz_str = size + ' Kb';
+            var type = file_test_report[i].type;
+        }
+    });
+
+    $('body').on('change', '#file_accreditation', function () {
+
+        file_accreditation = ($('#file_accreditation'))[0].files;
+
+        for (var i = 0; i < file_accreditation.length; i++) {
+            var filename = file_accreditation[i].name;
+            var size = Math.ceil(file_accreditation[i].size / 1000);
+            var sz_str = size + ' Kb';
+            var type = file_accreditation[i].type;
+        }
+    });
+    //////////////////////////////////////////////// ///////////////////// ///////////////////////////////////////////////
+
 
     $.ajax({
         type: "GET",
@@ -77,48 +131,34 @@
     }
 
 
-    $('body').on('change', '#upload_files', function () {
-
-        files = ($('#upload_files'))[0].files;
-        remove_files_table();
-
-        if (files.length > 0) {
-            add_file_table();
-            $('#step3_to_finish').removeClass('disabled');
-        }
-        else
-        {
-            $('#step3_to_finish').addClass('disabled');
-        }
-
-        for (var i = 0; i < files.length; i++)
-        {
-            var filename = files[i].name;
-            var size = Math.ceil(files[i].size / 1000);
-            var sz_str = size + ' Kb';
-            var type = files[i].type;
-
-            add_file_to_table(filename, type, sz_str);
-        }
-    });
+    
 
     $('#step3_to_finish').click(function () {
+
         var btn_finish = $(this);
         btn_finish.addClass('disabled loading');
+
+        var institution = $('input[name="institution"]').val();
+        var country = $('input[name="country"]').val();
 
         $.ajax({
             type: "GET",
             url: "/retrieve/step-3",
             success: function (data) {
+
                 json_form = JSON.stringify(data.form);
                 form_status = data.form.status;
 
-                if (form_status == 'completed') {
+                if (form_status === 'completed')
+                {
                     var form_data = new FormData();
-                    form_data.append("json_form", json_form);
+                    form_data.append("json", json_form);
 
-                    for (var i = 0; i < files.length; i++) {
-                        form_data.append(i, files[i]);
+                    for (var i = 0; i < files.length; i++)
+                    {
+                        form_data.append(i, file_tech_spec[i]);
+                        form_data.append(i, file_test_report[i]);
+                        form_data.append(i, file_accreditation[i]);
                     }
 
                     $.ajax({

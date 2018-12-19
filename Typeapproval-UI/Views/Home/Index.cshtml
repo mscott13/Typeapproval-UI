@@ -6,13 +6,13 @@
 }
 
 @section Scripts{
-    <script src="~/Scripts/feed.js"></script>
+    <script src="~/Scripts/feed.js?t=@DateTime.Now.Millisecond.ToString()"></script>
     <script src="~/Scripts/dom-to-image.js"></script>
 }
 
 @section Styles{
-    <link href="~/Content/overrides.css" rel="stylesheet" />
-    <link href="~/Content/custom.css" rel="stylesheet" />
+    <link href="~/Content/overrides.css?t=@DateTime.Now.Millisecond.ToString()" rel="stylesheet" />
+    <link href="~/Content/custom.css?t=@DateTime.Now.Millisecond.ToString()" rel="stylesheet" />
 }
 
 <div class="ui container override">

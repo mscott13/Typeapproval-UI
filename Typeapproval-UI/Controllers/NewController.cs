@@ -207,11 +207,7 @@ namespace Typeapproval_UI.Controllers
             Session["antenna_gain"] = form.antenna_gain;
             Session["channel"] = form.channel;
             Session["separation"] = form.separation;
-            Session["aspect"] = form.aspect;
-            Session["compatibility"] = form.compatibility;
-            Session["security"] = form.security;
-            Session["equipment_comm_type"] = form.equipment_comm_type;
-            Session["fee_code"] = form.fee_code;
+            Session["additional_info"] = form.additional_info;
             Session["frequencies"] = form.frequencies;
         }
 
@@ -260,11 +256,7 @@ namespace Typeapproval_UI.Controllers
             Session["antenna_gain"] = form.antenna_gain;
             Session["channel"] = form.channel;
             Session["separation"] = form.separation;
-            Session["aspect"] = form.aspect;
-            Session["compatibility"] = form.compatibility;
-            Session["security"] = form.security;
-            Session["equipment_comm_type"] = form.equipment_comm_type;
-            Session["fee_code"] = form.fee_code;
+            Session["additional_info"] = form.additional_info;
             Session["frequencies"] = form.frequencies;
             return Json(new { success = true, responseText = "state saved" }, JsonRequestBehavior.AllowGet);
         }
@@ -310,11 +302,7 @@ namespace Typeapproval_UI.Controllers
             step2.antenna_gain = Session["antenna_gain"].ToString();
             step2.channels = Session["channel"].ToString();
             step2.separation = Session["separation"].ToString();
-            step2.aspect = Session["aspect"].ToString();
-            step2.compatibility = Session["compatibility"].ToString();
-            step2.security = Session["security"].ToString();
-            step2.equipment_comm_type = Session["equipment_comm_type"].ToString();
-            step2.fee_code = Session["fee_code"].ToString();
+            step2.additional_info = Session["additional_info"].ToString();
             step2.frequencies = (List<Frequency>)Session["frequencies"];
 
             if (Session["application_id"] != null)
@@ -358,7 +346,8 @@ namespace Typeapproval_UI.Controllers
             {
                 form.application_id = Session["application_id"].ToString();
             }
-            
+
+            form.username = Session["username"].ToString();
             form.applicant_name = Session["applicant_name"].ToString();
             form.applicant_tel = Session["applicant_tel"].ToString();
             form.applicant_address = Session["applicant_address"].ToString();
@@ -385,11 +374,7 @@ namespace Typeapproval_UI.Controllers
             form.antenna_gain = Session["antenna_gain"].ToString();
             form.channel = Session["channel"].ToString();
             form.separation = Session["separation"].ToString();
-            form.aspect = Session["aspect"].ToString();
-            form.compatibility = Session["compatibility"].ToString();
-            form.security = Session["security"].ToString();
-            form.equipment_comm_type = Session["equipment_comm_type"].ToString();
-            form.fee_code = Session["fee_code"].ToString();
+            form.additional_info = Session["additional_info"].ToString();
             form.frequencies = (List<Frequency>)Session["frequencies"];
 
             if (CheckFormCompleted(form))
@@ -463,11 +448,7 @@ namespace Typeapproval_UI.Controllers
             form.antenna_gain = Session["antenna_gain"].ToString();
             form.channel = Session["channel"].ToString();
             form.separation = Session["separation"].ToString();
-            form.aspect = Session["aspect"].ToString();
-            form.compatibility = Session["compatibility"].ToString();
-            form.security = Session["security"].ToString();
-            form.equipment_comm_type = Session["equipment_comm_type"].ToString();
-            form.fee_code = Session["fee_code"].ToString();
+            form.additional_info = Session["additional_info"].ToString();
             form.frequencies = (List<Frequency>)Session["frequencies"];
             form.status = Commons.Constants.INCOMPLETE_TYPE;
             form.category = Commons.Constants.TYPE_APPROVAL;
@@ -652,35 +633,12 @@ namespace Typeapproval_UI.Controllers
                 initialized = false;
             }
 
-            if (Session["aspect"] == null)
-            {
-                Session["aspect"] = "";
-                initialized = false;
-            }
 
-            if (Session["compatibility"] == null)
+            if (Session["additional_info"] == null)
             {
-                Session["compatibility"] = "";
+                Session["additional_info"] = "";
                 initialized = false;
-            }
-
-            if (Session["security"] == null)
-            {
-                Session["security"] = "";
-                initialized = false;
-            }
-
-            if (Session["equipment_comm_type"] == null)
-            {
-                Session["equipment_comm_type"] = "";
-                initialized = false;
-            }
-
-            if (Session["fee_code"] == null)
-            {
-                Session["fee_code"] = "";
-                initialized = false;
-            }
+            } 
 
             if (Session["frequencies"] == null)
             {
@@ -822,30 +780,11 @@ namespace Typeapproval_UI.Controllers
                 status = false;
             }
 
-            if (form.aspect == null || form.aspect == "")
+            if (form.additional_info == null || form.additional_info == "")
             {
                 status = false;
             }
 
-            if (form.compatibility == null || form.compatibility == "")
-            {
-                status = false;
-            }
-
-            if (form.security == null || form.security == "")
-            {
-                status = false;
-            }
-
-            if (form.equipment_comm_type == null || form.equipment_comm_type == "")
-            {
-                status = false;
-            }
-
-            if (form.fee_code == null || form.fee_code == "")
-            {
-                status = false;
-            }
             #endregion
 
             #region frequency_details

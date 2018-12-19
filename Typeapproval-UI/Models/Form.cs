@@ -141,31 +141,6 @@ namespace Typeapproval_UI.Models
                 separation = "";
             }
 
-            if (aspect == null)
-            {
-                aspect = "";
-            }
-
-            if (compatibility == null)
-            {
-                compatibility = "";
-            }
-
-            if(security == null)
-            {
-                security = "";
-            }
-
-            if (equipment_comm_type == null)
-            {
-                equipment_comm_type = "";
-            }
-
-            if (fee_code == null)
-            {
-                fee_code = "";
-            }
-
             if (frequencies == null)
             {
                 frequencies = new List<Frequency>();
@@ -234,11 +209,7 @@ namespace Typeapproval_UI.Models
         public string antenna_gain { get; set; }
         public string channel { get; set; }
         public string separation { get; set; }
-        public string aspect { get; set; }
-        public string compatibility { get; set; }
-        public string security { get; set; }
-        public string equipment_comm_type { get; set; }
-        public string fee_code { get; set; }
+        public string additional_info { get; set; }
         public List<Frequency> frequencies { get; set; }
         public string status { get; set; }
         public string category { get; set; }
