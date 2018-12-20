@@ -180,6 +180,16 @@ namespace Typeapproval_UI.Models
                     }
                 }
             }
+
+            if (name_of_test == null)
+            {
+                name_of_test = "";
+            }
+
+            if (country == null)
+            {
+                country = "";
+            }
         }
 
         public string access_key { get; set; }
@@ -213,5 +223,7 @@ namespace Typeapproval_UI.Models
         public List<Frequency> frequencies { get; set; }
         public string status { get; set; }
         public string category { get; set; }
+        public string name_of_test { get; set; }
+        public string country { get; set; }
     }
 }

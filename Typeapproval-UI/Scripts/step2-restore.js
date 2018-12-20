@@ -1,5 +1,84 @@
 ﻿$(document).ready(function () {
 
+    $('.ui.blue.button.save_app.s2').click(function () {
+        var btn_save = $(this);
+        $(btn_save).addClass("disabled loading");
+
+        var jsonObj = new Object();
+        jsonObj.equipment_type = $("input[name=equipment_type]").val();
+        jsonObj.equipment_description = $("textarea[name=equipment_description]").val();
+        jsonObj.product_identification = $("input[name=product_identification]").val();
+        jsonObj.refNum = $("input[name=refNum]").val();
+        jsonObj.make = $("input[name=make]").val();
+        jsonObj.software = $("input[name=software]").val();
+        jsonObj.type_of_equipment = $(".ui.radio.checkbox.checked").children("input").val();
+        jsonObj.other = $("input[name=other_equipment]").val();
+
+        var i = 0; var frequencies = [];
+        $("#table_frequencies tr").each(function () {
+            var obj = {};
+            obj["sequence"] = ++i;
+            obj["lower_freq"] = $(this).find("input[name=lower_mhz]").val();
+            obj["upper_freq"] = $(this).find("input[name=upper_mhz]").val();
+            obj["power"] = $(this).find("input[name=power]").val();
+            obj["tolerance"] = $(this).find("input[name=tolerance]").val();
+            obj["emmission_desig"] = $(this).find("input[name=emmission_desig]").val();
+            obj["freq_type"] = $(this).find(".menu").find(".item.active.selected").html();
+            frequencies.push(obj);
+        });
+
+        jsonObj.frequencies = frequencies;
+        jsonObj.antenna_type = $("#antenna_type_dropdown").find(".menu").find(".item.active.selected").html();
+        jsonObj.antenna_gain = $("input[name=antenna_gain]").val();
+        jsonObj.channel = $("input[name=channel]").val();
+        jsonObj.separation = $("input[name=separation]").val();
+        jsonObj.additional_info = $("textarea[name=additional_information]").val();
+
+        var json = JSON.stringify(jsonObj);
+        $.ajax({
+            type: "POST",
+            url: "/save/step-2",
+            contentType: "application/json; charset=utf-8",
+            data: json,
+            success: function (data) {
+                $.ajax({
+                    type: "GET",
+                    url: "/new/post-current-app",
+                    success: function (data) {
+                        if (data.responseText === "posted") {
+                            addApplicationStatus("Application saved with ID: <b>" + data.app_id + "<b>");
+                            $(btn_save).removeClass("disabled loading");
+                            $(btn_save).html("Saved");
+                        }
+                        else if (data.responseText === "updated") {
+                            console.log("application updated");
+                            $(btn_save).removeClass("disabled loading");
+                            $(btn_save).html("Saved");
+                        }
+                        else if (data.responseText === "session expired") {
+                            window.location = "/account";
+                        }
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    });
+
+    function addApplicationStatus(html) {
+        var raw = '<div class="ui attached warning message application">' +
+            '<i class="info icon"></i>' +
+            html +
+            '</div>';
+
+        $(raw).insertAfter('.ui.tiny.three.top.attached.steps');
+    }
+
     $('body').on('click', '.ui.divided.selection.list .item', function () {
         $('.ui.divided.selection.list .item').removeClass('active');
         $(this).toggleClass("active");
@@ -413,11 +492,6 @@
         $(menu_holder).find('.item').remove();
         $(span_text).text("Select Type");
         $(menu_holder).append(html);
-    }
-
-    function reset_step_2()
-    {
-
     }
 
     restore_step2();

@@ -43,6 +43,10 @@ namespace Typeapproval_UI.Controllers
             Session.Remove("equipment_comm_type");
             Session.Remove("fee_code");
             Session.Remove("frequencies");
+            Session.Remove("name_of_test");
+            Session.Remove("country");
+            Session.Remove("additional_info");
+            Session.Remove("view_mode");
 
             var client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:54367/api/data/");

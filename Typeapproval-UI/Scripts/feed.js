@@ -22,10 +22,11 @@
             contentType: "application/json; charset=utf-8",
             data: { "application_id": appid },
             success: function (data) {
+                
                 initializePreview(data.form);
             },
             error: function (data) {
-                $(modal).modal('hide');
+                //$(modal).modal('hide');
             }
         });
     });
@@ -281,40 +282,10 @@
             '</div>' +
             '</div>' +
             '</div>' +
-            '<div class="three fields">' +
-            '<div class="field">' +
-            '<label>Aspect</label>' +
-            '<div class="ui input">' +
-            '<input readonly type="text" placeholder="" name="aspect" value="'+data.aspect+'">' +
-            '</div>' +
-            '</div>' +
-            '<div class="field">' +
-            '<label>Compatibility</label>' +
-            '<div class="ui input">' +
-            '<input readonly type="text" placeholder="" name="compatibility" value="' + data.compatibility+'">' +
-            '</div>' +
-            '</div>' +
-            '<div class="field">' +
-            '<label>Security</label>' +
-            '<div class="ui input">' +
-            '<input readonly type="text" placeholder="" name="security" value="' + data.security+'">' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="two fields">' +
-            '<div class="field">' +
-            '<label>Equipment type</label>' +
-            '<div class="ui input">' +
-            '<input readonly id="equipment_type_dropdown" type="text" placeholder="" name="equipment type" value="' + data.equipment_comm_type+'">' +
-            '</div>' +
-            '</div>' +
-            '<div class="field">' +
-            '<label>Fee Code</label>' +
-            '<div class="ui input">' +
-            '<input readonly id="fee_code_dropdown" type="text" placeholder="" name="fee code" value="' + data.fee_code+'">' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
+            '<div class="field">'+
+                '<label>Additional Information</label>'+
+                '<textarea readonly rows="3" name="additional_information"></textarea>'+
+            '</div>'+
             '</div>' +
             '</div>';
 
@@ -552,8 +523,9 @@
 
         $('.ui.long.modal')
             .modal({
-                closable: false,
-                   }).modal('show');
+                closable: false
+            }).modal('show');
+
     }
 
     function initializeFeed(data)

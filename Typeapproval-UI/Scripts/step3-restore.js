@@ -6,6 +6,57 @@
     var file_accreditation;
     var form_status;
 
+    $('.ui.read-only.checkbox.tech_spec_check').checkbox();
+    $('.ui.read-only.checkbox.test_report_check').checkbox();
+    $('.ui.read-only.checkbox.accreditation').checkbox();
+
+     /////////////////////// Saving data to session /////////////////////////
+    $('.ui.blue.button.save_app.s3').click(function () {
+        var btn_save = $(this);
+        $(btn_save).addClass("disabled loading");
+
+        var jsonObj = new Object();
+        jsonObj.name_of_test = $("input[name=institution]").val();
+        jsonObj.country = $("input[name=country]").val();
+
+
+        var json = JSON.stringify(jsonObj);
+        $.ajax({
+            type: "POST",
+            url: "/save/step-3",
+            contentType: "application/json; charset=utf-8",
+            data: json,
+            success: function (data) {
+                $.ajax({
+                    type: "GET",
+                    url: "/new/post-current-app",
+                    success: function (data) {
+                        if (data.responseText === "posted") {
+                            addApplicationStatus("Application saved with ID: <b>" + data.app_id + "<b>");
+                            $(btn_save).removeClass("disabled loading");
+                            $(btn_save).html("Saved");
+                        }
+                        else if (data.responseText === "updated") {
+                            console.log("application updated");
+                            $(btn_save).removeClass("disabled loading");
+                            $(btn_save).html("Saved");
+                        }
+                        else if (data.responseText === "session expired") {
+                            window.location = "/account";
+                        }
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    });
+     /////////////////////// Saving data to session /////////////////////////
+
     $('body').on('click', '.ui.divided.selection.list .item', function () {
         $('.ui.divided.selection.list .item').removeClass('active');
         $(this).toggleClass("active");
@@ -16,7 +67,7 @@
             contentType: "application/json; charset=utf-8",
             data: { "application_id": $(this).data('appid') },
             success: function (data) {
-               
+                restore_step3();
             },
             error: function (data) {
             }
@@ -44,6 +95,8 @@
         if (file_tech_spec.length > 0) {
             var filename = file_tech_spec[0].name;
             $('#tech_spec').html('<i class="file pdf icon"></i>' + filename + '</a>');
+            $('.ui.read-only.checkbox.tech_spec_check').checkbox('check');
+            
         }
 
 
@@ -62,6 +115,7 @@
         {
             var filename = file_test_report[0].name;
             $('#test_report').html('<i class="file pdf icon"></i>' + filename + '</a>');
+            $('.ui.read-only.checkbox.test_report_check').checkbox('check');
         }
 
         for (var i = 0; i < file_test_report.length; i++) {
@@ -79,6 +133,7 @@
         if (file_accreditation.length > 0) {
             var filename = file_accreditation[0].name;
             $('#accreditation').html('<i class="file pdf icon"></i>' + filename + '</a>');
+            $('.ui.read-only.checkbox.accreditation').checkbox('check');
         }
 
         for (var i = 0; i < file_accreditation.length; i++) {
@@ -145,7 +200,14 @@
         }
     }
 
+    function addApplicationStatus(html) {
+        var raw = '<div class="ui attached warning message application">' +
+            '<i class="info icon"></i>' +
+            html +
+            '</div>';
 
+        $(raw).insertAfter('.ui.tiny.three.top.attached.steps');
+    }
     
 
     $('#step3_to_finish').click(function () {
@@ -158,7 +220,7 @@
 
         $.ajax({
             type: "GET",
-            url: "/retrieve/step-3",
+            url: "/retrieve/application",
             success: function (data) {
 
                 json_form = JSON.stringify(data.form);
@@ -264,15 +326,40 @@
         $('.ui.selectable.table.files').remove();
     }
 
-    function addApplicationStatus(html) {
-        var raw = '<div class="ui attached warning message application">' +
-            '<i class="info icon"></i>' +
-            html +
-            '</div>';
+    function restore_step3() {
+        $.ajax({
+            type: "GET",
+            url: "/retrieve/step-3",
+            success: function (data) {
+                if (data.data_present) {
+                    $("input[name=institution]").val(data.step3.name_of_test);
+                    $("input[name=country]").val(data.step3.country);
 
+                    if (data.step3.application_id !== '') {
+                        if ($('.ui.small.attached.warning.message.application').length === 0) {
+                            var attatched_header =
+                                '<div class="ui small attached warning message application">' +
+                                '<i class="info icon"></i>' +
+                                ' Application saved with ID: <b>' + data.step3.application_id + '</b>' +
+                                '</div>';
 
-        $(raw).insertAfter('.ui.tiny.three.top.attached.steps');
+                            $(attatched_header).insertAfter('.ui.tiny.three.top.attached.steps');
+                        }
+                        else {
+                            var html =
+                                '<i class="info icon"></i>' +
+                                'Application saved with ID: <b>' + data.step3.application_id + '</b>';
+
+                            $('.ui.small.attached.warning.message.application').html(html);
+                        }
+                    }
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
     }
 
-
+    restore_step3();
 });

@@ -213,3 +213,12 @@ u {
         text-align: left !important;
         padding: 6px !important;
     }
+
+.link_override_v1 {
+    color: #ff0000 !important;
+}
+
+.link_override_v1:hover
+{
+    text-decoration: underline !important;
+}

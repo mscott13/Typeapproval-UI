@@ -13,6 +13,21 @@
     <link href="~/Content/overrides.css" rel="stylesheet" />
 }
 
+@{
+    var mode = "";
+    if (Session["view_mode"] == null)
+    {
+        mode = "";
+    }
+    else if (Session["view_mode"].ToString() == "preview")
+    {
+        mode = "preview";
+    }
+    else if (Session["view_mode"].ToString() == "edit")
+    {
+        mode = "edit";
+    }
+}
 
 <div class="ui container override">
     <div class="ui grid">
@@ -25,18 +40,35 @@
                     <p>This section allows you to <b>save</b> an incomplete application for later use. </p>
                 </div>
                 @{
-                    if (Session["save_state"] != null)
+                    if (mode == "preview")
                     {
                         <div class="fluid ui tiny buttons">
-                            <button class="ui button cancel_app">Cancel</button>
-                            <button class="ui blue button save_app s3">Update</button>
+                            <button class="ui disabled button cancel_app">Cancel</button>
+                            <button class="ui disabled blue button save_app s1">Save for later</button>
                         </div>
+                    }
+                    else if (mode == "edit")
+                    {
+                        if (Session["save_state"] != null)
+                        {
+                            <div class="fluid ui tiny buttons">
+                                <button class="ui button cancel_app">Cancel</button>
+                                <button class="ui blue button save_app s1">Update</button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="fluid ui tiny buttons">
+                                <button class="ui button cancel_app">Cancel</button>
+                                <button class="ui blue button save_app s1">Save for later</button>
+                            </div>
+                        }
                     }
                     else
                     {
                         <div class="fluid ui tiny buttons">
                             <button class="ui button cancel_app">Cancel</button>
-                            <button class="ui blue button save_app s3">Save for later</button>
+                            <button class="ui blue button save_app s1">Save for later</button>
                         </div>
                     }
                 }
@@ -80,7 +112,7 @@
                     </div>
                     @if (Session["application_id"] != null)
                     {
-                        <div class="ui attached warning message application">
+                        <div class="ui small attached warning message application">
                             <i class="info icon"></i>
                             Application saved with ID: <b>@Session["application_id"].ToString()</b>
                         </div>
@@ -91,24 +123,24 @@
                                 <a class="ui grey ribbon label">4. &nbsp Attatched Documents and Equipment</a>
 
                                 <div style="margin-top: 13px !important;" class="field">
-                                    <div class="ui read-only checkbox">
+                                    <div class="ui read-only checkbox tech_spec_check">
                                         <input type="checkbox" name="example">
-                                        <label>Technical Specifications of Equipment&nbsp;&nbsp;<a id="tech_spec" style="text-decoration:underline !important; cursor:pointer !important;"><i class="file pdf icon"></i>attach pdf</a></label>
+                                        <label>Technical Specifications of Equipment&nbsp;&nbsp;<a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>attach pdf</a></label>
                                     </div>
                                 </div>
 
                                 <div style="margin-top: 16px !important;" class="field">
-                                    <div class="ui read-only checkbox">
+                                    <div class="ui read-only checkbox test_report_check">
                                         <input type="checkbox" name="example">
-                                        <label>A copy of the test report (EMC, RF Safety etc) of the technical characteristics of the radio communication equipment, issued by a recognized test or certification body.&nbsp;&nbsp;<a id="test_report" style="text-decoration:underline !important; cursor:pointer !important;"><i class="file pdf icon"></i>attach pdf</a></label>
+                                        <label>A copy of the test report (EMC, RF Safety etc) of the technical characteristics of the radio communication equipment, issued by a recognized test or certification body.&nbsp;&nbsp;<a class="link_override_v1" id="test_report" style="cursor:pointer !important;"><i class="file pdf icon"></i>attach pdf</a></label>
                                     </div>
                                 </div>
 
 
                                 <div style="margin-top: 16px !important;" class="field">
-                                    <div class="ui read-only checkbox">
+                                    <div class="ui read-only checkbox accreditation">
                                         <input type="checkbox" name="example">
-                                        <label>A copy of accreditation certificate of test or certification body&nbsp;&nbsp;<a id="accreditation" style="text-decoration:underline !important; cursor:pointer !important;"><i class="file pdf icon"></i>attach pdf</a></label>
+                                        <label>A copy of accreditation certificate of test or certification body&nbsp;&nbsp;<a class="link_override_v1" id="accreditation" style="cursor:pointer !important;"><i class="file pdf icon"></i>attach pdf</a></label>
                                     </div>
                                 </div>
 
@@ -142,9 +174,9 @@
                                     </p>
                                 </div>
 
-                                <input id="file_tech_spec" accept="application/pdf"  type="file" style="display: none" />
-                                <input id="file_test_report" accept="application/pdf"  type="file" style="display: none" />
-                                <input id="file_accreditation" accept="application/pdf"  type="file" style="display: none" />
+                                <input id="file_tech_spec" accept="application/pdf" type="file" style="display: none" />
+                                <input id="file_test_report" accept="application/pdf" type="file" style="display: none" />
+                                <input id="file_accreditation" accept="application/pdf" type="file" style="display: none" />
 
                                 <div class="one field">
                                     <button id="step3_to_finish" type="button" class="ui tiny right floated blue button">
@@ -430,5 +462,5 @@
             </div>
         </div>
     </div>
-
+</div>
 

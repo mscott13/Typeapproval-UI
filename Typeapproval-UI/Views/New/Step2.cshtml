@@ -12,283 +12,316 @@
     <link href="~/Content/overrides.css" rel="stylesheet" />
 }
 
+@{
+    var mode = "";
+    if (Session["view_mode"] == null)
+    {
+        mode = "";
+    }
+    else if (Session["view_mode"].ToString() == "preview")
+    {
+        mode = "preview";
+    }
+    else if (Session["view_mode"].ToString() == "edit")
+    {
+        mode = "edit";
+    }
+}
 
-    <div class="ui container override">
-        <div class="ui grid">
-            <div class="four wide column">
-                <div class="ui sticky _form">
-                    <div class="ui ignored small info message">
-                        <div class="header">
-                            Form controls
-                        </div>
-                        <p>This section allows you to <b>save</b> an incomplete application for later use. </p>
+
+<div class="ui container override">
+    <div class="ui grid">
+        <div class="four wide column">
+            <div class="ui sticky _form">
+                <div class="ui ignored small info message">
+                    <div class="header">
+                        Form controls
                     </div>
-                    @{
+                    <p>This section allows you to <b>save</b> an incomplete application for later use. </p>
+                </div>
+                @{
+                    if (mode == "preview")
+                    {
+                        <div class="fluid ui tiny buttons">
+                            <button class="ui disabled button cancel_app">Cancel</button>
+                            <button class="ui disabled blue button save_app s1">Save for later</button>
+                        </div>
+                    }
+                    else if (mode == "edit")
+                    {
                         if (Session["save_state"] != null)
                         {
                             <div class="fluid ui tiny buttons">
                                 <button class="ui button cancel_app">Cancel</button>
-                                <button class="ui blue button save_app s2">Update</button>
+                                <button class="ui blue button save_app s1">Update</button>
                             </div>
                         }
                         else
                         {
                             <div class="fluid ui tiny buttons">
                                 <button class="ui button cancel_app">Cancel</button>
-                                <button class="ui blue button save_app s2">Save for later</button>
+                                <button class="ui blue button save_app s1">Save for later</button>
                             </div>
                         }
                     }
-                    <div class="ui fluid card">
-                        <div class="content">
-                            <h4 class="ui header">
-                                Saved Applications
-                            </h4>
+                    else
+                    {
+                        <div class="fluid ui tiny buttons">
+                            <button class="ui button cancel_app">Cancel</button>
+                            <button class="ui blue button save_app s1">Save for later</button>
                         </div>
-                        <div id="savedDocs" class="content">
-                            <div class="ui tiny active centered inline text loader saved-docs">Getting info...</div>
-                        </div>
+                    }
+                }
+                <div class="ui fluid card">
+                    <div class="content">
+                        <h4 class="ui header">
+                            Saved Applications
+                        </h4>
+                    </div>
+                    <div id="savedDocs" class="content">
+                        <div class="ui tiny active centered inline text loader saved-docs">Getting info...</div>
                     </div>
                 </div>
             </div>
-            <div class="twelve wide column">
-                <div class="ui one column grid">
-                    <div class="column">
-                        <div class="ui tiny three top attached steps">
-                            <div class="disabled completed step">
-                                <i class="address card icon"></i>
-                                <div class="content">
-                                    <div class="title">Applicant Information</div>
-                                    <div class="description">Enter applicant details</div>
-                                </div>
-                            </div>
-                            <div class="active step">
-                                <i class="hdd icon"></i>
-                                <div class="content">
-                                    <div class="title">Equipment Information</div>
-                                    <div class="description">Description of Equipment</div>
-                                </div>
-                            </div>
-                            <div class="disabled step">
-                                <i class="upload icon"></i>
-                                <div class="content">
-                                    <div class="title">Upload Files</div>
-                                    <div class="description">Add files relevant to this application</div>
-                                </div>
+        </div>
+        <div class="twelve wide column">
+            <div class="ui one column grid">
+                <div class="column">
+                    <div class="ui tiny three top attached steps">
+                        <div class="disabled completed step">
+                            <i class="address card icon"></i>
+                            <div class="content">
+                                <div class="title">Applicant Information</div>
+                                <div class="description">Enter applicant details</div>
                             </div>
                         </div>
-                        @if (Session["application_id"] != null)
-                        {
-                            <div class="ui small attached warning message application">
-                                <i class="info icon"></i>
-                                Application saved with ID: <b>@Session["application_id"].ToString()</b>
+                        <div class="active step">
+                            <i class="hdd icon"></i>
+                            <div class="content">
+                                <div class="title">Equipment Information</div>
+                                <div class="description">Description of Equipment</div>
                             </div>
-                        }
-                        <div id="context" class="ui clearing attached raised segment">
-                            <div class="ui form">
-                                <a class="ui grey ribbon label">3. &nbsp Equipment Description</a>
-                                <div class="inline field">
-                                    <label>Type of equipment (modem, telefax, telephone)</label>
+                        </div>
+                        <div class="disabled step">
+                            <i class="upload icon"></i>
+                            <div class="content">
+                                <div class="title">Upload Files</div>
+                                <div class="description">Add files relevant to this application</div>
+                            </div>
+                        </div>
+                    </div>
+                    @if (Session["application_id"] != null)
+                    {
+                        <div class="ui small attached warning message application">
+                            <i class="info icon"></i>
+                            Application saved with ID: <b>@Session["application_id"].ToString()</b>
+                        </div>
+                    }
+                    <div id="context" class="ui clearing attached raised segment">
+                        <div class="ui form">
+                            <a class="ui grey ribbon label">3. &nbsp Equipment Description</a>
+                            <div class="inline field">
+                                <label>Type of equipment (modem, telefax, telephone)</label>
+                                <div class="ui left icon input">
+                                    <input placeholder="eg. Wireless router" name="equipment_type" type="text">
+                                    <i class="microchip icon"></i>
+                                </div>
+                            </div>
+                            <div class="one field">
+                                <div class="field">
+                                    <label>Brief description of the equipment (to be used in the list of approved equipment and in the certificate of approval)</label>
+                                    <textarea rows="3" name="equipment_description"></textarea>
+                                </div>
+
+                            </div>
+                            <div class="one field">
+                                <div class="field">
+                                    <label>Product identification (Model number and designation) together with version number.</label>
                                     <div class="ui left icon input">
-                                        <input placeholder="eg. Wireless router" name="equipment_type" type="text">
-                                        <i class="microchip icon"></i>
+                                        <input placeholder="eg. OUS00-0569" name="product_identification" type="text">
+                                        <i class="language icon"></i>
                                     </div>
                                 </div>
-                                <div class="one field">
-                                    <div class="field">
-                                        <label>Brief description of the equipment (to be used in the list of approved equipment and in the certificate of approval)</label>
-                                        <textarea rows="3" name="equipment_description"></textarea>
+                            </div>
+                            <div class="fields">
+                                <div class="three wide field">
+                                    <label>Ref #</label>
+                                    <div class="ui left icon input">
+                                        <input placeholder="eg. 1000232" name="refNum" type="text">
+                                        <i class="user circle icon"></i>
                                     </div>
+                                </div>
+                                <div class="four wide field">
+                                    <label>Make</label>
+                                    <div class="ui left icon input">
+                                        <input placeholder="eg. 1byone" name="make" type="text">
+                                        <i class="barcode icon"></i>
+                                    </div>
+                                </div>
+                                <div class="nine wide field">
+                                    <label>Software (if any) - number and model designation of version</label>
+                                    <div class="ui left icon input">
+                                        <input placeholder="eg. 1byone" name="software" type="text">
+                                        <i class="barcode icon"></i>
+                                    </div>
+                                </div>
+                            </div>
 
-                                </div>
-                                <div class="one field">
-                                    <div class="field">
-                                        <label>Product identification (Model number and designation) together with version number.</label>
-                                        <div class="ui left icon input">
-                                            <input placeholder="eg. OUS00-0569" name="product_identification" type="text">
-                                            <i class="language icon"></i>
-                                        </div>
+                            <div id="equipent_types_handle" class="inline fields">
+                                <label>Type of equipment</label>
+                                <div class="field">
+                                    <div class="ui radio checkbox equipment_types">
+                                        <input type="radio" name="equipment_types" tabindex="0" class="hidden" value="Transmitter">
+                                        <label>Transmitter</label>
                                     </div>
                                 </div>
-                                <div class="fields">
-                                    <div class="three wide field">
-                                        <label>Ref #</label>
-                                        <div class="ui left icon input">
-                                            <input placeholder="eg. 1000232" name="refNum" type="text">
-                                            <i class="user circle icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="four wide field">
-                                        <label>Make</label>
-                                        <div class="ui left icon input">
-                                            <input placeholder="eg. 1byone" name="make" type="text">
-                                            <i class="barcode icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="nine wide field">
-                                        <label>Software (if any) - number and model designation of version</label>
-                                        <div class="ui left icon input">
-                                            <input placeholder="eg. 1byone" name="software" type="text">
-                                            <i class="barcode icon"></i>
-                                        </div>
+                                <div class="field">
+                                    <div class="ui radio checkbox equipment_types">
+                                        <input type="radio" name="equipment_types" tabindex="0" class="hidden" value="Receiver">
+                                        <label>Receiver</label>
                                     </div>
                                 </div>
-
-                                <div id="equipent_types_handle" class="inline fields">
-                                    <label>Type of equipment</label>
-                                    <div class="field">
-                                        <div class="ui radio checkbox equipment_types">
-                                            <input type="radio" name="equipment_types" tabindex="0" class="hidden" value="Transmitter">
-                                            <label>Transmitter</label>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <div class="ui radio checkbox equipment_types">
-                                            <input type="radio" name="equipment_types" tabindex="0" class="hidden" value="Receiver">
-                                            <label>Receiver</label>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <div class="ui radio checkbox equipment_types">
-                                            <input type="radio" name="equipment_types" tabindex="0" class="hidden" value="Transceiver">
-                                            <label>Transceiver</label>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <div class="ui radio checkbox equipment_types">
-                                            <input type="radio" name="equipment_types" tabindex="0" class="hidden" value="Other">
-                                            <label>Other</label>
-                                        </div>
+                                <div class="field">
+                                    <div class="ui radio checkbox equipment_types">
+                                        <input type="radio" name="equipment_types" tabindex="0" class="hidden" value="Transceiver">
+                                        <label>Transceiver</label>
                                     </div>
                                 </div>
-                                <div class="one field">
-                                    <div class="ui left icon disabled input">
-                                        <input placeholder="Other equipment" name="other_equipment" type="text">
-                                        <i class="microchip icon"></i>
+                                <div class="field">
+                                    <div class="ui radio checkbox equipment_types">
+                                        <input type="radio" name="equipment_types" tabindex="0" class="hidden" value="Other">
+                                        <label>Other</label>
                                     </div>
                                 </div>
-                                <div class="one field">
-                                    <label>Frequency information</label>
-                                    <table class="ui compact celled definition table">
-                                        <thead>
-                                            <tr>
-                                                <th class="two wide"></th>
-                                                <th class="two wide">Frequency - L (MHz)</th>
-                                                <th class="two wide">Frequency - U (MHz)</th>
-                                                <th class="two wide">Power</th>
-                                                <th class="two wide">Frequency Tolerance</th>
-                                                <th class="two wide">Emission Designator</th>
-                                                <th class="two wide">Frequency Type</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="table_frequencies">
-                                            <tr>
-                                                <td class="collapsing">
-                                                    <div class="ui fluid tiny icon buttons">
-                                                        <button class="ui button delete_record"><i class="minus icon"></i></button>
-                                                        <button class="ui button add_record"><i class="add icon"></i></button>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="ui transparent input">
-                                                        <input type="number" placeholder="lower mhz" style="width:100%" name="lower_mhz">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="ui transparent input">
-                                                        <input type="number" placeholder="upper mhz" style="width:100%" name="upper_mhz">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="ui transparent input">
-                                                        <input type="number" placeholder="power" style="width:100%" name="power">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="ui transparent input">
-                                                        <input type="number" placeholder="tolerance" style="width:100%" name="tolerance">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="ui transparent input">
-                                                        <input type="text" placeholder="emmission desig..." style="width:100%" name="emmission_desig">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="ui fluid dropdown freq_type">
-                                                        <div class="text"></div>
-                                                        <i class="dropdown icon"></i>
-                                                        <div class="menu">
-                                                            <div class="item">R</div>
-                                                            <div class="item">T</div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                            </div>
+                            <div class="one field">
+                                <div class="ui left icon disabled input">
+                                    <input placeholder="Other equipment" name="other_equipment" type="text">
+                                    <i class="microchip icon"></i>
                                 </div>
-                                <div class="three fields">
-                                    <div class="field">
-                                        <label>Antenna Type</label>
-                                        <div id="antenna_type_dropdown" class="ui fluid selection dropdown antenna">
-                                            <i class="dropdown icon"></i>
-                                            <span class="default text">Select Type</span>
-                                            <div class="menu">
-                                                <div class="item">ATDI Parabolic ITU R-1245</div>
-                                                <div class="item">ATDI Parabolic ITU R-1428</div>
-                                                <div class="item">ATDI Parabolic ITU R-419</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label>Antenna Gain (db)</label>
-                                        <div class="ui input">
-                                            <input type="text" placeholder="" name="antenna_gain">
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <div class="two fields">
-                                            <div class="field">
-                                                <label>Channels (khz)</label>
-                                                <div class="ui left icon input">
-                                                    <input placeholder="" name="channel" type="text">
-                                                    <i class="rss icon"></i>
+                            </div>
+                            <div class="one field">
+                                <label>Frequency information</label>
+                                <table class="ui compact celled definition table">
+                                    <thead>
+                                        <tr>
+                                            <th class="two wide"></th>
+                                            <th class="two wide">Frequency - L (MHz)</th>
+                                            <th class="two wide">Frequency - U (MHz)</th>
+                                            <th class="two wide">Power</th>
+                                            <th class="two wide">Frequency Tolerance</th>
+                                            <th class="two wide">Emission Designator</th>
+                                            <th class="two wide">Frequency Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table_frequencies">
+                                        <tr>
+                                            <td class="collapsing">
+                                                <div class="ui fluid tiny icon buttons">
+                                                    <button class="ui button delete_record"><i class="minus icon"></i></button>
+                                                    <button class="ui button add_record"><i class="add icon"></i></button>
                                                 </div>
-                                            </div>
-                                            <div class="field">
-                                                <label>Separation (khz)</label>
-                                                <div class="ui left icon input">
-                                                    <input placeholder="" name="separation" type="text">
-                                                    <i class="rss icon"></i>
+                                            </td>
+                                            <td>
+                                                <div class="ui transparent input">
+                                                    <input type="number" placeholder="lower mhz" style="width:100%" name="lower_mhz">
                                                 </div>
-                                            </div>
+                                            </td>
+                                            <td>
+                                                <div class="ui transparent input">
+                                                    <input type="number" placeholder="upper mhz" style="width:100%" name="upper_mhz">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="ui transparent input">
+                                                    <input type="number" placeholder="power" style="width:100%" name="power">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="ui transparent input">
+                                                    <input type="number" placeholder="tolerance" style="width:100%" name="tolerance">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="ui transparent input">
+                                                    <input type="text" placeholder="emmission desig..." style="width:100%" name="emmission_desig">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="ui fluid dropdown freq_type">
+                                                    <div class="text"></div>
+                                                    <i class="dropdown icon"></i>
+                                                    <div class="menu">
+                                                        <div class="item">R</div>
+                                                        <div class="item">T</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="three fields">
+                                <div class="field">
+                                    <label>Antenna Type</label>
+                                    <div id="antenna_type_dropdown" class="ui fluid selection dropdown antenna">
+                                        <i class="dropdown icon"></i>
+                                        <span class="default text">Select Type</span>
+                                        <div class="menu">
+                                            <div class="item">ATDI Parabolic ITU R-1245</div>
+                                            <div class="item">ATDI Parabolic ITU R-1428</div>
+                                            <div class="item">ATDI Parabolic ITU R-419</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="field">
-                                    <label>Additional Information</label>
-                                    <textarea rows="3" name="additional_information"></textarea>
+                                    <label>Antenna Gain (db)</label>
+                                    <div class="ui input">
+                                        <input type="text" placeholder="" name="antenna_gain">
+                                    </div>
                                 </div>
-                                <div class="one field">
-                                    <button id="step2_to_next" type="button" class="ui tiny right floated right labeled icon button">
-                                        <i class="right arrow icon"></i>
-                                        Next
-                                    </button>
+                                <div class="field">
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label>Channels (khz)</label>
+                                            <div class="ui left icon input">
+                                                <input placeholder="" name="channel" type="text">
+                                                <i class="rss icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <label>Separation (khz)</label>
+                                            <div class="ui left icon input">
+                                                <input placeholder="" name="separation" type="text">
+                                                <i class="rss icon"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Additional Information</label>
+                                <textarea rows="3" name="additional_information"></textarea>
+                            </div>
+                            <div class="one field">
+                                <button id="step2_to_next" type="button" class="ui tiny right floated right labeled icon button">
+                                    <i class="right arrow icon"></i>
+                                    Next
+                                </button>
 
-                                    <button id="step2_to_prev" type="button" class="ui tiny left floated left labeled icon button">
-                                        <i class="left arrow icon"></i>
-                                        Previous
-                                    </button>
-                                </div>
+                                <button id="step2_to_prev" type="button" class="ui tiny left floated left labeled icon button">
+                                    <i class="left arrow icon"></i>
+                                    Previous
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
+
+</div>
 <div class="ui basic modal cancel-confirm">
     <div class="ui icon header">
         <i class="trash icon"></i>

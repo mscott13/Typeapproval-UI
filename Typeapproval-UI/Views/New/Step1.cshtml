@@ -13,6 +13,21 @@
     <link href="~/Content/overrides.css" rel="stylesheet" />
 }
 
+@{
+    var mode = "";
+    if (Session["view_mode"] == null)
+    {
+        mode = "";
+    }
+    else if (Session["view_mode"].ToString() == "preview")
+    {
+        mode = "preview";
+    }
+    else if (Session["view_mode"].ToString() == "edit")
+    {
+        mode = "edit";
+    }
+ }
 
     <div class="ui container override">
         <div class="ui grid">
@@ -25,12 +40,29 @@
                         <p>This section allows you to <b>save</b> an incomplete application for later use. </p>
                     </div>
                     @{
-                        if (Session["save_state"] != null)
+                        if (mode == "preview")
                         {
                             <div class="fluid ui tiny buttons">
-                                <button class="ui button cancel_app">Cancel</button>
-                                <button class="ui blue button save_app s1">Update</button>
+                                <button class="ui disabled button cancel_app">Cancel</button>
+                                <button class="ui disabled blue button save_app s1">Save for later</button>
                             </div>
+                        }
+                        else if (mode == "edit")
+                        {
+                            if (Session["save_state"] != null)
+                            {
+                                <div class="fluid ui tiny buttons">
+                                    <button class="ui button cancel_app">Cancel</button>
+                                    <button class="ui blue button save_app s1">Update</button>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="fluid ui tiny buttons">
+                                    <button class="ui button cancel_app">Cancel</button>
+                                    <button class="ui blue button save_app s1">Save for later</button>
+                                </div>
+                            }
                         }
                         else
                         {
@@ -151,21 +183,42 @@
                                     <div class="field">
                                         <label>Name</label>
                                         <div class="ui left icon input">
-                                            <input id="search_manufacturers" data-purpose="update_save_btn" autocomplete="off" placeholder="Name" name="manufacturer_name" type="text">
+                                            @if (mode == "preview")
+                                            {
+                                                <input readonly id="" data-purpose="update_save_btn" autocomplete="off" placeholder="Name" name="manufacturer_name" type="text">
+                                            }
+                                            else
+                                            {
+                                                <input id="search_manufacturers" data-purpose="update_save_btn" autocomplete="off" placeholder="Name" name="manufacturer_name" type="text">
+                                            }
                                             <i class="users icon"></i>
                                         </div>
                                     </div>
                                     <div class="field">
                                         <label>Telephone</label>
                                         <div class="ui left icon input">
-                                            <input placeholder="eg. 1876-555-5555" name="manufacturer_telephone" type="text">
+                                            @if (mode == "preview")
+                                            {
+                                                <input readonly placeholder="eg. 1876-555-5555" name="manufacturer_telephone" type="text">
+                                            }
+                                            else
+                                            {
+                                                <input placeholder="eg. 1876-555-5555" name="manufacturer_telephone" type="text">
+                                            }
                                             <i class="phone volume icon"></i>
                                         </div>
                                     </div>
                                     <div class="field">
                                         <label>Address</label>
                                         <div class="ui left icon input">
-                                            <input placeholder="eg. 12 Beckford Street" name="manufacturer_address" type="text">
+                                            @if (mode == "preview")
+                                            {
+                                                <input readonly placeholder="eg. 12 Beckford Street" name="manufacturer_address" type="text">
+                                            }
+                                            else
+                                            {
+                                                <input placeholder="eg. 12 Beckford Street" name="manufacturer_address" type="text">
+                                            }
                                             <i class="address book icon"></i>
                                         </div>
                                     </div>
@@ -174,14 +227,28 @@
                                     <div class="field">
                                         <label>Fax</label>
                                         <div class="ui left icon input">
-                                            <input placeholder="eg. 1876-555-5555" name="manufacturer_fax" type="text">
+                                            @if (mode == "preview")
+                                            {
+                                                <input readonly placeholder="eg. 1876-555-5555" name="manufacturer_fax" type="text">
+                                            }
+                                            else
+                                            {
+                                                <input placeholder="eg. 1876-555-5555" name="manufacturer_fax" type="text">
+                                            }
                                             <i class="fax icon"></i>
                                         </div>
                                     </div>
                                     <div class="field">
                                         <label>Contact Person</label>
                                         <div class="ui left icon input">
-                                            <input placeholder="eg. John Brown" name="manufacturer_contact_person" type="text">
+                                            @if (mode == "preview")
+                                            {
+                                                <input readonly placeholder="eg. John Brown" name="manufacturer_contact_person" type="text">
+                                            }
+                                            else
+                                            {
+                                                <input placeholder="eg. John Brown" name="manufacturer_contact_person" type="text">
+                                            }
                                             <i class="user circle icon"></i>
                                         </div>
                                     </div>

@@ -198,50 +198,58 @@
                                     {
                                         for (int i = 0; i < Model.recentActivities.Count; i++)
                                         {
-                                            <tr>
-                                                <td><a href="/new/step-1?edit=@Model.recentActivities[i].application_id"><b>@Model.recentActivities[i].application_id</b></a></td>
-                                                <td>@Model.recentActivities[i].manufacturer</td>
-                                                <td>@Model.recentActivities[i].model</td>
-                                                <td>@Model.recentActivities[i].created_date</td>
+                                    <tr>
+                                        @if (Model.recentActivities[i].status == Typeapproval_UI.Commons.Constants.INCOMPLETE_TYPE)
+                                        {
+                                            <td><a href="/new/step-1?edit=@Model.recentActivities[i].application_id"><b>@Model.recentActivities[i].application_id</b></a></td>
+                                        }
+                                        else
+                                        {
+                                            <td><a style="cursor:pointer" data-appid="@Model.recentActivities[i].application_id" class="form_preview"><b>@Model.recentActivities[i].application_id</b></a></td>
+                                        }
 
-                                                @if(Model.recentActivities[i].licensed_date == "1/1/1900")
-                                                {
-                                                <td>--</td>
-                                                }
-                                                else
-                                                {
-                                                <td>@Model.recentActivities[i].licensed_date</td>
-                                                }
+                                        <td>@Model.recentActivities[i].manufacturer</td>
+                                        <td>@Model.recentActivities[i].model</td>
+                                        <td>@Model.recentActivities[i].created_date</td>
 
-                                                <td>@Model.recentActivities[i].author</td>
-                                                <td>@Model.recentActivities[i].category</td>
+                                        @if (Model.recentActivities[i].licensed_date == "1/1/1900")
+                                        {
+                                            <td>--</td>
+                                        }
+                                        else
+                                        {
+                                            <td>@Model.recentActivities[i].licensed_date</td>
+                                        }
 
-                                                @switch (Model.recentActivities[i].status)
-                                                {
-                                                    case Typeapproval_UI.Commons.Constants.INCOMPLETE_TYPE:
-                                                        <td class="status_incomplete">@Model.recentActivities[i].status</td>
-                                                        break;
-                                                    case Typeapproval_UI.Commons.Constants.PENDING_TYPE:
-                                                        <td class="status_pending">@Model.recentActivities[i].status</td>
-                                                        break;
-                                                    case Typeapproval_UI.Commons.Constants.INVOICED_TYPE:
-                                                        <td class="status_invoiced">@Model.recentActivities[i].status</td>
-                                                        break;
-                                                    case Typeapproval_UI.Commons.Constants.REJECTED:
-                                                        <td class="status_rejected">@Model.recentActivities[i].status</td>
-                                                        break;
-                                                    case Typeapproval_UI.Commons.Constants.LICENSED_TYPE:
-                                                        <td class="status_licensed">@Model.recentActivities[i].status</td>
-                                                        break;
-                                                    case Typeapproval_UI.Commons.Constants.SUBMITTED_TYPE:
-                                                        <td class="status_submitted">@Model.recentActivities[i].status</td>
-                                                        break;
-                                                    default:
-                                                        <td>@Model.recentActivities[i].status</td>
-                                                        break;
-                                                }
+                                        <td>@Model.recentActivities[i].author</td>
+                                        <td>@Model.recentActivities[i].category</td>
 
-                                            </tr>
+                                        @switch (Model.recentActivities[i].status)
+                                        {
+                                            case Typeapproval_UI.Commons.Constants.INCOMPLETE_TYPE:
+                                                <td class="status_incomplete">@Model.recentActivities[i].status</td>
+                                                break;
+                                            case Typeapproval_UI.Commons.Constants.PENDING_TYPE:
+                                                <td class="status_pending">@Model.recentActivities[i].status</td>
+                                                break;
+                                            case Typeapproval_UI.Commons.Constants.INVOICED_TYPE:
+                                                <td class="status_invoiced">@Model.recentActivities[i].status</td>
+                                                break;
+                                            case Typeapproval_UI.Commons.Constants.REJECTED:
+                                                <td class="status_rejected">@Model.recentActivities[i].status</td>
+                                                break;
+                                            case Typeapproval_UI.Commons.Constants.LICENSED_TYPE:
+                                                <td class="status_licensed">@Model.recentActivities[i].status</td>
+                                                break;
+                                            case Typeapproval_UI.Commons.Constants.SUBMITTED_TYPE:
+                                                <td class="status_submitted">@Model.recentActivities[i].status</td>
+                                                break;
+                                            default:
+                                                <td>@Model.recentActivities[i].status</td>
+                                                break;
+                                        }
+
+                                    </tr>
                                         }
                                     }
                                     else

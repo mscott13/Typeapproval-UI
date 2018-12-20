@@ -171,6 +171,7 @@
     <Compile Include="Models\SavedApplications.cs" />
     <Compile Include="Models\Step1.cs" />
     <Compile Include="Models\Step2.cs" />
+    <Compile Include="Models\Step3.cs" />
     <Compile Include="Models\TypeApproval.cs" />
     <Compile Include="Models\TypeApprovalDetail.cs" />
     <Compile Include="Models\UserActivity.cs" />
