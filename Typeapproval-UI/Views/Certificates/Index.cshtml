@@ -1,4 +1,4 @@
-﻿
+﻿@model Typeapproval_UI.Models.Certificate
 
 @{
     ViewBag.Title = "Certificates";
@@ -53,12 +53,12 @@
 
                             <div style="margin-top:20px; margin-left:120px;" class="row row_override_v1">
                                 <div class="sixteen wide column">
-                                    <p class="grant-bold-content_v4">Universal Electronics Inc.</p>
+                                    <p class="grant-bold-content_v4">@Model.manufacturer_name</p>
                                 </div>
                             </div>
                             <div style="margin-top:8px; margin-left:120px;" class="row row_override_v1">
                                 <div class="sixteen wide column">
-                                    <p class="grant-bold-content_v4">201 East Sandepointe Ave, 8th Floor, Santa Anna CA 92707 USA</p>
+                                    <p class="grant-bold-content_v4">@Model.manufacturer_address</p>
                                 </div>
                             </div>
                             <div style="margin-top:40px;" class="row row_override_v1">
@@ -93,7 +93,7 @@
                                 </div>
                                 <div class="nine wide column">
                                     <p style="text-align: left !important; padding-left:25px; padding-right:100px !important; font-size:15px !important;" class="grant-bold-content_v3">
-                                        060-2284
+                                       @Model.product_identification
                                     </p>
                                 </div>
                             </div>
@@ -108,7 +108,7 @@
                                 </div>
                                 <div class="nine wide column">
                                     <p style="text-align: left !important; padding-left:25px; padding-right:100px !important; font-size:15px !important;" class="grant-bold-content_v3">
-                                        Universal Electronics Inc.
+                                        @Model.manufacturer_name
                                     </p>
                                 </div>
                             </div>
@@ -123,8 +123,7 @@
                                 </div>
                                 <div class="nine wide column">
                                     <p style="text-align: left !important; padding-left:25px; padding-right:100px !important; font-size:15px !important;" class="grant-bold-content_v3">
-                                        JPN Panasonic Viera TV Touch Pad BT remote -
-                                        Spread Spectrum Transmitter
+                                       @Model.equipment_description
                                     </p>
                                 </div>
                             </div>
@@ -153,13 +152,16 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>FCC ID: MG3-0602284</td>
-                                                <td>2402 - 2480</td>
-                                                <td>0.01000000</td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
+                                            @for (int i = 0; i < Model.frequencies.Count; i++)
+                                            {
+                                                <tr>
+                                                    <td>FCC ID: MG3-0602284</td>
+                                                    <td>@Model.frequencies[i].lower_freq - @Model.frequencies[i].upper_freq</td>
+                                                    <td>@Model.frequencies[i].power</td>
+                                                    <td>@Model.frequencies[i].tolerance</td>
+                                                    <td>@Model.frequencies[i].emmission_desig</td>
+                                                </tr>
+                                            }
                                         </tbody>
                                     </table>
                                 </div>

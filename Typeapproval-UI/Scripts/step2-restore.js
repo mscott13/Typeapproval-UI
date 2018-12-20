@@ -247,7 +247,7 @@
                    
                    
 
-                    if (data.step1.application_id !== '')
+                    if (data.step2.application_id !== '')
                     {
                         if ($('.ui.small.attached.warning.message.application').length === 0) {
                             var attatched_header =

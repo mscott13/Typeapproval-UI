@@ -15,5 +15,6 @@ namespace Typeapproval_UI.Models
         public string tolerance { get; set; }
         public string emmission_desig { get; set; }
         public string freq_type { get; set; }
+        public string authorization_notes { get; set; }
     }
 }

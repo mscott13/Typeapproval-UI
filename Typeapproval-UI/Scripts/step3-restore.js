@@ -41,8 +41,13 @@
 
         file_tech_spec = ($('#file_tech_spec'))[0].files;
 
+        if (file_tech_spec.length > 0) {
+            var filename = file_tech_spec[0].name;
+            $('#tech_spec').html('<i class="file pdf icon"></i>' + filename + '</a>');
+        }
+
+
         for (var i = 0; i < file_tech_spec.length; i++) {
-            var filename = file_tech_spec[i].name;
             var size = Math.ceil(file_tech_spec[i].size / 1000);
             var sz_str = size + ' Kb';
             var type = file_tech_spec[i].type;
@@ -53,8 +58,14 @@
 
         file_test_report = ($('#file_test_report'))[0].files;
 
+        if (file_test_report.length > 0)
+        {
+            var filename = file_test_report[0].name;
+            $('#test_report').html('<i class="file pdf icon"></i>' + filename + '</a>');
+        }
+
         for (var i = 0; i < file_test_report.length; i++) {
-            var filename = file_test_report[i].name;
+            
             var size = Math.ceil(file_test_report[i].size / 1000);
             var sz_str = size + ' Kb';
             var type = file_test_report[i].type;
@@ -65,8 +76,12 @@
 
         file_accreditation = ($('#file_accreditation'))[0].files;
 
+        if (file_accreditation.length > 0) {
+            var filename = file_accreditation[0].name;
+            $('#accreditation').html('<i class="file pdf icon"></i>' + filename + '</a>');
+        }
+
         for (var i = 0; i < file_accreditation.length; i++) {
-            var filename = file_accreditation[i].name;
             var size = Math.ceil(file_accreditation[i].size / 1000);
             var sz_str = size + ' Kb';
             var type = file_accreditation[i].type;
@@ -153,8 +168,10 @@
                 {
                     var form_data = new FormData();
                     form_data.append("json", json_form);
+                    form_data.append("institution", institution);
+                    form_data.append("country", country);
 
-                    for (var i = 0; i < files.length; i++)
+                    for (var i = 0; i < file_tech_spec.length; i++)
                     {
                         form_data.append(i, file_tech_spec[i]);
                         form_data.append(i, file_test_report[i]);
@@ -172,7 +189,6 @@
                             btn_finish.removeClass('disabled loading');
 
                             var html = "<p style='text-align: center;'>Your application was submitted with ID: <b>" + data + "</b>. Your application will be reviewed and processed.</p>";
-
                             $('.ui.modal.upload-status').find(".content").prepend(html);
                             $('.ui.modal.upload-status')
                                 .modal({
