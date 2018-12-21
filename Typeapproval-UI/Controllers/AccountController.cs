@@ -24,7 +24,6 @@ namespace Typeapproval_UI.Controllers
             }
             else
             {
-
                 Session.Remove("save_state");
                 Session.Remove("application_id");
                 Session.Remove("manufacturer_name");
@@ -83,7 +82,7 @@ namespace Typeapproval_UI.Controllers
                     Session["name"] = obj.name;
                     Session["username"] = obj.username;
                     string status = obj.status;
-                    return Json(new { success = true, responseText = "credentials verified" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { success = true, responseText = "credentials verified", user_type = (int) obj.user_type }, JsonRequestBehavior.AllowGet);
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 {

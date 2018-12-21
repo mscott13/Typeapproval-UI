@@ -299,14 +299,26 @@
                 console.log(data);
                 $("#btn_login").removeClass("disabled loading");
 
-                if (data.success === true) {
-                    window.location.href = "/grid";
+                if (data.success === true)
+                {
+                    switch (data.user_type)
+                    {
+                        case 0:
+                            window.location.href = "/grid";
+                            break;
+                        case 1:
+                            break;
+                        case 9:
+                            break;
+                    }
                 }
-                else {
+                else
+                {
                     displayLoginError("Check your login credentials then try again.");
                 }
             },
-            error: function (data) {
+            error: function (data)
+            {
                 console.log(data);
                 $("#btn_login").removeClass("disabled loading");
             }
