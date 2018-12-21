@@ -32,7 +32,7 @@
     });
 
     $('.license_view').click(function () {
-        window.location = "/certificates";
+        window.location = "/certificates?application_id=" + $(this).data('appid');
     });
 
 
@@ -284,7 +284,7 @@
             '</div>' +
             '<div class="field">'+
                 '<label>Additional Information</label>'+
-                '<textarea readonly rows="3" name="additional_information"></textarea>'+
+                '<textarea readonly rows="3" name="additional_information">'+data.additional_info+'</textarea>'+
             '</div>'+
             '</div>' +
             '</div>';
@@ -306,11 +306,8 @@
             '<div class="ten wide column">' +
             '<fieldset id="fieldset_main">' +
             '<p>Customer #   xxxxx-x</p>' +
-            '<h4 class="ui header header_override">Entirety LLC</h4>' +
-            '<p class="paragraph_ovrd">16165 Monterey Rd. Suite 203,</p>' +
-            '<p class="paragraph_ovrd">Morgan Hill, CA 95037</p>' +
-            '<p class="paragraph_ovrd">16165 Monterey Rd. Suite</p>' +
-            '<p class="paragraph_ovrd">Morgan Hill, CA 9503</p>' +
+            '<h4 class="ui header header_override">' + data.applicant_name + '</h4>' +
+            '<p class="paragraph_ovrd">' + breakAtCommas(data.applicant_address) + '</p>' +
             '</fieldset>' +
             '</div>' +
             '<div class="six wide column">' +
@@ -342,10 +339,10 @@
             '<div class="row">' +
             '<div class="ten wide column">' +
             '<h5 style="margin-bottom:0;" class="ui header header_override"><u>Type Approval Equipment</u></h5>' +
-            '<h5 style="margin-top:5px;" class="ui header header_override">Manufacturer:  Denso Corporation</h5>' +
+            '<h5 style="margin-top:5px;" class="ui header header_override">Manufacturer:  ' + data.manufacturer_name+'</h5>' +
             '</div>' +
             '<div class="six wide column">' +
-            '<h5 style="margin-top:20px;" class="ui header header_override">Model:  Denso Corporation</h5>' +
+            '<h5 style="margin-top:20px;" class="ui header header_override">Model:  ' + data.product_identification + '</h5>' +
             '</div>' +
             '</div>' +
             '</div>' +
@@ -571,6 +568,23 @@
                 console.log(data);
             }
         });
+    }
+
+    function breakAtCommas(data)
+    {
+        var result = '';
+        for (var i = 0; i < data.length; i++)
+        {
+            if (data.charAt(i) === ',') {
+                result += data.charAt(i);
+                result += '<br/>';
+            }
+            else
+            {
+                result += data.charAt(i);
+            }
+        }
+        return result;  
     }
 
     function set_equipment_type_checked(type, other)
