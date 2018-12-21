@@ -19,7 +19,7 @@
     <div class="ui grid">
         <div style="padding-left:20px !important;" class="four wide column">
 
-            <div class="ui fluid card">
+            <div class="ui fluid raised card">
                 <div class="content">
                     <h4 class="ui header">
                         Pending Approval
@@ -33,17 +33,14 @@
                             {
                                 <div class="event">
                                     <div class="label">
-                                        <i class="grey icon folder open"></i>
+                                        <i class="blue icon file alternate outline"></i>
                                     </div>
                                     <div class="content">
                                         <div class="date">
                                             @Model.pendingApprovals[i].created_date
                                         </div>
                                         <div class="summary">
-                                            <a>@Model.pendingApprovals[i].application_id</a> application
-                                        </div>
-                                        <div class="extra images">
-                                            Application category: @Model.pendingApprovals[i].category
+                                            <a style="cursor:pointer" data-appid="@Model.recentActivities[i].application_id" class="form_preview"><b>@Model.pendingApprovals[i].application_id</b></a> application
                                         </div>
                                     </div>
                                 </div>
@@ -62,7 +59,7 @@
             <div class="ui grid">
                 <div class="row">
                     <div style="padding-right:0px" class="five wide column">
-                        <div class="ui fluid card">
+                        <div class="ui fluid raised card">
                             <div class="center aligned content">
                                 <div class="blue ui statistic">
                                     <div class="grey label">
@@ -79,7 +76,7 @@
                         </div>
                     </div>
                     <div class="six wide column">
-                        <div class="ui fluid card">
+                        <div class="ui fluid raised card">
                             <div class="center aligned content">
                                 <div class="blue ui statistic">
                                     <div class="grey label">
@@ -96,7 +93,7 @@
                         </div>
                     </div>
                     <div style="padding-left:0px" class="five wide column">
-                        <div class="ui fluid card">
+                        <div class="ui fluid raised card">
                             <div class="center aligned content">
                                 <div class="blue ui statistic">
                                     <div class="grey label">
@@ -115,7 +112,7 @@
                 </div>
                 <div class="row row_override_v1">
                     <div class="sixteen wide column">
-                        <div class="ui aligned segment">
+                        <div class="ui aligned raised segment">
                             <h5 class="ui header">
                                 <div class="content">
                                     <i class="blue large icon calendar check"></i>
@@ -172,7 +169,7 @@
                             </table>
                         </div>
 
-                        <div class="ui aligned segment">
+                        <div style="margin-bottom: 10px !important;" class="ui aligned raised segment">
                             <h5 class="ui header">
                                 <div class="content">
                                     <i class="blue large icon clock"></i>
