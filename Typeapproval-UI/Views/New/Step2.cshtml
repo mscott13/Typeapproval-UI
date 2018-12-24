@@ -134,8 +134,15 @@
                                 </div>
 
                             </div>
-                            <div class="one field">
-                                <div class="field">
+                            <div class="two fields">
+                                <div class="four wide field">
+                                    <label>Make</label>
+                                    <div class="ui left icon input">
+                                        <input placeholder="eg. 1byone" name="make" type="text">
+                                        <i class="barcode icon"></i>
+                                    </div>
+                                </div>
+                                <div class="twelve wide field">
                                     <label>Product identification (Model number and designation) together with version number.</label>
                                     <div class="ui left icon input">
                                         <input placeholder="eg. OUS00-0569" name="product_identification" type="text">
@@ -144,27 +151,7 @@
                                 </div>
                             </div>
                             <div class="fields">
-                                <div class="three wide field">
-                                    <label>Ref #</label>
-                                    <div class="ui left icon input">
-                                        <input placeholder="eg. 1000232" name="refNum" type="text">
-                                        <i class="user circle icon"></i>
-                                    </div>
-                                </div>
-                                <div class="four wide field">
-                                    <label>Make</label>
-                                    <div class="ui left icon input">
-                                        <input placeholder="eg. 1byone" name="make" type="text">
-                                        <i class="barcode icon"></i>
-                                    </div>
-                                </div>
-                                <div class="nine wide field">
-                                    <label>Software (if any) - number and model designation of version</label>
-                                    <div class="ui left icon input">
-                                        <input placeholder="eg. 1byone" name="software" type="text">
-                                        <i class="barcode icon"></i>
-                                    </div>
-                                </div>
+
                             </div>
 
                             <div id="equipent_types_handle" class="inline fields">
@@ -302,6 +289,21 @@
                             <div class="field">
                                 <label>Additional Information</label>
                                 <textarea rows="3" name="additional_information"></textarea>
+                            </div>
+
+                            <div style="margin-top: 16px !important;" class="two fields">
+                                <div class="field">
+                                    <label>Name of test or certification institution</label>
+                                    <div class="ui input">
+                                        <input autocomplete="new-password" placeholder="" name="institution" type="text">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Country</label>
+                                    <div class="ui input">
+                                        <input autocomplete="new-password" placeholder="" name="country" type="text">
+                                    </div>
+                                </div>
                             </div>
                             <div class="one field">
                                 <button id="step2_to_next" type="button" class="ui tiny right floated right labeled icon button">
