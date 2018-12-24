@@ -9,7 +9,7 @@
     <title>@ViewBag.Title</title>
     <link href="~/Content/semantic.css" rel="stylesheet" />
     <link href="~/Content/site.css?t=@DateTime.Now.Millisecond" rel="stylesheet" />
-    <link href="~/Content/search_result_styles.css" rel="stylesheet" />
+    <link href="~/Content/search_result_styles.css?t=@DateTime.Now.Millisecond" rel="stylesheet" />
     @RenderSection("styles", false)
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -65,6 +65,6 @@
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/semantic.js"></script>
     <script src="~/Scripts/jquery.marcopolo.min.js"></script>
-    <script src="~/Scripts/site.js"></script>
+    <script src="~/Scripts/site.js?t=@DateTime.Now.Millisecond"></script>
     @RenderSection("Scripts", false)
 </body>

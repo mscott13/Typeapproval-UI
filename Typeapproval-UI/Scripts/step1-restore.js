@@ -1,59 +1,104 @@
 ﻿$(document).ready(function () {
-
+    
     /////////////////////// Saving data to session /////////////////////////
-    $('.ui.blue.button.save_app.s1').click(function () {
-        var btn_save = $(this);
-        $(btn_save).addClass("disabled loading");
-       
-        var jsonObj = new Object();
-        jsonObj.manufacturer_name = $("input[name=manufacturer_name]").val();
-        jsonObj.manufacturer_tel = $("input[name=manufacturer_telephone]").val();
-        jsonObj.manufacturer_address = $("input[name=manufacturer_address]").val();
-        jsonObj.manufacturer_fax = $("input[name=manufacturer_fax]").val();
-        jsonObj.manufacturer_contact_person = $("input[name=manufacturer_contact_person]").val();
-        jsonObj.provider_name = $("input[name=provider_name]").val();
-        jsonObj.provider_telephone = $("input[name=provider_telephone]").val();
-        jsonObj.provider_address = $("input[name=provider_address]").val();
-        jsonObj.provider_fax = $("input[name=provider_fax]").val();
-        jsonObj.provider_contact_person = $("input[name=provider_contact_person]").val();
 
-        var json = JSON.stringify(jsonObj);
-        $.ajax({
-            type: "POST",
-            url: "/save/step-1",
-            contentType: "application/json; charset=utf-8",
-            data: json,
-            success: function (data) {
-                $.ajax({
-                    type: "GET",
-                    url: "/new/post-current-app",
-                    success: function (data) {
-                        if (data.responseText === "posted") {
-                            addApplicationStatus("Application saved with ID: <b>" + data.app_id + "<b>");
-                            $(btn_save).removeClass("disabled loading");
-                            $(btn_save).html("Saved");
+    $('.ui.blue.button.save_app.s1').click(function () {
+
+        if (validate()) {
+            var btn_save = $(this);
+            $(btn_save).addClass("disabled loading");
+
+            var jsonObj = new Object();
+            jsonObj.manufacturer_name = $("input[name=manufacturer_name]").val();
+            jsonObj.manufacturer_tel = $("input[name=manufacturer_telephone]").val();
+            jsonObj.manufacturer_address = $("input[name=manufacturer_address]").val();
+            jsonObj.manufacturer_fax = $("input[name=manufacturer_fax]").val();
+            jsonObj.manufacturer_contact_person = $("input[name=manufacturer_contact_person]").val();
+            jsonObj.provider_name = $("input[name=provider_name]").val();
+            jsonObj.provider_telephone = $("input[name=provider_telephone]").val();
+            jsonObj.provider_address = $("input[name=provider_address]").val();
+            jsonObj.provider_fax = $("input[name=provider_fax]").val();
+            jsonObj.provider_contact_person = $("input[name=provider_contact_person]").val();
+
+            var json = JSON.stringify(jsonObj);
+
+            $.ajax({
+                type: "POST",
+                url: "/save/step-1",
+                contentType: "application/json; charset=utf-8",
+                data: json,
+                success: function (data) {
+                    $.ajax({
+                        type: "GET",
+                        url: "/new/post-current-app",
+                        success: function (data) {
+                            if (data.responseText === "posted") {
+                                addApplicationStatus("Application saved with ID: <b>" + data.app_id + "<b>");
+                                $(btn_save).removeClass("disabled loading");
+                                $(btn_save).html("Saved");
+                            }
+                            else if (data.responseText === "updated") {
+                                console.log("application updated");
+                                $(btn_save).removeClass("disabled loading");
+                                $(btn_save).html("Saved");
+                            }
+                            else if (data.responseText === "session expired") {
+                                window.location = "/account";
+                            }
+                        },
+                        error: function (data) {
+                            console.log(data);
                         }
-                        else if (data.responseText === "updated") {
-                            console.log("application updated");
-                            $(btn_save).removeClass("disabled loading");
-                            $(btn_save).html("Saved");
-                        }
-                        else if (data.responseText === "session expired")
-                        {
-                            window.location = "/account";
-                        }
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
+                    });
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+        else
+        {
+            //do something here if needed
+        }
     });
     /////////////////////// Saving data to session /////////////////////////
+
+    $('#step1_to_next').click(function () {
+
+        if (validate()) {
+            var jsonObj = new Object();
+            jsonObj.manufacturer_name = $("input[name=manufacturer_name]").val();
+            jsonObj.manufacturer_tel = $("input[name=manufacturer_telephone]").val();
+            jsonObj.manufacturer_address = $("input[name=manufacturer_address]").val();
+            jsonObj.manufacturer_fax = $("input[name=manufacturer_fax]").val();
+            jsonObj.manufacturer_contact_person = $("input[name=manufacturer_contact_person]").val();
+            jsonObj.provider_name = $("input[name=provider_name]").val();
+            jsonObj.provider_telephone = $("input[name=provider_telephone]").val();
+            jsonObj.provider_address = $("input[name=provider_address]").val();
+            jsonObj.provider_fax = $("input[name=provider_fax]").val();
+            jsonObj.provider_contact_person = $("input[name=provider_contact_person]").val();
+
+            var json = JSON.stringify(jsonObj);
+            $.ajax({
+                type: "POST",
+                url: "/save/step-1",
+                contentType: "application/json; charset=utf-8",
+                data: json,
+                success: function (data) {
+                    console.log(data);
+                    window.location = "/new/step-2";
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+        else
+        {
+            // do something here if required
+        }
+    });
+
 
     $('body').on('click', '.ui.divided.selection.list .item', function () {
         $('.ui.divided.selection.list .item').removeClass('active');
@@ -174,9 +219,28 @@
         });
     }
 
-    function reset_step_1()
+    function validate()
     {
+        var form_valid = true;
+        if ($("input[name=manufacturer_name]").val() === '')
+        {
+            $("input[name=manufacturer_name]").addClass('input-error');
+            form_valid = false;
+        }
 
+        if ($("input[name=manufacturer_telephone]").val() === '')
+        {
+            $("input[name=manufacturer_telephone]").addClass('input-error');
+            form_valid = false;
+        }
+
+        if ($("input[name=manufacturer_address]").val() === '')
+        {
+            $("input[name=manufacturer_address]").addClass('input-error');
+            form_valid = false;
+        }
+       
+        return form_valid;
     }
 
     restore_step1();

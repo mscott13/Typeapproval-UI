@@ -226,3 +226,20 @@ u {
     .link_override_v2:hover {
         text-decoration: underline !important;
     }
+
+
+.input-error {
+    background-color: #fff6f6 !important;
+}
+
+    .input-error::placeholder {
+        color: #9f3a38 !important;
+    }
+
+
+    .required-label
+    {
+        font-weight:bold;
+        margin-top: 50px !important;
+        font-size: 13px;
+    }

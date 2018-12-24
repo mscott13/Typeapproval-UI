@@ -6,7 +6,7 @@
 }
 
 @section Scripts{
-    <script src="~/Scripts/step1-restore.js"></script>
+    <script src="~/Scripts/step1-restore.js?t=@DateTime.Now.Millisecond"></script>
 }
 
 @section Styles{
@@ -18,7 +18,7 @@
     if (Session["view_mode"] == null)
     {
         mode = "";
-    }
+    }   
     else if (Session["view_mode"].ToString() == "preview")
     {
         mode = "preview";
@@ -121,19 +121,19 @@
 
                         <div id="context" class="ui clearing attached raised segment">
                             <a class="ui grey ribbon label">1. &nbsp Client Company</a>
-                            <form class="ui form">
+                            <form class="ui form s1">
                                 <div class="two fields">
                                     <div class="field">
                                         <label>Name</label>
                                         <div class="ui left icon input">
-                                            <input readonly placeholder="John Brown" name="applicant_name" type="text" value="@company.name">
+                                            <input readonly  name="applicant_name" type="text" value="@company.name">
                                             <i class="user icon"></i>
                                         </div>
                                     </div>
                                     <div class="field">
                                         <label>Telephone</label>
                                         <div class="ui left icon input">
-                                            <input readonly placeholder="eg. 1876-555-5555" name="telephone" type="text" value="@company.telephone">
+                                            <input readonly  name="telephone" type="text" value="@company.telephone">
                                             <i class="phone volume icon"></i>
                                         </div>
                                     </div>
@@ -142,21 +142,21 @@
                                     <div class="field">
                                         <label>Address</label>
                                         <div class="ui left icon input">
-                                            <input readonly placeholder="eg. 12 Beckford Street" name="address" type="text" value="@company.address">
+                                            <input readonly  name="address" type="text" value="@company.address">
                                             <i class="address book icon"></i>
                                         </div>
                                     </div>
                                     <div class="field">
                                         <label>Fax</label>
                                         <div class="ui left icon input">
-                                            <input readonly placeholder="eg. 1876-555-5555" name="fax" type="text" value="@company.fax">
+                                            <input readonly  name="fax" type="text" value="@company.fax">
                                             <i class="fax icon"></i>
                                         </div>
                                     </div>
                                     <div class="field">
                                         <label>City/Town</label>
                                         <div class="ui left icon input">
-                                            <input readonly placeholder="eg. Kingston" name="address" type="text" value="@company.cityTown">
+                                            <input readonly  name="address" type="text" value="@company.cityTown">
                                             <i class="map marker alternate icon"></i>
                                         </div>
                                     </div>
@@ -165,14 +165,14 @@
                                     <div class="field">
                                         <label>Contact Person</label>
                                         <div class="ui left icon input">
-                                            <input readonly placeholder="eg. John Brown" name="applicant_contact_person" type="text" value="@company.contactPerson">
+                                            <input readonly  name="applicant_contact_person" type="text" value="@company.contactPerson">
                                             <i class="user circle icon"></i>
                                         </div>
                                     </div>
                                     <div class="field">
                                         <label>Nationality</label>
                                         <div class="ui left icon input">
-                                            <input readonly placeholder="eg. Jamaica" name="address" type="text" value="@company.nationality">
+                                            <input readonly  name="address" type="text" value="@company.nationality">
                                             <i class="globe icon"></i>
                                         </div>
                                     </div>
@@ -181,43 +181,43 @@
                                 <a class="ui grey ribbon label">2. &nbsp Manufacturer</a>
                                 <div class="three fields">
                                     <div class="field">
-                                        <label>Name</label>
+                                        <label>Name<span class="required-label" style="color: red">&nbsp;*</span></label>
                                         <div class="ui left icon input">
                                             @if (mode == "preview")
                                             {
-                                                <input readonly id="" data-purpose="update_save_btn" autocomplete="off" placeholder="Name" name="manufacturer_name" type="text">
+                                                <input readonly id="" data-purpose="update_save_btn" autocomplete="off"  name="manufacturer_name" type="text">
                                             }
                                             else
                                             {
-                                                <input id="search_manufacturers" data-purpose="update_save_btn" autocomplete="off" placeholder="Name" name="manufacturer_name" type="text">
+                                                <input id="search_manufacturers" data-purpose="update_save_btn" autocomplete="off"  name="manufacturer_name" type="text">
                                             }
                                             <i class="users icon"></i>
                                         </div>
                                     </div>
                                     <div class="field">
-                                        <label>Telephone</label>
+                                        <label>Telephone<span class="required-label" style="color: red">&nbsp;*</span></label>
                                         <div class="ui left icon input">
                                             @if (mode == "preview")
                                             {
-                                                <input readonly placeholder="eg. 1876-555-5555" name="manufacturer_telephone" type="text">
+                                                <input readonly  name="manufacturer_telephone" type="text">
                                             }
                                             else
                                             {
-                                                <input placeholder="eg. 1876-555-5555" name="manufacturer_telephone" type="text">
+                                                <input  name="manufacturer_telephone" type="text">
                                             }
                                             <i class="phone volume icon"></i>
                                         </div>
                                     </div>
                                     <div class="field">
-                                        <label>Address</label>
+                                        <label>Address<span class="required-label" style="color: red">&nbsp;*</span></label>
                                         <div class="ui left icon input">
                                             @if (mode == "preview")
                                             {
-                                                <input readonly placeholder="eg. 12 Beckford Street" name="manufacturer_address" type="text">
+                                                <input readonly  name="manufacturer_address" type="text">
                                             }
                                             else
                                             {
-                                                <input placeholder="eg. 12 Beckford Street" name="manufacturer_address" type="text">
+                                                <input  name="manufacturer_address" type="text">
                                             }
                                             <i class="address book icon"></i>
                                         </div>
@@ -229,11 +229,11 @@
                                         <div class="ui left icon input">
                                             @if (mode == "preview")
                                             {
-                                                <input readonly placeholder="eg. 1876-555-5555" name="manufacturer_fax" type="text">
+                                                <input readonly  name="manufacturer_fax" type="text">
                                             }
                                             else
                                             {
-                                                <input placeholder="eg. 1876-555-5555" name="manufacturer_fax" type="text">
+                                                <input  name="manufacturer_fax" type="text">
                                             }
                                             <i class="fax icon"></i>
                                         </div>
@@ -243,18 +243,18 @@
                                         <div class="ui left icon input">
                                             @if (mode == "preview")
                                             {
-                                                <input readonly placeholder="eg. John Brown" name="manufacturer_contact_person" type="text">
+                                                <input readonly  name="manufacturer_contact_person" type="text">
                                             }
                                             else
                                             {
-                                                <input placeholder="eg. John Brown" name="manufacturer_contact_person" type="text">
+                                                <input  name="manufacturer_contact_person" type="text">
                                             }
                                             <i class="user circle icon"></i>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="one field">
-                                    <button id="step1_to_next" type="button" class="ui tiny right floated right labeled icon button">
+                                    <button id="step1_to_next" type="button" class="ui tiny right floated right labeled icon submit button">
                                         <i class="right arrow icon"></i>
                                         Next
                                     </button>

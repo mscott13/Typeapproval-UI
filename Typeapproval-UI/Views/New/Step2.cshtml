@@ -5,7 +5,7 @@
 }
 
 @section Scripts{
-    <script src="~/Scripts/step2-restore.js"></script>
+    <script src="~/Scripts/step2-restore.js?t=@DateTime.Now.Millisecond"></script>
 }
 
 @section Styles{
@@ -121,31 +121,31 @@
                         <div class="ui form">
                             <a class="ui grey ribbon label">3. &nbsp Equipment Description</a>
                             <div class="inline field">
-                                <label>Type of equipment (modem, telefax, telephone)</label>
+                                <label>Type of equipment (modem, telefax, telephone) <span class="required-label" style="color: red">&nbsp;*</span></label>
                                 <div class="ui left icon input">
-                                    <input placeholder="eg. Wireless router" name="equipment_type" type="text">
+                                    <input  name="equipment_type" type="text">
                                     <i class="microchip icon"></i>
                                 </div>
                             </div>
                             <div class="one field">
                                 <div class="field">
-                                    <label>Brief description of the equipment (to be used in the list of approved equipment and in the certificate of approval)</label>
+                                    <label>Brief description of the equipment (to be used in the list of approved equipment and in the certificate of approval)<span class="required-label" style="color: red">&nbsp;*</span></label>
                                     <textarea rows="3" name="equipment_description"></textarea>
                                 </div>
 
                             </div>
                             <div class="two fields">
                                 <div class="four wide field">
-                                    <label>Make</label>
+                                    <label>Make<span class="required-label" style="color: red">&nbsp;*</span></label>
                                     <div class="ui left icon input">
-                                        <input placeholder="eg. 1byone" name="make" type="text">
+                                        <input name="make" type="text">
                                         <i class="barcode icon"></i>
                                     </div>
                                 </div>
                                 <div class="twelve wide field">
-                                    <label>Product identification (Model number and designation) together with version number.</label>
+                                    <label>Product identification (Model number and designation) together with version number.<span class="required-label" style="color: red">&nbsp;*</span></label>
                                     <div class="ui left icon input">
-                                        <input placeholder="eg. OUS00-0569" name="product_identification" type="text">
+                                        <input  name="product_identification" type="text">
                                         <i class="language icon"></i>
                                     </div>
                                 </div>
@@ -155,7 +155,8 @@
                             </div>
 
                             <div id="equipent_types_handle" class="inline fields">
-                                <label>Type of equipment</label>
+                                <label>Type of equipment<span class="required-label" style="color: red">&nbsp;*</span></label>
+
                                 <div class="field">
                                     <div class="ui radio checkbox equipment_types">
                                         <input type="radio" name="equipment_types" tabindex="0" class="hidden" value="Transmitter">
@@ -183,12 +184,12 @@
                             </div>
                             <div class="one field">
                                 <div class="ui left icon disabled input">
-                                    <input placeholder="Other equipment" name="other_equipment" type="text">
+                                    <input  name="other_equipment" type="text">
                                     <i class="microchip icon"></i>
                                 </div>
                             </div>
                             <div class="one field">
-                                <label>Frequency information</label>
+                                <label>Frequency information<span  class="required-label" style="color: red">&nbsp;*</span></label>
                                 <table class="ui compact celled definition table">
                                     <thead>
                                         <tr>
@@ -211,27 +212,27 @@
                                             </td>
                                             <td>
                                                 <div class="ui transparent input">
-                                                    <input type="number" placeholder="lower mhz" style="width:100%" name="lower_mhz">
+                                                    <input type="number" placeholder="(required)" style="width:100%" name="lower_mhz">
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="ui transparent input">
-                                                    <input type="number" placeholder="upper mhz" style="width:100%" name="upper_mhz">
+                                                    <input type="number" placeholder="(required)" style="width:100%" name="upper_mhz">
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="ui transparent input">
-                                                    <input type="number" placeholder="power" style="width:100%" name="power">
+                                                    <input type="number"  style="width:100%" name="power">
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="ui transparent input">
-                                                    <input type="number" placeholder="tolerance" style="width:100%" name="tolerance">
+                                                    <input type="number"  style="width:100%" name="tolerance">
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="ui transparent input">
-                                                    <input type="text" placeholder="emmission desig..." style="width:100%" name="emmission_desig">
+                                                    <input type="text"  style="width:100%" name="emmission_desig">
                                                 </div>
                                             </td>
                                             <td>
@@ -250,7 +251,7 @@
                             </div>
                             <div class="three fields">
                                 <div class="field">
-                                    <label>Antenna Type</label>
+                                    <label>Antenna Type<span class="required-label" style="color: red">&nbsp;*</span></label>
                                     <div id="antenna_type_dropdown" class="ui fluid selection dropdown antenna">
                                         <i class="dropdown icon"></i>
                                         <span class="default text">Select Type</span>
@@ -264,7 +265,7 @@
                                 <div class="field">
                                     <label>Antenna Gain (db)</label>
                                     <div class="ui input">
-                                        <input type="text" placeholder="" name="antenna_gain">
+                                        <input type="text" name="antenna_gain">
                                     </div>
                                 </div>
                                 <div class="field">
@@ -272,14 +273,14 @@
                                         <div class="field">
                                             <label>Channels (khz)</label>
                                             <div class="ui left icon input">
-                                                <input placeholder="" name="channel" type="text">
+                                                <input  name="channel" type="text">
                                                 <i class="rss icon"></i>
                                             </div>
                                         </div>
                                         <div class="field">
                                             <label>Separation (khz)</label>
                                             <div class="ui left icon input">
-                                                <input placeholder="" name="separation" type="text">
+                                                <input  name="separation" type="text">
                                                 <i class="rss icon"></i>
                                             </div>
                                         </div>
@@ -293,15 +294,15 @@
 
                             <div style="margin-top: 16px !important;" class="two fields">
                                 <div class="field">
-                                    <label>Name of test or certification institution</label>
+                                    <label>Name of test or certification institution<span style="color: red">&nbsp;*</span></label>
                                     <div class="ui input">
-                                        <input autocomplete="new-password" placeholder="" name="institution" type="text">
+                                        <input autocomplete="new-password" name="institution" type="text">
                                     </div>
                                 </div>
                                 <div class="field">
-                                    <label>Country</label>
+                                    <label>Country<span class="required-label" style="color: red">&nbsp;*</span></label>
                                     <div class="ui input">
-                                        <input autocomplete="new-password" placeholder="" name="country" type="text">
+                                        <input autocomplete="new-password"  name="country" type="text">
                                     </div>
                                 </div>
                             </div>

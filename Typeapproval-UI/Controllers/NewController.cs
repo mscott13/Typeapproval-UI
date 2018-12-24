@@ -282,6 +282,8 @@ namespace Typeapproval_UI.Controllers
             Session["separation"] = form.separation;
             Session["additional_info"] = form.additional_info;
             Session["frequencies"] = form.frequencies;
+            Session["name_of_test"] = form.name_of_test;
+            Session["country"] = form.country;
             return Json(new { success = true, responseText = "state saved" }, JsonRequestBehavior.AllowGet);
         }
 
@@ -338,6 +340,8 @@ namespace Typeapproval_UI.Controllers
             step2.separation = Session["separation"].ToString();
             step2.additional_info = Session["additional_info"].ToString();
             step2.frequencies = (List<Frequency>)Session["frequencies"];
+            step2.name_of_test = Session["name_of_test"].ToString();
+            step2.country = Session["country"].ToString();
 
             if (Session["application_id"] != null)
             {
@@ -743,36 +747,6 @@ namespace Typeapproval_UI.Controllers
             {
                 status = false;
             }
-
-            if (form.applicant_tel == null || form.applicant_tel == "")
-            {
-                status = false;
-            }
-
-            if (form.applicant_address == null || form.applicant_address == "")
-            {
-                status = false;
-            }
-
-            if (form.applicant_fax == null || form.applicant_fax == "")
-            {
-                status = false;
-            }
-
-            if (form.applicant_city_town == null || form.applicant_city_town == "")
-            {
-                status = false;
-            }
-
-            if (form.applicant_contact_person == null || form.applicant_contact_person == "")
-            {
-                status = false;
-            }
-
-            if (form.applicant_nationality == null || form.applicant_nationality == "")
-            {
-                status = false;
-            }
             #endregion
 
             #region manufacturer
@@ -787,16 +761,6 @@ namespace Typeapproval_UI.Controllers
             }
 
             if (form.manufacturer_address == null || form.manufacturer_address == "")
-            {
-                status = false;
-            }
-
-            if (form.manufacturer_fax == null || form.manufacturer_fax == "")
-            {
-                status = false;
-            }
-
-            if (form.manufacturer_contact_person == null || form.manufacturer_contact_person == "")
             {
                 status = false;
             }
@@ -818,17 +782,8 @@ namespace Typeapproval_UI.Controllers
                 status = false;
             }
 
-            if (form.refNum == null || form.refNum == "")
-            {
-                status = false;
-            }
 
             if (form.make == null || form.make == "")
-            {
-                status = false;
-            }
-
-            if (form.software == null || form.software == "")
             {
                 status = false;
             }
@@ -837,6 +792,7 @@ namespace Typeapproval_UI.Controllers
             {
                 status = false;
             }
+
             else if (form.type_of_equipment == "Others")
             {
                 if (form.other == null || form.other == "")
@@ -846,21 +802,6 @@ namespace Typeapproval_UI.Controllers
             }
 
             if (form.antenna_type == null || form.antenna_type == "")
-            {
-                status = false;
-            }
-
-            if (form.antenna_gain == null || form.antenna_gain == "")
-            {
-                status = false;
-            }
-
-            if (form.channel == null || form.channel == "")
-            {
-                status = false;
-            }
-
-            if (form.separation == null || form.separation == "")
             {
                 status = false;
             }

@@ -1,10 +1,84 @@
 ﻿$(document).ready(function () {
 
     $('.ui.blue.button.save_app.s2').click(function () {
-        var btn_save = $(this);
-        $(btn_save).addClass("disabled loading");
+        if (validate())
+        {
+            var btn_save = $(this);
+            $(btn_save).addClass("disabled loading");
 
-        var jsonObj = new Object();
+            var jsonObj = new Object();
+            jsonObj.equipment_type = $("input[name=equipment_type]").val();
+            jsonObj.equipment_description = $("textarea[name=equipment_description]").val();
+            jsonObj.product_identification = $("input[name=product_identification]").val();
+            jsonObj.refNum = $("input[name=refNum]").val();
+            jsonObj.make = $("input[name=make]").val();
+            jsonObj.software = $("input[name=software]").val();
+            jsonObj.type_of_equipment = $(".ui.radio.checkbox.checked").children("input").val();
+            jsonObj.other = $("input[name=other_equipment]").val();
+
+            var i = 0; var frequencies = [];
+            $("#table_frequencies tr").each(function () {
+                var obj = {};
+                obj["sequence"] = ++i;
+                obj["lower_freq"] = $(this).find("input[name=lower_mhz]").val();
+                obj["upper_freq"] = $(this).find("input[name=upper_mhz]").val();
+                obj["power"] = $(this).find("input[name=power]").val();
+                obj["tolerance"] = $(this).find("input[name=tolerance]").val();
+                obj["emmission_desig"] = $(this).find("input[name=emmission_desig]").val();
+                obj["freq_type"] = $(this).find(".menu").find(".item.active.selected").html();
+                frequencies.push(obj);
+            });
+
+            jsonObj.frequencies = frequencies;
+            jsonObj.antenna_type = $("#antenna_type_dropdown").find(".menu").find(".item.active.selected").html();
+            jsonObj.antenna_gain = $("input[name=antenna_gain]").val();
+            jsonObj.channel = $("input[name=channel]").val();
+            jsonObj.separation = $("input[name=separation]").val();
+            jsonObj.additional_info = $("textarea[name=additional_information]").val();
+            jsonObj.name_of_test = $("input[name=institution]").val();
+            jsonObj.country = $("input[name=country]").val();
+
+            var json = JSON.stringify(jsonObj);
+            $.ajax({
+                type: "POST",
+                url: "/save/step-2",
+                contentType: "application/json; charset=utf-8",
+                data: json,
+                success: function (data) {
+                    $.ajax({
+                        type: "GET",
+                        url: "/new/post-current-app",
+                        success: function (data) {
+                            if (data.responseText === "posted") {
+                                addApplicationStatus("Application saved with ID: <b>" + data.app_id + "<b>");
+                                $(btn_save).removeClass("disabled loading");
+                                $(btn_save).html("Saved");
+                            }
+                            else if (data.responseText === "updated") {
+                                console.log("application updated");
+                                $(btn_save).removeClass("disabled loading");
+                                $(btn_save).html("Saved");
+                            }
+                            else if (data.responseText === "session expired") {
+                                window.location = "/account";
+                            }
+                        },
+                        error: function (data) {
+                            console.log(data);
+                        }
+                    });
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+    });
+
+    $("#step2_to_next").click(function () {
+        if (validate())
+        {
+            var jsonObj = new Object();
         jsonObj.equipment_type = $("input[name=equipment_type]").val();
         jsonObj.equipment_description = $("textarea[name=equipment_description]").val();
         jsonObj.product_identification = $("input[name=product_identification]").val();
@@ -33,6 +107,8 @@
         jsonObj.channel = $("input[name=channel]").val();
         jsonObj.separation = $("input[name=separation]").val();
         jsonObj.additional_info = $("textarea[name=additional_information]").val();
+        jsonObj.name_of_test = $("input[name=institution]").val();
+        jsonObj.country = $("input[name=country]").val();
 
         var json = JSON.stringify(jsonObj);
         $.ajax({
@@ -41,33 +117,14 @@
             contentType: "application/json; charset=utf-8",
             data: json,
             success: function (data) {
-                $.ajax({
-                    type: "GET",
-                    url: "/new/post-current-app",
-                    success: function (data) {
-                        if (data.responseText === "posted") {
-                            addApplicationStatus("Application saved with ID: <b>" + data.app_id + "<b>");
-                            $(btn_save).removeClass("disabled loading");
-                            $(btn_save).html("Saved");
-                        }
-                        else if (data.responseText === "updated") {
-                            console.log("application updated");
-                            $(btn_save).removeClass("disabled loading");
-                            $(btn_save).html("Saved");
-                        }
-                        else if (data.responseText === "session expired") {
-                            window.location = "/account";
-                        }
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
+                console.log(data);
+                window.location = "/new/step-3";
             },
             error: function (data) {
                 console.log(data);
             }
         });
+        }
     });
 
     function addApplicationStatus(html) {
@@ -121,7 +178,8 @@
 
             var html_inner = '';
             for (var i = 0; i < data.length; i++) {
-                if (data[i].active === true) {
+                if (data[i].active === true)
+                {
                     html_inner +=
                         '<div class="active item" data-appid=' + data[i].application_id + '>' +
                         '<div class="content">' +
@@ -130,7 +188,8 @@
                         '</div>' +
                         '</div>';
                 }
-                else {
+                else
+                {
                     html_inner +=
                         '<div class="item" data-appid=' + data[i].application_id + '>' +
                         '<div class="content">' +
@@ -323,7 +382,8 @@
                     $("input[name=channel]").val(data.step2.channels);
                     $("input[name=separation]").val(data.step2.separation);
                     $("textarea[name=additional_information]").val(data.step2.additional_info);
-                   
+                    $("input[name=institution]").val(data.step2.name_of_test);
+                    $("input[name=country]").val(data.step2.country);
                    
 
                     if (data.step2.application_id !== '')
@@ -492,6 +552,99 @@
         $(menu_holder).find('.item').remove();
         $(span_text).text("Select Type");
         $(menu_holder).append(html);
+    }
+
+    function validate()
+    {
+        var form_valid = true;
+
+
+        if ($("input[name=equipment_type]").val() === '')
+        {
+            $("input[name=equipment_type]").addClass('input-error');
+            form_valid = false;
+        }
+
+        if ($("textarea[name=equipment_description]").val() === '')
+        {
+            $("textarea[name=equipment_description]").addClass('input-error');
+            form_valid = false;
+        }
+
+        if ($("input[name=product_identification]").val() === '')
+        {
+            $("input[name=product_identification]").addClass('input-error');
+            form_valid = false;
+        }
+
+        if ($("input[name=make]").val() === '')
+        {
+            $("input[name=make]").addClass('input-error');
+            form_valid = false;
+        }
+
+        var equipment_types_error =
+            '<div class="ui left pointing red label equipment">' +
+            'Choose an equipment type' +
+            '</div>';
+
+        var checked = false;
+        var radio_options = $('#equipent_types_handle .ui.radio.checkbox');
+        $.each(radio_options, function (i, object) {
+            if ($(object).hasClass('checked')) {
+                checked = true;
+            }
+        });
+
+        if (!checked)
+        {
+            $('#equipent_types_handle').find('.ui.left.pointing.red.label.equipment').remove();
+            $('#equipent_types_handle').append(equipment_types_error);
+        }
+
+        var antenna_selected = false;
+        var antenna_options = $("#antenna_type_dropdown .menu .item");
+        $.each(antenna_options, function (i, object) {
+
+            if ($(object).hasClass('active selected')) {
+                antenna_selected = true;
+            }
+        });
+
+        if (!antenna_selected)
+        {
+            $("#antenna_type_dropdown").addClass('error');
+            form_valid = false;
+        }
+         
+        $("#table_frequencies tr").each(function () {
+          
+            if ($(this).find("input[name=lower_mhz]").val() === '')
+            {
+                $(this).find("input[name=lower_mhz]").addClass('input-error');
+                form_valid = false;
+            }
+
+            if ($(this).find("input[name=upper_mhz]").val() === '')
+            {
+                $(this).find("input[name=upper_mhz]").addClass('input-error');
+                form_valid = false;
+            } 
+        });
+
+
+        if ($('input[name=institution]').val() === '')
+        {
+            $('input[name=institution]').addClass('input-error');
+            form_valid = false;
+        }
+
+        if ($('input[name=country]').val() === '') {
+            $('input[name=country]').addClass('input-error');
+            form_valid = false;
+        }
+
+        return form_valid;
     }
 
     restore_step2();
