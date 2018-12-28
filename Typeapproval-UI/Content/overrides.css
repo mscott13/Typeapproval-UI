@@ -243,3 +243,16 @@ u {
         margin-top: 50px !important;
         font-size: 13px;
     }
+
+.thead_custom th {
+    background: #f6f9fc !important;
+}
+
+.row_hover {
+    background: #f7f7f7 !important;
+}
+
+.check_task
+{
+    cursor: pointer;
+}

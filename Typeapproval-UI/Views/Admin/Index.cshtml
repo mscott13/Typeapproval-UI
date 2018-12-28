@@ -4,14 +4,108 @@
     Layout = "~/Views/Shared/_layout_internal_admin.cshtml";
 }
 
+@section Styles{
+    <link href="~/Content/overrides.css?t=@DateTime.Now.Millisecond.ToString()" rel="stylesheet" />
+    <link href="~/Content/custom.css?t=@DateTime.Now.Millisecond.ToString()" rel="stylesheet" />
+}
 
-<div class="ui two column divided grid">
-    <div class="row">
+<div style="min-width: 1210px !important; max-width: 1500px !important; padding-top: 10px !important;" class="ui fluid container">
+    <div  class="ui two column grid">
         <div class="column">
-            <p>efwefwef</p>
+            <table class="ui single line celled table">
+                <thead class="thead_custom">
+                    <tr>
+                        <th colspan="4">
+                            Unassigned Applications
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Application ID</th>
+                        <th>Created Date</th>
+                        <th>Submitted By</th>
+                        <th>Assigned To</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox" class="check_task" value="" /> &nbsp;&nbsp; <a href="#"><i class="file alternate outline icon"></i> Task #10000</a></td>
+                        <td>September 28, 2018</td>
+                        <td>Clifton Hughes</td>
+                        <td>
+                           Nobody
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot class="full-width">
+                    <tr>
+                        <td colspan="5">
+                            <div id="action_dropdown" class="ui selection dropdown">
+                                <input type="hidden" name="user">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Choose action</div>
+                                <div class="menu">
+                                    <div class="item" data-value="jenny">
+                                        <i class="blue users icon"></i>
+                                        Assign Engineer
+                                    </div>
+                                    <div class="item" data-value="elliot">
+                                        <i class="red trash icon"></i>
+                                        Delete
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="ui mini right floated button">Apply Changes</button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
         <div class="column">
-            <p>fwefwefewfef</p>
+            <table class="ui single line celled table">
+                <thead class="thead_custom">
+                    <tr>
+                        <th colspan="4">
+                            Ongoing Tasks
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Application ID</th>
+                        <th>Administrator</th>
+                        <th>Assigned To</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox" class="check_task" value="" /> &nbsp;&nbsp; <a href="#"><i class="file alternate outline icon"></i> Task #10000</a></td>
+                        <td>Mark Scott</td>
+                        <td>Carlos Griffith</td>
+                        <td class="status_submitted">Submitted</td>
+                    </tr>
+                </tbody>
+                <tfoot class="full-width">
+                    <tr>
+                        <td colspan="5">
+                            <div id="ongoing_action_dropdown" class="ui selection dropdown">
+                                <input type="hidden" name="user">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Choose action</div>
+                                <div class="menu">
+                                    <div class="item" data-value="jenny">
+                                        <i class="blue users icon"></i>
+                                        Reassign Engineer
+                                    </div>
+                                    <div class="item" data-value="elliot">
+                                        <i class="blue reply all icon"></i>
+                                        Move to unassigned
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="ui mini right floated button">Apply Changes</button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
     </div>
 </div>

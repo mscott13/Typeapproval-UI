@@ -7,6 +7,14 @@
     const PASSWORD = 'grp_password';
     const CONFIRM = 'grp_confirm';
 
+    $('#action_dropdown').dropdown();
+    $('#ongoing_action_dropdown').dropdown();
+
+    $('.check_task').change(function () {
+        console.log('ss');
+        $(this).parent().parent().toggleClass("row_hover");
+    });
+
     $('.ui.dropdown').popup();
     $('.ui.small.red.label').popup();
     $('#sidebar').sidebar('show');
