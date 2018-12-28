@@ -9,6 +9,7 @@
 
     $('.ui.dropdown').popup();
     $('.ui.small.red.label').popup();
+    $('#sidebar').sidebar('show');
     $('.header.item').popup();
 
     $('.ui.sticky._form').sticky({
@@ -69,7 +70,7 @@
             }
         });
 
-    
+
 
     $('.ui.button.cancel_app').click(function () {
         console.log("cancelling application...");
@@ -224,26 +225,23 @@
                 console.log(data);
                 $("#btn_login").removeClass("disabled loading");
 
-                if (data.success === true)
-                {
-                    switch (data.user_type)
-                    {
+                if (data.success === true) {
+                    switch (data.user_type) {
                         case 0:
                             window.location.href = "/grid";
                             break;
                         case 1:
                             break;
                         case 9:
+                            window.location.href = "/admin";
                             break;
                     }
                 }
-                else
-                {
+                else {
                     displayLoginError("Check your login credentials then try again.");
                 }
             },
-            error: function (data)
-            {
+            error: function (data) {
                 console.log(data);
                 $("#btn_login").removeClass("disabled loading");
             }

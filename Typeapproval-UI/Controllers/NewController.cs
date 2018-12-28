@@ -291,9 +291,7 @@ namespace Typeapproval_UI.Controllers
         [Route("save/step-3")]
         public ActionResult SessionSave3(Form form)
         {
-            form.RemoveNulls();
-            Session["name_of_test"] = form.name_of_test;
-            Session["country"] = form.country;
+            PostCurrentApplication();
             return Json(new { success = true, responseText = "state saved" }, JsonRequestBehavior.AllowGet);
         }
 
@@ -352,7 +350,7 @@ namespace Typeapproval_UI.Controllers
                 step2.application_id = "";
             }
 
-            return Json(new { step2, data_present = initialized }, JsonRequestBehavior.AllowGet);
+            return Json(new { step2, data_present = true }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -710,7 +708,19 @@ namespace Typeapproval_UI.Controllers
             {
                 Session["additional_info"] = "";
                 initialized = false;
-            } 
+            }
+
+            if (Session["name_of_test"] == null)
+            {
+                Session["name_of_test"] = "";
+                initialized = false;
+            }
+
+            if (Session["country"] == null)
+            {
+                Session["country"] = "";
+                initialized = false;
+            }
 
             if (Session["frequencies"] == null)
             {
@@ -802,11 +812,6 @@ namespace Typeapproval_UI.Controllers
             }
 
             if (form.antenna_type == null || form.antenna_type == "")
-            {
-                status = false;
-            }
-
-            if (form.additional_info == null || form.additional_info == "")
             {
                 status = false;
             }

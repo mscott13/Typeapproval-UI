@@ -16,40 +16,23 @@
         var btn_save = $(this);
         $(btn_save).addClass("disabled loading");
 
-        var jsonObj = new Object();
-        jsonObj.name_of_test = $("input[name=institution]").val();
-        jsonObj.country = $("input[name=country]").val();
-
-
-        var json = JSON.stringify(jsonObj);
         $.ajax({
-            type: "POST",
-            url: "/save/step-3",
-            contentType: "application/json; charset=utf-8",
-            data: json,
+            type: "GET",
+            url: "/new/post-current-app",
             success: function (data) {
-                $.ajax({
-                    type: "GET",
-                    url: "/new/post-current-app",
-                    success: function (data) {
-                        if (data.responseText === "posted") {
-                            addApplicationStatus("Application saved with ID: <b>" + data.app_id + "<b>");
-                            $(btn_save).removeClass("disabled loading");
-                            $(btn_save).html("Saved");
-                        }
-                        else if (data.responseText === "updated") {
-                            console.log("application updated");
-                            $(btn_save).removeClass("disabled loading");
-                            $(btn_save).html("Saved");
-                        }
-                        else if (data.responseText === "session expired") {
-                            window.location = "/account";
-                        }
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
+                if (data.responseText === "posted") {
+                    addApplicationStatus("Application saved with ID: <b>" + data.app_id + "<b>");
+                    $(btn_save).removeClass("disabled loading");
+                    $(btn_save).html("Saved");
+                }
+                else if (data.responseText === "updated") {
+                    console.log("application updated");
+                    $(btn_save).removeClass("disabled loading");
+                    $(btn_save).html("Saved");
+                }
+                else if (data.responseText === "session expired") {
+                    window.location = "/account";
+                }
             },
             error: function (data) {
                 console.log(data);
