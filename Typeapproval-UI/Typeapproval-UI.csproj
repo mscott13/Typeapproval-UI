@@ -159,13 +159,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdminDashboard.cs" />
     <Compile Include="Models\Certificate.cs" />
     <Compile Include="Models\ClientCompany.cs" />
     <Compile Include="Models\Dashboard.cs" />
+    <Compile Include="Models\EngineerUser.cs" />
     <Compile Include="Models\Form.cs" />
     <Compile Include="Models\Frequency.cs" />
     <Compile Include="Models\LicensedApplication.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\OngoingTask.cs" />
     <Compile Include="Models\PendingApproval.cs" />
     <Compile Include="Models\RecentActivity.cs" />
     <Compile Include="Models\RecentDocuments.cs" />
@@ -175,6 +178,7 @@
     <Compile Include="Models\Step3.cs" />
     <Compile Include="Models\TypeApproval.cs" />
     <Compile Include="Models\TypeApprovalDetail.cs" />
+    <Compile Include="Models\UnassignedTask.cs" />
     <Compile Include="Models\UserActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -230,6 +234,7 @@
     <Content Include="Content\themes\material\assets\fonts\icons.woff2" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\admin.js" />
     <Content Include="Scripts\dom-to-image.js" />
     <Content Include="Scripts\feed.js" />
     <Content Include="Scripts\grid.js" />
