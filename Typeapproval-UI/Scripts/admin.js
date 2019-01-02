@@ -2,6 +2,21 @@
 
     var unassigned_action = '';
     var ongoing_action = '';
+    var current_record = null;
+
+    $('input[type="checkbox"]').on('change', function () {
+        current_record = $(this).parent().parent();
+        $('input[type="checkbox"]').not(this).prop('checked', false);
+        $('.check_task').parent().parent().removeClass('row_hover');
+
+        if ($(this).parent().parent().hasClass('row_hover')) {
+            $(this.parent().parent().removeClass('row_hover'));
+        }
+        else {
+            $(this).parent().parent().addClass("row_hover");
+        }
+    });
+
 
     $('#ongoing_action_dropdown').dropdown({
         onChange: function (value, text, $selectedItem) {
@@ -9,8 +24,7 @@
                 ongoing_action = 'reassign_engineer';
                 $('#reassign_engineer_select').toggleClass("display_invisible");
             }
-            else if (value === 'move_unassigned')
-            {
+            else if (value === 'move_unassigned') {
                 ongoing_action = 'move_unassigned';
                 $('#reassign_engineer_select').addClass("display_invisible");
             }
@@ -39,5 +53,79 @@
 
     $('#btn_unassigned_apply').click(function () {
         var check_tasks = $('#tbl_unassigned .check_task:checked');
+        if ($(check_tasks).length > 0) {
+            var action = $("#unassigned_action_dropdown .item.active.selected").data("value");
+            switch (action) {
+                case "assign_engineer":
+
+                    var selected_engineer = $("#assign_engineer_select .item.active.selected").data("value");
+                    var appid = $(current_record).data("appid");
+                    add_ongoing_task(appid, selected_engineer, current_record);
+                    break;
+                case "delete":
+                    var _appid = $(this).parent().parent().data("appid");
+                    delete_task(_appid);
+                    break;
+            }
+        }
+        else {
+            console.log("no record selected");
+        }
+
     });
+
+    function add_ongoing_task(application_id, assigned_to, target_record) {
+        var jsonObj = new Object();
+        jsonObj.application_id = application_id;
+        jsonObj.assigned_to = assigned_to;
+
+        var json = JSON.stringify(jsonObj);
+        $('#btn_unassigned_apply').addClass("disabled loading");
+
+        $.ajax({
+            type: "POST",
+            url: "/admin/newongoing",
+            contentType: "application/json; charset=utf-8",
+            data: json,
+            success: function (data) {
+                $('#btn_unassigned_apply').removeClass("disabled loading");
+
+                $(target_record).remove();
+                $("#tbl_ongoing tboby #fallback_msg_ongoing").remove();
+
+                var html =
+                    "<tr>" +
+                    '<td><input type="checkbox" class="check_task" value="" /> &nbsp;&nbsp; <a href="#"><i class="file alternate outline icon"></i> Task #' + data.application_id + '</a></td>' +
+                    '<td>' + data.created_date + '</td>' +
+                    '<td>' + data.assigned_to + '</td>' +
+                    '<td>' + data.date_assigned + '</td>' +
+                    '<td class="status_submitted">' + data.status + '</td>' +
+                    "</tr>";
+
+                var html_2 =
+                    "<tr id='fallback_msg_unassigned' colspan = 3>" +
+                    "<td>No unassigned applications found.</td" > +
+                    "</tr >";
+
+                $("#tbl_ongoing tboby").append(html);
+                $("#tbl_unassigned tbody").append(html_2);
+            },
+            error: function (data) {
+                $('#btn_unassigned_apply').removeClass("disabled loading");
+                console.log(data);
+            }
+        });
+    }
+
+    function add_unassigned_task(application_id, submitted_by) {
+
+    }
+
+    function delete_task(application_id) {
+
+    }
+
+    function reassign_task(application_id, assign_to) {
+
+    }
 });

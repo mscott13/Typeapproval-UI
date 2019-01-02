@@ -7,11 +7,6 @@
     const PASSWORD = 'grp_password';
     const CONFIRM = 'grp_confirm';
 
-    $('.check_task').change(function () {
-        console.log('ss');
-        $(this).parent().parent().toggleClass("row_hover");
-    });
-
     $('.ui.dropdown').popup();
     $('.ui.dropdown').popup();
     $('.ui.small.red.label').popup();

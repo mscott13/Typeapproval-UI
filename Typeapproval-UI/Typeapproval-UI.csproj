@@ -168,6 +168,7 @@
     <Compile Include="Models\Frequency.cs" />
     <Compile Include="Models\LicensedApplication.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\NewOngoingTaskParams.cs" />
     <Compile Include="Models\OngoingTask.cs" />
     <Compile Include="Models\PendingApproval.cs" />
     <Compile Include="Models\RecentActivity.cs" />

@@ -1,4 +1,4 @@
-﻿@model List<Typeapproval_UI.Models.EngineerUser>
+﻿@model Typeapproval_UI.Models.AdminDashboard
 
 @{
     ViewBag.Title = "Task Management";
@@ -13,7 +13,6 @@
 @section Scripts{
     <script src="~/Scripts/admin.js"></script>
 }
-
 
 <div style="min-width: 1210px !important; max-width: 1500px !important; padding-top: 10px !important;" class="ui fluid container">
     <div style="padding-left: 10px !important; padding-right:10px !important;" class="ui grid">
@@ -32,11 +31,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><input type="checkbox" class="check_task" value="" /> &nbsp;&nbsp; <a href="#"><i class="file alternate outline icon"></i> Task #10000</a></td>
-                        <td>September 28, 2018</td>
-                        <td>Clifton Hughes</td>
-                    </tr>
+                    @if (Model.unassignedTasks.Count > 0)
+                    {
+                        for (int i = 0; i < Model.unassignedTasks.Count; i++)
+                        {
+                            <tr data-appid="@Model.unassignedTasks[i].application_id">
+                                <td><input type="checkbox" class="check_task" value="" /> &nbsp;&nbsp; <a href="#"><i class="file alternate outline icon"></i> Task #@Model.unassignedTasks[i].application_id</a></td>
+                                <td>@Model.unassignedTasks[i].created_date</td>
+                                <td>@Model.unassignedTasks[i].submitted_by</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr id="fallback_msg_unassigned" colspan="3">
+                            <td>No unassigned applications found.</td>
+                        </tr>
+                    }
                 </tbody>
                 <tfoot class="full-width">
                     <tr>
@@ -59,9 +70,9 @@
                                 <i class="dropdown icon"></i>
                                 <div class="default text">Choose Engineer</div>
                                 <div class="menu">
-                                    @for (int i = 0; i < Model.Count; i++)
+                                    @for (int i = 0; i < Model.engineerUsers.Count; i++)
                                     {
-                                        <div class="item" data-value="@Model[i].username">@Model[i].name</div>
+                                        <div class="item" data-value="@Model.engineerUsers[i].username">@Model.engineerUsers[i].name</div>
                                     }
                                 </div>
                             </div>
@@ -88,13 +99,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><input type="checkbox" class="check_task" value="" /> &nbsp;&nbsp; <a href="#"><i class="file alternate outline icon"></i> Task #10002</a></td>
-                        <td>September 28, 2018</td>
-                        <td>Carlos Griffith</td>
-                        <td>November 4, 2018</td>
-                        <td class="status_submitted">Submitted</td> 
-                    </tr>
+                    @if (Model.ongoingTasks.Count > 0)
+                    {
+                        for (int i = 0; i < Model.ongoingTasks.Count; i++)
+                        {
+                            <tr>
+                                <td><input type="checkbox" class="check_task" value="" /> &nbsp;&nbsp; <a href="#"><i class="file alternate outline icon"></i> Task #@Model.ongoingTasks[i].application_id</a></td>
+                                <td>@Model.ongoingTasks[i].created_date</td>
+                                <td>@Model.ongoingTasks[i].assigned_to</td>
+                                <td>@Model.ongoingTasks[i].date_assigned</td>
+                                <td class="status_submitted">@Model.ongoingTasks[i].status</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr id="fallback_msg_ongoing" colspan="5">
+                            <td> No ongoing applications found.</td>
+                        </tr>
+                    }
                 </tbody>
                 <tfoot class="full-width">
                     <tr>
@@ -118,9 +141,9 @@
                                 <i class="dropdown icon"></i>
                                 <div class="default text">Choose Engineer</div>
                                 <div class="menu">
-                                    @for (int i = 0; i < Model.Count; i++)
+                                    @for (int i = 0; i < Model.engineerUsers.Count; i++)
                                     {
-                                        <div class="item" data-value="@Model[i].username">@Model[i].name</div>
+                                        <div class="item" data-value="@Model.engineerUsers[i].username">@Model.engineerUsers[i].name</div>
                                     }
                                 </div>
                             </div>
