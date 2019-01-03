@@ -30,7 +30,7 @@
                         <th>Submitted By</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="trows">
                     @if (Model.unassignedTasks.Count > 0)
                     {
                         for (int i = 0; i < Model.unassignedTasks.Count; i++)
@@ -44,7 +44,8 @@
                     }
                     else
                     {
-                        <tr id="fallback_msg_unassigned" colspan="3">
+                        <tr id="fallback_msg_unassigned
+                            " colspan="3">
                             <td>No unassigned applications found.</td>
                         </tr>
                     }
@@ -83,7 +84,7 @@
             </table>
         </div>
         <div style="padding: 5px !important;" class="nine wide column">
-            <table id="tbl_ongoing" class="ui  celled table">
+            <table id="tbl_ongoing" class="ui celled table">
                 <thead class="thead_custom">
                     <tr>
                         <th colspan="5">
@@ -103,7 +104,7 @@
                     {
                         for (int i = 0; i < Model.ongoingTasks.Count; i++)
                         {
-                            <tr>
+                            <tr data-appid="@Model.ongoingTasks[i].application_id">
                                 <td><input type="checkbox" class="check_task" value="" /> &nbsp;&nbsp; <a href="#"><i class="file alternate outline icon"></i> Task #@Model.ongoingTasks[i].application_id</a></td>
                                 <td>@Model.ongoingTasks[i].created_date</td>
                                 <td>@Model.ongoingTasks[i].assigned_to</td>

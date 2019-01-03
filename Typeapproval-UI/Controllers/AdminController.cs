@@ -175,6 +175,37 @@ namespace Typeapproval_UI.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("admin/movetounassigned")]
+        public ActionResult MoveToUnassigned(Models.NewOngoingTaskParams data)
+        {
+            if (Session["key"] != null)
+            {
+                data.access_key = Session["key"].ToString();
+                var client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync("MoveToUnassigned", content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = response.Content.ReadAsStringAsync().Result;
+                    Models.UnassignedTask unassigned = JsonConvert.DeserializeObject<Models.UnassignedTask>(result);
+                    return Json(new { unassigned }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { responseText = "not_moved" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(new { responseText = "unavailable" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         private List<Models.EngineerUser> GetEngineerUsers()
         {
             if (Session["key"] != null)
