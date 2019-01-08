@@ -196,6 +196,7 @@
     <Content Include="Content\images\paper_1.png" />
     <Content Include="Content\images\Spectrum-Management-Authority.png" />
     <Content Include="Content\login.css" />
+    <Content Include="Content\menu-override.css" />
     <Content Include="Content\overrides.css" />
     <Content Include="Content\register.css" />
     <Content Include="Content\search_result_styles.css" />

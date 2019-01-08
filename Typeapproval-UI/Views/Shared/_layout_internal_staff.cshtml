@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html style="height: 100% !important;">
 <head>
     <title>@ViewBag.Title</title>
     <link href="~/Content/semantic.css" rel="stylesheet" />
@@ -9,7 +9,7 @@
     @RenderSection("styles", false)
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body>
+<body style="height: 100% !important;">
     <div class="sidenav">
         <div class="ui vertical inverted menu">
             <a href="/staff" class="item">
@@ -22,25 +22,16 @@
                     <a class="item">Change Password</a>
                 </div>
             </div>
+            <div class="item">
+                <div class="header"></div>
+                <div class="menu">
+                    <a id="sign_out" class="item">Sign out</a>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="main">
-        <div style="border: none !important" class="ui borderless large menu">
-            <div style="font-size: 17px !important;" class="header item">
-                <i>Task Viewer</i>
-            </div>
-            <div style="font-size: 13px !important; font-style: italic !important;" class="right menu">
-                <div class="ui item">
-                    Signed in as:&nbsp;&nbsp;<b>@Session["name"]</b>
-                </div>
-                <div style="margin-right: 15px !important;" class="ui item">
-                    <button id="sign_out" class="tiny ui basic button">
-                        <i class="icon power off"></i>
-                        Sign out
-                    </button>
-                </div>
-            </div>
-        </div>
+    <div class="main-staff">
+        
 
         @RenderBody()
     </div>
