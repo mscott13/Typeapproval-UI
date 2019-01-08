@@ -156,6 +156,7 @@
     <Compile Include="Controllers\NewController.cs" />
     <Compile Include="Controllers\SavedController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -163,6 +164,7 @@
     <Compile Include="Models\Certificate.cs" />
     <Compile Include="Models\ClientCompany.cs" />
     <Compile Include="Models\Dashboard.cs" />
+    <Compile Include="Models\DeleteUnassignedParams.cs" />
     <Compile Include="Models\EngineerUser.cs" />
     <Compile Include="Models\Form.cs" />
     <Compile Include="Models\Frequency.cs" />
@@ -171,6 +173,7 @@
     <Compile Include="Models\NewOngoingTaskParams.cs" />
     <Compile Include="Models\OngoingTask.cs" />
     <Compile Include="Models\PendingApproval.cs" />
+    <Compile Include="Models\ReassignTaskParams.cs" />
     <Compile Include="Models\RecentActivity.cs" />
     <Compile Include="Models\RecentDocuments.cs" />
     <Compile Include="Models\SavedApplications.cs" />
@@ -279,6 +282,8 @@
     <Content Include="Views\Grid\Index.cshtml" />
     <Content Include="Views\Shared\_layout_internal_admin.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Shared\_layout_internal_staff.cshtml" />
+    <Content Include="Views\Staff\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

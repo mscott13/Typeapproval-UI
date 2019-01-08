@@ -232,6 +232,7 @@
                             window.location.href = "/grid";
                             break;
                         case 1:
+                            window.location.href = "/staff";
                             break;
                         case 9:
                             window.location.href = "/admin";

@@ -4,25 +4,55 @@
     <title>@ViewBag.Title</title>
     <link href="~/Content/semantic.css" rel="stylesheet" />
     <link href="~/Content/site.css?t=@DateTime.Now.Millisecond" rel="stylesheet" />
+    <link href="~/Content/custom.css?t=@DateTime.Now.Millisecond.ToString()" rel="stylesheet" />
     <link href="~/Content/search_result_styles.css?t=@DateTime.Now.Millisecond" rel="stylesheet" />
     @RenderSection("styles", false)
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <div style="border: none !important" class="ui borderless large menu">
-        <div class="header item">
-            <i>Task Management</i>
-        </div>
-        <div style="font-size: 13px !important; font-style: italic !important;" class="right menu">
-            <div class="ui item">
-                Signed in as:&nbsp;&nbsp;<b>@Session["name"]</b>
+    <div class="sidenav">
+        <div class="ui vertical inverted menu">
+            <a href="/admin" class="item">
+                <i class="home icon"></i>
+                Task Manager
+            </a>
+            <div class="item">
+                <div class="header">Account Management</div>
+                <div class="menu">
+                    <a class="item">Reset password</a>
+                    <a class="item">Create Account</a>
+                    <a class="item">Delete User</a>
+                    <a class="item">Edit User</a>
+                </div>
             </div>
-            <div style="margin-right: 15px !important;" class="ui item">
-                <a style="text-decoration:underline !important;" id="sign_out" href="#">sign out</a>
+            <div class="item">
+                <div class="header">Client Management</div>
+                <div class="menu">
+                    <a class="item">Grant resubmition</a>
+                </div>
             </div>
         </div>
     </div>
-    @RenderBody()
+    <div class="main">
+        <div style="border: none !important" class="ui borderless large menu">
+            <div style="font-size: 17px !important;" class="header item">
+                <i>Task Manager</i>
+            </div>
+            <div style="font-size: 13px !important; font-style: italic !important;" class="right menu">
+                <div class="ui item">
+                    Signed in as:&nbsp;&nbsp;<b>@Session["name"]</b>
+                </div>
+                <div style="margin-right: 15px !important;" class="ui item">
+                    <button id="sign_out" class="tiny ui basic button">
+                        <i class="icon power off"></i>
+                        Sign out
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        @RenderBody()
+    </div>
 
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/semantic.js"></script>

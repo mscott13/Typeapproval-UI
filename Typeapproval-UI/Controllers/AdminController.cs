@@ -22,27 +22,27 @@ namespace Typeapproval_UI.Controllers
 
         [HttpPost]
         [Route("admin/reassign")]
-        public ActionResult ReassignTask(dynamic data)
+        public ActionResult ReassignTask(Models.ReassignTaskParams param)
         {
             if (Session["key"] != null)
             {
-                data.access_key = Session["key"].ToString();
+                param.access_key = Session["key"].ToString();
                 var client = new HttpClient();
                 client.BaseAddress = new Uri("http://localhost:54367/api/data/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                var content = new StringContent(JsonConvert.SerializeObject(param), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = client.PostAsync("ReassignTask", content).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     string result = response.Content.ReadAsStringAsync().Result;
-                    List<Models.EngineerUser> engineerUsers = JsonConvert.DeserializeObject<List<Models.EngineerUser>>(result);
-                    return Json(new { responseText = "task reassigned" }, JsonRequestBehavior.AllowGet);
+                    Models.OngoingTask ongoing = JsonConvert.DeserializeObject<Models.OngoingTask>(result);
+                    return Json(new { responseText = "task_reassigned", ongoing }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    return Json(new { responseText = "task not reassigned" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { responseText = "not_reassigned" }, JsonRequestBehavior.AllowGet);
                 }
             }
             else
@@ -84,27 +84,26 @@ namespace Typeapproval_UI.Controllers
 
         [HttpPost]
         [Route("admin/deleteunassigned")]
-        public ActionResult DeleteUnassignedTask(dynamic data)
+        public ActionResult DeleteUnassignedTask(Models.DeleteUnassignedParams param)
         {
             if (Session["key"] != null)
             {
-                data.access_key = Session["key"].ToString();
+                param.access_key = Session["key"].ToString();
                 var client = new HttpClient();
                 client.BaseAddress = new Uri("http://localhost:54367/api/data/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                var content = new StringContent(JsonConvert.SerializeObject(param), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = client.PostAsync("DeleteUnassignedTask", content).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     string result = response.Content.ReadAsStringAsync().Result;
-                    List<Models.EngineerUser> engineerUsers = JsonConvert.DeserializeObject<List<Models.EngineerUser>>(result);
-                    return Json(new { responseText = "task deleted" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { responseText = "task_deleted" }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    return Json(new { responseText = "task not deleted" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { responseText = "not_deleted" }, JsonRequestBehavior.AllowGet);
                 }
             }
             else

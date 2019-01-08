@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/semantic.css" rel="stylesheet" />
+    <link href="~/Content/site.css?t=@DateTime.Now.Millisecond" rel="stylesheet" />
+    <link href="~/Content/custom.css?t=@DateTime.Now.Millisecond.ToString()" rel="stylesheet" />
+    <link href="~/Content/search_result_styles.css?t=@DateTime.Now.Millisecond" rel="stylesheet" />
+    @RenderSection("styles", false)
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="sidenav">
+        <div class="ui vertical inverted menu">
+            <a href="/staff" class="item">
+                <i class="home icon"></i>
+                Task Viewer
+            </a>
+            <div class="item">
+                <div class="header">Account Management</div>
+                <div class="menu">
+                    <a class="item">Change Password</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div style="border: none !important" class="ui borderless large menu">
+            <div style="font-size: 17px !important;" class="header item">
+                <i>Task Viewer</i>
+            </div>
+            <div style="font-size: 13px !important; font-style: italic !important;" class="right menu">
+                <div class="ui item">
+                    Signed in as:&nbsp;&nbsp;<b>@Session["name"]</b>
+                </div>
+                <div style="margin-right: 15px !important;" class="ui item">
+                    <button id="sign_out" class="tiny ui basic button">
+                        <i class="icon power off"></i>
+                        Sign out
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        @RenderBody()
+    </div>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/semantic.js"></script>
+    <script src="~/Scripts/jquery.marcopolo.min.js"></script>
+    <script src="~/Scripts/site.js?t=@DateTime.Now.Millisecond"></script>
+    @RenderSection("Scripts", false)
+</body>
+</html>

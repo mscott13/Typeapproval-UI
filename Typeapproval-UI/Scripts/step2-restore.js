@@ -583,6 +583,12 @@
             form_valid = false;
         }
 
+        if ($("textarea[name=additional_information]").val() === '')
+        {
+            $("textarea[name=additional_information]").addClass("input-error");
+            form_valid = false;
+        }
+
         var equipment_types_error =
             '<div class="ui left pointing red label equipment">' +
             'Choose an equipment type' +

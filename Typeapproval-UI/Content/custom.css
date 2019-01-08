@@ -69,5 +69,31 @@
 }
 
 
+.sidenav {
+    height: 100%;
+    width: 210px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #1B1C1D;
+    overflow-x: hidden;
+    box-shadow: 10px 3px 14px -12px rgba(0,0,0,0.41);
+}
+
+.main
+{
+    margin-left: 210px;
+}
 
 
+.sidenav-staff {
+    margin-top:50px;
+    height: 100%;
+    width: 210px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #1B1C1D;
+    overflow-x: hidden;
+    box-shadow: 10px 3px 14px -12px rgba(0,0,0,0.41);
+}

@@ -1,12 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 using Typeapproval_UI.Models;
 
@@ -24,7 +21,6 @@ namespace Typeapproval_UI.Controllers
             }
             else
             {
-
                 Session.Remove("save_state");
                 Session.Remove("application_id");
                 Session.Remove("manufacturer_name");
