@@ -219,7 +219,7 @@ u {
     }
 
 .link_override_v2 {
-    color: #2A2D43 !important;
+    color: #2185D0 !important;
     font-weight: bold;
 }
 
@@ -255,6 +255,10 @@ u {
 .check_task
 {
     cursor: pointer;
+}
+
+#client-records tr:hover {
+    background: #FFF6DF !important;
 }
 
 .margin-remove {

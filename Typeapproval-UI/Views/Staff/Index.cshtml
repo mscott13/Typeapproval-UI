@@ -1,4 +1,5 @@
-﻿    
+﻿@model List<Typeapproval_UI.Models.AssignedTask>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_layout_internal_staff.cshtml";
@@ -9,11 +10,12 @@
 }
 
 <div style="margin-left: 0px !important; margin-right: 0 !important; width:100% !important; height: 100% !important;" class="ui fluid container">
-    <table style="border-radius:0 !important; border:none !important;" class="ui selectable small table">
+    <table style="border-radius:0 !important; border:none !important;" class="ui small table">
         <thead>
             <tr>
                 <th>Application ID</th>
                 <th>Created Date</th>
+                <th>Date Assigned</th>
                 <th>Submitted By</th>
                 <th>Status</th>
                 <th>Technical Specifications</th>
@@ -22,231 +24,55 @@
             </tr>
         </thead>
         <tbody id="staff-task-records">
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
-            <tr>
-                <td><a class="link-bold" href="#"><i class="file alternate outline icon"></i>100002</a></td>
-                <td>02/09/2019</td>
-                <td>Jane Thompson</td>
-                <td class="status_submitted">Submitted</td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>pdf-test.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>dummy-d.pdf</a></td>
-                <td><a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>file-test.pdf</a></td>
-            </tr>
+            @if (Model.Count > 0)
+            {
+                for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td><a class="link-bold"><i class="file alternate outline icon"></i>@Model[i].application_id</a></td>
+                        <td>@Model[i].created_date</td>
+                        <td>@Model[i].assigned_date</td>
+                        <td>@Model[i].submitted_by</td>
+
+                        @switch (Model[i].status)
+                        {
+                            case Typeapproval_UI.Commons.Constants.INCOMPLETE_TYPE:
+                                <td class="status_incomplete">@Model[i].status</td>
+                                break;
+                            case Typeapproval_UI.Commons.Constants.PENDING_TYPE:
+                                <td class="status_pending">@Model[i].status</td>
+                                break;
+                            case Typeapproval_UI.Commons.Constants.INVOICED_TYPE:
+                                <td class="status_invoiced">@Model[i].status</td>
+                                break;
+                            case Typeapproval_UI.Commons.Constants.REJECTED:
+                                <td class="status_rejected">@Model[i].status</td>
+                                break;
+                            case Typeapproval_UI.Commons.Constants.LICENSED_TYPE:
+                                <td class="status_licensed">@Model[i].status</td>
+                                break;
+                            case Typeapproval_UI.Commons.Constants.SUBMITTED_TYPE:
+                                <td class="status_submitted">@Model[i].status</td>
+                                break;
+                            default:
+                                <td>@Model[i].status</td>
+                                break;
+                        }
+
+                        <td><a href="/staff/get/@Model[i].applicationFiles[0].file_id" class="link_override_v1" style="cursor:pointer !important;"><i class="file pdf icon"></i>@Model[i].applicationFiles[0].filename</a></td>
+                        <td><a href="/staff/get/@Model[i].applicationFiles[1].file_id" class="link_override_v1" style="cursor:pointer !important;"><i class="file pdf icon"></i>@Model[i].applicationFiles[1].filename</a></td>
+                        <td><a href="/staff/get/@Model[i].applicationFiles[2].file_id" class="link_override_v1" style="cursor:pointer !important;"><i class="file pdf icon"></i>@Model[i].applicationFiles[2].filename</a></td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td class="row_hover" style="text-align: center;" colspan="8">
+                        You have no assigned tasks yet. Check back later...
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>

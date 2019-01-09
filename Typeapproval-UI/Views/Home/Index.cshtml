@@ -120,7 +120,7 @@
                                 </div>
                             </h5>
                             <div class="ui divider"></div>
-                            <table id="licensed_cert_table" class="ui selectable table">
+                            <table id="licensed_cert_table" class="ui table">
                                 <thead>
                                     <tr>
                                         <th>Application ID</th>
@@ -133,7 +133,7 @@
                                         <th>License</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="client-records">
 
                                     @if (Model.licensedApplications.Count > 0)
                                     {
@@ -170,7 +170,7 @@
                                 </div>
                             </h5>
                             <div class="ui divider"></div>
-                            <table id="recent_activity_table" class="ui selectable table">
+                            <table id="recent_activity_table" class="ui table">
                                 <thead>
                                     <tr>
                                         <th>Application ID</th>
@@ -183,7 +183,7 @@
                                         <th>Status</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="client-records">
                                     @if (Model.recentActivities.Count > 0)
                                     {
                                         for (int i = 0; i < Model.recentActivities.Count; i++)

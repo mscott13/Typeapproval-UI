@@ -220,9 +220,9 @@
 
                     for (var i = 0; i < file_tech_spec.length; i++)
                     {
-                        form_data.append(i, file_tech_spec[i]);
-                        form_data.append(i, file_test_report[i]);
-                        form_data.append(i, file_accreditation[i]);
+                        form_data.append("tech_spec", file_tech_spec[i]);
+                        form_data.append("test_report", file_test_report[i]);
+                        form_data.append("accreditation", file_accreditation[i]);
                     }
 
                     $.ajax({

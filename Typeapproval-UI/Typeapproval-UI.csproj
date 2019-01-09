@@ -151,16 +151,21 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CertificatesController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GridController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewController.cs" />
     <Compile Include="Controllers\SavedController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
+    <Compile Include="Database\SLW_DatabaseInfo.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AdminDashboard.cs" />
+    <Compile Include="Models\ApplicationFile.cs" />
+    <Compile Include="Models\ApplicationFiles.cs" />
+    <Compile Include="Models\AssignedTask.cs" />
     <Compile Include="Models\Certificate.cs" />
     <Compile Include="Models\ClientCompany.cs" />
     <Compile Include="Models\Dashboard.cs" />
@@ -168,6 +173,7 @@
     <Compile Include="Models\EngineerUser.cs" />
     <Compile Include="Models\Form.cs" />
     <Compile Include="Models\Frequency.cs" />
+    <Compile Include="Models\GetStaffAssignedTasksParams.cs" />
     <Compile Include="Models\LicensedApplication.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\NewOngoingTaskParams.cs" />
@@ -285,6 +291,9 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_layout_internal_staff.cshtml" />
     <Content Include="Views\Staff\Index.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Staff\NotAuthorizedView.cshtml" />
+    <Content Include="Views\Staff\NotAuthorizedDownload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
