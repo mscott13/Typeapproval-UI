@@ -11,7 +11,7 @@
 </head>
 <body style="height: 100% !important;">
     <div class="sidenav">
-        <div class="ui vertical inverted menu">
+        <div class="ui vertical inverted fluid menu">
             <a href="/staff" class="item">
                 <i class="home icon"></i>
                 Task Viewer
@@ -31,7 +31,7 @@
         </div>
     </div>
     <div class="main-staff">
-        
+
 
         @RenderBody()
     </div>
@@ -40,6 +40,7 @@
     <script src="~/Scripts/semantic.js"></script>
     <script src="~/Scripts/jquery.marcopolo.min.js"></script>
     <script src="~/Scripts/site.js?t=@DateTime.Now.Millisecond"></script>
+    <script src="~/Scripts/staff.js"></script>
     @RenderSection("Scripts", false)
 </body>
 </html>

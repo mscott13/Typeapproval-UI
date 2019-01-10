@@ -11,22 +11,20 @@
 </head>
 <body>
     <div class="sidenav">
-        <div class="ui vertical inverted menu">
+        <div class="ui vertical inverted fluid menu">
             <a href="/admin" class="item">
                 <i class="home icon"></i>
                 Task Manager
             </a>
             <div class="item">
-                <div class="header">Account Management</div>
+                <div class="header">User Management</div>
                 <div class="menu">
-                    <a class="item">Reset password</a>
-                    <a class="item">Create Account</a>
-                    <a class="item">Delete User</a>
-                    <a class="item">Edit User</a>
+                    <a href="/admin/create-account" class="item">Create Account</a>
+                    <a href="/admin/all-users" class="item">All Users</a>
                 </div>
             </div>
             <div class="item">
-                <div class="header">Client Management</div>
+                <div class="header">Other</div>
                 <div class="menu">
                     <a class="item">Grant resubmition</a>
                 </div>
@@ -36,7 +34,7 @@
     <div class="main">
         <div style="border: none !important" class="ui borderless large menu">
             <div style="font-size: 17px !important;" class="header item">
-                <i>Task Manager</i>
+                <i>@ViewBag.Title</i>
             </div>
             <div style="font-size: 13px !important; font-style: italic !important;" class="right menu">
                 <div class="ui item">

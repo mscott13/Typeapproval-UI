@@ -116,19 +116,42 @@
                     {
                         for (int i = 0; i < Model.ongoingTasks.Count; i++)
                         {
-                            <tr data-appid="@Model.ongoingTasks[i].application_id">
-                                <td><input type="checkbox" class="check_task" value="" /> &nbsp;&nbsp; <a href="#"><i class="file alternate outline icon"></i> Task #@Model.ongoingTasks[i].application_id</a></td>
-                                <td>@Model.ongoingTasks[i].created_date</td>
-                                <td>@Model.ongoingTasks[i].assigned_to</td>
-                                <td>@Model.ongoingTasks[i].date_assigned</td>
+                    <tr data-appid="@Model.ongoingTasks[i].application_id">
+                        <td><input type="checkbox" class="check_task" value="" /> &nbsp;&nbsp; <a href="#"><i class="file alternate outline icon"></i> Task #@Model.ongoingTasks[i].application_id</a></td>
+                        <td>@Model.ongoingTasks[i].created_date</td>
+                        <td>@Model.ongoingTasks[i].assigned_to</td>
+                        <td>@Model.ongoingTasks[i].date_assigned</td>
+                        @switch (Model.ongoingTasks[i].status)
+                        {
+                            case Typeapproval_UI.Commons.Constants.INCOMPLETE_TYPE:
+                                <td class="status_incomplete">@Model.ongoingTasks[i].status</td>
+                                break;
+                            case Typeapproval_UI.Commons.Constants.PENDING_TYPE:
+                                <td class="status_pending">@Model.ongoingTasks[i].status</td>
+                                break;
+                            case Typeapproval_UI.Commons.Constants.INVOICED_TYPE:
+                                <td class="status_invoiced">@Model.ongoingTasks[i].status</td>
+                                break;
+                            case Typeapproval_UI.Commons.Constants.REJECTED:
+                                <td class="status_rejected">@Model.ongoingTasks[i].status</td>
+                                break;
+                            case Typeapproval_UI.Commons.Constants.LICENSED_TYPE:
+                                <td class="status_licensed">@Model.ongoingTasks[i].status</td>
+                                break;
+                            case Typeapproval_UI.Commons.Constants.SUBMITTED_TYPE:
                                 <td class="status_submitted">@Model.ongoingTasks[i].status</td>
-                            </tr>
+                                break;
+                            default:
+                                <td>@Model.ongoingTasks[i].status</td>
+                                break;
+                        }
+                    </tr>
                         }
                     }
                     else
                     {
-                        <tr id="fallback_msg_ongoing" colspan="5">
-                            <td> No ongoing applications found.</td>
+                        <tr id="fallback_msg_ongoing">
+                            <td  colspan="5"> No ongoing applications found.</td>
                         </tr>
                     }
                 </tbody>

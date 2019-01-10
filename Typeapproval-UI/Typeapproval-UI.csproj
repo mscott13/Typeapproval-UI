@@ -190,6 +190,7 @@
     <Compile Include="Models\TypeApprovalDetail.cs" />
     <Compile Include="Models\UnassignedTask.cs" />
     <Compile Include="Models\UserActivity.cs" />
+    <Compile Include="Models\UserDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -263,6 +264,7 @@
     <Content Include="Scripts\saved-apps.js" />
     <Content Include="Scripts\semantic.js" />
     <Content Include="Scripts\site.js" />
+    <Content Include="Scripts\staff.js" />
     <Content Include="Scripts\step1-restore.js" />
     <Content Include="Scripts\step2-restore.js" />
     <Content Include="Scripts\step3-restore.js" />
@@ -294,6 +296,8 @@
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Staff\NotAuthorizedView.cshtml" />
     <Content Include="Views\Staff\NotAuthorizedDownload.cshtml" />
+    <Content Include="Views\Admin\CreateAccount.cshtml" />
+    <Content Include="Views\Admin\AllUsers.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

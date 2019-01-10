@@ -173,8 +173,8 @@
                     "</tr>";
 
                 var htm =
-                    "<tr id='fallback_msg_unassigned' colspan = 3>" +
-                    "<td>No unassigned applications found.</td>" +
+                    "<tr id='fallback_msg_unassigned'>" +
+                    "<td colspan = 3>No unassigned applications found.</td>" +
                     "</tr>";
 
                 $(html).prependTo("#tbl_ongoing tbody");
@@ -219,8 +219,8 @@
                     "</tr>";
 
                 var htm =
-                    "<tr id='fallback_msg_ongoing' colspan = 3>" +
-                    "<td>No ongoing applications found.</td>" +
+                    "<tr id='fallback_msg_ongoing'>" +
+                    "<td colspan = 3>No ongoing applications found.</td>" +
                     "</tr>";
 
                 $(html).appendTo("#tbl_unassigned tbody");
@@ -260,8 +260,8 @@
                     $(target_record).remove();
 
                     var htm =
-                        "<tr id='fallback_msg_unassigned' colspan = 3>" +
-                        "<td>No unassigned applications found.</td>" +
+                        "<tr id='fallback_msg_unassigned'>" +
+                        "<td colspan = 3>No unassigned applications found.</td>" +
                         "</tr>";
 
                     if ($("#tbl_unassigned tbody tr").length === 0) {

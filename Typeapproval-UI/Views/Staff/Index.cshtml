@@ -9,7 +9,10 @@
     <link href="~/Content/overrides.css" rel="stylesheet" />
 }
 
-<div style="margin-left: 0px !important; margin-right: 0 !important; width:100% !important; height: 100% !important;" class="ui fluid container">
+@section Scripts{
+}
+
+<div id="main_content" style="margin-left: 0px !important; margin-right: 0 !important; width:100% !important; height: 100% !important;" class="ui fluid container">
     <table style="border-radius:0 !important; border:none !important;" class="ui small padded table">
         <thead class="thead_custom">
             <tr>
@@ -29,7 +32,7 @@
                 for (int i = 0; i < Model.Count; i++)
                 {
                     <tr>
-                        <td><a class="link-bold"><i class="file alternate outline icon"></i>@Model[i].application_id</a></td>
+                        <td><a class="link-bold app_view" data-application="@Model[i].application_id"><i class="file alternate outline icon"></i>@Model[i].application_id</a></td>
                         <td>@Model[i].created_date</td>
                         <td>@Model[i].assigned_date</td>
                         <td>@Model[i].submitted_by</td>

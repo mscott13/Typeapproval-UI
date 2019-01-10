@@ -17,7 +17,46 @@ namespace Typeapproval_UI.Controllers
             adminDashboard.engineerUsers = GetEngineerUsers();
             adminDashboard.unassignedTasks = GetUnassignedTasks();
             adminDashboard.ongoingTasks = GetOngoingTasks();
+            ViewBag.Title = "Task Manager";
             return View(adminDashboard);
+        }
+
+        [Route("admin/create-account")]
+        public ActionResult CreateAccount()
+        {
+            ViewBag.Title = "Create Account";
+            return View();
+        }
+
+
+        [Route("admin/all-users")]
+        public ActionResult AllUsers()
+        {
+            ViewBag.Title = "All Users";
+            if (Session["key"] != null)
+            {
+                var client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:54367/api/user/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var content = new StringContent(JsonConvert.SerializeObject(Session["key"].ToString()), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync("GetUsersList", content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = response.Content.ReadAsStringAsync().Result;
+                    List<Models.UserDetails> userDetails = JsonConvert.DeserializeObject<List<Models.UserDetails>>(result);
+                    return View(userDetails);
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]

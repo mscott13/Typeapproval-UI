@@ -35,7 +35,6 @@
         window.location = "/certificates?application_id=" + $(this).data('appid');
     });
 
-
     function initializePreview(data)
     {
         $('.actions').remove();

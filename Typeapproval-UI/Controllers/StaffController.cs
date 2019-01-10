@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -12,6 +13,40 @@ namespace Typeapproval_UI.Controllers
 {
     public class StaffController : Controller
     {
+        [Route("staff/get-application/{application}")]
+        public ActionResult GetApplication(string application)
+        {
+            if (Session["key"] != null)
+            {
+                dynamic param = new ExpandoObject();
+                param.application_id = application;
+                param.access_key = Session["key"].ToString();
+
+                var client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var content = new StringContent(JsonConvert.SerializeObject(param), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync("GetApplication", content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = response.Content.ReadAsStringAsync().Result;
+                    Models.Form form = JsonConvert.DeserializeObject<Models.Form>(result);
+
+                    return Json(new { form }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { responseText = "unavailable" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(new { responseText = "session_invalid" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [Route("staff")]
         public ActionResult Index()
         {
