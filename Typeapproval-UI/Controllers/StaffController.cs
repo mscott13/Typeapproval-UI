@@ -15,6 +15,13 @@ namespace Typeapproval_UI.Controllers
         [Route("staff")]
         public ActionResult Index()
         {
+            var ob = Session["key"];
+            if (Session["key"] == null)
+            {
+                Response.Redirect("~/account");
+                return RedirectToAction("", "account");
+            }
+
             if (Session["key"] != null)
             {
                 Models.GetStaffAssignedTasksParams param = new Models.GetStaffAssignedTasksParams();

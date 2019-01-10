@@ -295,9 +295,7 @@
     <Content Include="Views\Staff\NotAuthorizedView.cshtml" />
     <Content Include="Views\Staff\NotAuthorizedDownload.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
