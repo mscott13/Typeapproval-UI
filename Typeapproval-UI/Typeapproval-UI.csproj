@@ -164,6 +164,7 @@
     </Compile>
     <Compile Include="Models\AdminDashboard.cs" />
     <Compile Include="Models\ApplicationFile.cs" />
+    <Compile Include="Models\ApplicationFileCategories.cs" />
     <Compile Include="Models\ApplicationFiles.cs" />
     <Compile Include="Models\AssignedTask.cs" />
     <Compile Include="Models\Certificate.cs" />

@@ -75,55 +75,52 @@
     $('body').on('change', '#file_tech_spec', function () {
 
         file_tech_spec = ($('#file_tech_spec'))[0].files;
-
+        var filename = '';
         if (file_tech_spec.length > 0) {
-            var filename = file_tech_spec[0].name;
+            for (var i = 0; i < file_tech_spec.length; i++)
+            {
+                filename += file_tech_spec[i].name;
+                if (i < file_tech_spec.length - 1)
+                {
+                    filename += ", ";
+                }
+            }
             $('#tech_spec').html('<i class="file pdf icon"></i>' + filename + '</a>');
             $('.ui.read-only.checkbox.tech_spec_check').checkbox('check');
-            
         }
-
-
-        for (var i = 0; i < file_tech_spec.length; i++) {
-            var size = Math.ceil(file_tech_spec[i].size / 1000);
-            var sz_str = size + ' Kb';
-            var type = file_tech_spec[i].type;
-        }
+    
     });
 
     $('body').on('change', '#file_test_report', function () {
 
         file_test_report = ($('#file_test_report'))[0].files;
 
-        if (file_test_report.length > 0)
-        {
-            var filename = file_test_report[0].name;
+        var filename = '';
+        if (file_test_report.length > 0) {
+            for (var i = 0; i < file_test_report.length; i++) {
+                filename += file_test_report[i].name;
+                if (i < file_test_report.length - 1) {
+                    filename += ", ";
+                }
+            }
             $('#test_report').html('<i class="file pdf icon"></i>' + filename + '</a>');
             $('.ui.read-only.checkbox.test_report_check').checkbox('check');
-        }
-
-        for (var i = 0; i < file_test_report.length; i++) {
-            
-            var size = Math.ceil(file_test_report[i].size / 1000);
-            var sz_str = size + ' Kb';
-            var type = file_test_report[i].type;
         }
     });
 
     $('body').on('change', '#file_accreditation', function () {
 
         file_accreditation = ($('#file_accreditation'))[0].files;
-
+        var filename = '';
         if (file_accreditation.length > 0) {
-            var filename = file_accreditation[0].name;
+            for (var i = 0; i < file_accreditation.length; i++) {
+                filename += file_accreditation[i].name;
+                if (i < file_accreditation.length - 1) {
+                    filename += ", ";
+                }
+            }
             $('#accreditation').html('<i class="file pdf icon"></i>' + filename + '</a>');
             $('.ui.read-only.checkbox.accreditation').checkbox('check');
-        }
-
-        for (var i = 0; i < file_accreditation.length; i++) {
-            var size = Math.ceil(file_accreditation[i].size / 1000);
-            var sz_str = size + ' Kb';
-            var type = file_accreditation[i].type;
         }
     });
     //////////////////////////////////////////////// ///////////////////// ///////////////////////////////////////////////

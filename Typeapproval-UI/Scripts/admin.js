@@ -33,6 +33,7 @@
             {
                 $("#btn_unassigned_apply").removeClass("blue");
                 $("#btn_unassigned_apply").addClass("disabled");
+                reset_unassigned_action();
             }
         }
         else if (target === 'tbl_ongoing')
@@ -45,6 +46,7 @@
             {
                 $("#btn_ongoing_apply").removeClass("blue");
                 $("#btn_ongoing_apply").addClass("disabled");
+                reset_ongoing_action();
             }
         }
     }

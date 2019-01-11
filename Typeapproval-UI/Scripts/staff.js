@@ -1,4 +1,23 @@
 ﻿$(document).ready(function () {
+
+    var current_record = null;
+    $('input[type="radio"]').prop("checked", false);
+    $('body').on('change', 'input[type="radio"]', function () {
+
+        current_record = $(this).parent().parent();
+        $('.check_task').parent().parent().removeClass('row_hover');
+        $('input[type="radio"]').not(this).prop('checked', false);
+
+        if ($(this).is(":checked")) {
+            $(current_record).addClass("row_hover");
+            get_files($(current_record).data("appid"));
+        }
+        else {
+            $(current_record).removeClass("row_hover");
+            add_no_files_msg();
+        }
+    });
+
     function getApplication(application_id)
     {
         $.ajax({
@@ -334,7 +353,7 @@
                 $(object).checkbox('check');
                 console.log("checked: " + type);
 
-                if (type == 'Other') {
+                if (type === 'Other') {
                     $("input[name=other_equipment]").val(other);
                     $("input[name=other_equipment]").removeClass('disabled');
                 }
@@ -357,6 +376,93 @@
             '</div>';
 
         $(html).insertAfter("#main_content");
+    }
+
+    function add_no_files_msg()
+    {
+        var html = '<p style="text-align:center;"><i class="grey info circle icon"></i>Select a record to view file details</p>';
+        $(".files-container").html('').append(html);
+    }
+
+    function get_files(application_id)
+    {
+        $.ajax({
+            type: "POST",
+            url: "staff/get-file-listing/" + application_id,
+            contentType: "application/json; charset=utf-8",
+            data: {},
+            success: function (data) {
+                console.log(data);
+
+                $(".files-container").html('');
+
+                var tech_spec_html =
+                    '<h5 class="ui dividing header">' +
+                    'Technical Specifications' +
+                    '</h5>' +
+                    '<div id="tech_spec_files" class="ui list">' +
+                    '</div>';
+
+                var test_report_html =
+                    '<h5 class="ui dividing header">' +
+                    'Test Report' +
+                    '</h5>' +
+                    '<div id="test_report_files" class="ui list">' +
+                    '</div>';
+
+                var accreditation_html =
+                    '<h5 class="ui dividing header">' +
+                    'Accreditation' +
+                    '</h5>' +
+                    '<div id="accreditation_files" class="ui list">' +
+                    '</div>';
+                
+
+                $(".files-container").append(tech_spec_html);
+                $(".files-container").append(test_report_html);
+                $(".files-container").append(accreditation_html);
+
+
+                for (var i = 0; i < data.applicationFileCategories.technicalSpecifications.length; i++)
+                {
+                    var tech_spec_item =
+                        '<div class="item">' +
+                        '<div class="content">' +
+                        '<a target="_blank" href="/staff/get/' + data.applicationFileCategories.technicalSpecifications[i].file_id + '" class="link_override_v1" style="cursor:pointer !important;"><i class="file pdf icon"></i>' + data.applicationFileCategories.technicalSpecifications[i].filename + '</a>' +
+                        '</div>' +
+                        '</div>';
+
+                    $("#tech_spec_files").append(tech_spec_item);
+                }
+
+                for (var j = 0; j < data.applicationFileCategories.testReport.length; j++)
+                {
+                    var test_report_item =
+                        '<div class="item">' +
+                        '<div class="content">' +
+                        '<a target="_blank" href="/staff/get/' + data.applicationFileCategories.testReport[j].file_id + '" class="link_override_v1" style="cursor:pointer !important;"><i class="file pdf icon"></i>' + data.applicationFileCategories.testReport[j].filename + '</a>' +
+                        '</div>' +
+                        '</div>';
+
+                    $("#test_report_files").append(test_report_item);
+                }
+
+                for (var k = 0; k < data.applicationFileCategories.accreditation.length; k++)
+                {
+                    var accreditation_item =
+                        '<div class="item">' +
+                        '<div class="content">' +
+                        '<a target="_blank" href="/staff/get/' + data.applicationFileCategories.accreditation[k].file_id + '" class="link_override_v1" style="cursor:pointer !important;"><i class="file pdf icon"></i>' + data.applicationFileCategories.accreditation[k].filename + '</a>' +
+                        '</div>' +
+                        '</div>';
+
+                    $("#accreditation_files").append(accreditation_item);
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
     }
 
     $(".app_view").click(function () {
