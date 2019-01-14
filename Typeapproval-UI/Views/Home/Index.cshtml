@@ -15,11 +15,11 @@
     <link href="~/Content/custom.css?t=@DateTime.Now.Millisecond.ToString()" rel="stylesheet" />
 }
 
-<div class="ui fluid container">
+<div id="client_main_content" class="ui fluid container">
     <div class="ui grid">
         <div style="padding-left:20px !important;" class="four wide column">
 
-            <div class="ui fluid raised card">
+            <div class="ui fluid card">
                 <div class="content">
                     <h4 class="ui header">
                         Pending Approval
@@ -59,7 +59,7 @@
             <div class="ui grid">
                 <div class="row">
                     <div style="padding-right:0px" class="five wide column">
-                        <div class="ui fluid raised card">
+                        <div class="ui fluid card">
                             <div class="center aligned content">
                                 <div class="blue ui statistic">
                                     <div class="grey label">
@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <div class="six wide column">
-                        <div class="ui fluid raised card">
+                        <div class="ui fluid card">
                             <div class="center aligned content">
                                 <div class="blue ui statistic">
                                     <div class="grey label">
@@ -93,7 +93,7 @@
                         </div>
                     </div>
                     <div style="padding-left:0px" class="five wide column">
-                        <div class="ui fluid raised card">
+                        <div class="ui fluid card">
                             <div class="center aligned content">
                                 <div class="blue ui statistic">
                                     <div class="grey label">
@@ -112,7 +112,7 @@
                 </div>
                 <div class="row row_override_v1">
                     <div class="sixteen wide column">
-                        <div class="ui aligned raised segment">
+                        <div class="ui aligned segment">
                             <h5 class="ui header">
                                 <div class="content">
                                     <i class="blue large icon calendar check"></i>
@@ -162,7 +162,7 @@
                             </table>
                         </div>
 
-                        <div style="margin-bottom: 10px !important;" class="ui aligned raised segment">
+                        <div style="margin-bottom: 10px !important;" class="ui aligned segment">
                             <h5 class="ui header">
                                 <div class="content">
                                     <i class="blue large icon clock"></i>
@@ -191,7 +191,11 @@
                                     <tr>
                                         @if (Model.recentActivities[i].status == Typeapproval_UI.Commons.Constants.INCOMPLETE_TYPE)
                                         {
-                                            <td><a class="link_override_v2" href="/new/step-1?edit=@Model.recentActivities[i].application_id"><b>@Model.recentActivities[i].application_id</b></a></td>
+                                            <td><a class="link_override_v2" href="/new/step-1?edit=@Model.recentActivities[i].application_id&status=@Model.recentActivities[i].status"><b>@Model.recentActivities[i].application_id</b></a></td>
+                                        }
+                                        else if (Model.recentActivities[i].status == Typeapproval_UI.Commons.Constants.PENDING_RESUBMISSION)
+                                        {
+                                            <td><a class="link_override_v2" href="/new/step-1?edit=@Model.recentActivities[i].application_id&status=@Model.recentActivities[i].status"><b>@Model.recentActivities[i].application_id</b></a></td>
                                         }
                                         else
                                         {
@@ -212,7 +216,13 @@
                                         }
 
                                         <td>@Model.recentActivities[i].author</td>
-                                        <td>@Model.recentActivities[i].category</td>
+
+                                        @switch (Model.recentActivities[i].category)
+                                        {
+                                            case Typeapproval_UI.Commons.Constants.TYPE_APPROVAL:
+                                                <td class="default_app_type">TYPE APPROVAL</td>
+                                                break;
+                                        }
 
                                         @switch (Model.recentActivities[i].status)
                                         {
@@ -233,6 +243,9 @@
                                                 break;
                                             case Typeapproval_UI.Commons.Constants.SUBMITTED_TYPE:
                                                 <td class="status_submitted">@Model.recentActivities[i].status</td>
+                                                break;
+                                            case Typeapproval_UI.Commons.Constants.PENDING_RESUBMISSION:
+                                                <td class="status_resubmit">@Model.recentActivities[i].status</td>
                                                 break;
                                             default:
                                                 <td>@Model.recentActivities[i].status</td>
@@ -255,18 +268,5 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-<div style="width:150px !important;" class="ui tiny modal ginfo">
-    <div id="getinfo" class="content">
-
-    </div>
-</div>
-
-<div class="ui long modal">
-    <div class="header">Application Preview</div>
-    <div id="preview" class="scrolling content">
-
     </div>
 </div>

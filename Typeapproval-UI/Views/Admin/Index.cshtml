@@ -13,9 +13,9 @@
     <script src="~/Scripts/admin.js"></script>
 }
 
-<div style="min-width: 1000px !important; max-width: 1500px !important; padding-top: 10px !important;" class="ui fluid container">
+<div style="min-width: 1000px !important; max-width: 3500px !important; padding-top: 10px !important;" class="ui fluid container">
     <div style="padding-left: 20px !important; padding-right:20px !important;" class="ui grid">
-        <div style="padding: 5px !important;" class="six wide column">
+        <div style="padding: 5px !important;" class="seven wide column">
             <table id="tbl_unassigned" class="ui small celled table">
                 <thead class="thead_custom">
                     <tr>
@@ -35,7 +35,7 @@
                         for (int i = 0; i < Model.unassignedTasks.Count; i++)
                         {
                             <tr data-appid="@Model.unassignedTasks[i].application_id">
-                                <td><input type="checkbox" class="check_task" value="" /> &nbsp;&nbsp; <a href="#"><i class="file alternate outline icon"></i> Task #@Model.unassignedTasks[i].application_id</a></td>
+                                <td><input type="checkbox" class="check_task" value="" /> &nbsp;&nbsp; <a data-appid="@Model.unassignedTasks[i].application_id" style="cursor: pointer;" class="app_view"><i class="file alternate outline icon"></i>@Model.unassignedTasks[i].application_id</a></td>
                                 <td>@Model.unassignedTasks[i].created_date</td>
                                 <td>@Model.unassignedTasks[i].submitted_by</td>
                             </tr>
@@ -95,7 +95,7 @@
                 </tfoot>
             </table>
         </div>
-        <div style="padding: 5px !important;" class="ten wide column">
+        <div style="padding: 5px !important;" class="nine wide column">
             <table id="tbl_ongoing" class="ui small celled table">
                 <thead class="thead_custom">
                     <tr>
@@ -117,7 +117,7 @@
                         for (int i = 0; i < Model.ongoingTasks.Count; i++)
                         {
                     <tr data-appid="@Model.ongoingTasks[i].application_id">
-                        <td><input type="checkbox" class="check_task" value="" /> &nbsp;&nbsp; <a href="#"><i class="file alternate outline icon"></i> Task #@Model.ongoingTasks[i].application_id</a></td>
+                        <td><input type="checkbox" class="check_task" value="" /> &nbsp;&nbsp; <a data-appid="@Model.ongoingTasks[i].application_id" class="app_view" style="cursor: pointer;"><i class="file alternate outline icon"></i>@Model.ongoingTasks[i].application_id</a></td>
                         <td>@Model.ongoingTasks[i].created_date</td>
                         <td>@Model.ongoingTasks[i].assigned_to</td>
                         <td>@Model.ongoingTasks[i].date_assigned</td>
@@ -201,6 +201,49 @@
                     </tr>
                 </tfoot>
             </table>
+        </div>
+    </div>
+</div>
+
+<div id="client_resubmit" class="ui mini modal">
+    <div class="header">
+        Client resubmission
+    </div>
+    <div class="content">
+        <form class="ui form">
+            <div class="field">
+                <label>Select Client</label>
+                <select id="client-dropdown" class="ui search dropdown">
+                    <option value="">Client</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>Application</label>
+                <select id="application-dropdown" class="ui search dropdown">
+                    <option value="">Application</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                </select>
+            </div>
+        </form>
+    </div>
+    <div class="actions">
+        <div class="ui cancel button">
+            Cancel
+        </div>
+        <div class="ui  right labeled icon blue ok button">
+            Apply Changes
+            <i class="checkmark icon"></i>
         </div>
     </div>
 </div>

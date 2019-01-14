@@ -26,6 +26,7 @@ namespace Typeapproval_UI.Commons
         public const string INVOICED_TYPE = "INVOICED";
         public const string LICENSED_TYPE = "LICENSED";
         public const string REJECTED = "REJECTED";
+        public const string PENDING_RESUBMISSION = "RESUBMIT";
 
         //user types
         public const int USER_TYPE_CLIENT = 0;

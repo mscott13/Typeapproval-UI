@@ -212,14 +212,20 @@
                 {
                     var form_data = new FormData();
                     form_data.append("json", json_form);
-                    form_data.append("institution", institution);
-                    form_data.append("country", country);
 
                     for (var i = 0; i < file_tech_spec.length; i++)
                     {
                         form_data.append("tech_spec", file_tech_spec[i]);
-                        form_data.append("test_report", file_test_report[i]);
-                        form_data.append("accreditation", file_accreditation[i]);
+                    }
+
+                    for (var ii = 0; ii < file_test_report.length; ii++)
+                    {
+                        form_data.append("test_report", file_test_report[ii]);
+                    }
+
+                    for (var iii = 0; iii < file_accreditation.length; iii++)
+                    {
+                        form_data.append("accreditation", file_accreditation[iii]);
                     }
 
                     $.ajax({

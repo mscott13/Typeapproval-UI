@@ -21,6 +21,7 @@ namespace Typeapproval_UI.Controllers
                 dynamic param = new ExpandoObject();
                 param.application_id = application;
                 param.access_key = Session["key"].ToString();
+                param.mode = "preview";
 
                 var client = new HttpClient();
                 client.BaseAddress = new Uri("http://localhost:54367/api/data/");
@@ -50,41 +51,55 @@ namespace Typeapproval_UI.Controllers
         [Route("staff")]
         public ActionResult Index()
         {
-            ViewBag.Title = "Task Viewer";
-            var ob = Session["key"];
-            if (Session["key"] == null)
-            {
-                Response.Redirect("~/account");
-                return RedirectToAction("", "account");
-            }
-
             if (Session["key"] != null)
             {
-                Models.GetStaffAssignedTasksParams param = new Models.GetStaffAssignedTasksParams();
-                param.access_key = Session["key"].ToString();
-                param.username = Session["username"].ToString();
-
-                var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:54367/api/data/");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                var content = new StringContent(JsonConvert.SerializeObject(param), Encoding.UTF8, "application/json");
-                HttpResponseMessage response = client.PostAsync("GetStaffAssignedTasks", content).Result;
-                if (response.IsSuccessStatusCode)
+                if (Convert.ToInt32(Session["user_type"]) == Commons.Constants.USER_TYPE_STAFF)
                 {
-                    string result = response.Content.ReadAsStringAsync().Result;
-                    List<Models.AssignedTask> assignedTasks = JsonConvert.DeserializeObject<List<Models.AssignedTask>>(result);
-                    return View(assignedTasks);
+                    ViewBag.Title = "Task Viewer";
+                    var ob = Session["key"];
+                    if (Session["key"] == null)
+                    {
+                        Response.Redirect("~/account");
+                        return RedirectToAction("", "account");
+                    }
+
+                    if (Session["key"] != null)
+                    {
+                        Models.GetStaffAssignedTasksParams param = new Models.GetStaffAssignedTasksParams();
+                        param.access_key = Session["key"].ToString();
+                        param.username = Session["username"].ToString();
+
+                        var client = new HttpClient();
+                        client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                        client.DefaultRequestHeaders.Accept.Clear();
+                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                        var content = new StringContent(JsonConvert.SerializeObject(param), Encoding.UTF8, "application/json");
+                        HttpResponseMessage response = client.PostAsync("GetStaffAssignedTasks", content).Result;
+                        if (response.IsSuccessStatusCode)
+                        {
+                            string result = response.Content.ReadAsStringAsync().Result;
+                            List<Models.AssignedTask> assignedTasks = JsonConvert.DeserializeObject<List<Models.AssignedTask>>(result);
+                            return View(assignedTasks);
+                        }
+                        else
+                        {
+                            return View();
+                        }
+                    }
+                    else
+                    {
+                        return View();
+                    }
                 }
                 else
                 {
-                    return View();
+                    return ReturnToHome(Convert.ToInt32("user_type"));
                 }
             }
             else
             {
-                return View();
+                return RedirectToAction("", "account");
             }
         }
 
@@ -160,6 +175,21 @@ namespace Typeapproval_UI.Controllers
             else
             {
                 return Json(new { responseText = "session_invalid" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult ReturnToHome(int user_type)
+        {
+            switch (user_type)
+            {
+                case Commons.Constants.USER_TYPE_ADMINISTRATOR:
+                    return RedirectToAction("", "admin");
+                case Commons.Constants.USER_TYPE_STAFF:
+                    return RedirectToAction("", "staff");
+                case Commons.Constants.USER_TYPE_CLIENT:
+                    return RedirectToAction("", "home");
+                default:
+                    return RedirectToAction("", "account");
             }
         }
 

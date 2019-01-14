@@ -224,7 +224,6 @@
             data: json,
             success: function (data) {
                 console.log(data);
-                $("#btn_login").removeClass("disabled loading");
 
                 if (data.success === true) {
                     switch (data.user_type) {
@@ -240,6 +239,7 @@
                     }
                 }
                 else {
+                    $("#btn_login").removeClass("disabled loading");
                     displayLoginError("Check your login credentials then try again.");
                 }
             },
@@ -331,7 +331,6 @@
     $("#search_clients").marcoPolo({
         url: "http://localhost:54367/api/data/ClientCompanyList",
         delay: 50,
-        minChars: 3,
         required: true,
         formatItem: function (data, $item) {
             return data.name;
@@ -348,7 +347,6 @@
     $("#search_manufacturers").marcoPolo({
         url: "http://localhost:54367/api/data/ManufacturersDetail",
         delay: 50,
-        minChars: 3,
         required: true,
         formatItem: function (data, $item) {
             return data.name;

@@ -16,7 +16,7 @@ namespace Typeapproval_UI.Controllers
     {
         [HttpGet]
         [Route("new/step-1")]
-        public ActionResult Step1(string from, string preview, string edit)
+        public ActionResult Step1(string from, string preview, string edit, string status)
         {
             #region load default information
             var client = new HttpClient();
@@ -105,6 +105,8 @@ namespace Typeapproval_UI.Controllers
                 dynamic _param = new ExpandoObject();
                 _param.application_id = edit;
                 _param.access_key = Session["key"].ToString();
+                _param.mode = "edit";
+                _param.status = status;
 
                 var _client = new HttpClient();
                 _client.BaseAddress = new Uri("http://localhost:54367/api/data/");
@@ -126,6 +128,7 @@ namespace Typeapproval_UI.Controllers
                 dynamic _param = new ExpandoObject();
                 _param.application_id = preview;
                 _param.access_key = Session["key"].ToString();
+                _param.mode = "preview";
 
                 var _client = new HttpClient();
                 _client.BaseAddress = new Uri("http://localhost:54367/api/data/");
@@ -147,10 +150,12 @@ namespace Typeapproval_UI.Controllers
 
         [HttpGet]
         [Route("new/edit")]
-        public ActionResult Edit(string application_id)
+        public ActionResult Edit(string application_id, string status)
         {
             dynamic param = new ExpandoObject();
             param.application_id = application_id;
+            param.mode = "edit";
+            param.status = status;
             param.access_key = Session["key"].ToString();
 
             var client = new HttpClient();
@@ -169,6 +174,7 @@ namespace Typeapproval_UI.Controllers
             }
             else
             {
+                string result = response.Content.ReadAsStringAsync().Result;
                 return Json(new { responseText = "unavailable" }, JsonRequestBehavior.AllowGet);
             }
         }
@@ -180,6 +186,7 @@ namespace Typeapproval_UI.Controllers
             dynamic param = new ExpandoObject();
             param.application_id = application_id;
             param.access_key = Session["key"].ToString();
+            param.mode = "preview";
 
             var client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:54367/api/data/");
@@ -833,6 +840,6 @@ namespace Typeapproval_UI.Controllers
             }
             #endregion
             return status;
-        } 
+        }
     }
 }

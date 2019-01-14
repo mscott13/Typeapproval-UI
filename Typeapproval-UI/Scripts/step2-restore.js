@@ -406,7 +406,6 @@
                         }
                     }
 
-                    $('.ui.blue.button.save_app.s2').html('Update');
                 }
             },
             error: function (data) {

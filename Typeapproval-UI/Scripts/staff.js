@@ -2,7 +2,7 @@
 
     var current_record = null;
     $('input[type="radio"]').prop("checked", false);
-    $('body').on('change', 'input[type="radio"]', function () {
+    $('body').on('click', 'input[type="radio"]', function () {
 
         current_record = $(this).parent().parent();
         $('.check_task').parent().parent().removeClass('row_hover');

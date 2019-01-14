@@ -4,17 +4,7 @@
 
     $('body').on('click', '.form_preview', function () {
         console.log($(this).data('appid')); 
-        
-        var html = '<div class="ui tiny active centered inline text loader feed ginfo">Getting info...</div>';
-        $('.ui.tiny.modal.ginfo').find(".content").find(".ui.tiny.active.centered.inline.text.loader.feed.ginfo").remove();
-        $('.ui.tiny.modal.ginfo').find(".content").append(html);
-
         var appid = $(this).data('appid');
-        var modal = $('.ui.tiny.modal.ginfo')
-            .modal({
-                inverted: true,
-                closable: false
-            });
 
         $.ajax({
             type: "GET",
@@ -22,7 +12,7 @@
             contentType: "application/json; charset=utf-8",
             data: { "application_id": appid },
             success: function (data) {
-                
+                create_base_modal();
                 initializePreview(data.form);
             },
             error: function (data) {
@@ -37,12 +27,10 @@
 
     function initializePreview(data)
     {
-        $('.actions').remove();
         var target = $('#preview');
         $(target).html('');
 
         var html = '';
-
         var step1_html =
             '<div id="context" class="ui raised segment">' +
             '<a class="ui grey ribbon label">1. &nbsp Applicant</a>' +
@@ -504,24 +492,20 @@
             '</div>' +
             '</div>';
 
-        var actions_html =
-            '<div class="actions">' +
-            '<div class="ui blue ok button" >' +
-            '<i class="checkmark icon"></i>' +
-            'Finish' +
-            '</div >' +
-            '</div >';
-
         html += step1_html + step2_html + sample_inv_html;
         $(target).append(html);
-        $(actions_html).insertAfter(target);
         set_equipment_type_checked(data.type_of_equipment, data.other);
+
 
         $('.ui.long.modal')
             .modal({
-                closable: false
+                closable: false,
+                onApprove: function () {
+                    setTimeout(function () {
+                        $("#app_modal").remove();
+                    }, 1000);
+                }
             }).modal('show');
-
     }
 
     function initializeFeed(data)
@@ -645,5 +629,21 @@
             html += row;
         }
         return html;
+    }
+
+    function create_base_modal() {
+        var html =
+            '<div id="app_modal" class="ui long modal">' +
+            '<div id = "app_id" class="header" >Application Preview<i></i></div >' +
+            '<div id="preview" class="scrolling content">' +
+            '</div>' +
+            '<div class="actions">' +
+            '<div class="ui primary tiny approve button">' +
+            'Finish' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+
+        $(html).insertAfter("#client_main_content");
     }
 });

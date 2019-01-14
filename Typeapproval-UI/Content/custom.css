@@ -63,6 +63,19 @@
     font-style: italic;
 }
 
+.status_resubmit {
+    color: #F3A738;
+    font-weight: bold;
+    font-size: 12px !important;
+    font-style: italic;
+}
+
+.default_app_type {
+    font-weight: bold;
+    font-size: 12px !important;
+    font-style: italic;
+}
+
 .display_invisible
 {
     display: none !important;
@@ -71,7 +84,7 @@
 
 .sidenav {
     height: 100%;
-    width: 280px;
+    width: 270px;
     position: fixed;
     top: 0;
     left: 0;
@@ -82,7 +95,7 @@
 
 .main
 {
-    margin-left: 280px;
+    margin-left: 270px;
 }
 
 
@@ -96,7 +109,7 @@
 
 
 .main-staff {
-    margin-left: 280px;
+    margin-left: 270px;
     height: 100%;
     background-color:#fff;
 }

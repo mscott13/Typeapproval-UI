@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -13,19 +14,82 @@ namespace Typeapproval_UI.Controllers
         [Route("admin")]
         public ActionResult Index()
         {
-            Models.AdminDashboard adminDashboard = new Models.AdminDashboard();
-            adminDashboard.engineerUsers = GetEngineerUsers();
-            adminDashboard.unassignedTasks = GetUnassignedTasks();
-            adminDashboard.ongoingTasks = GetOngoingTasks();
-            ViewBag.Title = "Task Manager";
-            return View(adminDashboard);
+            if (Session["key"] != null)
+            {
+                if (Convert.ToInt32(Session["user_type"]) == Commons.Constants.USER_TYPE_ADMINISTRATOR)
+                {
+                    Models.AdminDashboard adminDashboard = new Models.AdminDashboard();
+                    adminDashboard.engineerUsers = GetEngineerUsers();
+                    adminDashboard.unassignedTasks = GetUnassignedTasks();
+                    adminDashboard.ongoingTasks = GetOngoingTasks();
+                    ViewBag.Title = "Task Manager";
+                    return View(adminDashboard);
+                }
+                else
+                {
+                    return ReturnToHome(Convert.ToInt32(Session["user_type"]));
+                }
+            }
+            else
+            {
+                return RedirectToAction("", "account");
+            }
         }
 
         [Route("admin/create-account")]
         public ActionResult CreateAccount()
         {
-            ViewBag.Title = "Create Account";
-            return View();
+            if (Session["key"] != null)
+            {
+                if (Convert.ToInt32(Session["user_type"]) == Commons.Constants.USER_TYPE_ADMINISTRATOR)
+                {
+                    ViewBag.Title = "Create Account";
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("", "account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("", "account");
+            }
+        }
+
+        [Route("admin/get-application/{application}")]
+        public ActionResult GetApplication(string application)
+        {
+            if (Session["key"] != null)
+            {
+                dynamic param = new ExpandoObject();
+                param.application_id = application;
+                param.access_key = Session["key"].ToString();
+                param.mode = "preview";
+
+                var client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var content = new StringContent(JsonConvert.SerializeObject(param), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync("GetApplication", content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = response.Content.ReadAsStringAsync().Result;
+                    Models.Form form = JsonConvert.DeserializeObject<Models.Form>(result);
+
+                    return Json(new { form }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { responseText = "unavailable" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(new { responseText = "session_invalid" }, JsonRequestBehavior.AllowGet);
+            }
         }
 
 
@@ -55,7 +119,7 @@ namespace Typeapproval_UI.Controllers
             }
             else
             {
-                return View();
+                return RedirectToAction("", "account");
             }
         }
 
@@ -244,6 +308,39 @@ namespace Typeapproval_UI.Controllers
             }
         }
 
+        [Route("admin/clientresubmit")]
+        public ActionResult ClientResubmit(string application_id)
+        {
+
+            if (Session["key"] != null)
+            {
+                dynamic data = new ExpandoObject();
+                data.access_key = Session["key"].ToString();
+                data.application_id = application_id;
+
+                var client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:54367/api/application/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync("ClientResubmission", content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = response.Content.ReadAsStringAsync().Result;
+                    return Json(new { result }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { responseText = "not_updated" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(new { responseText = "unavailable" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         private List<Models.EngineerUser> GetEngineerUsers()
         {
             if (Session["key"] != null)
@@ -313,6 +410,21 @@ namespace Typeapproval_UI.Controllers
             else
             {
                 return null;
+            }
+        }
+
+        public ActionResult ReturnToHome(int user_type)
+        {
+            switch (user_type)
+            {
+                case Commons.Constants.USER_TYPE_ADMINISTRATOR:
+                    return RedirectToAction("", "admin");
+                case Commons.Constants.USER_TYPE_STAFF:
+                    return RedirectToAction("", "staff");
+                case Commons.Constants.USER_TYPE_CLIENT:
+                    return RedirectToAction("", "home");
+                default:
+                    return RedirectToAction("", "account");
             }
         }
     }
