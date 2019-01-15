@@ -94,7 +94,7 @@ namespace Typeapproval_UI.Controllers
                 }
                 else
                 {
-                    return ReturnToHome(Convert.ToInt32("user_type"));
+                    return ReturnToHome(Convert.ToInt32(Session["user_type"]));
                 }
             }
             else
