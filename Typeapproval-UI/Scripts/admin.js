@@ -1,7 +1,17 @@
 ﻿$(document).ready(function () {
 
+    $('.message .close')
+        .on('click', function () {
+            $(this).closest('.message').transition('fade');
+        });
+
     $('#client-dropdown').dropdown({
-        showOnFocus: false
+        showOnFocus: false,
+        onChange: function (value, text, $choice)
+        {
+            reset_resubmit_options();
+            get_application_ids(value);
+        }
     });
 
     $("#application-dropdown").dropdown();
@@ -32,9 +42,13 @@
         $("#client_resubmit").modal({
             closable: false,
             onApprove: function () {
+                reset_resubmit_options();
+                $("#client-dropdown").dropdown('clear');
                 return true;
             },
             onDeny: function () {
+                reset_resubmit_options();
+                $("#client-dropdown").dropdown('clear');
                 return true;
             }
         }).modal('show');
@@ -550,6 +564,9 @@
                     $("#tbl_unassigned tbody").append(htm);
                 }
                 reset_unassigned_action();
+
+                var msg = "Task: <b>" + application_id + "</b> assigned to <i><b>" + data.ongoing.assigned_to+"</b></i>";
+                add_notification("Task removal", msg);
             },
             error: function (data) {
                 $('#btn_unassigned_apply').removeClass("disabled loading");
@@ -595,6 +612,9 @@
                     $("#tbl_ongoing tbody").append(htm);
                 }
                 reset_ongoing_action();
+
+                var msg = "Task: <b>" + application_id + "</b> moved to unassigned";
+                add_notification("Task removal", msg);
             },
             error: function (data) {
                 $('#btn_ongoing_apply').removeClass("disabled loading");
@@ -647,6 +667,9 @@
                         $("#tbl_unassigned tbody").append(htm);
                     }
                     reset_unassigned_action();
+
+                    var msg = "Task: <b>" + application_id + "</b> deleted";
+                    add_notification("Task removal", msg);
                 }
             },
             error: function (data) {
@@ -678,6 +701,9 @@
                     $(target_record).removeClass("row_hover");
                     $('input[type="checkbox"]').prop('checked', false);
                     reset_ongoing_action();
+
+                    var msg = "Task: <b>" + application_id + "</b> reassigned";
+                    add_notification("Task Assignment", msg);
                 }
             },
             error: function (data) {
@@ -719,8 +745,116 @@
         $('#btn_unassigned_apply').addClass("disabled").removeClass("blue");
     }
 
+    function get_client_list()
+    {
+        $.ajax({
+            type: "POST",
+            url: "/admin/getclients",
+            contentType: "application/json; charset=utf-8",
+            data: {},
+            success: function (data) {
+                for (var i = 0; i < data.clientUsers.length; i++)
+                {
+                    var html = '<option value="' + data.clientUsers[i].username + '">' + data.clientUsers[i].first_name + ' ' + data.clientUsers[i].last_name + '</option>';
+                    $("#client-dropdown").append(html);
+                }
+            },
+            error: function (data) {
+              
+            }
+        });
+    }
+
+    function get_application_ids(username)
+    {
+        $.ajax({
+            type: "POST",
+            url: "/admin/getapplicationids/"+username,
+            contentType: "application/json; charset=utf-8",
+            data: {},
+            success: function (data) {
+                for (var i = 0; i < data.applications.length; i++) {
+                    var html = '<option class="client-appids" value="' + data.applications[i] + '">' + data.applications[i] + '</option>';
+                    $("#application-dropdown").append(html);
+                }
+            },
+            error: function (data) {
+
+            }
+        });
+    }
+
+    function client_resubmit(application_id)
+    {
+        $.ajax({
+            type: "POST",
+            url: "/admin/clientresubmit/" + application_id,
+            contentType: "application/json; charset=utf-8",
+            data: {},
+            success: function (data) {
+                $("#btn-resubmit-apply").addClass("disabled loading");
+                if (data.responseText === "updated")
+                {
+                    remove_unassigned_resubmit_record(application_id);
+                    remove_ongoing_resubmit_record(application_id);
+                }
+            },
+            error: function (data) {
+                console.log(data);
+                $("#btn-resubmit-apply").removeClass("disabled loading");
+            }
+        });
+    }
+
+    $("#btn-resubmit-apply").click(function () {
+        var appid = $("#application-dropdown").parent().find(".menu .item.active.selected").html();
+        client_resubmit(appid);
+        $("#btn-resubmit-apply").addClass("disabled loading");
+    });
+
+    function remove_ongoing_resubmit_record(application_id)
+    {
+        var rows = $("#tbl_ongoing tbody tr");
+        if (rows !== undefined)
+        {
+            $.each(rows, function (index, value) {
+                var row_id = $(value).data("appid");
+                if (row_id == application_id) {
+                    $(value).remove();
+                }
+            });
+        }
+    }
+
+    function remove_unassigned_resubmit_record(application_id) {
+        var rows = $("#tbl_unassigned tbody tr");
+        if (rows !== undefined)
+        {
+            $.each(rows, function (index, value) {
+                var row_id = $(value).data("appid");
+                if (row_id == application_id) {
+                    $(value).remove();
+                }
+            });
+        }
+    }
+
     function reset_resubmit_options()
     {
-
+        $(".client-appids").remove();
+        
+        $("#application-dropdown").dropdown('clear');
     }
+
+    function add_notification(header, message)
+    {
+        var html =
+            '<div class="ui small info message">' +
+            '<p>'+message+'</p>' +
+            '</div>';
+
+        var element = $(html);
+    }
+
+    get_client_list();
 });

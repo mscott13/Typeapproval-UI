@@ -169,6 +169,7 @@
     <Compile Include="Models\AssignedTask.cs" />
     <Compile Include="Models\Certificate.cs" />
     <Compile Include="Models\ClientCompany.cs" />
+    <Compile Include="Models\ClientUser.cs" />
     <Compile Include="Models\Dashboard.cs" />
     <Compile Include="Models\DeleteUnassignedParams.cs" />
     <Compile Include="Models\EngineerUser.cs" />
@@ -216,7 +217,7 @@
     <Content Include="Content\themes\default\assets\images\flags.png" />
     <Content Include="Content\themes\github\assets\fonts\octicons.svg" />
     <Content Include="Content\themes\material\assets\fonts\icons.svg" />
-    <Content Include="favicon.ico" />
+    <Content Include="Content\images\favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\site.css" />
@@ -269,6 +270,7 @@
     <Content Include="Scripts\step1-restore.js" />
     <Content Include="Scripts\step2-restore.js" />
     <Content Include="Scripts\step3-restore.js" />
+    <Content Include="favicon.ico" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

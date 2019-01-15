@@ -51,10 +51,9 @@
                 <tfoot class="full-width">
                     <tr>
                         <td colspan="3">
-                            
-                            <div class="ui grid">
+                            <div style="margin-left: 0px; margin-right: 0px;" class="ui grid">
                                 <div class="row row_override_v2">
-                                    <div class="sixteen wide column">
+                                    <div style="padding:0;" class="sixteen wide column">
                                         <div id="unassigned_action_dropdown" class="ui selection dropdown">
                                             <input type="hidden" name="user">
                                             <i class="dropdown icon"></i>
@@ -85,7 +84,7 @@
                               
                                 <div class="row">
                                     <div class="sixteen wide column">
-                                        <button id="btn_unassigned_apply" class="ui mini right floated disabled button"><i class="check icon"></i>Apply Changes</button>
+                                        <button id="btn_unassigned_apply" class="ui mini right floated disabled button"><i class="check icon"></i>Apply</button>
                                     </div>
                                 </div>
                             </div>
@@ -129,6 +128,9 @@
                             case Typeapproval_UI.Commons.Constants.PENDING_TYPE:
                                 <td class="status_pending">@Model.ongoingTasks[i].status</td>
                                 break;
+                            case Typeapproval_UI.Commons.Constants.PENDING_RESUBMISSION:
+                                <td class="status_resubmit">@Model.ongoingTasks[i].status</td>
+                                break;
                             case Typeapproval_UI.Commons.Constants.INVOICED_TYPE:
                                 <td class="status_invoiced">@Model.ongoingTasks[i].status</td>
                                 break;
@@ -158,11 +160,9 @@
                 <tfoot class="full-width">
                     <tr>
                         <td colspan="5">
-                            
-
-                           <div class="ui grid">
+                           <div style="margin-left:0px; margin-right: 0px;" class="ui grid">
                                <div class="row row_override_v2">
-                                   <div class="sixteen wide column">
+                                   <div style="padding:0;" class="sixteen wide column">
 
                                        <div id="ongoing_action_dropdown" class="ui selection dropdown">
                                            <input type="hidden" name="user">
@@ -193,7 +193,7 @@
                                </div>
                                <div class="row">
                                    <div class="sixteen wide column">
-                                       <button id="btn_ongoing_apply" class="ui mini right floated disabled button"><i class="check icon"></i>Apply Changes</button>
+                                       <button id="btn_ongoing_apply" class="ui mini right floated disabled button"><i class="check icon"></i>Apply</button>
                                    </div>
                                </div>
                            </div>
@@ -215,34 +215,23 @@
                 <label>Select Client</label>
                 <select id="client-dropdown" class="ui search dropdown">
                     <option value="">Client</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AK">Alaska</option>
-                    <option value="AZ">Arizona</option>
-                    <option value="AR">Arkansas</option>
-                    <option value="CA">California</option>
-                    <option value="CO">Colorado</option>
+                    
                 </select>
             </div>
             <div class="field">
                 <label>Application</label>
                 <select id="application-dropdown" class="ui search dropdown">
                     <option value="">Application</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AK">Alaska</option>
-                    <option value="AZ">Arizona</option>
-                    <option value="AR">Arkansas</option>
-                    <option value="CA">California</option>
-                    <option value="CO">Colorado</option>
                 </select>
             </div>
         </form>
     </div>
     <div class="actions">
-        <div class="ui cancel button">
+        <div class="ui mini cancel button">
             Cancel
         </div>
-        <div class="ui  right labeled icon blue ok button">
-            Apply Changes
+        <div id="btn-resubmit-apply" class="ui mini right labeled icon blue ok button">
+            Apply
             <i class="checkmark icon"></i>
         </div>
     </div>

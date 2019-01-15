@@ -155,7 +155,7 @@ namespace Typeapproval_UI.Controllers
             dynamic param = new ExpandoObject();
             param.application_id = application_id;
             param.mode = "edit";
-            param.status = status;
+            param.status = Commons.Constants.INCOMPLETE_TYPE;
             param.access_key = Session["key"].ToString();
 
             var client = new HttpClient();

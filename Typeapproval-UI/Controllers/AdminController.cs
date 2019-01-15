@@ -308,7 +308,7 @@ namespace Typeapproval_UI.Controllers
             }
         }
 
-        [Route("admin/clientresubmit")]
+        [Route("admin/clientresubmit/{application_id}")]
         public ActionResult ClientResubmit(string application_id)
         {
 
@@ -328,7 +328,7 @@ namespace Typeapproval_UI.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     string result = response.Content.ReadAsStringAsync().Result;
-                    return Json(new { result }, JsonRequestBehavior.AllowGet);
+                    return Json(new { responseText = "updated" }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
@@ -338,6 +338,70 @@ namespace Typeapproval_UI.Controllers
             else
             {
                 return Json(new { responseText = "unavailable" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [Route("admin/getclients")]
+        public ActionResult GetClients()
+        {
+            if (Session["key"] != null)
+            {
+                dynamic param = new ExpandoObject();
+                param.access_key = Session["key"].ToString();
+                var client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var content = new StringContent(JsonConvert.SerializeObject(param), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync("GetClientUsers", content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = response.Content.ReadAsStringAsync().Result;
+                    List<Models.ClientUser> clientUsers = JsonConvert.DeserializeObject<List<Models.ClientUser>>(result);
+                    return Json(new { clientUsers }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { responseText = "unavailable" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(new { responseText = "invalid session" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [Route("admin/getapplicationids/{username}")]
+        public ActionResult GetApplicationIDs(string username)
+        {
+            if (Session["key"] != null)
+            {
+                dynamic param = new ExpandoObject();
+                param.access_key = Session["key"].ToString();
+                param.username = username;
+
+                var client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var content = new StringContent(JsonConvert.SerializeObject(param), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync("GetApplicationIDsForClient", content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = response.Content.ReadAsStringAsync().Result;
+                    List<string> applications = JsonConvert.DeserializeObject<List<string>>(result);
+                    return Json(new { applications }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { responseText = "unavailable" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(new { responseText = "invalid session" }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -368,6 +432,8 @@ namespace Typeapproval_UI.Controllers
                 return null;
             }
         }
+
+    
 
         private List<Models.UnassignedTask> GetUnassignedTasks()
         {
