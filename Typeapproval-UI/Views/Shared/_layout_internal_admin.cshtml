@@ -19,7 +19,7 @@
             <div class="item">
                 <div class="header">Account Management</div>
                 <div class="menu">
-                    <a href="/admin/create-account" class="item">Change password</a>
+                    <a id="change-password" class="item">Change password</a>
                 </div>
             </div>
             <div class="item">
@@ -49,8 +49,90 @@
         </div>
 
         @RenderBody()
+
+        <div id="client_resubmit" class="ui mini modal">
+            <div class="header">
+                Client Resubmission
+            </div>
+            <div class="content">
+                <form class="ui form">
+                    <div class="field">
+                        <label>Select Client</label>
+                        <select id="client-dropdown" class="ui search dropdown">
+                            <option value="">Client</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Application</label>
+                        <select id="application-dropdown" class="ui search dropdown">
+                            <option value="">Application</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="actions">
+                <div class="ui mini cancel button">
+                    Cancel
+                </div>
+                <div id="btn-resubmit-apply" class="ui mini right labeled icon blue ok button">
+                    Apply
+                    <i class="checkmark icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div id="change_password" class="ui mini modal">
+            <div class="header">
+               Change Password
+            </div>
+            <div class="content">
+                <form id="form" class="ui equal width form">
+                    <div class="field">
+                        <label>Old Password</label>
+                        <input id="old_psw" type="password">
+                    </div>
+                    <div class="fields">
+                        <div class="field">
+                            <label>New Password</label>
+                            <input id="new_psw" type="password">
+                        </div>
+                        <div class="field">
+                            <label>Confirm Password</label>
+                            <input id="confirm_psw" type="password">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="actions">
+                <div class="ui mini cancel button">
+                    Cancel
+                </div>
+                <div id="btn-password-change" class="ui mini right labeled icon blue ok button">
+                    Change
+                    <i class="checkmark icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div id="confirm_delete" class="ui mini modal">
+            <div class="ui header">
+                Reject Confirmation
+            </div>
+            <div class="content">
+                <p>Are you sure you want to reject this application?</p>
+            </div>
+            <div class="actions">
+                <div class="ui mini cancel button">
+                    Cancel
+                </div>
+                <div class="ui mini red ok button">
+                    Reject
+                </div>
+            </div>
+        </div>
+
         <div class="overlay-notify">
-            
+
         </div>
     </div>
 

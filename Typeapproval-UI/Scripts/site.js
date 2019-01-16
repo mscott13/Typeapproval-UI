@@ -215,8 +215,8 @@
         var jsonObj = new Object();
         jsonObj.username = $("input[name=reg_username]").val();
         jsonObj.password = $("input[name=reg_password]").val();
-
         var json = JSON.stringify(jsonObj);
+
         $.ajax({
             type: "POST",
             url: "http://localhost:3348/account/login",

@@ -19,7 +19,7 @@
             <div class="item">
                 <div class="header">Account Management</div>
                 <div class="menu">
-                    <a class="item">Change Password</a>
+                    <a id="change-password" class="item">Change Password</a>
                 </div>
             </div>
         </div>
@@ -42,6 +42,44 @@
             </div>
         </div>
         @RenderBody()
+
+        <div id="change_password" class="ui mini modal">
+            <div class="header">
+                Change Password
+            </div>
+            <div class="content">
+                <form id="form" class="ui equal width form">
+                    <div class="field">
+                        <label>Old Password</label>
+                        <input id="old_psw" type="password">
+                    </div>
+                    <div class="fields">
+                        <div class="field">
+                            <label>New Password</label>
+                            <input id="new_psw" type="password">
+                        </div>
+                        <div class="field">
+                            <label>Confirm Password</label>
+                            <input id="confirm_psw" type="password">
+                        </div>
+                    </div>
+                </form>
+                
+            </div>
+            <div class="actions">
+                <div class="ui mini cancel button">
+                    Cancel
+                </div>
+                <div id="btn-password-change" class="ui mini right labeled icon blue ok button">
+                    Change
+                    <i class="checkmark icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="overlay-notify">
+
+        </div>
     </div>
 
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>

@@ -158,6 +158,7 @@
     <Compile Include="Controllers\SavedController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
+    <Compile Include="Controllers\SystemAdminController.cs" />
     <Compile Include="Database\SLW_DatabaseInfo.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -168,6 +169,7 @@
     <Compile Include="Models\ApplicationFiles.cs" />
     <Compile Include="Models\AssignedTask.cs" />
     <Compile Include="Models\Certificate.cs" />
+    <Compile Include="Models\ChangePasswordParams.cs" />
     <Compile Include="Models\ClientCompany.cs" />
     <Compile Include="Models\ClientUser.cs" />
     <Compile Include="Models\Dashboard.cs" />
@@ -271,6 +273,7 @@
     <Content Include="Scripts\step2-restore.js" />
     <Content Include="Scripts\step3-restore.js" />
     <Content Include="favicon.ico" />
+    <Content Include="Scripts\sysadmin.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -301,6 +304,8 @@
     <Content Include="Views\Staff\NotAuthorizedDownload.cshtml" />
     <Content Include="Views\Admin\CreateAccount.cshtml" />
     <Content Include="Views\Admin\AllUsers.cshtml" />
+    <Content Include="Views\Shared\_layout_internal_sysadmin.cshtml" />
+    <Content Include="Views\SystemAdmin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

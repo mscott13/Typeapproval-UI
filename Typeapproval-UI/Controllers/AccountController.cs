@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -20,7 +21,7 @@ namespace Typeapproval_UI.Controllers
             if (Session["key"] != null)
             {
                 return RedirectToAction("", "home");
-               
+
             }
             else
             {
@@ -62,7 +63,7 @@ namespace Typeapproval_UI.Controllers
         [Route("account")]
         public async Task<ActionResult> Login(Login login)
         {
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
                 var client = new HttpClient();
                 client.BaseAddress = new Uri("http://localhost:54367/api/user/");
@@ -82,7 +83,7 @@ namespace Typeapproval_UI.Controllers
                     Session["name"] = obj.name;
                     Session["username"] = obj.username;
                     string status = obj.status;
-                    return Json(new { success = true, responseText = "credentials verified", user_type = (int) obj.user_type }, JsonRequestBehavior.AllowGet);
+                    return Json(new { success = true, responseText = "credentials verified", user_type = (int)obj.user_type }, JsonRequestBehavior.AllowGet);
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 {
@@ -116,6 +117,41 @@ namespace Typeapproval_UI.Controllers
         public ActionResult Register()
         {
             return View();
+        }
+
+        [HttpPost]
+        [Route("account/changepassword")]
+        public ActionResult ChangePassword(ChangePasswordParams data)
+        {
+            if (Session["username"] != null)
+            {
+                dynamic param = new ExpandoObject();
+                param.old_psw = data.old_psw;
+                param.new_psw = data.new_psw;
+                param.username = Session["username"].ToString();
+                param.access_key = Session["key"].ToString();
+
+                var client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:54367/api/user/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var content = new StringContent(JsonConvert.SerializeObject(param), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync("ChangePassword", content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK, "password_updated");
+                }
+                else
+                {
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Unauthorized, "incorrect_password");
+                }
+            }
+            else
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Unauthorized, "invalid_session");
+            }
         }
 
         private List<ClientCompany> getClients(string clientCompany)

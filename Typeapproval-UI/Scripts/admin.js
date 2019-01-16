@@ -6,9 +6,7 @@
         });
 
     $('#client-dropdown').dropdown({
-        showOnFocus: false,
-        onChange: function (value, text, $choice)
-        {
+        onChange: function (value, text, $choice) {
             reset_resubmit_options();
             get_application_ids(value);
         }
@@ -31,8 +29,7 @@
             $(current_record).addClass("row_hover");
             enable_disable_apply(target_table, 'enable');
         }
-        else
-        {
+        else {
             enable_disable_apply(target_table, 'disable');
             $(current_record).removeClass("row_hover");
         }
@@ -47,8 +44,61 @@
                 return true;
             },
             onDeny: function () {
-                reset_resubmit_options();
-                $("#client-dropdown").dropdown('clear');
+                setTimeout(function () {
+                    reset_resubmit_options();
+                    $("#client-dropdown").dropdown('clear');
+                }, 500);
+                return true;
+            }
+        }).modal('show');
+    });
+
+    $("#change-password").click(function () {
+        $("#change_password").modal({
+            closable: false,
+            onApprove: function () {
+
+                remove_psw_msg();
+                var old_psw = $("#old_psw").val();
+                var new_psw = $("#new_psw").val();
+                var confirm_psw = $("#confirm_psw").val();
+
+                if (old_psw !== '') {
+                    if (new_psw !== '') {
+                        if (new_psw.length > 5) {
+                            if (confirm_psw !== '') {
+                                if (new_psw === confirm_psw) {
+                                    change_password(old_psw, new_psw);
+                                }
+                                else {
+                                    add_psw_msg('Passwords do not match.');
+                                }
+                            }
+                            else {
+                                add_psw_msg('Please confirm your password...');
+                            }
+                        }
+                        else
+                        {
+                            add_psw_msg("Enter at least 6 characters for your new password");
+                        }
+                    }
+                    else {
+                        add_psw_msg("Please enter a new password...");
+                    }
+                }
+                else {
+                    add_psw_msg("Please enter your current password...");
+                }
+                return false;
+            },
+            onDeny: function () {
+                setTimeout(function () {
+                    $("#old_psw").val('');
+                    $("#new_psw").val('');
+                    $("#confirm_psw").val('');
+                    remove_psw_msg();
+                }, 500);
                 return true;
             }
         }).modal('show');
@@ -60,10 +110,10 @@
     });
 
 
-    function create_base_modal() {
+    function create_base_modal(application_id) {
         var html =
             '<div id="app_modal" class="ui longer modal">' +
-            '<div id = "app_id" class="header" >Application Preview<i></i></div >' +
+            '<div id = "app_id" class="header" >Application Review - ' + application_id + '<i></i></div >' +
             '<div id="preview" class="scrolling content">' +
             '</div>' +
             '<div class="actions">' +
@@ -400,28 +450,24 @@
         });
     }
 
-    function enable_disable_apply(target, action)
-    {
+    function enable_disable_apply(target, action) {
         if (target === 'tbl_unassigned') {
             if (action === 'enable') {
                 $("#btn_unassigned_apply").addClass("blue");
                 $("#btn_unassigned_apply").removeClass("disabled");
             }
-            else if (action === 'disable')
-            {
+            else if (action === 'disable') {
                 $("#btn_unassigned_apply").removeClass("blue");
                 $("#btn_unassigned_apply").addClass("disabled");
                 reset_unassigned_action();
             }
         }
-        else if (target === 'tbl_ongoing')
-        {
+        else if (target === 'tbl_ongoing') {
             if (action === 'enable') {
                 $("#btn_ongoing_apply").addClass("blue");
                 $("#btn_ongoing_apply").removeClass("disabled");
             }
-            else if (action === 'disable')
-            {
+            else if (action === 'disable') {
                 $("#btn_ongoing_apply").removeClass("blue");
                 $("#btn_ongoing_apply").addClass("disabled");
                 reset_ongoing_action();
@@ -433,35 +479,31 @@
     $("#ongoing_action_dropdown .item").click(function () {
         var value = $(this).data("value");
         if (value === 'reassign_engineer') {
-            if (ongoing_action !== 'reassign_engineer')
-            {
+            if (ongoing_action !== 'reassign_engineer') {
                 $('#reassign_engineer_select').toggleClass("display_invisible");
             }
             ongoing_action = 'reassign_engineer';
-            
+
         }
         else if (value === 'move_unassigned') {
-            if (ongoing_action !== 'move_unassigned')
-            {
+            if (ongoing_action !== 'move_unassigned') {
                 $('#reassign_engineer_select').addClass("display_invisible");
             }
             ongoing_action = 'move_unassigned';
-           
+
         }
     });
 
     $("#unassigned_action_dropdown .item").click(function () {
         var value = $(this).data("value");
         if (value === 'assign_engineer') {
-            if (unassigned_action !== 'assign_engineer')
-            {
+            if (unassigned_action !== 'assign_engineer') {
                 $('#assign_engineer_select').toggleClass("display_invisible");
             }
             unassigned_action = 'assign_engineer';
         }
         else if (value === 'delete') {
-            if (unassigned_action !== 'delete')
-            {
+            if (unassigned_action !== 'delete') {
                 $('#assign_engineer_select').addClass("display_invisible");
             }
             unassigned_action = 'delete';
@@ -476,15 +518,21 @@
 
     $('#btn_ongoing_apply').click(function () {
         var check_tasks = $('#tbl_ongoing .check_task:checked');
-        if ($(check_tasks).length > 0)
-        {
+        if ($(check_tasks).length > 0) {
             var action = $("#ongoing_action_dropdown .item.active.selected").data("value");
-            switch (action)
-            {
+            switch (action) {
                 case "reassign_engineer":
                     var selected_engineer = $("#reassign_engineer_select .item.active.selected").data("value");
                     var reappid = $(current_record).data("appid");
-                    reassign_task(reappid, selected_engineer, current_record);
+
+                    if (selected_engineer !== undefined) {
+                        reassign_task(reappid, selected_engineer, current_record);
+                    }
+                    else
+                    {
+                        add_notification('', 'Please select an engineer for re-assignment.');
+                    }
+                    
                     break;
                 case "move_unassigned":
                     var appid = $(current_record).data("appid");
@@ -502,7 +550,15 @@
                 case "assign_engineer":
                     var selected_engineer = $("#assign_engineer_select .item.active.selected").data("value");
                     var appid = $(current_record).data("appid");
-                    add_ongoing_task(appid, selected_engineer, current_record);
+
+                    if (selected_engineer !== undefined) {
+                        add_ongoing_task(appid, selected_engineer, current_record);
+                    }
+                    else
+                    {
+                        add_notification('', "Please select an engineer for assignment.");
+                    }
+                   
                     break;
                 case "delete":
                     $('#confirm_delete')
@@ -545,27 +601,26 @@
 
                 var html =
                     "<tr data-appid='" + data.ongoing.application_id + "'>" +
-                    '<td><input type="checkbox" class="check_task" value="" /> &nbsp;&nbsp; <a style="cursor: pointer;" data-appid="' + data.ongoing.application_id+'" class="app_view"><i class="file alternate outline icon"></i>' + data.ongoing.application_id + '</a></td>' +
+                    '<td><input type="checkbox" class="check_task" value="" /> &nbsp;&nbsp; <a style="cursor: pointer;" data-appid="' + data.ongoing.application_id + '" class="app_view"><i class="file alternate outline icon"></i>' + data.ongoing.application_id + '</a></td>' +
                     '<td>' + data.ongoing.created_date + '</td>' +
                     '<td>' + data.ongoing.assigned_to + '</td>' +
                     '<td>' + data.ongoing.date_assigned + '</td>' +
                     '<td class="status_pending">' + data.ongoing.status + '</td>' +
                     "</tr>";
 
+                $(html).prependTo("#tbl_ongoing tbody");
+
                 var htm =
                     "<tr id='fallback_msg_unassigned'>" +
                     "<td colspan = 3>No unassigned applications found.</td>" +
                     "</tr>";
 
-                $(html).prependTo("#tbl_ongoing tbody");
-
-                if ($("#tbl_unassigned tbody tr").length === 0)
-                {
+                if ($("#tbl_unassigned tbody tr").length === 0) {
                     $("#tbl_unassigned tbody").append(htm);
                 }
                 reset_unassigned_action();
 
-                var msg = "Task: <b>" + application_id + "</b> assigned to <i><b>" + data.ongoing.assigned_to+"</b></i>";
+                var msg = "Application: <b>" + application_id + "</b> assigned to <i><b>" + data.ongoing.assigned_to + "</b></i>";
                 add_notification("Task removal", msg);
             },
             error: function (data) {
@@ -575,8 +630,7 @@
         });
     }
 
-    function move_to_unassigned(application_id, target_record)
-    {
+    function move_to_unassigned(application_id, target_record) {
         var jsonObj = new Object();
         jsonObj.application_id = application_id;
 
@@ -601,12 +655,12 @@
                     '<td>' + data.unassigned.submitted_by + '</td>' +
                     "</tr>";
 
+                $(html).appendTo("#tbl_unassigned tbody");
+
                 var htm =
                     "<tr id='fallback_msg_ongoing'>" +
                     "<td colspan = 3>No ongoing applications found.</td>" +
                     "</tr>";
-
-                $(html).appendTo("#tbl_unassigned tbody");
 
                 if ($("#tbl_ongoing tbody tr").length === 0) {
                     $("#tbl_ongoing tbody").append(htm);
@@ -631,7 +685,7 @@
             data: {},
             success: function (data) {
                 console.log(data);
-                create_base_modal();
+                create_base_modal(application_id);
                 initializePreview(data.form);
             },
             error: function (data) {
@@ -653,8 +707,7 @@
             data: json,
             success: function (data) {
 
-                if (data.responseText === 'task_deleted')
-                {
+                if (data.responseText === 'task_deleted') {
                     $('#btn_unassigned_apply').removeClass("disabled loading");
                     $(target_record).remove();
 
@@ -668,8 +721,8 @@
                     }
                     reset_unassigned_action();
 
-                    var msg = "Task: <b>" + application_id + "</b> deleted";
-                    add_notification("Task removal", msg);
+                    var msg = "Application: <b>" + application_id + "</b> rejected";
+                    add_notification("", msg);
                 }
             },
             error: function (data) {
@@ -713,8 +766,7 @@
         });
     }
 
-    function reset_ongoing_action()
-    {
+    function reset_ongoing_action() {
         var main_target = $("#ongoing_action_dropdown");
         var sub_target = $("#reassign_engineer_select");
 
@@ -726,10 +778,9 @@
         $(main_target).find(".menu .item").removeClass("active selected");
         ongoing_action = '';
         $('#btn_ongoing_apply').addClass("disabled").removeClass("blue");
-    } 
+    }
 
-    function reset_unassigned_action()
-    {
+    function reset_unassigned_action() {
         var main_target = $("#unassigned_action_dropdown");
         var sub_target = $("#assign_engineer_select");
 
@@ -745,31 +796,28 @@
         $('#btn_unassigned_apply').addClass("disabled").removeClass("blue");
     }
 
-    function get_client_list()
-    {
+    function get_client_list() {
         $.ajax({
             type: "POST",
             url: "/admin/getclients",
             contentType: "application/json; charset=utf-8",
             data: {},
             success: function (data) {
-                for (var i = 0; i < data.clientUsers.length; i++)
-                {
+                for (var i = 0; i < data.clientUsers.length; i++) {
                     var html = '<option value="' + data.clientUsers[i].username + '">' + data.clientUsers[i].first_name + ' ' + data.clientUsers[i].last_name + '</option>';
                     $("#client-dropdown").append(html);
                 }
             },
             error: function (data) {
-              
+
             }
         });
     }
 
-    function get_application_ids(username)
-    {
+    function get_application_ids(username) {
         $.ajax({
             type: "POST",
-            url: "/admin/getapplicationids/"+username,
+            url: "/admin/getapplicationids/" + username,
             contentType: "application/json; charset=utf-8",
             data: {},
             success: function (data) {
@@ -784,8 +832,7 @@
         });
     }
 
-    function client_resubmit(application_id)
-    {
+    function client_resubmit(application_id) {
         $.ajax({
             type: "POST",
             url: "/admin/clientresubmit/" + application_id,
@@ -793,10 +840,10 @@
             data: {},
             success: function (data) {
                 $("#btn-resubmit-apply").addClass("disabled loading");
-                if (data.responseText === "updated")
-                {
+                if (data.responseText === "updated") {
                     remove_unassigned_resubmit_record(application_id);
                     remove_ongoing_resubmit_record(application_id);
+                    $("#btn-resubmit-apply").removeClass("disabled loading");
                 }
             },
             error: function (data) {
@@ -812,15 +859,22 @@
         $("#btn-resubmit-apply").addClass("disabled loading");
     });
 
-    function remove_ongoing_resubmit_record(application_id)
-    {
+    function remove_ongoing_resubmit_record(application_id) {
         var rows = $("#tbl_ongoing tbody tr");
-        if (rows !== undefined)
-        {
+        if (rows !== undefined) {
             $.each(rows, function (index, value) {
                 var row_id = $(value).data("appid");
                 if (row_id == application_id) {
                     $(value).remove();
+
+                    var htm =
+                        "<tr id='fallback_msg_ongoing'>" +
+                        "<td colspan = 3>No ongoing applications found.</td>" +
+                        "</tr>";
+
+                    if ($("#tbl_ongoing tbody tr").length === 0) {
+                        $("#tbl_ongoing tbody").append(htm);
+                    }
                 }
             });
         }
@@ -828,32 +882,86 @@
 
     function remove_unassigned_resubmit_record(application_id) {
         var rows = $("#tbl_unassigned tbody tr");
-        if (rows !== undefined)
-        {
+        if (rows !== undefined) {
             $.each(rows, function (index, value) {
                 var row_id = $(value).data("appid");
                 if (row_id == application_id) {
                     $(value).remove();
+
+                    var htm =
+                        "<tr id='fallback_msg_unassigned'>" +
+                        "<td colspan = 3>No unassigned applications found.</td>" +
+                        "</tr>";
+
+                    if ($("#tbl_unassigned tbody tr").length === 0) {
+                        $("#tbl_unassigned tbody").append(htm);
+                    }
                 }
             });
         }
     }
 
-    function reset_resubmit_options()
-    {
+    function reset_resubmit_options() {
         $(".client-appids").remove();
-        
+
         $("#application-dropdown").dropdown('clear');
     }
 
-    function add_notification(header, message)
-    {
+    function add_notification(header, message) {
         var html =
-            '<div class="ui small info message">' +
-            '<p>'+message+'</p>' +
+            '<div class="ui small black floating message">' +
+            '<p>' + message + '</p>' +
             '</div>';
 
         var element = $(html);
+        $('.overlay-notify').hide().append(element).fadeIn(300).delay(4000).fadeOut(1000, function () {
+            $(element).remove();
+        });
+    }
+
+    function change_password(old_psw, new_psw) {
+        $("#btn-password-change").addClass("disabled loading");
+        var jsonObj = new Object();
+        jsonObj.old_psw = old_psw;
+        jsonObj.new_psw = new_psw;
+      
+        $.ajax({
+            type: "POST",
+            url: "/account/changepassword",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(jsonObj),
+            success: function (data) {
+                $("#btn-password-change").removeClass("disabled loading");
+                $("#change_password").modal('hide');
+                $("#old_psw").val('');
+                $("#new_psw").val('');
+                $("#confirm_psw").val('');
+
+                add_notification('', 'password updated sucesssfully');
+            },
+            error: function (data) {
+                $("#btn-password-change").removeClass("disabled loading");
+                if (data.statusText === "incorrect_password")
+                {
+                    add_psw_msg('You have entered an incorrect password, please try again...');
+                }
+            }
+        });
+    }
+
+    function remove_psw_msg() {
+        $(".psw_msg").remove();
+    }
+
+    function add_psw_msg(message) {
+        var html =
+            '<div class="ui red tiny message psw_msg">' +
+            '<ul class="list">' +
+            '<li>' + message + '</li>' +
+            '</ul>' +
+            '</div>';
+
+        $(html).insertAfter("#form");
     }
 
     get_client_list();

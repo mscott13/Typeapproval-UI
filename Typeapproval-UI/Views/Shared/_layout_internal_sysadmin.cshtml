@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/semantic.css" rel="stylesheet" />
+    <link href="~/Content/site.css?t=@DateTime.Now.Millisecond" rel="stylesheet" />
+    <link href="~/Content/custom.css?t=@DateTime.Now.Millisecond.ToString()" rel="stylesheet" />
+    <link href="~/Content/search_result_styles.css?t=@DateTime.Now.Millisecond" rel="stylesheet" />
+    @RenderSection("styles", false)
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="sidenav">
+        <div class="ui vertical inverted fluid menu">
+            <a href="/admin" class="item">
+                <i class="home icon"></i>
+                Administration
+            </a>
+            <div class="item">
+                <div class="header">Account Management</div>
+                <div class="menu">
+                    <a id="change-password" class="item">Change password</a>
+                    <a id="change-password" class="item">Reset password</a>
+                    <a id="change-password" class="item">Delete user</a>
+                </div>
+            </div>
+            <div class="item">
+                <div class="header">Other</div>
+                <div class="menu">
+                    <a id="email-setting" class="item">Email setting</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div style="border: none !important" class="ui borderless large menu">
+            <div style="font-size: 17px !important;" class="header item">
+                <i>@ViewBag.Title</i>
+            </div>
+            <div style="font-size: 13px !important; font-style: italic !important;" class="right menu">
+                <div class="ui item">
+                    Signed in as:&nbsp;&nbsp;<b>@Session["name"]</b>
+                </div>
+                <div style="margin-right: 15px !important;" class="ui item">
+                    <button id="sign_out" class="tiny ui basic button">
+                        <i class="icon power off"></i>
+                        Sign out
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        @RenderBody()
+
+        <div id="change_password" class="ui mini modal">
+            <div class="header">
+                Change Password
+            </div>
+            <div class="content">
+                <form id="form" class="ui equal width form">
+                    <div class="field">
+                        <label>Old Password</label>
+                        <input id="old_psw" type="password">
+                    </div>
+                    <div class="fields">
+                        <div class="field">
+                            <label>New Password</label>
+                            <input id="new_psw" type="password">
+                        </div>
+                        <div class="field">
+                            <label>Confirm Password</label>
+                            <input id="confirm_psw" type="password">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="actions">
+                <div class="ui mini cancel button">
+                    Cancel
+                </div>
+                <div id="btn-password-change" class="ui mini right labeled icon blue ok button">
+                    Change
+                    <i class="checkmark icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="overlay-notify">
+
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/semantic.js"></script>
+    <script src="~/Scripts/jquery.marcopolo.min.js"></script>
+    <script src="~/Scripts/site.js?t=@DateTime.Now.Millisecond"></script>
+    <script src="~/Scripts/sysadmin.js"></script>
+    @RenderSection("Scripts", false)
+</body>
+</html>

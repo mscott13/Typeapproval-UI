@@ -384,6 +384,72 @@
         $(".files-container").html('').append(html);
     }
 
+    $("#change-password").click(function () {
+        $("#change_password").modal({
+            closable: false,
+            onApprove: function () {
+                remove_psw_msg();
+                var old_psw = $("#old_psw").val();
+                var new_psw = $("#new_psw").val();
+                var confirm_psw = $("#confirm_psw").val();
+
+                if (old_psw !== '')
+                {
+                    if (new_psw !== '')
+                    {
+                        if (new_psw.length > 5) {
+                            if (confirm_psw !== '') {
+                                if (new_psw === confirm_psw) {
+                                    change_password(old_psw, new_psw);
+                                }
+                                else {
+                                    add_psw_msg('Passwords do not match.');
+                                }
+                            }
+                            else {
+                                add_psw_msg('Please confirm your password...');
+                            }
+                        }
+                        else
+                        {
+                            add_psw_msg("Enter at least 6 characters for your new password");
+                        }
+                    }
+                    else
+                    {
+                        add_psw_msg("Please enter a new password...");
+                    }
+                }
+                else
+                {
+                    add_psw_msg("Please enter your current password...");
+                }
+                return false;
+            },
+            onDeny: function () {
+                setTimeout(function () {
+                    $("#old_psw").val('');
+                    $("#new_psw").val('');
+                    $("#confirm_psw").val('');
+                    remove_psw_msg();
+                }, 500);
+                return true;
+            }
+        }).modal('show');
+    });
+   
+    function add_notification(header, message) {
+        var html =
+            '<div class="ui small black floating message">' +
+            '<p>' + message + '</p>' +
+            '</div>';
+
+        var element = $(html);
+        $('.overlay-notify').hide().append(element).fadeIn(300).delay(3000).fadeOut(1000, function () {
+            $(element).remove();
+        });
+    }
+
     function get_files(application_id)
     {
         $.ajax({
@@ -465,7 +531,55 @@
         });
     }
 
+    function change_password(old_psw, new_psw) {
+        $("#btn-password-change").addClass("disabled loading");
+        var jsonObj = new Object();
+        jsonObj.old_psw = old_psw;
+        jsonObj.new_psw = new_psw;
+
+        $.ajax({
+            type: "POST",
+            url: "/account/changepassword",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(jsonObj),
+            success: function (data) {
+                $("#btn-password-change").removeClass("disabled loading");
+                $("#change_password").modal('hide');
+                $("#old_psw").val('');
+                $("#new_psw").val('');
+                $("#new_psw").val('');
+                $("#confirm_psw").val('');
+
+                add_notification('', 'password updated sucesssfully');
+            },
+            error: function (data) {
+                $("#btn-password-change").removeClass("disabled loading");
+                if (data.statusText === "incorrect_password") {
+                    console.log("password invalid");
+                    add_psw_msg("You have entered an incorrect password, please try again...");
+                }
+            }
+        });
+    }
+
     $(".app_view").click(function () {
         getApplication($(this).data("application"));
     });
+
+    function remove_psw_msg()
+    {
+        $(".psw_msg").remove();
+    }
+
+    function add_psw_msg(message)
+    {
+        var html =
+            '<div class="ui red inverted tiny message psw_msg">' +
+            '<ul class="list">' +
+            '<li>'+message+'</li>' +
+            '</ul>' +
+            '</div>';
+
+        $(html).insertAfter("#form");
+    }
 });
