@@ -235,6 +235,16 @@ u {
     }
 
 
+.link_override_v3 {
+    color: rgba(0,0,0,.4);
+    cursor:pointer;
+}
+
+    .link_override_v3:hover {
+        text-decoration: underline !important;
+        color: rgba(0,0,0,.4);
+    }
+
 .input-error {
     background-color: #fff6f6 !important;
 }

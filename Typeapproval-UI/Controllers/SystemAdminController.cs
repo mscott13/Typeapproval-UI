@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Mvc;
+using System.Net;
 
 namespace Typeapproval_UI.Controllers
 {
@@ -32,6 +33,37 @@ namespace Typeapproval_UI.Controllers
                 return RedirectToAction("", "account");
             }
         }
+
+        [HttpPost]
+        [Route("sysadmin/setemail")]
+        public ActionResult SetEmail(Models.EmailParams param)
+        {
+            if (Session["key"] != null)
+            {
+                param.access_key = Session["key"].ToString();
+                var client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var content = new StringContent(JsonConvert.SerializeObject(param), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync("NewEmailSetting", content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = response.Content.ReadAsStringAsync().Result.Replace("\"", "");
+                    return Json(new {result, }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    string result = response.Content.ReadAsStringAsync().Result;
+                    return Json(new { result, }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else 
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized, "invalid session");
+            }
+        }  
 
         private List<Models.UserDetails> GetUserDetails()
         {

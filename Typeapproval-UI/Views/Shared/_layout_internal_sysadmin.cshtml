@@ -20,8 +20,6 @@
                 <div class="header">Account Management</div>
                 <div class="menu">
                     <a id="change-password" class="item">Change password</a>
-                    <a id="change-password" class="item">Reset password</a>
-                    <a id="change-password" class="item">Delete user</a>
                 </div>
             </div>
             <div class="item">
@@ -57,7 +55,7 @@
                 Change Password
             </div>
             <div class="content">
-                <form id="form" class="ui equal width form">
+                <form id="psw-form" class="ui equal width form">
                     <div class="field">
                         <label>Old Password</label>
                         <input id="old_psw" type="password">
@@ -90,19 +88,19 @@
                 <i class="envelope icon"></i> Update Email
             </div>
             <div class="content">
-                <form id="form" class="ui equal width form">
+                <form id="email-form" class="ui equal width form">
                     <div class="field">
                         <label>Email address</label>
-                        <input id="old_psw" type="email">
+                        <input id="setting_email" type="email">
                     </div>
                     <div class="field">
                         <label>Password</label>
-                        <input id="new_psw" type="password" />
+                        <input id="setting_password" type="password" />
                     </div>
 
                     <div class="field">
                         <div class="ui checkbox">
-                            <input type="checkbox" name="example">
+                            <input type="checkbox" id="email_test">
                             <label>Send a test email to verify that this email works properly? </label>
                         </div>
                     </div>
