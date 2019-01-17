@@ -92,37 +92,6 @@ namespace Typeapproval_UI.Controllers
             }
         }
 
-
-        [Route("admin/all-users")]
-        public ActionResult AllUsers()
-        {
-            ViewBag.Title = "All Users";
-            if (Session["key"] != null)
-            {
-                var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:54367/api/user/");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                var content = new StringContent(JsonConvert.SerializeObject(Session["key"].ToString()), Encoding.UTF8, "application/json");
-                HttpResponseMessage response = client.PostAsync("GetUsersList", content).Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    string result = response.Content.ReadAsStringAsync().Result;
-                    List<Models.UserDetails> userDetails = JsonConvert.DeserializeObject<List<Models.UserDetails>>(result);
-                    return View(userDetails);
-                }
-                else
-                {
-                    return View();
-                }
-            }
-            else
-            {
-                return RedirectToAction("", "account");
-            }
-        }
-
         [HttpPost]
         [Route("admin/reassign")]
         public ActionResult ReassignTask(Models.ReassignTaskParams param)

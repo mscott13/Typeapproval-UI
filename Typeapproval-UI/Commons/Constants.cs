@@ -11,7 +11,7 @@ namespace Typeapproval_UI.Commons
         //@"Data Source=DESKTOP-6DGAJN8\SQLEXPRESS;Initial Catalog=SLW_Database;Integrated Security=True"
         //@"Data Source=DESKTOP-E9VTQUL\SQLEXPRESS;Initial Catalog=SLW_Database;Integrated Security=True"
 
-        public const string databaseConnection = @"Data Source=DESKTOP-6DGAJN8\SQLEXPRESS;Initial Catalog=SLW_Database;Integrated Security=True";
+        public const string databaseConnection = @"Data Source=DESKTOP-E9VTQUL\SQLEXPRESS;Initial Catalog=SLW_Database;Integrated Security=True";
 
         //application categories
         public const string TYPE_APPROVAL = "TYPE_APPROVAL";
@@ -32,5 +32,6 @@ namespace Typeapproval_UI.Commons
         public const int USER_TYPE_CLIENT = 0;
         public const int USER_TYPE_STAFF = 1;
         public const int USER_TYPE_ADMINISTRATOR = 9;
+        public const int USER_TYPE_SYS_ADMINISTRATOR = 10;
     }
 }

@@ -236,6 +236,9 @@
                         case 9:
                             window.location.href = "/admin";
                             break;
+                        case 10:
+                            window.location.href = "/systemadmin";
+                            break;
                     }
                 }
                 else {

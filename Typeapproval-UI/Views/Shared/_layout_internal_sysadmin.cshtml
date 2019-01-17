@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="main">
-        <div style="border: none !important" class="ui borderless large menu">
+        <div style="border: none !important; margin-bottom: 0px !important;" class="ui borderless large menu">
             <div style="font-size: 17px !important;" class="header item">
                 <i>@ViewBag.Title</i>
             </div>
@@ -79,7 +79,42 @@
                     Cancel
                 </div>
                 <div id="btn-password-change" class="ui mini right labeled icon blue ok button">
-                    Change
+                    Update
+                    <i class="checkmark icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div id="email_setting" class="ui mini modal">
+            <div class="header">
+                <i class="envelope icon"></i> Update Email
+            </div>
+            <div class="content">
+                <form id="form" class="ui equal width form">
+                    <div class="field">
+                        <label>Email address</label>
+                        <input id="old_psw" type="email">
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <input id="new_psw" type="password" />
+                    </div>
+
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="example">
+                            <label>Send a test email to verify that this email works properly? </label>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="actions">
+                <div class="ui mini cancel button">
+                    Cancel
+                </div>
+                <div id="btn-email-update" class="ui mini right labeled icon blue ok button">
+                    Update
                     <i class="checkmark icon"></i>
                 </div>
             </div>

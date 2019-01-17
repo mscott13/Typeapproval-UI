@@ -180,6 +180,8 @@ namespace Typeapproval_UI.Controllers
                     return RedirectToAction("", "staff");
                 case Commons.Constants.USER_TYPE_CLIENT:
                     return RedirectToAction("", "home");
+                case Commons.Constants.USER_TYPE_SYS_ADMINISTRATOR:
+                    return RedirectToAction("", "systemadmin");
                 default:
                     return RedirectToAction("", "account");
             }
