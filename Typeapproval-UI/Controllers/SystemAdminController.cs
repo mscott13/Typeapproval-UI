@@ -63,7 +63,40 @@ namespace Typeapproval_UI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Unauthorized, "invalid session");
             }
-        }  
+        }
+
+        [HttpPost]
+        [Route("sysadmin/createuser")]
+        public ActionResult CreateUser(Models.NewUser param)
+        {
+            param.company = "Spectrum Management Authority, Jamaica";
+            if (Session["key"] != null)
+            {
+                param.access_key = Session["key"].ToString();
+                var client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:54367/api/user/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var content = new StringContent(JsonConvert.SerializeObject(param), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync("RegisterV2", content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = response.Content.ReadAsStringAsync().Result.Replace("\"", "");
+                    Models.NewUser newUser = JsonConvert.DeserializeObject<Models.NewUser>(result);
+                    return Json(new { newUser, }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    string result = response.Content.ReadAsStringAsync().Result;
+                    return Json(new { result, }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized, "invalid session");
+            }
+        }
 
         private List<Models.UserDetails> GetUserDetails()
         {

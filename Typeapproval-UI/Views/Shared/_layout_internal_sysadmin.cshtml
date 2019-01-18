@@ -91,7 +91,17 @@
                 <form id="email-form" class="ui equal width form">
                     <div class="field">
                         <label>Email address</label>
-                        <input id="setting_email" type="email">
+                        <input id="setting_email" placeholder="admin@smagate.gov.jm" type="email">
+                    </div>
+                    <div class="fields">
+                        <div class="eleven wide field">
+                            <label>Host</label>
+                            <input id="setting_host" placeholder="eg. smtp.gmail.com" type="email">
+                        </div>
+                        <div class="five wide field">
+                            <label>Port</label>
+                            <input id="setting_port" placeholder="eg. 587" type="number">
+                        </div>
                     </div>
                     <div class="field">
                         <label>Password</label>
@@ -100,12 +110,11 @@
 
                     <div class="field">
                         <div class="ui checkbox">
-                            <input type="checkbox" id="email_test">
-                            <label>Send a test email to verify that this email works properly? </label>
+                            <input type="checkbox" id="use_ssl">
+                            <label>Use ssl for authentication</label>
                         </div>
                     </div>
                 </form>
-
             </div>
             <div class="actions">
                 <div class="ui mini cancel button">
@@ -114,6 +123,71 @@
                 <div id="btn-email-update" class="ui mini right labeled icon blue ok button">
                     Update
                     <i class="checkmark icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div id="create_user" class="ui mini modal">
+            <div class="header">
+                <i class="users icon"></i> Create User
+            </div>
+            <div class="content">
+                <form id="user-form" class="ui equal width form">
+                    <div class="field">
+                        <label>Username</label>
+                        <input id="u_username" placeholder="" type="text">
+                    </div>
+                    <div class="fields">
+                        <div class="field">
+                            <label>First Name</label>
+                            <input id="u_fname" placeholder="" type="text">
+                        </div>
+                        <div class="field">
+                            <label>Last Name</label>
+                            <input id="u_lname" placeholder="" type="text">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Email Address</label>
+                        <input id="u_email" type="text" />
+                    </div>
+
+                    <div class="field">
+                        <label>Role</label>
+                        <select id="role_dropdown" class="ui dropdown">
+                            <option value="">Select role</option>
+                            <option value="1">Staff</option>
+                            <option value="9">Admin</option>
+                            <option value="10">System Admin</option>
+                        </select>
+                    </div>
+
+                    <div class="fields">
+                        <div class="field">
+                            <label>Password</label>
+                            <input id="u_password" type="password" />
+                        </div>
+                        <div class="field">
+                            <label> Confirm Password</label>
+                            <input id="u_confirm" type="password" />
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" id="send_credentials">
+                            <label>Send credentials by email</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="actions">
+                <div class="ui mini cancel button">
+                    Cancel
+                </div>
+                <div id="btn-email-update" class="ui mini right labeled icon blue ok button">
+                    Create
+                    <i class="plus icon"></i>
                 </div>
             </div>
         </div>

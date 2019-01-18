@@ -734,10 +734,13 @@
     }
 
     function reassign_task(application_id, assign_to, target_record) {
+
         var jsonObj = new Object();
         jsonObj.application_id = application_id;
         jsonObj.assign_to = assign_to;
         var json = JSON.stringify(jsonObj);
+
+        $('#btn_ongoing_apply').addClass("disabled loading");
 
         $.ajax({
             type: "POST",
