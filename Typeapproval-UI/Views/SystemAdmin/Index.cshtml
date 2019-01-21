@@ -27,7 +27,7 @@
                        </div>
                    </div>
                </div>
-                <div class="content-scroll">
+                <div style="margin-top:33px;" class="content-scroll">
                     <div class="ui relaxed divided list">
                         @if (Model.userActivities.Count > 0)
                         {
@@ -35,6 +35,42 @@
                             {
                                 switch (Model.userActivities[x].type)
                                 {
+                                    case Typeapproval_UI.Commons.Constants.ACTIVITY_SUBMISSION_TYPE:
+                                        <div class="item">
+                                            <i class="small tasks middle aligned icon"></i>
+                                            <div class="content">
+                                                <div class="header">Submission</div>
+                                                <div class="description"><a>@Model.userActivities[x].username</a> submitted application <b>@Model.userActivities[x].description</b></div>
+                                                <div class="minor-content">
+                                                    @Model.userActivities[x].date
+                                                </div>
+                                            </div>
+                                        </div>
+                                        break;
+                                    case Typeapproval_UI.Commons.Constants.ACTIVITY_NEW_ONGOING:
+                                        <div class="item">
+                                            <i class="small tasks middle aligned icon"></i>
+                                            <div class="content">
+                                                <div class="header">Task Assignment</div>
+                                                <div class="description"><a>@Model.userActivities[x].username</a> assigned application <b>@Model.userActivities[x].description</b> to <a>@Model.userActivities[x].extras</a></div>
+                                                <div class="minor-content">
+                                                    @Model.userActivities[x].date
+                                                </div>
+                                            </div>
+                                        </div>
+                                        break;
+                                    case Typeapproval_UI.Commons.Constants.ACTIVITY_CREATE_ACCOUNT:
+                                        <div class="item">
+                                            <i class="small tasks middle aligned icon"></i>
+                                            <div class="content">
+                                                <div class="header">Create User</div>
+                                                <div class="description">A new account was created, user: <a>@Model.userActivities[x].username</a></div>
+                                                <div class="minor-content">
+                                                    @Model.userActivities[x].date
+                                                </div>
+                                            </div>
+                                        </div>
+                                        break;
                                     case Typeapproval_UI.Commons.Constants.ACTIVITY_SET_EMAIL:
                                         <div class="item">
                                             <i class="small tasks middle aligned icon"></i>
@@ -181,40 +217,42 @@
                     </div>
                 </div>
 
-                <table class="ui striped small table">
-                    <thead>
-                        <tr>
-                            <th>Username</th>
-                            <th>Name</th>
-                            <th>Last seen</th>
-                            <th>Role</th>
-                            <th>Email</th>
-                            <th>Created date</th>
-                        </tr>
-                    </thead>
-                    <tbody id="staff-task-records">
-                        @if (Model.userDetails.Count > 0)
-                        {
-                            for (int i = 0; i < Model.userDetails.Count; i++)
+                <div class="content-scroll">
+                    <table class="ui striped small table">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Name</th>
+                                <th>Last seen</th>
+                                <th>Role</th>
+                                <th>Email</th>
+                                <th>Created date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="staff-task-records">
+                            @if (Model.userDetails.Count > 0)
                             {
-                                <tr>
-                                    <td><input style="margin-right: 8px;" type="checkbox" class="check_task"/> @Model.userDetails[i].username</td>
-                                    <td>@Model.userDetails[i].fullname</td>
-                                    <td>@Model.userDetails[i].last_detected_activity</td>
-                                    <td>@Model.userDetails[i].user_type</td>
-                                    <td>@Model.userDetails[i].email</td>
-                                    <td>@Model.userDetails[i].created_date</td>
+                                for (int i = 0; i < Model.userDetails.Count; i++)
+                                {
+                                    <tr>
+                                        <td><input style="margin-right: 8px;" type="checkbox" class="check_task" /> @Model.userDetails[i].username</td>
+                                        <td>@Model.userDetails[i].fullname</td>
+                                        <td>@Model.userDetails[i].last_detected_activity</td>
+                                        <td>@Model.userDetails[i].user_type</td>
+                                        <td>@Model.userDetails[i].email</td>
+                                        <td>@Model.userDetails[i].created_date</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr class="row_hover">
+                                    <td style="text-align:center" colspan="6">No users found</td>
                                 </tr>
                             }
-                        }
-                        else
-                        {
-                            <tr class="row_hover">
-                                <td style="text-align:center" colspan="6">No users found</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

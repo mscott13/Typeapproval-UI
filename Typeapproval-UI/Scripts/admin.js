@@ -940,7 +940,7 @@
                 $("#new_psw").val('');
                 $("#confirm_psw").val('');
 
-                add_notification('', 'password updated sucesssfully');
+                add_notification('', 'Password updated sucesssfully');
             },
             error: function (data) {
                 $("#btn-password-change").removeClass("disabled loading");

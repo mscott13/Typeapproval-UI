@@ -21,7 +21,16 @@ namespace Typeapproval_UI.Controllers
                     Models.SysAdminMainWrapper wrapper = new Models.SysAdminMainWrapper();
                     wrapper.userActivities = GetUserActivities();
                     wrapper.userDetails = GetUserDetails();
-                    return View(wrapper);
+
+                    if (wrapper.userActivities == null || wrapper.userDetails == null)
+                    {
+                        Session.Clear();
+                        return RedirectToAction("", "account");
+                    }
+                    else
+                    {
+                        return View(wrapper);
+                    }
                 }
                 else
                 {
@@ -82,9 +91,9 @@ namespace Typeapproval_UI.Controllers
                 HttpResponseMessage response = client.PostAsync("RegisterV2", content).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    string result = response.Content.ReadAsStringAsync().Result.Replace("\"", "");
-                    Models.NewUser newUser = JsonConvert.DeserializeObject<Models.NewUser>(result);
-                    return Json(new { newUser, }, JsonRequestBehavior.AllowGet);
+                    string result = response.Content.ReadAsStringAsync().Result;
+                    Models.UserDetails userDetails = JsonConvert.DeserializeObject<Models.UserDetails>(result);
+                    return Json(new { userDetails, }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {

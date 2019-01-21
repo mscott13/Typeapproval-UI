@@ -88,31 +88,25 @@
                 <i class="envelope icon"></i> Update Email
             </div>
             <div class="content">
+
+                <div class="ui icon tiny info message">
+                    <i class="info icon"></i>
+                    <div class="content">
+                        <div class="header">
+                            Please note
+                        </div>
+                        <p>The emailing feature integrates with <a target="_blank" href="https://app.sendgrid.com">SendGrid</a>, ensure that your email has been configured there before entering it here.</p>
+                    </div>
+                </div>
+
                 <form id="email-form" class="ui equal width form">
                     <div class="field">
                         <label>Email address</label>
-                        <input id="setting_email" placeholder="admin@smagate.gov.jm" type="email">
-                    </div>
-                    <div class="fields">
-                        <div class="eleven wide field">
-                            <label>Host</label>
-                            <input id="setting_host" placeholder="eg. smtp.gmail.com" type="email">
-                        </div>
-                        <div class="five wide field">
-                            <label>Port</label>
-                            <input id="setting_port" placeholder="eg. 587" type="number">
-                        </div>
+                        <input id="setting_email" type="email">
                     </div>
                     <div class="field">
-                        <label>Password</label>
-                        <input id="setting_password" type="password" />
-                    </div>
-
-                    <div class="field">
-                        <div class="ui checkbox">
-                            <input type="checkbox" id="use_ssl">
-                            <label>Use ssl for authentication</label>
-                        </div>
+                        <label>Company</label>
+                        <input id="setting_company" type="text" />
                     </div>
                 </form>
             </div>

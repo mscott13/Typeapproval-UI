@@ -14,6 +14,8 @@ namespace Typeapproval_UI.Models
         public string user_type { get; set; }
         public string email { get; set; }
         public DateTime created_date { get; set; }
+        public string created_date_str { get; set; }
+        public string last_detected_activity_str { get; set; }
         public DateTime last_detected_activity { get; set; }
     }
 }

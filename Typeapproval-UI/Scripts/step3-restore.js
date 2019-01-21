@@ -196,9 +196,6 @@
         var btn_finish = $(this);
         btn_finish.addClass('disabled loading');
 
-        var institution = $('input[name="institution"]').val();
-        var country = $('input[name="country"]').val();
-
         $.ajax({
             type: "GET",
             url: "/retrieve/application",
@@ -213,267 +210,276 @@
                     var form_data = new FormData();
                     form_data.append("json", json_form);
 
-                    for (var i = 0; i < file_tech_spec.length; i++)
-                    {
-                        form_data.append("tech_spec", file_tech_spec[i]);
-                    }
-
-                    for (var ii = 0; ii < file_test_report.length; ii++)
-                    {
-                        form_data.append("test_report", file_test_report[ii]);
-                    }
-
-                    for (var iii = 0; iii < file_accreditation.length; iii++)
-                    {
-                        form_data.append("accreditation", file_accreditation[iii]);
-                    }
-
-                    $.ajax({
-                        type: "POST",
-                        url: "http://localhost:54367/api/upload/multiple",
-                        processData: false,
-                        contentType: false,
-                        data: form_data,
-                        success: function (data) {
-                            console.log(data);
-                            btn_finish.removeClass('disabled loading');
-
-                            var html = "<p style='text-align: center;'>Your application was submitted with ID: <b>" + data + "</b>. Your application will be reviewed and processed.</p>";
-                            $('.ui.modal.upload-status').find(".content").prepend(html);
-
-                           
-                            var sample_inv_html =
-
-                                '<div class="ui one column grid">' +
-                                '<div class="row">' +
-                                '<div class="column">' +
-                                '<img class="ui medium image" src="/Content/images/invoice_logo.PNG">' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="row">' +
-                                '<div class="column">' +
-                                '<h3 class="ui center aligned header header_override">Sample Invoice</h3>' +
-                                '<div class="ui two column grid">' +
-                                '<div class="row">' +
-                                '<div class="ten wide column">' +
-                                '<fieldset id="fieldset_main">' +
-                                '<p>Customer #   xxxxx-x</p>' +
-                                '<h4 class="ui header header_override">' + form.applicant_name + '</h4>' +
-                                '<p class="paragraph_ovrd">' + breakAtCommas(form.applicant_address) + '</p>' +
-                                '</fieldset>' +
-                                '</div>' +
-                                '<div class="six wide column">' +
-                                '<fieldset style="width:250px;" id="fieldset_invoice">' +
-                                '<div class="ui two column grid">' +
-                                '<div class="row row_override_v3">' +
-                                '<div class="seven wide column">' +
-                                '<h4 class="ui header header_override">Invoice #</h4>' +
-                                '</div>' +
-                                '<div class="nine wide column">' +
-                                '<h4 class="ui header header_override">xxxxx</h4>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="row row_override_v3">' +
-                                '<div class="seven wide column">' +
-                                '<p class="paragraph_ovrd">Date:</p>' +
-                                '</div>' +
-                                '<div class="nine wide column">' +
-                                '<p class="paragraph_ovrd">12/3/2018</p>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' +
-                                '</fieldset>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' +
-
-                                '<div class="ui two column grid">' +
-                                '<div class="row">' +
-                                '<div class="ten wide column">' +
-                                '<h5 style="margin-bottom:0;" class="ui header header_override"><u>Type Approval Equipment</u></h5>' +
-                                '<h5 style="margin-top:5px;" class="ui header header_override">Manufacturer:  ' + form.manufacturer_name + '</h5>' +
-                                '</div>' +
-                                '<div class="six wide column">' +
-                                '<h5 style="margin-top:20px;" class="ui header header_override">Model:  ' + form.product_identification + '</h5>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' +
-
-                                '<div style="margin:30px 0px 0px 0px;" class="ui three column grid">' +
-                                '<div class="row row_override">' +
-                                '<div class="column">' +
-                                '<h5 class="ui header header_override">Details of Fee Charges</h5>' +
-                                '</div>' +
-                                '<div class="column">' +
-                                '<h5 class="ui header header_override">Qty.</h5>' +
-                                '</div>' +
-                                '<div class="column">' +
-                                '<h5 class="ui right aligned header header_override">Total Amount <br />(US$)</h5>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="row row_override_v2">' +
-                                '<div class="column">' +
-                                '<p>Processing fees Type Approval Certification (PRS50)</p>' +
-                                '</div>' +
-                                '<div class="column">' +
-                                '<p style="margin-left:40px;">1.00</p>' +
-                                '</div>' +
-                                '<div class="column">' +
-                                '<p style="text-align:right;">$350.00</p>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div style="margin:0px 0px 0px 0px;" class="ui two column grid">' +
-                                '<div class="row row_override_v2">' +
-                                '<div class="six wide column">' +
-
-                                '</div>' +
-                                '<div class="ten wide column">' +
-                                '<hr class="separator" />' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="row row_override_v3">' +
-                                '<div class="six wide column">' +
-
-                                '</div>' +
-                                '<div class="ten wide column">' +
-                                '<div class="ui two column grid">' +
-                                '<div class="row">' +
-                                '<div class="column">' +
-                                '<h4 style="margin-left:80px;" class="ui header header_override">Total</h4>' +
-                                '</div>' +
-                                '<div class="column">' +
-                                '<h4 class="ui  right aligned header header_override">$350.00</h4>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div style="margin-top:50px;" class="ui two column grid">' +
-                                '<div class="row">' +
-                                '<div style="margin-left:40px;" class="fifteen wide column">' +
-                                '<div class="ui two column grid">' +
-                                '<div class="row row_override_v3">' +
-                                '<div class="four wide column">' +
-                                '<h4 class="ui header header_override">Wire Transfer Details</h4>' +
-                                '</div>' +
-                                '<div class="twelve wide column">' +
-
-                                '</div>' +
-                                '</div>' +
-                                '<div class="row row_override_v3">' +
-                                '<div class="four wide column">' +
-                                '<p class="paragraph_ovrd_v2">Correspondent Bank:</p>' +
-                                '</div>' +
-                                '<div class="twelve wide column">' +
-                                '<p class="paragraph_ovrd_v2">Citibank N. A.</p>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="row row_override_v3">' +
-                                '<div class="four wide column">' +
-                                '<p class="paragraph_ovrd_v2"></p>' +
-                                '</div>' +
-                                '<div class="twelve wide column">' +
-                                '<p class="paragraph_ovrd_v2">111 Wall Street,</p>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="row row_override_v3">' +
-                                '<div class="four wide column">' +
-                                '<p class="paragraph_ovrd_v2"></p>' +
-                                '</div>' +
-                                '<div class="twelve wide column">' +
-                                '<p class="paragraph_ovrd_v2">New York, NY 10043</p>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="row row_override_v3">' +
-                                '<div class="four wide column">' +
-                                '<p class="paragraph_ovrd_v2">Swift</p>' +
-                                '</div>' +
-                                '<div class="twelve wide column">' +
-                                '<p class="paragraph_ovrd_v2">CITIUS33</p>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="row row_override_v3">' +
-                                '<div class="four wide column">' +
-                                '<p class="paragraph_ovrd_v2">ABA No.:</p>' +
-                                '</div>' +
-                                '<div class="twelve wide column">' +
-                                '<p class="paragraph_ovrd_v2">021000089</p>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="row row_override_v4">' +
-                                '<div class="four wide column">' +
-                                '<p class="paragraph_ovrd_v2">Beneficiary</p>' +
-                                '</div>' +
-                                '<div class="twelve wide column">' +
-                                '<p class="paragraph_ovrd_v2">First Global Bank Limited</p>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="row row_override_v3">' +
-                                '<div class="four wide column">' +
-                                '<p class="paragraph_ovrd_v2"></p>' +
-                                '</div>' +
-                                '<div class="twelve wide column">' +
-                                '<p class="paragraph_ovrd_v2">BIC (Swift): FILBJMKN</p>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="row row_override_v3">' +
-                                '<div class="four wide column">' +
-                                '<p class="paragraph_ovrd_v2"></p>' +
-                                '</div>' +
-                                '<div class="twelve wide column">' +
-                                '<p class="paragraph_ovrd_v2">28-48 Barbados Avenue, Kingston 5, Jamaica, W.I.</p>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="row row_override_v3">' +
-                                '<div class="four wide column">' +
-                                '<p class="paragraph_ovrd_v2"></p>' +
-                                '</div>' +
-                                '<div class="twelve wide column">' +
-                                '<p class="paragraph_ovrd_v2">For further Credit to Spectrum Management Authority</p>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="row row_override_v3">' +
-                                '<div class="four wide column">' +
-                                '<p class="paragraph_ovrd_v2"></p>' +
-                                '</div>' +
-                                '<div class="twelve wide column">' +
-                                '<p class="paragraph_ovrd_v2">Account # 99</p>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' +
-
-                                '</div>' +
-                                '<div class="one wide column">' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' +
-
-                                '<h5 style="margin-left:40px; margin-top:35px;" class="ui header header_override">NB: A bank charge of US$17.50 is incurred for wire transfer transactions.</h5>' +
-
-                                '</div>' +
-                                '</div>' +
-                                '</div>';
-                                
-                            $('#sample_invoice').html(sample_inv_html);
-
-                            $('.ui.modal.upload-status')
-                                .modal({
-                                    closable: false,
-                                    blurring: false,
-                                    onApprove: function () {
-                                        window.location = "/home";
-                                    }
-                                }).modal('show');
-
-
-                        },
-                        error: function (data) {
-                            console.log(data);
-                            btn_finish.removeClass('disabled loading');
+                    if (file_tech_spec !== undefined && file_test_report !== undefined && file_accreditation !== undefined) {
+                        for (var i = 0; i < file_tech_spec.length; i++) {
+                            form_data.append("tech_spec", file_tech_spec[i]);
                         }
-                    });
+
+                        for (var ii = 0; ii < file_test_report.length; ii++) {
+                            form_data.append("test_report", file_test_report[ii]);
+                        }
+
+                        for (var iii = 0; iii < file_accreditation.length; iii++) {
+                            form_data.append("accreditation", file_accreditation[iii]);
+                        }
+
+                        $.ajax({
+                            type: "POST",
+                            url: "http://localhost:54367/api/upload/multiple",
+                            processData: false,
+                            contentType: false,
+                            data: form_data,
+                            success: function (data) {
+                                console.log(data);
+                                btn_finish.removeClass('disabled loading');
+
+                                var html = "<p style='text-align: center;'>Your application was submitted with ID: <b>" + data + "</b>. Your application will be reviewed and processed.</p>";
+                                $('.ui.modal.upload-status').find(".content").prepend(html);
+
+
+                                var sample_inv_html =
+
+                                    '<div class="ui one column grid">' +
+                                    '<div class="row">' +
+                                    '<div class="column">' +
+                                    '<img class="ui medium image" src="/Content/images/invoice_logo.PNG">' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="row">' +
+                                    '<div class="column">' +
+                                    '<h3 class="ui center aligned header header_override">Sample Invoice</h3>' +
+                                    '<div class="ui two column grid">' +
+                                    '<div class="row">' +
+                                    '<div class="ten wide column">' +
+                                    '<fieldset id="fieldset_main">' +
+                                    '<p>Customer #   xxxxx-x</p>' +
+                                    '<h4 class="ui header header_override">' + form.applicant_name + '</h4>' +
+                                    '<p class="paragraph_ovrd">' + breakAtCommas(form.applicant_address) + '</p>' +
+                                    '</fieldset>' +
+                                    '</div>' +
+                                    '<div class="six wide column">' +
+                                    '<fieldset style="width:250px;" id="fieldset_invoice">' +
+                                    '<div class="ui two column grid">' +
+                                    '<div class="row row_override_v3">' +
+                                    '<div class="seven wide column">' +
+                                    '<h4 class="ui header header_override">Invoice #</h4>' +
+                                    '</div>' +
+                                    '<div class="nine wide column">' +
+                                    '<h4 class="ui header header_override">xxxxx</h4>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="row row_override_v3">' +
+                                    '<div class="seven wide column">' +
+                                    '<p class="paragraph_ovrd">Date:</p>' +
+                                    '</div>' +
+                                    '<div class="nine wide column">' +
+                                    '<p class="paragraph_ovrd">12/3/2018</p>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</fieldset>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+
+                                    '<div class="ui two column grid">' +
+                                    '<div class="row">' +
+                                    '<div class="ten wide column">' +
+                                    '<h5 style="margin-bottom:0;" class="ui header header_override"><u>Type Approval Equipment</u></h5>' +
+                                    '<h5 style="margin-top:5px;" class="ui header header_override">Manufacturer:  ' + form.manufacturer_name + '</h5>' +
+                                    '</div>' +
+                                    '<div class="six wide column">' +
+                                    '<h5 style="margin-top:20px;" class="ui header header_override">Model:  ' + form.product_identification + '</h5>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+
+                                    '<div style="margin:30px 0px 0px 0px;" class="ui three column grid">' +
+                                    '<div class="row row_override">' +
+                                    '<div class="column">' +
+                                    '<h5 class="ui header header_override">Details of Fee Charges</h5>' +
+                                    '</div>' +
+                                    '<div class="column">' +
+                                    '<h5 class="ui header header_override">Qty.</h5>' +
+                                    '</div>' +
+                                    '<div class="column">' +
+                                    '<h5 class="ui right aligned header header_override">Total Amount <br />(US$)</h5>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="row row_override_v2">' +
+                                    '<div class="column">' +
+                                    '<p>Processing fees Type Approval Certification (PRS50)</p>' +
+                                    '</div>' +
+                                    '<div class="column">' +
+                                    '<p style="margin-left:40px;">1.00</p>' +
+                                    '</div>' +
+                                    '<div class="column">' +
+                                    '<p style="text-align:right;">$350.00</p>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div style="margin:0px 0px 0px 0px;" class="ui two column grid">' +
+                                    '<div class="row row_override_v2">' +
+                                    '<div class="six wide column">' +
+
+                                    '</div>' +
+                                    '<div class="ten wide column">' +
+                                    '<hr class="separator" />' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="row row_override_v3">' +
+                                    '<div class="six wide column">' +
+
+                                    '</div>' +
+                                    '<div class="ten wide column">' +
+                                    '<div class="ui two column grid">' +
+                                    '<div class="row">' +
+                                    '<div class="column">' +
+                                    '<h4 style="margin-left:80px;" class="ui header header_override">Total</h4>' +
+                                    '</div>' +
+                                    '<div class="column">' +
+                                    '<h4 class="ui  right aligned header header_override">$350.00</h4>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div style="margin-top:50px;" class="ui two column grid">' +
+                                    '<div class="row">' +
+                                    '<div style="margin-left:40px;" class="fifteen wide column">' +
+                                    '<div class="ui two column grid">' +
+                                    '<div class="row row_override_v3">' +
+                                    '<div class="four wide column">' +
+                                    '<h4 class="ui header header_override">Wire Transfer Details</h4>' +
+                                    '</div>' +
+                                    '<div class="twelve wide column">' +
+
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="row row_override_v3">' +
+                                    '<div class="four wide column">' +
+                                    '<p class="paragraph_ovrd_v2">Correspondent Bank:</p>' +
+                                    '</div>' +
+                                    '<div class="twelve wide column">' +
+                                    '<p class="paragraph_ovrd_v2">Citibank N. A.</p>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="row row_override_v3">' +
+                                    '<div class="four wide column">' +
+                                    '<p class="paragraph_ovrd_v2"></p>' +
+                                    '</div>' +
+                                    '<div class="twelve wide column">' +
+                                    '<p class="paragraph_ovrd_v2">111 Wall Street,</p>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="row row_override_v3">' +
+                                    '<div class="four wide column">' +
+                                    '<p class="paragraph_ovrd_v2"></p>' +
+                                    '</div>' +
+                                    '<div class="twelve wide column">' +
+                                    '<p class="paragraph_ovrd_v2">New York, NY 10043</p>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="row row_override_v3">' +
+                                    '<div class="four wide column">' +
+                                    '<p class="paragraph_ovrd_v2">Swift</p>' +
+                                    '</div>' +
+                                    '<div class="twelve wide column">' +
+                                    '<p class="paragraph_ovrd_v2">CITIUS33</p>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="row row_override_v3">' +
+                                    '<div class="four wide column">' +
+                                    '<p class="paragraph_ovrd_v2">ABA No.:</p>' +
+                                    '</div>' +
+                                    '<div class="twelve wide column">' +
+                                    '<p class="paragraph_ovrd_v2">021000089</p>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="row row_override_v4">' +
+                                    '<div class="four wide column">' +
+                                    '<p class="paragraph_ovrd_v2">Beneficiary</p>' +
+                                    '</div>' +
+                                    '<div class="twelve wide column">' +
+                                    '<p class="paragraph_ovrd_v2">First Global Bank Limited</p>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="row row_override_v3">' +
+                                    '<div class="four wide column">' +
+                                    '<p class="paragraph_ovrd_v2"></p>' +
+                                    '</div>' +
+                                    '<div class="twelve wide column">' +
+                                    '<p class="paragraph_ovrd_v2">BIC (Swift): FILBJMKN</p>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="row row_override_v3">' +
+                                    '<div class="four wide column">' +
+                                    '<p class="paragraph_ovrd_v2"></p>' +
+                                    '</div>' +
+                                    '<div class="twelve wide column">' +
+                                    '<p class="paragraph_ovrd_v2">28-48 Barbados Avenue, Kingston 5, Jamaica, W.I.</p>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="row row_override_v3">' +
+                                    '<div class="four wide column">' +
+                                    '<p class="paragraph_ovrd_v2"></p>' +
+                                    '</div>' +
+                                    '<div class="twelve wide column">' +
+                                    '<p class="paragraph_ovrd_v2">For further Credit to Spectrum Management Authority</p>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="row row_override_v3">' +
+                                    '<div class="four wide column">' +
+                                    '<p class="paragraph_ovrd_v2"></p>' +
+                                    '</div>' +
+                                    '<div class="twelve wide column">' +
+                                    '<p class="paragraph_ovrd_v2">Account # 99</p>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+
+                                    '</div>' +
+                                    '<div class="one wide column">' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+
+                                    '<h5 style="margin-left:40px; margin-top:35px;" class="ui header header_override">NB: A bank charge of US$17.50 is incurred for wire transfer transactions.</h5>' +
+
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
+
+                                $('#sample_invoice').html(sample_inv_html);
+
+                                $('.ui.modal.upload-status')
+                                    .modal({
+                                        closable: false,
+                                        blurring: false,
+                                        onApprove: function () {
+                                            window.location = "/home";
+                                        }
+                                    }).modal('show');
+                            },
+                            error: function (data) {
+                                console.log(data);
+                                btn_finish.removeClass('disabled loading');
+                                var r = data.responseText.replace(/"/g, "");
+                                if (r === "invalid_file") {
+                                    alert("Only pdf files are supported.");
+                                }
+                                else {
+                                    alert("An unkown error has occured. Try saving the application and submit at a later date");
+                                }
+                            }
+                        });
+                    }
+                    else
+                    {
+                        btn_finish.removeClass('disabled loading');
+                        alert("Please upload documents for all categories");
+                    }
                 }
                 else {
                     $('.ui.modal.minfo')

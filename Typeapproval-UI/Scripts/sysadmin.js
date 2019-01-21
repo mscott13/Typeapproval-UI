@@ -19,7 +19,6 @@
             $(current_record).addClass("row_hover");
         }
         else {
-            enable_disable_apply(target_table, 'disable');
             $(current_record).removeClass("row_hover");
         }
     });
@@ -110,66 +109,31 @@
             onApprove: function () {
                 if (email_saved) {
                     email_saved = false;
-
-                    setTimeout(function () {
-                        $("#setting_email").val('');
-                        $("#setting_password").val('');
-                        $("#setting_host").val('');
-                        $("#setting_port").val('');
-                        $("#btn-email-update").html('Udate <i class ="checkmark icon"></i >');
-                        $('#use_ssl').prop('checked', false);
-                        remove_email_msg();
-                        email_saved = false;
-                    }, 500);
-                    
                     return true;
                 }
-                else
-                {
+                else {
                     remove_email_msg();
                     var email = $("#setting_email").val();
-                    var password = $("#setting_password").val();
-                    var host = $("#setting_host").val();
-                    var port = $("#setting_port").val();
-                    var use_ssl = $("#use_ssl").is(":checked");
+                    var company = $("#setting_company").val();
 
                     if (email !== '') {
-                        if (password !== '')
-                        {
-                            if (host !== '')
-                            {
-                                if (port !== '')
-                                {
-                                    set_email(email, password, host, port, use_ssl);
-                                }
-                                else
-                                {
-                                    add_email_msg('Enter a port number', 'error');
-                                }
-                            }
-                            else
-                            {
-                                add_email_msg('Please provide a smtp server host.', 'error');
-                            }
+                        if (company !== '') {
+                            set_email(email, company);
                         }
                         else {
-                            add_email_msg('Please enter a password.', 'error');
+                            add_email_msg('Please enter a company name.', 'error');
                         }
                     }
                     else {
-                        add_email_msg('Please provide an email.', 'error');
+                        add_email_msg('Please provide an email address.', 'error');
                     }
                     return false;
                 }
             },
             onDeny: function () {
-                
                 setTimeout(function () {
-                    
                     $("#setting_email").val('');
-                    $("#setting_password").val('');
-                    $("#setting_host").val('');
-                    $("#setting_port").val('');
+                    $("#setting_company").val('');
                     email_saved = false;
                 }, 500);
                 return true;
@@ -196,15 +160,16 @@
             data: JSON.stringify(jsonObj),
             success: function (data) {
                 console.log(data);
+                add_user_record(data.userDetails.username, data.userDetails.fullname, data.userDetails.user_type, data.userDetails.email, data.userDetails.created_date_str, data.userDetails.last_detected_activity_str);
+                $("#create_user").modal('hide');
 
-                $("#email_setting").modal('hide');
                 setTimeout(function () {
 
                     $("#setting_email").val('');
                     $("#setting_password").val('');
                     $("#setting_host").val('');
                     $("#setting_port").val('');
-                    email_saved = false;
+                    remove_cuser_msg();
                 }, 500);
                 
             },
@@ -216,15 +181,24 @@
         });
     }
 
-    function set_email(email, password, host, port, use_ssl)
+    function add_user_record(username, name, user_type, email, created_date, last_detected_activity)
     {
+        var html = '<tr>' +
+            '<td> <input style="margin-right: 8px;" type="checkbox" class="check_task" /> ' + username + '</td>' +
+            '<td>' + name + '</td>' +
+            '<td>' + last_detected_activity + '</td>' +
+            '<td>' + user_type + '</td>' +
+            '<td>' + email + '</td>' +
+            '<td>' + created_date + '</td>' +
+            '</tr>';
+        $("#staff-task-records").prepend(html);
+    }
+
+    function set_email(email, company) {
         $("#btn-email-update").addClass("disabled loading");
         var jsonObj = new Object();
         jsonObj.email = email;
-        jsonObj.password = password;
-        jsonObj.host = host;
-        jsonObj.port = port;
-        jsonObj.use_ssl = use_ssl;
+        jsonObj.company_name = company;
 
         $.ajax({
             type: "POST",
@@ -235,12 +209,11 @@
                 console.log(data);
                 if (data.result === "email_saved") {
                     $("#btn-email-update").removeClass("disabled loading");
-                    $("#btn-email-update").html('Finish <i class ="checkmark icon"></i >');
+                    $("#btn-email-update").text("Finish");
                     add_email_msg('Email saved, please login to your email account and verify that you have recieved a TEST MESSAGE.', 'ok');
                     email_saved = true;
                 }
-                else
-                {
+                else {
                     add_email_msg('Email was not saved. an error occured...', 'error');
                     email_saved = false;
                 }
