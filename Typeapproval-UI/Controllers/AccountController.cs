@@ -8,11 +8,19 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using Typeapproval_UI.Models;
+using Typeapproval_UI.Database;
 
 namespace Typeapproval_UI.Controllers
 {
     public class AccountController : Controller
     {
+        [HttpGet]
+        [Route("account/account-created")]
+        public ActionResult AccountCreated()
+        {
+            return View();
+        }
+
         [HttpGet]
         [Route("account/login")]
         [Route("account")]
@@ -117,7 +125,9 @@ namespace Typeapproval_UI.Controllers
         [Route("account/register")]
         public ActionResult Register()
         {
-            return View();
+            SLW_DatabaseInfo db = new SLW_DatabaseInfo();
+            List<ClientCompany> companies = db.GetClientDetails("");
+            return View(companies);
         }
 
         [HttpPost]

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Typeapproval_UI.Models.ClientCompany>
+﻿@model List<Typeapproval_UI.Models.ClientCompany>
 @{
     Layout = null;
 }
@@ -30,13 +30,20 @@
                                 <input spellcheck="false" placeholder="jbrown" name="reg_username" type="text">
                                 <i class="user icon"></i>
                             </div>
-                           
+
                         </div>
                         <div class="field">
-                            <label>Client company<span style="margin-left:5px; font-style:italic; font-weight:100 !important; float:right; color:dimgrey;">company not found? add it <a href="#">here</a></span></label>
-                            <div id="input_group_client_companies" class="ui left icon input">
-                                <input id="search_clients" placeholder="eg. Digicel" name="reg_clients" type="text">
-                                <i class="building icon"></i>
+                            <label>Client company<span style="margin-left:5px; font-style:italic; font-weight:100 !important; float:right; color:dimgrey;">company not found? add it <a style="cursor:pointer" id="add-company">here</a></span></label>
+                            <div class="ui selection dropdown clients">
+                                <input type="hidden" name="gender">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Select company</div>
+                                <div class="menu">
+                                    @for (int i = 0; i < Model.Count; i++)
+                                    {
+                                        <div class="item" data-value="@Model[i].clientId">@Model[i].name</div>
+                                    }
+                                </div>
                             </div>
                         </div>
                         <div class="field">
@@ -85,6 +92,49 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="add_company" class="ui tiny modal">
+        <div class="header">
+            <i class="building icon"></i>Add Company
+        </div>
+        <div class="content">
+            <form class="ui form">
+                <div class="two fields">
+                    <div class="field">
+                        <label>Company name</label>
+                        <input type="text" id="company_name" placeholder="">
+                    </div>
+                    <div class="field">
+                        <label>Address</label>
+                        <input type="text" id="company_address" placeholder="">
+                    </div>
+                </div>
+                <div class="three fields">
+                    <div class="field">
+                        <label>Telephone</label>
+                        <input type="text" id="company_telephone" placeholder="">
+                    </div>
+                    <div class="field">
+                        <label>Fax</label>
+                        <input type="text" id="company_fax" placeholder="">
+                    </div>
+                    <div class="field">
+                        <label>Contact Person</label>
+                        <input type="text" id="company_person" placeholder="">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="actions">
+            <div class="ui mini cancel button">
+                Cancel
+            </div>
+            <div id="btn-resubmit-apply" class="ui mini right labeled icon blue ok button">
+                Add company
+                <i class="plus icon"></i>
             </div>
         </div>
     </div>

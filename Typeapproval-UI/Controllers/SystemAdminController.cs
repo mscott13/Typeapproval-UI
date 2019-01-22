@@ -107,6 +107,36 @@ namespace Typeapproval_UI.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("sysadmin/reset")]
+        public ActionResult ResetPassword(Models.ResetPasswordParams param)
+        {
+            if (Session["key"] != null)
+            {
+                param.access_key = Session["key"].ToString();
+                var client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:54367/api/user/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var content = new StringContent(JsonConvert.SerializeObject(param), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync("ResetPassword", content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(new { responseText = "password reset", }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    string result = response.Content.ReadAsStringAsync().Result;
+                    return Json(new { result, }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized, "invalid session");
+            }
+        }
+
         private List<Models.UserDetails> GetUserDetails()
         {
             var client = new HttpClient();

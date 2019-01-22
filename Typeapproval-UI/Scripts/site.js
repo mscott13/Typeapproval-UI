@@ -32,6 +32,8 @@
         window.location = '/new/step-1';
     });
 
+    $(".ui.selection.dropdown.clients").dropdown();
+
     $('.ui.small.category.search')
         .search({
             type: 'category',
@@ -71,7 +73,100 @@
             }
         });
 
+    $("#add-company").click(function () {
+        $("#add_company").modal({
+            onApprove: function () {
+                var company_name = $("#company_name").val();
+                var company_address = $("#company_address").val();
+                var company_telephone = $("#company_telephone").val();
+                var company_fax = $("#company_fax").val();
+                var company_person = $("#company_person").val();
 
+                if (company_name !== '') {
+                    if (company_address !== '') {
+                        if (company_telephone !== '') {
+                            var c_name_exist = $(".ui.selection.dropdown.clients").dropdown('get item', company_name);
+                            if (!c_name_exist) {
+                                add_company(company_name, company_address, company_telephone, company_fax, company_person);
+                            }
+                            else
+                            {
+                                alert("This company name already exists");
+                            }
+                           
+                        }
+                        else
+                        {
+                            alert('Please enter a company telephone');
+                        }
+                    }
+                    else
+                    {
+                        alert('Please enter a company address');
+                    }
+                }
+                else
+                {
+                    alert('Please enter a company name');
+                }
+
+                return false;
+            },
+            onDeny: function () {
+                setTimeout(function () {
+
+                    $("#company_name").val('');
+                    $("#company_address").val('');
+                    $("#company_telephone").val('');
+                    $("#company_fax").val('');
+                    $("#company_person").val('');
+
+                }, 500);
+                return true;
+            }
+        }).modal('show');
+    });
+
+    function add_company(company_name, company_address, company_telephone, company_fax, company_person) {
+
+        var jsonObj = new Object();
+        jsonObj.name = company_name;
+        jsonObj.telephone = company_telephone;
+        jsonObj.address = company_address;
+        jsonObj.fax = company_fax;
+        jsonObj.cityTown = "";
+        jsonObj.contactPerson = company_person;
+        jsonObj.nationality = "";
+
+        var json = JSON.stringify(jsonObj);
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:54367/api/data/NewCompany",
+            contentType: "application/json; charset=utf-8",
+            data: json,
+            success: function (data) {
+                $("#add_company").modal('hide');
+                $(".ui.selection.dropdown.clients").find(".menu").append("<div class='item' data-value='" + data + "'>" + company_name + "</div>");
+                $(".ui.selection.dropdown.clients").dropdown('get text');
+                $(".ui.selection.dropdown.clients").dropdown('refresh');
+                $(".ui.selection.dropdown.clients").dropdown('set selected', data);
+
+                setTimeout(function () {
+
+                    $("#company_name").val('');
+                    $("#company_address").val('');
+                    $("#company_telephone").val('');
+                    $("#company_fax").val('');
+                    $("#company_person").val('');
+
+                }, 500);    
+            },
+            error: function (data) {
+              
+            }
+        });
+    }
+   
 
     $('.ui.button.cancel_app').click(function () {
         console.log("cancelling application...");
@@ -181,9 +276,11 @@
                 jsonObj.first_name = $("input[name=reg_firstName]").val();
                 jsonObj.last_name = $("input[name=reg_lastName]").val();
                 jsonObj.email = $("input[name=reg_email]").val();
-                jsonObj.company = $("input[name=reg_clients]").val();
+                console.log($(".ui.selection.dropdown.clients").dropdown('get text'));
+                console.log($(".ui.selection.dropdown.clients").dropdown('get value'));
+                jsonObj.company = $(".ui.selection.dropdown.clients").dropdown('get text');
                 jsonObj.user_type = 0;
-                jsonObj.clientId = $("#search_clients").data("clientid");
+                jsonObj.clientId = $(".ui.selection.dropdown.clients").dropdown('get value');
 
                 var json = JSON.stringify(jsonObj);
                 $.ajax({
@@ -194,7 +291,7 @@
                     success: function (data) {
                         console.log(data);
                         $("#btn_register").removeClass("disabled loading");
-                        window.location.href = "/account";
+                        window.location.href = "/account/account-created";
                     },
                     error: function (data) {
                         console.log(data);

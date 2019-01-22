@@ -186,6 +186,42 @@
             </div>
         </div>
 
+        <div id="reset_password" class="ui mini modal">
+            <div class="header">
+                Reset Password
+            </div>
+            <div class="content">
+                <div class="ui tiny info message">
+                    <ul class="list">
+                        <li>Choose a new password for this user account. This will replace the old one. Everything else about his user remains the same.</li>
+                    </ul>
+                </div>
+
+                <form id="form" class="ui equal width form">
+                    <div class="fields">
+                        <div class="field">
+                            <label>New Password</label>
+                            <input id="reset_new_psw" type="password">
+                        </div>
+                        <div class="field">
+                            <label>Confirm Password</label>
+                            <input id="reset_confirm_psw" type="password">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="actions">
+                <div class="ui mini cancel button">
+                    Cancel
+                </div>
+                <div id="btn-resetpsw-change" class="ui mini right labeled icon blue ok button">
+                    Reset
+                    <i class="checkmark icon"></i>
+                </div>
+            </div>
+        </div>
+
         <div class="overlay-notify">
 
         </div>

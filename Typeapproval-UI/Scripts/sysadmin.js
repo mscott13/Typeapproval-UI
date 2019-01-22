@@ -9,6 +9,70 @@
     var current_record = null;
     var email_saved = false;
 
+    $("#btn-reset-user").click(function () {
+        if (current_record !== null) {
+            var user = $(current_record).find("td:first-child").text().trim();
+            $("#reset_password").modal({
+                onApprove: function () {
+                    var new_psw = $("#reset_new_psw").val();
+                    var confirm = $("#reset_confirm_psw").val();
+
+                    if (new_psw !== '') {
+                        if (confirm !== '') {
+                            if (new_psw === confirm) {
+                                reset_psw(user, new_psw);
+                            }
+                            else {
+                                alert("Passwords do not match");
+                            }
+                        }
+                        else {
+                            alert("Please confirm the new password");
+                        }
+                    }
+                    else {
+                        alert("Please enter a new password");
+                    }
+                    return false;
+                },
+                onDeny: function () {
+                    setTimeout(function () {
+                        $("#reset_new_psw").val('');
+                        $("#reset_confirm_psw").val('');
+                    }, 500);
+                    return true;
+                }
+            }).modal('show');
+        }
+    });
+
+    function reset_psw(user, new_psw)
+    {
+        var jsonObj = new Object();
+        jsonObj.username = user;
+        jsonObj.new_password = new_psw;
+
+        $.ajax({
+            type: "POST",
+            url: "/sysadmin/reset",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(jsonObj),
+            success: function (data) {
+
+                alert("Password was reset sucessfully");
+                $("#reset_password").modal('hide');
+
+                setTimeout(function () {
+                    $("#reset_new_psw").val('');
+                    $("#reset_confirm_psw").val('');
+                }, 500);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
     $('body').on('change', 'input[type="checkbox"]', function () {
 
         current_record = $(this).parent().parent();
@@ -20,6 +84,7 @@
         }
         else {
             $(current_record).removeClass("row_hover");
+            current_record = null;
         }
     });
 

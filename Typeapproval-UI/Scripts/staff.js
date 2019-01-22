@@ -284,9 +284,25 @@
             '<label>Additional Information</label>' +
             '<textarea readonly rows="3" name="additional_information">' + data.additional_info + '</textarea>' +
             '</div>' +
+
+            '<div style="margin-top: 16px !important;" class="two fields">' +
+            '<div class="field">' +
+            '<label>Name of Main Test or Certification Institution<span style="color: red">&nbsp;*</span></label>' +
+            '<div class="ui input">' +
+            '<input autocomplete="new-password" name="institution" type="text" value=' + data.name_of_test+'>' +
+           
+            '</div>' +
+            '</div>' +
+            '<div class="field">' +
+            '<label>Country of Mass Production<span class="required-label" style="color: red">&nbsp;*</span></label>' +
+            '<div class="ui input">' +
+            '<input autocomplete="new-password" name="country" type="text" value=' + data.country+'>' +
+            
+            '</div>' +
+            '</div>' +
+            '</div>' +
             '</div>' +
             '</div>';
-
 
         html += step1_html + step2_html;
         $(target).append(html);

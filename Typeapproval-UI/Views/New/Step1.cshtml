@@ -7,7 +7,7 @@
 }
 
 @section Scripts{
-    <script src="~/Scripts/step1-restore.js?t=@DateTime.Now.Millisecond"></script>
+    <script src="~/Scripts/step1-restore.js"></script>
 }
 
 @section Styles{
@@ -173,7 +173,7 @@
                                 <div class="field">
                                     <label>Nationality</label>
                                     <div class="ui left icon input">
-                                        <input readonly name="address" type="text" value="@company.nationality">
+                                        <input name="address" type="text" value="@company.nationality">
                                         <i class="globe icon"></i>
                                     </div>
                                 </div>
@@ -182,7 +182,7 @@
                             <a class="ui grey ribbon label">2. &nbsp Manufacturer</a>
                             <div class="fields">
                                 <div class="eight wide field">
-                                    <label>Name<span class="required-label" style="color: red">&nbsp;*</span></label>
+                                    <label>Name<span class="required-label" style="color: red">&nbsp;*</span> <span style="margin-left:5px; font-style:italic; font-weight:100 !important; float:right; color:dimgrey;">manufacturer not listed? add it <a style="cursor:pointer" id="add-manufacturer">here</a></span></label>
 
                                     <div class="ui selection dropdown manufacturers">
                                         <input type="hidden" name="gender">
@@ -208,11 +208,11 @@
                                                 {
                                                     if (Model[i].name == Session["selected_manufacturer"].ToString())
                                                     {
-                                                        <div class="item active selected" data-value="@Model[i].name">@Model[i].name</div>
+                                                        <div class="item active selected" data-addr="@Model[i].address" data-tel="@Model[i].telephone" data-fax="@Model[i].fax" data-person="@Model[i].contact_person" data-value="@Model[i].name">@Model[i].name</div>
                                                     }
                                                     else
                                                     {
-                                                        <div class="item" data-value="@Model[i].name">@Model[i].name</div>
+                                                        <div class="item" data-addr="@Model[i].address" data-tel="@Model[i].telephone" data-fax="@Model[i].fax" data-person="@Model[i].contact_person" data-value="@Model[i].name">@Model[i].name</div>
                                                     }
                                                 }
                                             }
@@ -220,7 +220,7 @@
                                             {
                                                 for (int i = 0; i < Model.Count; i++)
                                                 {
-                                                    <div class="item" data-value="@Model[i].name">@Model[i].name</div>
+                                                    <div class="item" data-addr="@Model[i].address" data-tel="@Model[i].telephone" data-fax="@Model[i].fax" data-person="@Model[i].contact_person" data-value="@Model[i].name">@Model[i].name</div>
                                                 }
                                             }
                                         </div>
@@ -317,6 +317,49 @@
         <div class="ui blue ok button">
             <i class="checkmark icon"></i>
             Confirm
+        </div>
+    </div>
+</div>
+
+<div id="add_manufacturer" class="ui tiny modal">
+    <div class="header">
+        <i class="building icon"></i>Add Manufacturer
+    </div>
+    <div class="content">
+        <form class="ui form">
+            <div class="two fields">
+                <div class="field">
+                    <label>Manufacturer name</label>
+                    <input type="text" id="man_name" placeholder="">
+                </div>
+                <div class="field">
+                    <label>Address</label>
+                    <input type="text" id="man_address" placeholder="">
+                </div>
+            </div>
+            <div class="three fields">
+                <div class="field">
+                    <label>Telephone</label>
+                    <input type="text" id="man_telephone" placeholder="">
+                </div>
+                <div class="field">
+                    <label>Fax</label>
+                    <input type="text" id="man_fax" placeholder="">
+                </div>
+                <div class="field">
+                    <label>Contact Person</label>
+                    <input type="text" id="man_person" placeholder="">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="actions">
+        <div class="ui mini cancel button">
+            Cancel
+        </div>
+        <div id="btn-resubmit-apply" class="ui mini right labeled icon blue ok button">
+            Add company
+            <i class="plus icon"></i>
         </div>
     </div>
 </div>

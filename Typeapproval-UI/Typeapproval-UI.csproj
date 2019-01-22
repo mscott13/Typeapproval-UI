@@ -189,6 +189,7 @@
     <Compile Include="Models\ReassignTaskParams.cs" />
     <Compile Include="Models\RecentActivity.cs" />
     <Compile Include="Models\RecentDocuments.cs" />
+    <Compile Include="Models\ResetPasswordParams.cs" />
     <Compile Include="Models\SavedApplications.cs" />
     <Compile Include="Models\Step1.cs" />
     <Compile Include="Models\Step2.cs" />
@@ -310,6 +311,7 @@
     <Content Include="Views\Admin\AllUsers.cshtml" />
     <Content Include="Views\Shared\_layout_internal_sysadmin.cshtml" />
     <Content Include="Views\SystemAdmin\Index.cshtml" />
+    <Content Include="Views\Account\AccountCreated.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -62,6 +62,66 @@ namespace Typeapproval_UI.Database
             return FixDuplicates(manufacturers);
         }
 
+        public List<Manufacturer> GetLocalManufacturers()
+        {
+            SqlConnection conn = new SqlConnection(SLW_dbConn);
+            SqlCommand cmd = new SqlCommand();
+            List<Manufacturer> manufacturers = new List<Manufacturer>();
+            SqlDataReader reader = null;
+            cmd.CommandText = " sp_getLocalManufacturers @manufacturer_id";
+            cmd.Parameters.AddWithValue("@manufacturer_id", "");
+            cmd.Connection = conn;
+
+            conn.Open();
+            reader = cmd.ExecuteReader();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    manufacturers.Add(new Manufacturer(reader["dealer"].ToString(), reader["address"].ToString(), reader["telephone"].ToString(), reader["fax"].ToString(), reader["contact_person"].ToString()));
+                }
+            }
+
+            conn.Close();
+            return manufacturers;
+        }
+
+        public List<ClientCompany> FixClientDuplicates(List<ClientCompany> data)
+        {
+            List<ClientCompany> group = new List<ClientCompany>();
+            List<ClientCompany> duplicates = new List<ClientCompany>();
+            bool addToGroup = true;
+
+            for (int i = 0; i < data.Count; i++)
+            {
+                addToGroup = true;
+                if (group.Count == 0)
+                {
+                    group.Add(data[i]);
+                }
+                else
+                {
+                    for (int j = 0; j < group.Count; j++)
+                    {
+                        if (group[j].name.ToLower() == data[i].name.ToLower())
+                        {
+                            duplicates.Add(data[i]);
+                            j = group.Count;
+                            addToGroup = false;
+                        }
+                    }
+
+                    if (addToGroup)
+                    {
+                        group.Add(data[i]);
+                    }
+                }
+            }
+            group.Sort((a, b) => a.name.CompareTo(b.name));
+            return group;
+        }
+
         public List<Manufacturer> FixDuplicates(List<Manufacturer> data)
         {
             List<Manufacturer> group = new List<Manufacturer>();
@@ -95,6 +155,31 @@ namespace Typeapproval_UI.Database
             }
             group.Sort((a, b) => a.name.CompareTo(b.name));
             return group;
+        }
+
+        public List<ClientCompany> GetClientDetails(string query)
+        {
+            SqlConnection conn = new SqlConnection(SLW_dbConn);
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader reader = null;
+            cmd.CommandText = "sp_getClientDetails @clientCompany";
+            cmd.Parameters.AddWithValue("@clientCompany", query);
+            cmd.Connection = conn;
+            List<ClientCompany> clientCompanies = new List<ClientCompany>();
+
+            conn.Open();
+            reader = cmd.ExecuteReader();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    clientCompanies.Add(new ClientCompany(reader["clientId"].ToString(), reader["clientCompany"].ToString(), reader["clientTelNum"].ToString(),
+                                                          reader["address"].ToString(), reader["clientFaxNum"].ToString(), "", "", reader["nationality"].ToString()));
+                }
+            }
+            conn.Close();
+            return FixClientDuplicates(clientCompanies);
         }
     }
 }
