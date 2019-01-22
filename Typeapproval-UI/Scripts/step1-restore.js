@@ -1,15 +1,16 @@
 ﻿$(document).ready(function () {
+    $(".ui.selection.dropdown.manufacturers").dropdown();
     
     /////////////////////// Saving data to session /////////////////////////
 
     $('.ui.blue.button.save_app.s1').click(function () {
-
+        
         if (validate()) {
             var btn_save = $(this);
             $(btn_save).addClass("disabled loading");
 
             var jsonObj = new Object();
-            jsonObj.manufacturer_name = $("input[name=manufacturer_name]").val();
+            jsonObj.manufacturer_name = $(".ui.selection.dropdown.manufacturers").dropdown('get text');
             jsonObj.manufacturer_tel = $("input[name=manufacturer_telephone]").val();
             jsonObj.manufacturer_address = $("input[name=manufacturer_address]").val();
             jsonObj.manufacturer_fax = $("input[name=manufacturer_fax]").val();
@@ -67,7 +68,7 @@
 
         if (validate()) {
             var jsonObj = new Object();
-            jsonObj.manufacturer_name = $("input[name=manufacturer_name]").val();
+            jsonObj.manufacturer_name = $(".ui.selection.dropdown.manufacturers").dropdown('get text');;
             jsonObj.manufacturer_tel = $("input[name=manufacturer_telephone]").val();
             jsonObj.manufacturer_address = $("input[name=manufacturer_address]").val();
             jsonObj.manufacturer_fax = $("input[name=manufacturer_fax]").val();
@@ -186,7 +187,7 @@
             url: "/retrieve/step-1",
             success: function (data) {
                 if (data.data_present) {
-                    $("input[name=manufacturer_name]").val(data.step1.manufacturer_name);
+                    $(".ui.selection.dropdown.manufacturers").dropdown('set selected', data.step1.manufacturer_name);
                     $("input[name=manufacturer_telephone]").val(data.step1.manufacturer_tel);
                     $("input[name=manufacturer_address]").val(data.step1.manufacturer_address);
                     $("input[name=manufacturer_fax]").val(data.step1.manufacturer_fax);

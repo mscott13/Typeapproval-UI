@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using Typeapproval_UI.Models;
 
 namespace Typeapproval_UI.Database
 {
@@ -33,6 +34,67 @@ namespace Typeapproval_UI.Database
                 conn.Close();
                 return null;
             }
+        }
+
+        public List<Manufacturer> GetManufacturers(string query)
+        {
+            SqlConnection conn = new SqlConnection(SLW_dbConn);
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader reader = null;
+            List<Manufacturer> manufacturers = new List<Manufacturer>();
+            cmd.CommandText = "sp_getManufacturers @query";
+            cmd.Parameters.AddWithValue("@query", query);
+
+            cmd.Connection = conn;
+            conn.Open();
+            reader = cmd.ExecuteReader();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    manufacturers.Add(new Manufacturer(reader["Dealer"].ToString(), reader["Address2"].ToString(), reader["TelNum"].ToString(), reader["FaxNum"].ToString(), ""));
+                }
+            }
+            reader.Close();
+            conn.Close();
+
+            return FixDuplicates(manufacturers);
+        }
+
+        public List<Manufacturer> FixDuplicates(List<Manufacturer> data)
+        {
+            List<Manufacturer> group = new List<Manufacturer>();
+            List<Manufacturer> duplicates = new List<Manufacturer>();
+            bool addToGroup = true;
+
+            for (int i = 0; i < data.Count; i++)
+            {
+                addToGroup = true;
+                if (group.Count == 0)
+                {
+                    group.Add(data[i]);
+                }
+                else
+                {
+                    for (int j = 0; j < group.Count; j++)
+                    {
+                        if (group[j].name.ToLower() == data[i].name.ToLower())
+                        {
+                            duplicates.Add(data[i]);
+                            j = group.Count;
+                            addToGroup = false;
+                        }
+                    }
+
+                    if (addToGroup)
+                    {
+                        group.Add(data[i]);
+                    }
+                }
+            }
+            group.Sort((a, b) => a.name.CompareTo(b.name));
+            return group;
         }
     }
 }

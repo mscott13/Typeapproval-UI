@@ -1,4 +1,5 @@
-﻿
+﻿@model List<Typeapproval_UI.Models.Manufacturer>
+
 @{
     ViewData["Title"] = "New application";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -18,7 +19,7 @@
     if (Session["view_mode"] == null)
     {
         mode = "";
-    }   
+    }
     else if (Session["view_mode"].ToString() == "preview")
     {
         mode = "preview";
@@ -27,42 +28,34 @@
     {
         mode = "edit";
     }
- }
+}
 
-    <div class="ui container override">
-        <div style="padding-left:10px !important; padding-right: 10px !important;" class="ui grid">
-            <div class="four wide column">
-                <div class="ui sticky _form">
-                    <div class="ui ignored small info message">
-                        <div class="header">
-                            Form controls
-                        </div>
-                        <p>This section allows you to <b>save</b> an incomplete application for later use. </p>
+<div class="ui container override">
+    <div style="padding-left:10px !important; padding-right: 10px !important;" class="ui grid">
+        <div class="four wide column">
+            <div class="ui sticky _form">
+                <div class="ui ignored small info message">
+                    <div class="header">
+                        Form controls
                     </div>
-                    @{
-                        if (mode == "preview")
+                    <p>This section allows you to <b>save</b> an incomplete application for later use. </p>
+                </div>
+                @{
+                    if (mode == "preview")
+                    {
+                        <div class="fluid ui tiny buttons">
+                            <button class="ui disabled button cancel_app">Cancel</button>
+                            <button class="ui disabled blue button save_app s1">Save for later</button>
+                        </div>
+                    }
+                    else if (mode == "edit")
+                    {
+                        if (Session["save_state"] != null)
                         {
                             <div class="fluid ui tiny buttons">
-                                <button class="ui disabled button cancel_app">Cancel</button>
-                                <button class="ui disabled blue button save_app s1">Save for later</button>
+                                <button class="ui button cancel_app">Cancel</button>
+                                <button class="ui blue button save_app s1">Update</button>
                             </div>
-                        }
-                        else if (mode == "edit")
-                        {
-                            if (Session["save_state"] != null)
-                            {
-                                <div class="fluid ui tiny buttons">
-                                    <button class="ui button cancel_app">Cancel</button>
-                                    <button class="ui blue button save_app s1">Update</button>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="fluid ui tiny buttons">
-                                    <button class="ui button cancel_app">Cancel</button>
-                                    <button class="ui blue button save_app s1">Save for later</button>
-                                </div>
-                            }
                         }
                         else
                         {
@@ -72,201 +65,242 @@
                             </div>
                         }
                     }
-                    <div class="ui fluid card">
-                        <div class="content">
-                            <h4 class="ui header">
-                                Saved Applications
-                            </h4>
+                    else
+                    {
+                        <div class="fluid ui tiny buttons">
+                            <button class="ui button cancel_app">Cancel</button>
+                            <button class="ui blue button save_app s1">Save for later</button>
                         </div>
-                        <div id="savedDocs" class="content">
-                            <div class="ui tiny active centered inline text loader saved-docs">Getting info...</div>
-                        </div>
+                    }
+                }
+                <div class="ui fluid card">
+                    <div class="content">
+                        <h4 class="ui header">
+                            Saved Applications
+                        </h4>
                     </div>
-                </div>
-            </div>
-            <div class="twelve wide column">
-                <div class="ui one column grid">
-                    <div class="column">
-
-                        <div class="ui tiny three top attached steps">
-                            <div class="active step">
-                                <i class="address card icon"></i>
-                                <div class="content">
-                                    <div class="title">Applicant Information</div>
-                                    <div class="description">Enter applicant details</div>
-                                </div>
-                            </div>
-                            <div class="readonly step">
-                                <i class="hdd icon"></i>
-                                <div class="content">
-                                    <div class="title">Equipment Information</div>
-                                    <div class="description">Description of Equipment</div>
-                                </div>
-                            </div>
-                            <div class="readonly step">
-                                <i class="upload icon"></i>
-                                <div class="content">
-                                    <div class="title">Upload Files</div>
-                                    <div class="description">Add files relevant to this application</div>
-                                </div>
-                            </div>
-                        </div>
-                        @if (Session["application_id"] != null)
-                        {
-                            <div class="ui small attached warning message application">
-                                <i class="info icon"></i>
-                                Application saved with ID: <b>@Session["application_id"].ToString()</b>
-                            </div>
-                        }
-
-                        <div id="context" class="ui clearing attached raised segment">
-                            <a class="ui grey ribbon label">1. &nbsp Client Company</a>
-                            <form class="ui form s1">
-                                <div class="two fields">
-                                    <div class="field">
-                                        <label>Name</label>
-                                        <div class="ui left icon input">
-                                            <input readonly  name="applicant_name" type="text" value="@company.name">
-                                            <i class="user icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label>Telephone</label>
-                                        <div class="ui left icon input">
-                                            <input readonly  name="telephone" type="text" value="@company.telephone">
-                                            <i class="phone volume icon"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="three fields">
-                                    <div class="field">
-                                        <label>Address</label>
-                                        <div class="ui left icon input">
-                                            <input readonly  name="address" type="text" value="@company.address">
-                                            <i class="address book icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label>Fax</label>
-                                        <div class="ui left icon input">
-                                            <input readonly  name="fax" type="text" value="@company.fax">
-                                            <i class="fax icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label>City/Town</label>
-                                        <div class="ui left icon input">
-                                            <input readonly  name="address" type="text" value="@company.cityTown">
-                                            <i class="map marker alternate icon"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="two fields">
-                                    <div class="field">
-                                        <label>Contact Person</label>
-                                        <div class="ui left icon input">
-                                            <input readonly  name="applicant_contact_person" type="text" value="@company.contactPerson">
-                                            <i class="user circle icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label>Nationality</label>
-                                        <div class="ui left icon input">
-                                            <input readonly  name="address" type="text" value="@company.nationality">
-                                            <i class="globe icon"></i>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <a class="ui grey ribbon label">2. &nbsp Manufacturer</a>
-                                <div class="three fields">
-                                    <div class="field">
-                                        <label>Name<span class="required-label" style="color: red">&nbsp;*</span></label>
-                                        <div class="ui left icon input">
-                                            @if (mode == "preview")
-                                            {
-                                                <input readonly id="" data-purpose="update_save_btn" autocomplete="off"  name="manufacturer_name" type="text">
-                                            }
-                                            else
-                                            {
-                                                <input id="search_manufacturers" data-purpose="update_save_btn" autocomplete="user-password"  name="manufacturer_name" type="text">
-                                            }
-                                            <i class="users icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label>Telephone<span class="required-label" style="color: red">&nbsp;*</span></label>
-                                        <div class="ui left icon input">
-                                            @if (mode == "preview")
-                                            {
-                                                <input readonly  name="manufacturer_telephone" type="text">
-                                            }
-                                            else
-                                            {
-                                                <input  name="manufacturer_telephone" type="text">
-                                            }
-                                            <i class="phone volume icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label>Address<span class="required-label" style="color: red">&nbsp;*</span></label>
-                                        <div class="ui left icon input">
-                                            @if (mode == "preview")
-                                            {
-                                                <input readonly  name="manufacturer_address" type="text">
-                                            }
-                                            else
-                                            {
-                                                <input  name="manufacturer_address" type="text">
-                                            }
-                                            <i class="address book icon"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="two fields">
-                                    <div class="field">
-                                        <label>Fax</label>
-                                        <div class="ui left icon input">
-                                            @if (mode == "preview")
-                                            {
-                                                <input readonly  name="manufacturer_fax" type="text">
-                                            }
-                                            else
-                                            {
-                                                <input  name="manufacturer_fax" type="text">
-                                            }
-                                            <i class="fax icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label>Contact Person</label>
-                                        <div class="ui left icon input">
-                                            @if (mode == "preview")
-                                            {
-                                                <input readonly  name="manufacturer_contact_person" type="text">
-                                            }
-                                            else
-                                            {
-                                                <input  name="manufacturer_contact_person" type="text">
-                                            }
-                                            <i class="user circle icon"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="one field">
-                                    <button id="step1_to_next" type="button" class="ui tiny right floated right labeled icon submit button">
-                                        <i class="right arrow icon"></i>
-                                        Next
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                    <div id="savedDocs" class="content">
+                        <div class="ui tiny active centered inline text loader saved-docs">Getting info...</div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="twelve wide column">
+            <div class="ui one column grid">
+                <div class="column">
 
+                    <div class="ui tiny three top attached steps">
+                        <div class="active step">
+                            <i class="address card icon"></i>
+                            <div class="content">
+                                <div class="title">Applicant Information</div>
+                                <div class="description">Enter applicant details</div>
+                            </div>
+                        </div>
+                        <div class="readonly step">
+                            <i class="hdd icon"></i>
+                            <div class="content">
+                                <div class="title">Equipment Information</div>
+                                <div class="description">Description of Equipment</div>
+                            </div>
+                        </div>
+                        <div class="readonly step">
+                            <i class="upload icon"></i>
+                            <div class="content">
+                                <div class="title">Upload Files</div>
+                                <div class="description">Add files relevant to this application</div>
+                            </div>
+                        </div>
+                    </div>
+                    @if (Session["application_id"] != null)
+                    {
+                        <div class="ui small attached warning message application">
+                            <i class="info icon"></i>
+                            Application saved with ID: <b>@Session["application_id"].ToString()</b>
+                        </div>
+                    }
+
+                    <div id="context" class="ui clearing attached raised segment">
+                        <a class="ui grey ribbon label">1. &nbsp Client Company</a>
+                        <form class="ui form s1">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Name</label>
+                                    <div class="ui left icon input">
+                                        <input readonly name="applicant_name" type="text" value="@company.name">
+                                        <i class="user icon"></i>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Telephone</label>
+                                    <div class="ui left icon input">
+                                        <input name="telephone" type="text" value="@company.telephone">
+                                        <i class="phone volume icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="three fields">
+                                <div class="field">
+                                    <label>Address</label>
+                                    <div class="ui left icon input">
+                                        <input name="address" type="text" value="@company.address">
+                                        <i class="address book icon"></i>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Fax</label>
+                                    <div class="ui left icon input">
+                                        <input name="fax" type="text" value="@company.fax">
+                                        <i class="fax icon"></i>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>City/Town</label>
+                                    <div class="ui left icon input">
+                                        <input name="address" type="text" value="@company.cityTown">
+                                        <i class="map marker alternate icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Contact Person</label>
+                                    <div class="ui left icon input">
+                                        <input name="applicant_contact_person" type="text" value="@company.contactPerson">
+                                        <i class="user circle icon"></i>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Nationality</label>
+                                    <div class="ui left icon input">
+                                        <input readonly name="address" type="text" value="@company.nationality">
+                                        <i class="globe icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a class="ui grey ribbon label">2. &nbsp Manufacturer</a>
+                            <div class="fields">
+                                <div class="eight wide field">
+                                    <label>Name<span class="required-label" style="color: red">&nbsp;*</span></label>
+
+                                    <div class="ui selection dropdown manufacturers">
+                                        <input type="hidden" name="gender">
+                                        <i class="dropdown icon"></i>
+                                        @if (Session["selected_manufacturer"] != null)
+                                        {
+                                            <div class="text">
+                                                @Session["selected_manufacturer"].ToString()
+                                            </div>
+
+                                        }
+                                        else
+                                        {
+                                            <div class="default text">
+                                                Select manufacturer
+                                            </div>
+                                        }
+
+                                        <div class="menu">
+                                            @if (Session["selected_manufacturer"] != null)
+                                            {
+                                                for (int i = 0; i < Model.Count; i++)
+                                                {
+                                                    if (Model[i].name == Session["selected_manufacturer"].ToString())
+                                                    {
+                                                        <div class="item active selected" data-value="@Model[i].name">@Model[i].name</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="item" data-value="@Model[i].name">@Model[i].name</div>
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                for (int i = 0; i < Model.Count; i++)
+                                                {
+                                                    <div class="item" data-value="@Model[i].name">@Model[i].name</div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="eight wide field">
+                                    <label>Address<span class="required-label" style="color: red">&nbsp;*</span></label>
+                                    <div class="ui left icon input">
+                                        @if (mode == "preview")
+                                        {
+                                            <input readonly name="manufacturer_address" type="text">
+                                        }
+                                        else
+                                        {
+                                            <input name="manufacturer_address" type="text">
+                                        }
+                                        <i class="address book icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="three fields">
+                                <div class="field">
+                                    <label>Telephone<span class="required-label" style="color: red">&nbsp;*</span></label>
+                                    <div class="ui left icon input">
+                                        @if (mode == "preview")
+                                        {
+                                            <input readonly name="manufacturer_telephone" type="text">
+                                        }
+                                        else
+                                        {
+                                            <input name="manufacturer_telephone" type="text">
+                                        }
+                                        <i class="phone volume icon"></i>
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <label>Fax</label>
+                                    <div class="ui left icon input">
+                                        @if (mode == "preview")
+                                        {
+                                            <input readonly name="manufacturer_fax" type="text">
+                                        }
+                                        else
+                                        {
+                                            <input name="manufacturer_fax" type="text">
+                                        }
+                                        <i class="fax icon"></i>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Contact Person</label>
+                                    <div class="ui left icon input">
+                                        @if (mode == "preview")
+                                        {
+                                            <input readonly name="manufacturer_contact_person" type="text">
+                                        }
+                                        else
+                                        {
+                                            <input name="manufacturer_contact_person" type="text">
+                                        }
+                                        <i class="user circle icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="one field">
+                                <button id="step1_to_next" type="button" class="ui tiny right floated right labeled icon submit button">
+                                    <i class="right arrow icon"></i>
+                                    Next
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+</div>
 <div class="ui basic modal cancel-confirm">
     <div class="ui icon header">
         <i class="trash icon"></i>

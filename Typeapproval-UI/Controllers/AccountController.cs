@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Net.Http;
@@ -54,6 +54,7 @@ namespace Typeapproval_UI.Controllers
                 Session.Remove("name_of_test");
                 Session.Remove("country");
                 Session.Remove("additional_info");
+                Session.Remove("selected_manufacturer");
                 return View();
             }
         }

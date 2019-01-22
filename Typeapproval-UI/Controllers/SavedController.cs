@@ -47,6 +47,7 @@ namespace Typeapproval_UI.Controllers
             Session.Remove("country");
             Session.Remove("additional_info");
             Session.Remove("view_mode");
+            Session.Remove("selected_manufacturer");
 
             var client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:54367/api/data/");

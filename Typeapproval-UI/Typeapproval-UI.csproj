@@ -181,6 +181,7 @@
     <Compile Include="Models\GetStaffAssignedTasksParams.cs" />
     <Compile Include="Models\LicensedApplication.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\Manufacturer.cs" />
     <Compile Include="Models\NewOngoingTaskParams.cs" />
     <Compile Include="Models\NewUser.cs" />
     <Compile Include="Models\OngoingTask.cs" />

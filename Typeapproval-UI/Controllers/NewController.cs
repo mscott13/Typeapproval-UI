@@ -9,6 +9,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Typeapproval_UI.Models;
+using Typeapproval_UI.Database;
 
 namespace Typeapproval_UI.Controllers
 {
@@ -97,6 +98,7 @@ namespace Typeapproval_UI.Controllers
                 Session.Remove("country");
                 Session.Remove("additional_info");
                 Session.Remove("view_mode");
+                Session.Remove("selected_manufacturer");
             }
 
             if (edit != null)
@@ -120,6 +122,7 @@ namespace Typeapproval_UI.Controllers
                     string result = _response.Content.ReadAsStringAsync().Result;
                     Form form = JsonConvert.DeserializeObject<Form>(result);
                     RestoreToSession(form);
+                    Session["selected_manufacturer"] = form.manufacturer_name;
                 }
             }
             else if (preview != null)
@@ -141,11 +144,24 @@ namespace Typeapproval_UI.Controllers
                 {
                     string result = _response.Content.ReadAsStringAsync().Result;
                     Form form = JsonConvert.DeserializeObject<Form>(result);
+                    Session["selected_manufacturer"] = form.manufacturer_name;
                     RestoreToSession(form);
                 }
             }
+            else
+            {
+                if (Session["manufacturer_name"] != null)
+                {
+                    var s = Session["manufacturer_name"].ToString();
+                    Session["selected_manufacturer"] = Session["manufacturer_name"].ToString();
+                }
+            }
 
-            return View();
+            SLW_DatabaseInfo db = new SLW_DatabaseInfo();
+            List<Manufacturer> manufacturers = db.GetManufacturers("");
+            
+
+            return View(manufacturers);
         }
 
         [HttpGet]
