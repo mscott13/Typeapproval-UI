@@ -34,7 +34,7 @@
                 <tbody id="staff-task-records">
                     @foreach (var item in Model)
                     {
-                        <tr>
+                        <tr data-appid="@item.approval_id" class="cert-view">
                             <td>@item.clientCompany</td>
                             <td>@item.Dealer</td>
                             <td>@item.Model</td>
@@ -53,5 +53,14 @@
             <p style="text-align:center; margin:0; padding:0; color:#6D676E;">No records found for current search criteria.</p>
         }
     </div>
+
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".cert-view").click(function () {
+                window.location = "/certificates-sma?approval_id=" + $(this).data("appid");
+            });
+        });
+    </script>
 </body>
 </html>

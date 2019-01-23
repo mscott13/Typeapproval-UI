@@ -128,7 +128,7 @@
     });
 
     function add_company(company_name, company_address, company_telephone, company_fax, company_person) {
-
+        $("#btn-addcompany-apply").addClass("disabled loading");
         var jsonObj = new Object();
         jsonObj.name = company_name;
         jsonObj.telephone = company_telephone;
@@ -150,7 +150,7 @@
                 $(".ui.selection.dropdown.clients").dropdown('get text');
                 $(".ui.selection.dropdown.clients").dropdown('refresh');
                 $(".ui.selection.dropdown.clients").dropdown('set selected', data);
-
+                $("#btn-addcompany-apply").removeClass("disabled loading");
                 setTimeout(function () {
 
                     $("#company_name").val('');
@@ -162,7 +162,7 @@
                 }, 500);    
             },
             error: function (data) {
-              
+                $("#btn-addcompany-apply").removeClass("disabled loading");
             }
         });
     }

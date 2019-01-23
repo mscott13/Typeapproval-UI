@@ -154,13 +154,26 @@
                                         <tbody>
                                             @for (int i = 0; i < Model.frequencies.Count; i++)
                                             {
-                                                <tr>
-                                                    <td>FCC ID: MG3-0602284</td>
-                                                    <td>@Model.frequencies[i].lower_freq - @Model.frequencies[i].upper_freq</td>
-                                                    <td>@Model.frequencies[i].power</td>
-                                                    <td>@Model.frequencies[i].tolerance</td>
-                                                    <td>@Model.frequencies[i].emmission_desig</td>
-                                                </tr>
+                                                if (i == 0)
+                                                {
+                                                    <tr>
+                                                        <td>@Model.remarks</td>
+                                                        <td>@Model.frequencies[i].lower_freq - @Model.frequencies[i].upper_freq</td>
+                                                        <td>@Model.frequencies[i].power</td>
+                                                        <td>@Model.frequencies[i].tolerance</td>
+                                                        <td>@Model.frequencies[i].emmission_desig</td>
+                                                    </tr>
+                                                }
+                                                else
+                                                {
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>@Model.frequencies[i].lower_freq - @Model.frequencies[i].upper_freq</td>
+                                                        <td>@Model.frequencies[i].power</td>
+                                                        <td>@Model.frequencies[i].tolerance</td>
+                                                        <td>@Model.frequencies[i].emmission_desig</td>
+                                                    </tr>
+                                                }
                                             }
                                         </tbody>
                                     </table>

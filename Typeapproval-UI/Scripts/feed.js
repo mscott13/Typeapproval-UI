@@ -22,7 +22,7 @@
     });
 
     $('.license_view').click(function () {
-        window.location = "/certificates?application_id=" + $(this).data('appid');
+        window.location = "/certificates-personal?application_id=" + $(this).data('appid');
     });
 
     function initializePreview(data)
