@@ -128,6 +128,7 @@
 
     function add_manufacturer(manufacturer_name, manufacturer_address, manufacturer_telephone, manufacturer_fax, manufacturer_person)
     {
+        $("#btn-addmanufacturer-apply").addClass("disabled loading");
         var jsonObj = new Object();
         jsonObj.name = manufacturer_name;
         jsonObj.telephone = manufacturer_telephone;
@@ -146,9 +147,13 @@
                 $(".ui.selection.dropdown.manufacturers").find(".menu").append('<div class="item" data-addr="' + data.address + '" data-tel="' + data.telephone + '" data-fax="' + data.fax + '" data-person="' + data.contact_person + '" data-value="' + data.name + '">' + data.name + '</div>');
                 $(".ui.selection.dropdown.manufacturers").dropdown('refresh');
                 $(".ui.selection.dropdown.manufacturers").dropdown('set selected', data.name);
+                $("#add_manufacturer").modal('hide');
+                $("#btn-addmanufacturer-apply").removeClass("disabled loading");
+                alert('Manufacturer added to list. Selected: ' + manufacturer_name);
             },
             error: function (data) {
                 console.log(data);
+                $("#btn-addmanufacturer-apply").removeClass("disabled loading");
             }
         });
     }

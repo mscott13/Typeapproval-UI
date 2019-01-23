@@ -10,6 +10,7 @@
     <title>Search results</title>
     <link href="~/Content/site.css" rel="stylesheet" />
     <link href="~/Content/semantic.css" rel="stylesheet" />
+    <link href="~/Content/custom.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -17,7 +18,7 @@
         <h4 id="search_results_title">Search Results</h4>
         @if (Model.Count > 0)
         {
-            <table class="ui fixed selectable table" id="type_approval_results_">
+            <table class="ui striped table" id="type_approval_results_">
                 <thead>
                     <tr>
                         <th>Client Company</th>
@@ -27,10 +28,10 @@
                         <th>Address</th>
                         <th>Remarks</th>
                         <th>Issue Date</th>
-                        <th>--</th>
+                        <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="staff-task-records">
                     @foreach (var item in Model)
                     {
                         <tr>
@@ -41,7 +42,7 @@
                             <td>@item.Address2</td>
                             <td>@item.Remarks</td>
                             <td>@item.issueDate</td>
-                            <td><a href="#">View Details</a></td>
+                            <td><a href="/certificates-sma?approval_id=@item.approval_id"><i class="file alternate icon"></i></a></td>
                         </tr>
                     }
                 </tbody>

@@ -12,6 +12,7 @@ namespace Typeapproval_UI.Models
         public string manufacturer_address { get; set; }
         public string product_identification { get; set; }
         public string equipment_description { get; set; }
+        public string remarks { get; set; }
 
         public Certificate GetDefaultSample()
         {
@@ -32,6 +33,7 @@ namespace Typeapproval_UI.Models
             manufacturer_address = "201 East Sandepointe Ave, 8th Floor, Santa Anna CA 92707 USA";
             product_identification = "060-2284";
             equipment_description = "JPN Panasonic Viera TV Touch Pad BT remote - Spread Sectrum Transmitter";
+            remarks = "FCC ID: MG3-0602284";
 
             return this;
         }

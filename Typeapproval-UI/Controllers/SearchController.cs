@@ -11,16 +11,24 @@ namespace Typeapproval_UI.Controllers
 {
     public class SearchController : Controller
     {
-        public ActionResult Index(string dealer = "", string model = "")
+        public ActionResult Index(string dealer = "", string model = "", string make = "", string remarks="")
         {
             if (dealer == null) { dealer = ""; }
             if (model == null) { model = ""; }
+            if (make == null) { make = ""; }
+            if (remarks == null) { remarks = ""; }
 
             dealer = dealer.TrimStart();
             dealer = dealer.TrimStart();
 
             model = model.TrimStart();
             model = model.TrimEnd();
+
+            make = make.TrimStart();
+            make = make.TrimStart();
+
+            remarks = remarks.TrimStart();
+            remarks = remarks.TrimEnd();
 
             List<TypeApproval> typeApprovals = null;
 
@@ -29,7 +37,7 @@ namespace Typeapproval_UI.Controllers
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:54367/api/search/");
-                var response = client.GetAsync("TypeApprovalDetails?Dealer=" + dealer + "&" + "Model=" + model);
+                var response = client.GetAsync("TypeApprovalDetails?Dealer=" + dealer + "&" + "Model=" + model + "&"+ "make="+make+"&"+"remarks="+remarks);
                 response.Wait();
 
                 var result = response.Result;

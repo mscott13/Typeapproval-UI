@@ -211,7 +211,7 @@
 
     function create_user(username, first_name, last_name, email, role, password, send_credentials)
     {
-        $("#btn-email-update").addClass("disabled loading");
+        $("#btn-create-user").addClass("disabled loading");
         var jsonObj = new Object();
         jsonObj.username = username;
         jsonObj.first_name = first_name;
@@ -230,6 +230,7 @@
                 console.log(data);
                 add_user_record(data.userDetails.username, data.userDetails.fullname, data.userDetails.user_type, data.userDetails.email, data.userDetails.created_date_str, data.userDetails.last_detected_activity_str);
                 $("#create_user").modal('hide');
+                $("#btn-create-user").removeClass("disabled loading");
 
                 setTimeout(function () {
 
@@ -242,9 +243,8 @@
                 
             },
             error: function (data) {
-                $("#btn-email-update").removeClass("disabled loading");
+                $("#btn-create-user").removeClass("disabled loading");
                 console.log(data);
-                $("#btn-email-update").removeClass("disabled loading");
             }
         });
     }

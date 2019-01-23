@@ -312,6 +312,7 @@
     <Content Include="Views\Shared\_layout_internal_sysadmin.cshtml" />
     <Content Include="Views\SystemAdmin\Index.cshtml" />
     <Content Include="Views\Account\AccountCreated.cshtml" />
+    <Content Include="Views\Certificates\SmaCertificate.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
