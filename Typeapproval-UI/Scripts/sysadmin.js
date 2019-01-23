@@ -48,6 +48,7 @@
 
     function reset_psw(user, new_psw)
     {
+        $("#btn-resetpsw-change").addClass("disabled loading");
         var jsonObj = new Object();
         jsonObj.username = user;
         jsonObj.new_password = new_psw;
@@ -59,6 +60,7 @@
             data: JSON.stringify(jsonObj),
             success: function (data) {
 
+                $("#btn-resetpsw-change").removeClass("disabled loading");
                 alert("Password was reset sucessfully");
                 $("#reset_password").modal('hide');
 
@@ -69,6 +71,7 @@
             },
             error: function (data) {
                 console.log(data);
+                $("#btn-resetpsw-change").removeClass("disabled loading");
             }
         });
     }

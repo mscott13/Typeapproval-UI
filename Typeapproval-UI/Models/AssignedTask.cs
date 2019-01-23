@@ -12,6 +12,7 @@ namespace Typeapproval_UI.Models
         public string assigned_date { get; set; }
         public string submitted_by { get; set; }
         public string status { get; set; }
+        public string administrator { get; set; }
         public List<ApplicationFiles> applicationFiles { get; set; }
     }
 }

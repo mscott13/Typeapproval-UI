@@ -14,7 +14,7 @@ namespace Typeapproval_UI.Controllers
     public class CertificatesController : Controller
     {
         [HttpGet]
-        [Route("certificates")]
+        [Route("certificates-personal")]
         public ActionResult Index(string application_id)
         {
             Session.Remove("save_state");
@@ -79,6 +79,13 @@ namespace Typeapproval_UI.Controllers
                 Models.Certificate certificate = new Models.Certificate();
                 return View(certificate.GetDefaultSample());
             }
+        }
+
+        [HttpGet]
+        [Route("certificates-sma")]
+        public ActionResult SmaCertificate(string approval_id)
+        {
+            return View()
         }
     }
 }
