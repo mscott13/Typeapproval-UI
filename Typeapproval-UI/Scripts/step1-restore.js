@@ -21,16 +21,19 @@
             $(btn_save).addClass("disabled loading");
 
             var jsonObj = new Object();
+            jsonObj.applicant_name = $("input[name=applicant_name]").val();
+            jsonObj.applicant_tel = $("input[name=applicant_telephone]").val();
+            jsonObj.applicant_address = $("input[name=applicant_address]").val();
+            jsonObj.applicant_fax = $("input[name=applicant_fax]").val();
+            jsonObj.applicant_city_town = $("input[name=applicant_city_town]").val();
+            jsonObj.applicant_contact_person = $("input[name=applicant_contact_person]").val();
+            jsonObj.applicant_nationality = $("input[name=applicant_nationality]").val();
+
             jsonObj.manufacturer_name = $(".ui.selection.dropdown.manufacturers").dropdown('get text');
             jsonObj.manufacturer_tel = $("input[name=manufacturer_telephone]").val();
             jsonObj.manufacturer_address = $("input[name=manufacturer_address]").val();
             jsonObj.manufacturer_fax = $("input[name=manufacturer_fax]").val();
             jsonObj.manufacturer_contact_person = $("input[name=manufacturer_contact_person]").val();
-            jsonObj.provider_name = $("input[name=provider_name]").val();
-            jsonObj.provider_telephone = $("input[name=provider_telephone]").val();
-            jsonObj.provider_address = $("input[name=provider_address]").val();
-            jsonObj.provider_fax = $("input[name=provider_fax]").val();
-            jsonObj.provider_contact_person = $("input[name=provider_contact_person]").val();
 
             var json = JSON.stringify(jsonObj);
 
@@ -162,6 +165,14 @@
 
         if (validate()) {
             var jsonObj = new Object();
+            jsonObj.applicant_name = $("input[name=applicant_name]").val();
+            jsonObj.applicant_tel = $("input[name=applicant_telephone]").val();
+            jsonObj.applicant_address = $("input[name=applicant_address]").val();
+            jsonObj.applicant_fax = $("input[name=applicant_fax]").val();
+            jsonObj.applicant_city_town = $("input[name=applicant_city_town]").val();
+            jsonObj.applicant_contact_person = $("input[name=applicant_contact_person]").val();
+            jsonObj.applicant_nationality = $("input[name=applicant_nationality]").val();
+
             jsonObj.manufacturer_name = $(".ui.selection.dropdown.manufacturers").dropdown('get text');;
             jsonObj.manufacturer_tel = $("input[name=manufacturer_telephone]").val();
             jsonObj.manufacturer_address = $("input[name=manufacturer_address]").val();

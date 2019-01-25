@@ -87,6 +87,14 @@ namespace Typeapproval_UI.Controllers
 
         private void reset_form_session()
         {
+            Session.Remove("applicant_name");
+            Session.Remove("applicant_tel");
+            Session.Remove("applicant_address");
+            Session.Remove("applicant_fax");
+            Session.Remove("applicant_city_town");
+            Session.Remove("applicant_contact_person");
+            Session.Remove("applicant_nationality");
+
             Session.Remove("save_state");
             Session.Remove("application_id");
             Session.Remove("manufacturer_name");

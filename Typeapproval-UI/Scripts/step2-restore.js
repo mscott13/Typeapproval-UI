@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-  
+    $("#popup_fcc").popup();
 
     $('.ui.blue.button.save_app.s2').click(function () {
             var btn_save = $(this);
@@ -258,31 +258,31 @@
 
             '<td>' +
             '<div class="ui transparent input">' +
-            ' <input type="number" placeholder="lower mhz" style="width:100%" name="lower_mhz" value=' + lower_freq + '>' +
+            ' <input type="number" placeholder="(required)" style="width:100%" name="lower_mhz" value=' + lower_freq + '>' +
             '</div>' +
             ' </td>' +
 
             '<td>' +
             '<div class="ui transparent input">' +
-            '<input type="number" placeholder="upper mhz" style="width:100%" name="upper_mhz" value=' + upper_freq + '>' +
+            '<input type="number" placeholder="(required)" style="width:100%" name="upper_mhz" value=' + upper_freq + '>' +
             '</div>' +
             '</td>' +
 
             '<td>' +
             '<div class="ui transparent input">' +
-            '<input type="number" placeholder="power" style="width:100%" name="power" value=' + power + '>' +
+            '<input type="number" placeholder="" style="width:100%" name="power" value=' + power + '>' +
             '</div>' +
             '</td>' +
 
             '<td>' +
             '<div class="ui transparent input">' +
-            '<input type="number" placeholder="tolerance" style="width:100%" name="tolerance" value=' + freq_tol + '>' +
+            '<input type="number" placeholder="" style="width:100%" name="tolerance" value=' + freq_tol + '>' +
             '</div>' +
             '</td>' +
 
             '<td>' +
             '<div class="ui transparent input">' +
-            '<input type="text" placeholder="emmission desig..." style="width:100%" name="emmission_desig" value=' + emmision_desig + '>' +
+            '<input type="text" placeholder="" style="width:100%" name="emmission_desig" value=' + emmision_desig + '>' +
             '</div>' +
             '</td>';
 

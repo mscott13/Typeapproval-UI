@@ -19,87 +19,59 @@ namespace Typeapproval_UI.Controllers
         [Route("new/step-1")]
         public ActionResult Step1(string from, string preview, string edit, string status)
         {
-            #region load default information
-            var client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:54367/api/data/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            dynamic param = new ExpandoObject();
-            param.access_key = Session["key"];
-            var content = new StringContent(JsonConvert.SerializeObject(param), Encoding.UTF8, "application/json");
-
-            HttpResponseMessage response = client.PostAsync("applicantInfo", content).Result;
-            if (response.IsSuccessStatusCode)
-            {
-                string json = response.Content.ReadAsStringAsync().Result;
-                dynamic obj = JsonConvert.DeserializeObject<dynamic>(json);
-
-                if (Convert.ToString(obj) == "empty")
-                {
-                    dynamic objEmpty = new ExpandoObject();
-                    objEmpty.name = "";
-                    objEmpty.telephone = "";
-                    objEmpty.address = "";
-                    objEmpty.fax = "";
-                    objEmpty.cityTown = "";
-                    objEmpty.contactPerson = "";
-                    objEmpty.nationality = "";
-                    ViewData["company"] = objEmpty;
-                }
-                else
-                {
-                    ViewData["company"] = obj;
-                    Session["applicant_name"] = (string)obj.name;
-                    Session["applicant_tel"] = (string)obj.telephone;
-                    Session["applicant_address"] = (string)obj.address;
-                    Session["applicant_fax"] = (string)obj.fax;
-                    Session["applicant_city_town"] = (string)obj.cityTown;
-                    Session["applicant_contact_person"] = (string)obj.contactPerson;
-                    Session["applicant_nationality"] = (string)obj.nationality;
-                }
-             
-            }
-            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-            {
-                //return to login
-            }
-            #endregion
-
             if (from == null)
             {
-                Session.Remove("save_state");
-                Session.Remove("application_id");
-                Session.Remove("manufacturer_name");
-                Session.Remove("manufacturer_tel");
-                Session.Remove("manufacturer_address");
-                Session.Remove("manufacturer_fax");
-                Session.Remove("manufacturer_contact_person");
-
-                Session.Remove("equipment_type");
-                Session.Remove("equipment_description");
-                Session.Remove("product_identification");
-                Session.Remove("refNum");
-                Session.Remove("make");
-                Session.Remove("software");
-                Session.Remove("type_of_equipment");
-                Session.Remove("other");
-                Session.Remove("antenna_type");
-                Session.Remove("antenna_gain");
-                Session.Remove("channel");
-                Session.Remove("separation");
-                Session.Remove("aspect");
-                Session.Remove("compatibility");
-                Session.Remove("security");
-                Session.Remove("equipment_comm_type");
-                Session.Remove("fee_code");
-                Session.Remove("frequencies");
-                Session.Remove("name_of_test");
-                Session.Remove("country");
-                Session.Remove("additional_info");
-                Session.Remove("view_mode");
-                Session.Remove("selected_manufacturer");
+                ClearFormSession();
             }
+
+            if (Session["applicant_name"] == null)
+            {
+                #region load default information
+                var client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                dynamic param = new ExpandoObject();
+                param.access_key = Session["key"];
+                var content = new StringContent(JsonConvert.SerializeObject(param), Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = client.PostAsync("applicantInfo", content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = response.Content.ReadAsStringAsync().Result;
+                    dynamic obj = JsonConvert.DeserializeObject<dynamic>(json);
+
+                    if (Convert.ToString(obj) == "empty")
+                    {
+                        dynamic objEmpty = new ExpandoObject();
+                        objEmpty.name = "";
+                        objEmpty.telephone = "";
+                        objEmpty.address = "";
+                        objEmpty.fax = "";
+                        objEmpty.cityTown = "";
+                        objEmpty.contactPerson = "";
+                        objEmpty.nationality = "";
+                    }
+                    else
+                    {
+                        Session["applicant_name"] = (string)obj.name;
+                        Session["applicant_tel"] = (string)obj.telephone;
+                        Session["applicant_address"] = (string)obj.address;
+                        Session["applicant_fax"] = (string)obj.fax;
+                        Session["applicant_city_town"] = (string)obj.cityTown;
+                        Session["applicant_contact_person"] = (string)obj.contactPerson;
+                        Session["applicant_nationality"] = (string)obj.nationality;
+                    }
+
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    //return to login
+                }
+                #endregion
+            }
+         
 
             if (edit != null)
             {
@@ -159,8 +131,8 @@ namespace Typeapproval_UI.Controllers
 
             SLW_DatabaseInfo db = new SLW_DatabaseInfo();
             List<Manufacturer> manufacturers = db.GetManufacturers("");
-            
 
+            var str = Session["application_id"];
             return View(manufacturers);
         }
 
@@ -277,6 +249,14 @@ namespace Typeapproval_UI.Controllers
         public ActionResult SessionSave1(Form form)
         {
             form.RemoveNulls();
+            Session["applicant_name"] = form.applicant_name;
+            Session["applicant_tel"] = form.applicant_tel;
+            Session["applicant_address"] = form.applicant_address;
+            Session["applicant_fax"] = form.applicant_fax;
+            Session["applicant_city_town"] = form.applicant_city_town;
+            Session["applicant_contact_person"] = form.applicant_contact_person;
+            Session["applicant_nationality"] = form.applicant_nationality;
+
             Session["manufacturer_name"] = form.manufacturer_name;
             Session["manufacturer_tel"] = form.manufacturer_tel;
             Session["manufacturer_address"] = form.manufacturer_address;
@@ -856,6 +836,49 @@ namespace Typeapproval_UI.Controllers
             }
             #endregion
             return status;
+        }
+
+        private void ClearFormSession()
+        {
+            Session.Remove("applicant_name");
+            Session.Remove("applicant_tel");
+            Session.Remove("applicant_address");
+            Session.Remove("applicant_fax");
+            Session.Remove("applicant_city_town");
+            Session.Remove("applicant_contact_person");
+            Session.Remove("applicant_nationality");
+
+            Session.Remove("save_state");
+            Session.Remove("application_id");
+            Session.Remove("manufacturer_name");
+            Session.Remove("manufacturer_tel");
+            Session.Remove("manufacturer_address");
+            Session.Remove("manufacturer_fax");
+            Session.Remove("manufacturer_contact_person");
+
+            Session.Remove("equipment_type");
+            Session.Remove("equipment_description");
+            Session.Remove("product_identification");
+            Session.Remove("refNum");
+            Session.Remove("make");
+            Session.Remove("software");
+            Session.Remove("type_of_equipment");
+            Session.Remove("other");
+            Session.Remove("antenna_type");
+            Session.Remove("antenna_gain");
+            Session.Remove("channel");
+            Session.Remove("separation");
+            Session.Remove("aspect");
+            Session.Remove("compatibility");
+            Session.Remove("security");
+            Session.Remove("equipment_comm_type");
+            Session.Remove("fee_code");
+            Session.Remove("frequencies");
+            Session.Remove("name_of_test");
+            Session.Remove("country");
+            Session.Remove("additional_info");
+            Session.Remove("view_mode");
+            Session.Remove("selected_manufacturer");
         }
     }
 }

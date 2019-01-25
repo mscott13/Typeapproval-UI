@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "New application";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    dynamic company = ViewData["company"];
 }
 
 @section Scripts{
@@ -127,14 +126,14 @@
                                 <div class="field">
                                     <label>Name</label>
                                     <div class="ui left icon input">
-                                        <input readonly name="applicant_name" type="text" value="@company.name">
+                                        <input readonly name="applicant_name" type="text" value="@Session["applicant_name"].ToString()">
                                         <i class="user icon"></i>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <label>Telephone</label>
                                     <div class="ui left icon input">
-                                        <input name="telephone" type="text" value="@company.telephone">
+                                        <input name="applicant_telephone" type="text" value="@Session["applicant_tel"].ToString()">
                                         <i class="phone volume icon"></i>
                                     </div>
                                 </div>
@@ -143,21 +142,21 @@
                                 <div class="field">
                                     <label>Address</label>
                                     <div class="ui left icon input">
-                                        <input name="address" type="text" value="@company.address">
+                                        <input name="applicant_address" type="text" value="@Session["applicant_address"].ToString()">
                                         <i class="address book icon"></i>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <label>Fax</label>
                                     <div class="ui left icon input">
-                                        <input name="fax" type="text" value="@company.fax">
+                                        <input name="applicant_fax" type="text" value="@Session["applicant_fax"].ToString()">
                                         <i class="fax icon"></i>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <label>City/Town</label>
                                     <div class="ui left icon input">
-                                        <input name="address" type="text" value="@company.cityTown">
+                                        <input name="applicant_city_town" type="text" value="@Session["applicant_city_town"].ToString()">
                                         <i class="map marker alternate icon"></i>
                                     </div>
                                 </div>
@@ -166,14 +165,14 @@
                                 <div class="field">
                                     <label>Contact Person</label>
                                     <div class="ui left icon input">
-                                        <input name="applicant_contact_person" type="text" value="@company.contactPerson">
+                                        <input name="applicant_contact_person" type="text" value="@Session["applicant_contact_person"].ToString()">
                                         <i class="user circle icon"></i>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <label>Nationality</label>
                                     <div class="ui left icon input">
-                                        <input name="address" type="text" value="@company.nationality">
+                                        <input name="applicant_nationality" type="text" value="@Session["applicant_nationality"].ToString()">
                                         <i class="globe icon"></i>
                                     </div>
                                 </div>
