@@ -15,6 +15,7 @@ namespace Typeapproval_UI.Controllers
 {
     public class NewController : Controller
     {
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         [HttpGet]
         [Route("new/step-1")]
         public ActionResult Step1(string from, string preview, string edit, string status)
@@ -136,6 +137,23 @@ namespace Typeapproval_UI.Controllers
             return View(manufacturers);
         }
 
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
+        [HttpGet]
+        [Route("new/step-2")]
+        public ActionResult Step2()
+        {
+            return View();
+        }
+
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
+        [HttpGet]
+        [Route("new/step-3")]
+        public ActionResult Step3()
+        {
+            return View();
+        }
+
+
         [HttpGet]
         [Route("new/edit")]
         public ActionResult Edit(string application_id, string status)
@@ -230,19 +248,6 @@ namespace Typeapproval_UI.Controllers
             Session["country"] = form.country;
         }
 
-        [HttpGet]
-        [Route("new/step-2")]
-        public ActionResult Step2()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        [Route("new/step-3")]
-        public ActionResult Step3()
-        {
-            return View();
-        }
 
         [HttpPost]
         [Route("save/step-1")]
@@ -304,6 +309,14 @@ namespace Typeapproval_UI.Controllers
         {
             bool initialized = PrepareStep1Session();
             Step1 step1 = new Step1();
+            step1.applicant_name = Session["applicant_name"].ToString(); ;
+            step1.applicant_telephone = Session["applicant_tel"].ToString(); ;
+            step1.applicant_fax = Session["applicant_fax"].ToString();
+            step1.applicant_address = Session["applicant_address"].ToString();
+            step1.applicant_city_town = Session["applicant_city_town"].ToString();
+            step1.applicant_contact_person = Session["applicant_contact_person"].ToString();
+            step1.applicant_nationality = Session["applicant_nationality"].ToString();
+
             step1.manufacturer_name = Session["manufacturer_name"].ToString();
             step1.manufacturer_tel = Session["manufacturer_tel"].ToString();
             step1.manufacturer_address = Session["manufacturer_address"].ToString();

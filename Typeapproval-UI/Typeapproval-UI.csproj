@@ -200,6 +200,7 @@
     <Compile Include="Models\UnassignedTask.cs" />
     <Compile Include="Models\UserActivity.cs" />
     <Compile Include="Models\UserDetails.cs" />
+    <Compile Include="NoCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

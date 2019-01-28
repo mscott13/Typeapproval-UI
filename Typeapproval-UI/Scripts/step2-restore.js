@@ -1,5 +1,22 @@
 ﻿$(document).ready(function () {
 
+    $(window).bind('keydown', function (event) {
+        if (event.ctrlKey || event.metaKey) {
+            switch (String.fromCharCode(event.which).toLowerCase()) {
+                case 's':
+                    event.preventDefault();
+                    $('.ui.blue.button.save_app.s2').trigger('click');
+                    break;
+                case 'f':
+                    event.preventDefault();
+                    break;
+                case 'g':
+                    event.preventDefault();
+                    break;
+            }
+        }
+    });
+
     $("#popup_fcc").popup();
 
     $('.ui.blue.button.save_app.s2').click(function () {

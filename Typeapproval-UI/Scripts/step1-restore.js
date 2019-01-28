@@ -1,4 +1,22 @@
 ﻿$(document).ready(function () {
+
+    $(window).bind('keydown', function (event) {
+        if (event.ctrlKey || event.metaKey) {
+            switch (String.fromCharCode(event.which).toLowerCase()) {
+                case 's':
+                    event.preventDefault();
+                    $('.ui.blue.button.save_app.s1').trigger('click');
+                    break;
+                case 'f':
+                    event.preventDefault();
+                    break;
+                case 'g':
+                    event.preventDefault();
+                    break;
+            }
+        }
+    });
+
     $(".ui.selection.dropdown.manufacturers").dropdown({
         onChange: function (value, text, $item) {
             console.log(text);
@@ -211,7 +229,7 @@
             contentType: "application/json; charset=utf-8",
             data: { "application_id": $(this).data('appid') },
             success: function (data) {
-                restore_step1();
+                restore_step1_v2();
             },
             error: function (data) {
             }
@@ -293,8 +311,53 @@
                     $("input[name=manufacturer_fax]").val(data.step1.manufacturer_fax);
                     $("input[name=manufacturer_contact_person]").val(data.step1.manufacturer_contact_person);
 
-                    if (data.step1.application_id !== '')
-                    {
+                    if (data.step1.application_id !== '') {
+                        if ($('.ui.small.attached.warning.message.application').length === 0) {
+                            var attatched_header =
+                                '<div class="ui small attached warning message application">' +
+                                '<i class="info icon"></i>' +
+                                ' Application saved with ID: <b>' + data.step1.application_id + '</b>' +
+                                '</div>';
+
+                            $(attatched_header).insertAfter('.ui.tiny.three.top.attached.steps');
+                        }
+                        else {
+                            var html =
+                                '<i class="info icon"></i>' +
+                                'Application saved with ID: <b>' + data.step1.application_id + '</b>';
+
+                            $('.ui.small.attached.warning.message.application').html(html);
+                        }
+                    }
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+    function restore_step1_v2() {
+        $.ajax({
+            type: "GET",
+            url: "/retrieve/step-1",
+            success: function (data) {
+                if (data.data_present) {
+                    $(".ui.selection.dropdown.manufacturers").dropdown('set selected', data.step1.manufacturer_name);
+                    $("input[name=applicant_name]").val(data.step1.applicant_name);
+                    $("input[name=applicant_telephone]").val(data.step1.applicant_telephone);
+                    $("input[name=applicant_address]").val(data.step1.applicant_address);
+                    $("input[name=applicant_fax]").val(data.step1.applicant_fax);
+                    $("input[name=applicant_city_town]").val(data.step1.applicant_city_town);
+                    $("input[name=applicant_contact_person]").val(data.step1.applicant_contact_person);
+                    $("input[name=applicant_nationality]").val(data.step1.applicant_nationality);
+
+                    $("input[name=manufacturer_telephone]").val(data.step1.manufacturer_tel);
+                    $("input[name=manufacturer_address]").val(data.step1.manufacturer_address);
+                    $("input[name=manufacturer_fax]").val(data.step1.manufacturer_fax);
+                    $("input[name=manufacturer_contact_person]").val(data.step1.manufacturer_contact_person);
+
+                    if (data.step1.application_id !== '') {
                         if ($('.ui.small.attached.warning.message.application').length === 0) {
                             var attatched_header =
                                 '<div class="ui small attached warning message application">' +

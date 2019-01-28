@@ -1,7 +1,4 @@
 ﻿$(document).ready(function () {
-
-  
-
     $('body').on('click', '.form_preview', function () {
         console.log($(this).data('appid')); 
         var appid = $(this).data('appid');

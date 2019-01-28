@@ -43,7 +43,6 @@
                     if (mode == "preview")
                     {
                         <div class="fluid ui tiny buttons">
-                            <button class="ui disabled button cancel_app">Cancel</button>
                             <button class="ui disabled blue button save_app s3">Save for later</button>
                         </div>
                     }
@@ -52,14 +51,12 @@
                         if (Session["save_state"] != null)
                         {
                             <div class="fluid ui tiny buttons">
-                                <button class="ui button cancel_app">Cancel</button>
                                 <button class="ui blue button save_app s3">Update</button>
                             </div>
                         }
                         else
                         {
                             <div class="fluid ui tiny buttons">
-                                <button class="ui button cancel_app">Cancel</button>
                                 <button class="ui blue button save_app s3">Save for later</button>
                             </div>
                         }
@@ -67,7 +64,6 @@
                     else
                     {
                         <div class="fluid ui tiny buttons">
-                            <button class="ui button cancel_app">Cancel</button>
                             <button class="ui blue button save_app s3">Save for later</button>
                         </div>
                     }
@@ -127,8 +123,8 @@
                                         <div class="eight wide column">
                                             <p>Technical Specifications of Equipment</p>
                                         </div>
-                                        <div class="five wide column">
-                                            <a class="link_override_v1" id="tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>Attach PDF</a>
+                                        <div id="tech_spec_links" class="five wide column">
+                                            <a data-seq="0" class="link_override_v1 tech_spec" style="cursor:pointer !important;"><i class="file pdf icon"></i>Attach PDF</a>
                                         </div>
                                         <div class="three wide column">
                                             <div class="ui read-only checkbox tech_spec_check">
@@ -140,8 +136,8 @@
                                         <div class="eight wide column">
                                             <p>A copy of the test report (EMC, RF Safety etc) of the technical characteristics of the radio communication equipment, issued by a recognized test or certification body</p>
                                         </div>
-                                        <div class="five wide column">
-                                            <a class="link_override_v1" id="test_report" style="cursor:pointer !important;"><i class="file pdf icon"></i>Attach PDF</a>
+                                        <div id="test_report_links" class="five wide column">
+                                            <a data-seq="0" class="link_override_v1 test_report" style="cursor:pointer !important;"><i class="file pdf icon"></i>Attach PDF</a>
                                         </div>
                                         <div class="three wide column">
                                             <div class="ui read-only checkbox test_report_check">
@@ -153,11 +149,37 @@
                                         <div class="eight wide column">
                                             <p>A copy of accreditation certificate of test or certification</p>
                                         </div>
-                                        <div class="five wide column">
-                                            <a class="link_override_v1" id="accreditation" style="cursor:pointer !important;"><i class="file pdf icon"></i>Attach PDF</a>
+                                        <div id="accreditation_links" class="five wide column">
+                                            <a data-seq="0" class="link_override_v1 accreditation" style="cursor:pointer !important;"><i class="file pdf icon"></i>Attach PDF</a>
                                         </div>
                                         <div class="three wide column">
-                                            <div class="ui read-only checkbox accreditation">
+                                            <div class="ui read-only checkbox accreditation_check">
+                                                <input type="checkbox" name="example">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="eight wide column">
+                                            <p>Letter of Authorization</p>
+                                        </div>
+                                        <div id="letter_authorization_links" class="five wide column">
+                                            <a data-seq="0" class="link_override_v1 letter_authorization" style="cursor:pointer !important;"><i class="file pdf icon"></i>Attach PDF</a>
+                                        </div>
+                                        <div class="three wide column">
+                                            <div class="ui read-only checkbox letter_authorization_check">
+                                                <input type="checkbox" name="example">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="eight wide column">
+                                            <p>User Manual</p>
+                                        </div>
+                                        <div id="user_manual_links" class="five wide column">
+                                            <a data-seq="0" class="link_override_v1 user_manual" style="cursor:pointer !important;"><i class="file pdf icon"></i>Attach PDF</a>
+                                        </div>
+                                        <div class="three wide column">
+                                            <div class="ui read-only checkbox user_manual_check">
                                                 <input type="checkbox" name="example">
                                             </div>
                                         </div>
@@ -185,9 +207,13 @@
                                    
                                 </div>
 
-                                <input id="file_tech_spec" multiple accept="application/pdf" type="file" style="display: none" />
-                                <input id="file_test_report" multiple accept="application/pdf" type="file" style="display: none" />
-                                <input id="file_accreditation" multiple accept="application/pdf" type="file" style="display: none" />
+                                <div id="files_input_container">
+                                    <input data-seq="0" class="file_tech_spec" accept="application/pdf" type="file" style="display: none" />
+                                    <input data-seq="0" class="file_test_report" accept="application/pdf" type="file" style="display: none" />
+                                    <input data-seq="0" class="file_accreditation" accept="application/pdf" type="file" style="display: none" />
+                                    <input data-seq="0" class="file_letter_authorization" accept="application/pdf" type="file" style="display: none" />
+                                    <input data-seq="0" class="file_user_manual" accept="application/pdf" type="file" style="display: none" />
+                                </div>
 
                                 <div class="one field">
                                     <button id="step3_to_finish" type="button" class="ui tiny right floated blue button">
