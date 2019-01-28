@@ -17,17 +17,17 @@
         }
     });
 
-    $(".ui.selection.dropdown.manufacturers").dropdown({
+    $(".ui.selection.dropdown.grantees").dropdown({
         onChange: function (value, text, $item) {
             console.log(text);
             console.log(value);
 
-            $("input[name=manufacturer_telephone]").val($($item).data("tel"));
-            $("input[name=manufacturer_address]").val($($item).data("addr"));
-            $("input[name=manufacturer_fax]").val($($item).data("fax"));
-            $("input[name=manufacturer_contact_person]").val($($item).data("person"));
-            
-        }
+            $("input[name=grantee_telephone]").val($($item).data("tel"));
+            $("input[name=grantee_address]").val($($item).data("addr"));
+            $("input[name=grantee_fax]").val($($item).data("fax"));
+            $("input[name=grantee_contact_person]").val($($item).data("person"));
+        },
+        wrapSelection: false
     });
     
     /////////////////////// Saving data to session /////////////////////////
@@ -47,11 +47,12 @@
             jsonObj.applicant_contact_person = $("input[name=applicant_contact_person]").val();
             jsonObj.applicant_nationality = $("input[name=applicant_nationality]").val();
 
-            jsonObj.manufacturer_name = $(".ui.selection.dropdown.manufacturers").dropdown('get text');
-            jsonObj.manufacturer_tel = $("input[name=manufacturer_telephone]").val();
-            jsonObj.manufacturer_address = $("input[name=manufacturer_address]").val();
-            jsonObj.manufacturer_fax = $("input[name=manufacturer_fax]").val();
-            jsonObj.manufacturer_contact_person = $("input[name=manufacturer_contact_person]").val();
+            jsonObj.grantee_name = $(".ui.selection.dropdown.grantees").dropdown('get text');
+            jsonObj.manufacturer_name = $("input[name=manufacturer_name]").val();
+            jsonObj.grantee_tel = $("input[name=grantee_telephone]").val();
+            jsonObj.grantee_address = $("input[name=grantee_address]").val();
+            jsonObj.grantee_fax = $("input[name=grantee_fax]").val();
+            jsonObj.grantee_contact_person = $("input[name=grantee_contact_person]").val();
 
             var json = JSON.stringify(jsonObj);
 
@@ -96,85 +97,85 @@
     });
     /////////////////////// Saving data to session /////////////////////////
 
-    $("#add-manufacturer").click(function () {
-        $("#add_manufacturer").modal({
+    $("#add-grantee").click(function () {
+        $("#add_grantee").modal({
             onApprove: function () {
-                var manufacturer_name = $("#man_name").val();
-                var manufacturer_address = $("#man_address").val();
-                var manufacturer_telephone = $("#man_telephone").val();
-                var manufacturer_fax = $("#man_fax").val();
-                var manufacturer_person = $("#man_person").val();
+                var grantee_name = $("#grant_name").val();
+                var grantee_address = $("#grant_address").val();
+                var grantee_telephone = $("#grant_telephone").val();
+                var grantee_fax = $("#grant_fax").val();
+                var grantee_person = $("#grant_person").val();
 
-                if (manufacturer_name !== '') {
-                    if (manufacturer_address !== '') {
-                        if (manufacturer_telephone !== '') {
-                            var man_name_exist = $(".ui.selection.dropdown.manufacturers").dropdown('get item', manufacturer_name);
-                            if (!man_name_exist) {
-                                add_manufacturer(manufacturer_name, manufacturer_address, manufacturer_telephone, manufacturer_fax, manufacturer_person);
+                if (grantee_name !== '') {
+                    if (grantee_address !== '') {
+                        if (grantee_telephone !== '') {
+                            var grant_name_exist = $(".ui.selection.dropdown.grantees").dropdown('get item', grantee_name);
+                            if (!grant_name_exist) {
+                                add_grantee(grantee_name, grantee_address, grantee_telephone, grantee_fax, grantee_person);
                             }
                             else
                             {
-                                alert('This manufacturer already exists');
+                                alert('This grantee already exists');
                             }
                             
                         }
                         else
                         {
-                            alert("Please provide a manufacturer telephone");
+                            alert("Please provide a grantee telephone");
                         }
                     }
                     else
                     {
-                        alert("Please provide a manufacturer address");
+                        alert("Please provide a grantee address");
                     }
                 }
                 else
                 {
-                    alert("Please provide a manufacturer name");
+                    alert("Please provide a grantee name");
                 }
                 return false;
             },
             onDeny: function () {
                 setTimeout(function () {
-                    $("#man_name").val('');
-                    $("#man_address").val('');
-                    $("#man_telephone").val('');
-                    $("#man_fax").val('');
-                    $("#man_person").val('');
+                    $("#grant_name").val('');
+                    $("#grant_address").val('');
+                    $("#grant_telephone").val('');
+                    $("#grant_fax").val('');
+                    $("#grant_person").val('');
                 }, 500);
                 return true;
             }
         }).modal('show');
     });
 
-    function add_manufacturer(manufacturer_name, manufacturer_address, manufacturer_telephone, manufacturer_fax, manufacturer_person)
+    function add_grantee(grantee_name, grantee_address, grantee_telephone, grantee_fax, grantee_person)
     {
-        $("#btn-addmanufacturer-apply").addClass("disabled loading");
+        $("#btn-addgrant-apply").addClass("disabled loading");
         var jsonObj = new Object();
-        jsonObj.name = manufacturer_name;
-        jsonObj.telephone = manufacturer_telephone;
-        jsonObj.address = manufacturer_address;
-        jsonObj.fax = manufacturer_fax;
-        jsonObj.contact_person = manufacturer_person;
+        jsonObj.name = grantee_name;
+        jsonObj.telephone = grantee_telephone;
+        jsonObj.address = grantee_address;
+        jsonObj.fax = grantee_fax;
+        jsonObj.contact_person = grantee_person;
 
         var json = JSON.stringify(jsonObj);
         $.ajax({
             type: "POST",
-            url: "http://localhost:54367/api/data/NewManufacturer",
+            url: "http://localhost:54367/api/data/NewGrantee",
             contentType: "application/json; charset=utf-8",
             data: json,
             success: function (data) {
                 console.log(data);
-                $(".ui.selection.dropdown.manufacturers").find(".menu").append('<div class="item" data-addr="' + data.address + '" data-tel="' + data.telephone + '" data-fax="' + data.fax + '" data-person="' + data.contact_person + '" data-value="' + data.name + '">' + data.name + '</div>');
-                $(".ui.selection.dropdown.manufacturers").dropdown('refresh');
-                $(".ui.selection.dropdown.manufacturers").dropdown('set selected', data.name);
-                $("#add_manufacturer").modal('hide');
-                $("#btn-addmanufacturer-apply").removeClass("disabled loading");
-                alert('Manufacturer added to list. Selected: ' + manufacturer_name);
+                $(".ui.selection.dropdown.grantees").find(".menu").append('<div class="item" data-addr="' + data.address + '" data-tel="' + data.telephone + '" data-fax="' + data.fax + '" data-person="' + data.contact_person + '" data-value="' + data.name + '">' + data.name + '</div>');
+                $(".ui.selection.dropdown.grantees").dropdown('refresh');
+                $(".ui.selection.dropdown.grantees").dropdown('set selected', data.name);
+                $("#add_grantee").modal('hide');
+                $("#btn-addgrant-apply").removeClass("disabled loading");
+                alert('Grantee added to list. Selected: ' + grantee_name);
             },
             error: function (data) {
                 console.log(data);
-                $("#btn-addmanufacturer-apply").removeClass("disabled loading");
+                $("#btn-addgrant-apply").removeClass("disabled loading");
             }
         });
     }
@@ -191,11 +192,12 @@
             jsonObj.applicant_contact_person = $("input[name=applicant_contact_person]").val();
             jsonObj.applicant_nationality = $("input[name=applicant_nationality]").val();
 
-            jsonObj.manufacturer_name = $(".ui.selection.dropdown.manufacturers").dropdown('get text');;
-            jsonObj.manufacturer_tel = $("input[name=manufacturer_telephone]").val();
-            jsonObj.manufacturer_address = $("input[name=manufacturer_address]").val();
-            jsonObj.manufacturer_fax = $("input[name=manufacturer_fax]").val();
-            jsonObj.manufacturer_contact_person = $("input[name=manufacturer_contact_person]").val();
+            jsonObj.grantee_name = $(".ui.selection.dropdown.grantees").dropdown('get text');
+            jsonObj.manufacturer_name = $("input[name=manufacturer_name]").val();
+            jsonObj.grantee_tel = $("input[name=grantee_telephone]").val();
+            jsonObj.grantee_address = $("input[name=grantee_address]").val();
+            jsonObj.grantee_fax = $("input[name=grantee_fax]").val();
+            jsonObj.grantee_contact_person = $("input[name=grantee_contact_person]").val();
 
             var json = JSON.stringify(jsonObj);
             $.ajax({
@@ -305,11 +307,12 @@
             url: "/retrieve/step-1",
             success: function (data) {
                 if (data.data_present) {
-                    $(".ui.selection.dropdown.manufacturers").dropdown('set selected', data.step1.manufacturer_name);
-                    $("input[name=manufacturer_telephone]").val(data.step1.manufacturer_tel);
-                    $("input[name=manufacturer_address]").val(data.step1.manufacturer_address);
-                    $("input[name=manufacturer_fax]").val(data.step1.manufacturer_fax);
-                    $("input[name=manufacturer_contact_person]").val(data.step1.manufacturer_contact_person);
+                    $(".ui.selection.dropdown.grantees").dropdown('set selected', data.step1.grantee_name);
+                    $("input[name=manufacturer_name]").val(data.step1.manufacturer_name);
+                    $("input[name=grantee_telephone]").val(data.step1.grantee_tel);
+                    $("input[name=grantee_address]").val(data.step1.grantee_address);
+                    $("input[name=grantee_fax]").val(data.step1.grantee_fax);
+                    $("input[name=grantee_contact_person]").val(data.step1.grantee_contact_person);
 
                     if (data.step1.application_id !== '') {
                         if ($('.ui.small.attached.warning.message.application').length === 0) {
@@ -343,7 +346,7 @@
             url: "/retrieve/step-1",
             success: function (data) {
                 if (data.data_present) {
-                    $(".ui.selection.dropdown.manufacturers").dropdown('set selected', data.step1.manufacturer_name);
+                    $(".ui.selection.dropdown.grantees").dropdown('set selected', data.step1.grantee_name);
                     $("input[name=applicant_name]").val(data.step1.applicant_name);
                     $("input[name=applicant_telephone]").val(data.step1.applicant_telephone);
                     $("input[name=applicant_address]").val(data.step1.applicant_address);
@@ -352,10 +355,11 @@
                     $("input[name=applicant_contact_person]").val(data.step1.applicant_contact_person);
                     $("input[name=applicant_nationality]").val(data.step1.applicant_nationality);
 
-                    $("input[name=manufacturer_telephone]").val(data.step1.manufacturer_tel);
-                    $("input[name=manufacturer_address]").val(data.step1.manufacturer_address);
-                    $("input[name=manufacturer_fax]").val(data.step1.manufacturer_fax);
-                    $("input[name=manufacturer_contact_person]").val(data.step1.manufacturer_contact_person);
+                    $("input[name=manufacturer_name]").val(data.step1.manufacturer_name);
+                    $("input[name=grantee_telephone]").val(data.step1.grantee_tel);
+                    $("input[name=grantee_address]").val(data.step1.grantee_address);
+                    $("input[name=grantee_fax]").val(data.step1.grantee_fax);
+                    $("input[name=grantee_contact_person]").val(data.step1.grantee_contact_person);
 
                     if (data.step1.application_id !== '') {
                         if ($('.ui.small.attached.warning.message.application').length === 0) {
@@ -392,18 +396,18 @@
             form_valid = false;
         }
 
-        if ($("input[name=manufacturer_telephone]").val() === '')
+         if ($("input[name=grantee_address]").val() === '')
         {
-            $("input[name=manufacturer_telephone]").addClass('input-error');
+            $("input[name=grantee_address]").addClass('input-error');
             form_valid = false;
         }
 
-        if ($("input[name=manufacturer_address]").val() === '')
+
+        if ($("input[name=grantee_telephone]").val() === '')
         {
-            $("input[name=manufacturer_address]").addClass('input-error');
+            $("input[name=grantee_telephone]").addClass('input-error');
             form_valid = false;
         }
-       
         return form_valid;
     }
 

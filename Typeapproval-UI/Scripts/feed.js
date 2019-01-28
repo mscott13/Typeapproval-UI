@@ -88,44 +88,36 @@
             '</div>' +
             '</div>' +
 
-            '<a class="ui grey ribbon label">2. &nbsp Manufacturer</a>' +
-            '<div class="three fields">' +
-            '<div class="field">' +
-            '<label>Name</label>' +
-            '<div class="ui left icon input">' +
-            '<input readonly id="manufacturer_name" autocomplete="off" placeholder="Name" name="manufacturer_name" type="text" value="' + data.manufacturer_name+'" >' +
-            '<i class="users icon"></i>' +
-            '</div>' +
-            '</div>' +
-            '<div class="field">' +
-            '<label>Telephone<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>' +
-            '<div class="ui left icon input">' +
-            '<input readonly placeholder="eg. 1876-555-5555" name="manufacturer_telephone" type="text" value="' + data.manufacturer_tel +'" >' +
-            '<i class="phone volume icon"></i>' +
-            '</div>' +
-            '</div>' +
-            '<div class="field">' +
-            '<label>Address<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>' +
-            '<div class="ui left icon input">' +
-            '<input readonly placeholder="eg. 12 Beckford Street" name="manufacturer_address" type="text" value="' + data.manufacturer_address+'">' +
-            '<i class="address book icon"></i>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="two fields">' +
-            '<div class="field">' +
-            '<label>Fax<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>' +
-            '<div class="ui left icon input">' +
-            '<input readonly placeholder="eg. 1876-555-5555" name="manufacturer_fax" type="text" value="' + data.manufacturer_fax+'">' +
-            '<i class="fax icon"></i>' +
-            '</div>' +
-            '</div>' +
-            '<div class="field">' +
-            '<label>Contact Person<span style="margin-left:5px;" class="ui readonly mini label">read only </span>' + '</label>' +
-            '<div class="ui left icon input">' +
-            '<input readonly placeholder="eg. John Brown" name="manufacturer_contact_person" type="text" value="' + data.manufacturer_contact_person+'">' +
-            '<i class="user circle icon"></i>' +
-            '</div>' +
+            '<a class="ui grey ribbon label">2. &nbsp Manufacturer / Grantee</a>' +
+            '<div class="two fields">'+
+                '<div class="field">'+
+                    '<label>Grantee</label>'+
+            '<div class="ui left icon input"><input readonly="" id="manufacturer_name" autocomplete="off" placeholder="Name" name="manufacturer_name" type="text" value="' + data.grantee_name+'"><i class="users icon"></i></div>'+
+                    '</div>'+
+                    '<div class="field">'+
+                        '<label>Manufacturer Name<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>'+
+                        '<div class="ui left icon input"><input readonly="" placeholder="eg. 1876-555-5555" name="manufacturer_name" type="text" value="'+data.manufacturer_name+'"><i class="phone volume icon"></i></div>'+
+                        '</div>'+
+                    '</div>'+
+
+                    '<div class="field">'+
+                        '<label>Address<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>'+
+                        '<div class="ui left icon input"><input readonly="" placeholder="eg. 12 Beckford Street" name="manufacturer_address" type="text" value="'+data.grantee_address+'"><i class="address book icon"></i></div>'+
+                        '</div>'+
+                        '<div class="three  fields">'+
+                            '<div class="field">'+
+                                '<label>Telephone<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>'+
+                                '<div class="ui left icon input"><input readonly="" placeholder="eg. 1876-555-5555" name="manufacturer_telephone" type="text" value="'+data.grantee_tel+'"><i class="phone volume icon"></i></div>'+
+                                '</div>'+
+                                '<div class="field">'+
+                                    '<label>Fax<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>'+
+                                    '<div class="ui left icon input"><input readonly="" placeholder="eg. 1876-555-5555" name="manufacturer_fax" type="text" value="'+data.grantee_fax+'"><i class="fax icon"></i></div>'+
+                                    '</div>'+
+                                    '<div class="field">'+
+                                        '<label>Contact Person<span style="margin-left:5px;" class="ui readonly mini label">read only </span></label>'+
+                                        '<div class="ui left icon input"><input readonly="" placeholder="eg. John Brown" name="manufacturer_contact_person" type="text" value="'+data.grantee_contact_person+'"><i class="user circle icon"></i></div>'+
+                                        '</div>'+
+                                    '</div>'+
             '</div>' +
             '</div>' +
             '</form>' +

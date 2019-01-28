@@ -174,34 +174,34 @@
                                 </div>
                             </div>
 
-                            <a class="ui grey ribbon label">2. &nbsp Manufacturer</a>
-                            <div class="fields">
-                                <div class="eight wide field">
-                                    <label>Name<span class="required-label" style="color: red">&nbsp;*</span> <span style="margin-left:5px; font-style:italic; font-weight:100 !important; float:right; color:dimgrey;">manufacturer not listed? add it <a style="cursor:pointer" id="add-manufacturer">here</a></span></label>
+                            <a class="ui grey ribbon label">2. &nbsp Manufacturer / Grantee</a>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Grantee<span class="required-label" style="color: red">&nbsp;*</span> <span style="margin-left:5px; font-style:italic; font-weight:100 !important; float:right; color:dimgrey;">not listed? add it <a style="cursor:pointer" id="add-grantee">here</a></span></label>
 
-                                    <div class="ui selection dropdown manufacturers">
+                                    <div class="ui selection dropdown grantees">
                                         <input type="hidden" name="gender">
                                         <i class="dropdown icon"></i>
-                                        @if (Session["selected_manufacturer"] != null)
+                                        @if (Session["grantee_name"] != null)
                                         {
                                             <div class="text">
-                                                @Session["selected_manufacturer"].ToString()
+                                                @Session["grantee_name"].ToString()
                                             </div>
 
                                         }
                                         else
                                         {
                                             <div class="default text">
-                                                Select manufacturer
+                                                Select grantee
                                             </div>
                                         }
 
                                         <div class="menu">
-                                            @if (Session["selected_manufacturer"] != null)
+                                            @if (Session["grantee_name"] != null)
                                             {
                                                 for (int i = 0; i < Model.Count; i++)
                                                 {
-                                                    if (Model[i].name == Session["selected_manufacturer"].ToString())
+                                                    if (Model[i].name == Session["grantee_name"].ToString())
                                                     {
                                                         <div class="item active selected" data-addr="@Model[i].address" data-tel="@Model[i].telephone" data-fax="@Model[i].fax" data-person="@Model[i].contact_person" data-value="@Model[i].name">@Model[i].name</div>
                                                     }
@@ -222,16 +222,32 @@
                                     </div>
                                 </div>
 
-                                <div class="eight wide field">
+                                <div class="field">
+                                    <label>Manufacturer Name<span class="required-label" style="color: red">&nbsp;*</span></label>
+                                    <div class="ui left icon input">
+                                        @if (mode == "preview")
+                                        {
+                                            <input readonly name="manufacturer_name" type="text">
+                                        }
+                                        else
+                                        {
+                                            <input name="manufacturer_name" type="text">
+                                        }
+                                        <i class="user circle icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="field">
                                     <label>Address<span class="required-label" style="color: red">&nbsp;*</span></label>
                                     <div class="ui left icon input">
                                         @if (mode == "preview")
                                         {
-                                            <input readonly name="manufacturer_address" type="text">
+                                            <input readonly name="grantee_address" type="text">
                                         }
                                         else
                                         {
-                                            <input name="manufacturer_address" type="text">
+                                            <input name="grantee_address" type="text">
                                         }
                                         <i class="address book icon"></i>
                                     </div>
@@ -243,11 +259,11 @@
                                     <div class="ui left icon input">
                                         @if (mode == "preview")
                                         {
-                                            <input readonly name="manufacturer_telephone" type="text">
+                                            <input readonly name="grantee_telephone" type="text">
                                         }
                                         else
                                         {
-                                            <input name="manufacturer_telephone" type="text">
+                                            <input name="grantee_telephone" type="text">
                                         }
                                         <i class="phone volume icon"></i>
                                     </div>
@@ -258,11 +274,11 @@
                                     <div class="ui left icon input">
                                         @if (mode == "preview")
                                         {
-                                            <input readonly name="manufacturer_fax" type="text">
+                                            <input readonly name="grantee_fax" type="text">
                                         }
                                         else
                                         {
-                                            <input name="manufacturer_fax" type="text">
+                                            <input name="grantee_fax" type="text">
                                         }
                                         <i class="fax icon"></i>
                                     </div>
@@ -272,11 +288,11 @@
                                     <div class="ui left icon input">
                                         @if (mode == "preview")
                                         {
-                                            <input readonly name="manufacturer_contact_person" type="text">
+                                            <input readonly name="grantee_contact_person" type="text">
                                         }
                                         else
                                         {
-                                            <input name="manufacturer_contact_person" type="text">
+                                            <input name="grantee_contact_person" type="text">
                                         }
                                         <i class="user circle icon"></i>
                                     </div>
@@ -316,34 +332,34 @@
     </div>
 </div>
 
-<div id="add_manufacturer" class="ui tiny modal">
+<div id="add_grantee" class="ui tiny modal">
     <div class="header">
-        <i class="building icon"></i>Add Manufacturer
+        <i class="building icon"></i>Add Grantee
     </div>
     <div class="content">
         <form class="ui form">
             <div class="two fields">
                 <div class="field">
-                    <label>Manufacturer name</label>
-                    <input type="text" id="man_name" placeholder="">
+                    <label>Grantee name</label>
+                    <input type="text" id="grant_name" placeholder="">
                 </div>
                 <div class="field">
                     <label>Address</label>
-                    <input type="text" id="man_address" placeholder="">
+                    <input type="text" id="grant_address" placeholder="">
                 </div>
             </div>
             <div class="three fields">
                 <div class="field">
                     <label>Telephone</label>
-                    <input type="text" id="man_telephone" placeholder="">
+                    <input type="text" id="grant_telephone" placeholder="">
                 </div>
                 <div class="field">
                     <label>Fax</label>
-                    <input type="text" id="man_fax" placeholder="">
+                    <input type="text" id="grant_fax" placeholder="">
                 </div>
                 <div class="field">
                     <label>Contact Person</label>
-                    <input type="text" id="man_person" placeholder="">
+                    <input type="text" id="grant_person" placeholder="">
                 </div>
             </div>
         </form>
@@ -352,8 +368,8 @@
         <div class="ui mini cancel button">
             Cancel
         </div>
-        <div id="btn-addmanufacturer-apply" class="ui mini right labeled icon blue ok button">
-            Add company
+        <div id="btn-addgrant-apply" class="ui mini right labeled icon blue ok button">
+            Add grantee
             <i class="plus icon"></i>
         </div>
     </div>

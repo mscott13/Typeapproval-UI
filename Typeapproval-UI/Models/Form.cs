@@ -11,6 +11,11 @@ namespace Typeapproval_UI.Models
                 access_key = "";
             }
 
+            if (selected_grantee == null)
+            {
+                selected_grantee = "";
+            }
+
             if (application_id == null)
             {
                 application_id = "";
@@ -61,24 +66,24 @@ namespace Typeapproval_UI.Models
                 manufacturer_name = "";
             }
           
-            if(manufacturer_tel == null)
+            if(grantee_tel == null)
             {
-                manufacturer_tel = "";
+                grantee_tel = "";
             }
 
-            if (manufacturer_address == null)
+            if (grantee_address == null)
             {
-                manufacturer_address = "";
+                grantee_address = "";
             }
 
-            if (manufacturer_fax == null)
+            if (grantee_fax == null)
             {
-                manufacturer_fax = "";
+                grantee_fax = "";
             }
 
-            if (manufacturer_contact_person == null)
+            if (grantee_contact_person == null)
             {
-                manufacturer_contact_person = "";
+                grantee_contact_person = "";
             }
 
             if (equipment_type == null)
@@ -192,6 +197,7 @@ namespace Typeapproval_UI.Models
             }
         }
 
+        public string selected_grantee { get; set; }
         public string access_key { get; set; }
         public string application_id { get; set; }
         public string username { get; set; }
@@ -202,11 +208,11 @@ namespace Typeapproval_UI.Models
         public string applicant_city_town { get; set; }
         public string applicant_contact_person { get; set; }
         public string applicant_nationality { get; set; }
-        public string manufacturer_name { get; set; }
-        public string manufacturer_tel { get; set; }
-        public string manufacturer_address { get; set; }
-        public string manufacturer_fax { get; set; }
-        public string manufacturer_contact_person { get; set; }
+        public string grantee_name { get; set; }
+        public string grantee_tel { get; set; }
+        public string grantee_address { get; set; }
+        public string grantee_fax { get; set; }
+        public string grantee_contact_person { get; set; }
         public string equipment_type { get; set; }
         public string equipment_description { get; set; }
         public string product_identification { get; set; }
@@ -225,5 +231,6 @@ namespace Typeapproval_UI.Models
         public string category { get; set; }
         public string name_of_test { get; set; }
         public string country { get; set; }
+        public string manufacturer_name { get; set; }
     }
 }
