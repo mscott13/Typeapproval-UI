@@ -20,120 +20,128 @@ namespace Typeapproval_UI.Controllers
         [Route("new/step-1")]
         public ActionResult Step1(string from, string preview, string edit, string status)
         {
-            if (from == null)
+            if (Session["key"] != null)
             {
-                ClearFormSession();
-            }
 
-            if (Session["applicant_name"] == null)
-            {
-                #region load default information
-                var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:54367/api/data/");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                dynamic param = new ExpandoObject();
-                param.access_key = Session["key"];
-                var content = new StringContent(JsonConvert.SerializeObject(param), Encoding.UTF8, "application/json");
-
-                HttpResponseMessage response = client.PostAsync("applicantInfo", content).Result;
-                if (response.IsSuccessStatusCode)
+                if (from == null)
                 {
-                    string json = response.Content.ReadAsStringAsync().Result;
-                    dynamic obj = JsonConvert.DeserializeObject<dynamic>(json);
+                    ClearFormSession();
+                }
 
-                    if (Convert.ToString(obj) == "empty")
+                if (Session["applicant_name"] == null)
+                {
+                    #region load default information
+                    var client = new HttpClient();
+                    client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    dynamic param = new ExpandoObject();
+                    param.access_key = Session["key"];
+                    var content = new StringContent(JsonConvert.SerializeObject(param), Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = client.PostAsync("applicantInfo", content).Result;
+                    if (response.IsSuccessStatusCode)
                     {
-                        dynamic objEmpty = new ExpandoObject();
-                        objEmpty.name = "";
-                        objEmpty.telephone = "";
-                        objEmpty.address = "";
-                        objEmpty.fax = "";
-                        objEmpty.cityTown = "";
-                        objEmpty.contactPerson = "";
-                        objEmpty.nationality = "";
+                        string json = response.Content.ReadAsStringAsync().Result;
+                        dynamic obj = JsonConvert.DeserializeObject<dynamic>(json);
+
+                        if (Convert.ToString(obj) == "empty")
+                        {
+                            dynamic objEmpty = new ExpandoObject();
+                            objEmpty.name = "";
+                            objEmpty.telephone = "";
+                            objEmpty.address = "";
+                            objEmpty.fax = "";
+                            objEmpty.cityTown = "";
+                            objEmpty.contactPerson = "";
+                            objEmpty.nationality = "";
+                        }
+                        else
+                        {
+                            Session["applicant_name"] = (string)obj.name;
+                            Session["applicant_tel"] = (string)obj.telephone;
+                            Session["applicant_address"] = (string)obj.address;
+                            Session["applicant_fax"] = (string)obj.fax;
+                            Session["applicant_city_town"] = (string)obj.cityTown;
+                            Session["applicant_contact_person"] = (string)obj.contactPerson;
+                            Session["applicant_nationality"] = (string)obj.nationality;
+                        }
+
                     }
-                    else
+                    else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                     {
-                        Session["applicant_name"] = (string)obj.name;
-                        Session["applicant_tel"] = (string)obj.telephone;
-                        Session["applicant_address"] = (string)obj.address;
-                        Session["applicant_fax"] = (string)obj.fax;
-                        Session["applicant_city_town"] = (string)obj.cityTown;
-                        Session["applicant_contact_person"] = (string)obj.contactPerson;
-                        Session["applicant_nationality"] = (string)obj.nationality;
+                        //return to login
                     }
-
+                    #endregion
                 }
-                else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+
+
+                if (edit != null)
                 {
-                    //return to login
+                    Session["view_mode"] = "edit";
+                    dynamic _param = new ExpandoObject();
+                    _param.application_id = edit;
+                    _param.access_key = Session["key"].ToString();
+                    _param.mode = "edit";
+                    _param.status = status;
+
+                    var _client = new HttpClient();
+                    _client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                    _client.DefaultRequestHeaders.Accept.Clear();
+                    _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var _content = new StringContent(JsonConvert.SerializeObject(_param), Encoding.UTF8, "application/json");
+                    HttpResponseMessage _response = _client.PostAsync("GetApplication", _content).Result;
+                    if (_response.IsSuccessStatusCode)
+                    {
+                        string result = _response.Content.ReadAsStringAsync().Result;
+                        Form form = JsonConvert.DeserializeObject<Form>(result);
+                        RestoreToSession(form);
+                    }
                 }
-                #endregion
-            }
-         
-
-            if (edit != null)
-            {
-                Session["view_mode"] = "edit";
-                dynamic _param = new ExpandoObject();
-                _param.application_id = edit;
-                _param.access_key = Session["key"].ToString();
-                _param.mode = "edit";
-                _param.status = status;
-
-                var _client = new HttpClient();
-                _client.BaseAddress = new Uri("http://localhost:54367/api/data/");
-                _client.DefaultRequestHeaders.Accept.Clear();
-                _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                var _content = new StringContent(JsonConvert.SerializeObject(_param), Encoding.UTF8, "application/json");
-                HttpResponseMessage _response = _client.PostAsync("GetApplication", _content).Result;
-                if (_response.IsSuccessStatusCode)
+                else if (preview != null)
                 {
-                    string result = _response.Content.ReadAsStringAsync().Result;
-                    Form form = JsonConvert.DeserializeObject<Form>(result);
-                    RestoreToSession(form);
+                    Session["view_mode"] = "preview";
+                    dynamic _param = new ExpandoObject();
+                    _param.application_id = preview;
+                    _param.access_key = Session["key"].ToString();
+                    _param.mode = "preview";
+
+                    var _client = new HttpClient();
+                    _client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                    _client.DefaultRequestHeaders.Accept.Clear();
+                    _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var _content = new StringContent(JsonConvert.SerializeObject(_param), Encoding.UTF8, "application/json");
+                    HttpResponseMessage _response = _client.PostAsync("GetApplication", _content).Result;
+                    if (_response.IsSuccessStatusCode)
+                    {
+                        string result = _response.Content.ReadAsStringAsync().Result;
+                        Form form = JsonConvert.DeserializeObject<Form>(result);
+                        Session["selected_grantee"] = form.selected_grantee;
+                        RestoreToSession(form);
+                    }
                 }
-            }
-            else if (preview != null)
-            {
-                Session["view_mode"] = "preview";
-                dynamic _param = new ExpandoObject();
-                _param.application_id = preview;
-                _param.access_key = Session["key"].ToString();
-                _param.mode = "preview";
-
-                var _client = new HttpClient();
-                _client.BaseAddress = new Uri("http://localhost:54367/api/data/");
-                _client.DefaultRequestHeaders.Accept.Clear();
-                _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                var _content = new StringContent(JsonConvert.SerializeObject(_param), Encoding.UTF8, "application/json");
-                HttpResponseMessage _response = _client.PostAsync("GetApplication", _content).Result;
-                if (_response.IsSuccessStatusCode)
+                else
                 {
-                    string result = _response.Content.ReadAsStringAsync().Result;
-                    Form form = JsonConvert.DeserializeObject<Form>(result);
-                    Session["selected_grantee"] = form.selected_grantee;
-                    RestoreToSession(form);
+                    //if (Session["manufacturer_name"] != null)
+                    //{
+                    //    var s = Session["manufacturer_name"].ToString();
+                    //    Session["selected_grantee"] = Session["manufacturer_name"].ToString();
+                    //}
                 }
+
+                SLW_DatabaseInfo db = new SLW_DatabaseInfo();
+                List<Manufacturer> manufacturers = db.GetManufacturers("");
+
+                var str = Session["application_id"];
+                return View(manufacturers);
             }
             else
             {
-                //if (Session["manufacturer_name"] != null)
-                //{
-                //    var s = Session["manufacturer_name"].ToString();
-                //    Session["selected_grantee"] = Session["manufacturer_name"].ToString();
-                //}
+                return RedirectToAction("", "account");
             }
-
-            SLW_DatabaseInfo db = new SLW_DatabaseInfo();
-            List<Manufacturer> manufacturers = db.GetManufacturers("");
-
-            var str = Session["application_id"];
-            return View(manufacturers);
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
@@ -141,7 +149,14 @@ namespace Typeapproval_UI.Controllers
         [Route("new/step-2")]
         public ActionResult Step2()
         {
-            return View();
+            if (Session["key"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("", "account");
+            }
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
@@ -149,7 +164,15 @@ namespace Typeapproval_UI.Controllers
         [Route("new/step-3")]
         public ActionResult Step3()
         {
-            return View();
+
+            if (Session["key"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("", "account");
+            }
         }
 
         [HttpGet]

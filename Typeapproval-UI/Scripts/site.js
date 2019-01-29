@@ -7,6 +7,56 @@
     const PASSWORD = 'grp_password';
     const CONFIRM = 'grp_confirm';
 
+    
+    var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
+
+    //Zero the idle timer on mouse movement.
+    $(this).mousemove(function (e) {
+        idleTime = 0;
+        console.log(e);
+    });
+    $(this).keypress(function (e) {
+        idleTime = 0;
+        console.log(e);
+    });
+
+
+    function timerIncrement() {
+        idleTime = idleTime + 1;
+        if (idleTime > 19) { // 20 minutes
+            console.log("Session timer expired");
+        }
+    }
+
+    var can_register = false;
+
+    $("#reset-password").click(function () {
+        window.location = "/account/reset";
+    });
+
+    $("#btn_reset").click(function () {
+        $("#btn_reset").addClass("disabled loading");
+        var jsonObj = new Object();
+        jsonObj.username = $("input[name=reset_username]").val();
+       
+        var json = JSON.stringify(jsonObj);
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:54367/api/user/ResetPassword",
+            contentType: "application/json; charset=utf-8",
+            data: json,
+            success: function (data) {
+                $("#btn_reset").removeClass("disabled loading");
+                alert("Password reset. Check your email for your new credentials.");
+                window.location = "/account";
+            },
+            error: function (data) {
+                $("#btn_reset").removeClass("disabled loading");
+                alert("Could not fulfill that request.");
+            }
+        });
+    });
+
     $('.ui.dropdown').popup();
     $('.ui.dropdown').popup();
     $('.ui.small.red.label').popup();
@@ -264,43 +314,46 @@
 
     $("#btn_register").click(function () {
 
-        if ($("input[name=reg_password]").val() === $("input[name=reg_confirmPassword]").val()) {
+        if (can_register)
+        {
+            if ($("input[name=reg_password]").val() === $("input[name=reg_confirmPassword]").val()) {
 
-            var valid = $('#register_form').form('is valid');
-            if (valid) {
-                $("#btn_register").addClass("disabled loading");
+                var valid = $('#register_form').form('is valid');
+                if (valid) {
+                    $("#btn_register").addClass("disabled loading");
 
-                var jsonObj = new Object();
-                jsonObj.username = $("input[name=reg_username]").val();
-                jsonObj.password = $("input[name=reg_password]").val();
-                jsonObj.first_name = $("input[name=reg_firstName]").val();
-                jsonObj.last_name = $("input[name=reg_lastName]").val();
-                jsonObj.email = $("input[name=reg_email]").val();
-                console.log($(".ui.selection.dropdown.clients").dropdown('get text'));
-                console.log($(".ui.selection.dropdown.clients").dropdown('get value'));
-                jsonObj.company = $(".ui.selection.dropdown.clients").dropdown('get text');
-                jsonObj.user_type = 0;
-                jsonObj.clientId = $(".ui.selection.dropdown.clients").dropdown('get value');
+                    var jsonObj = new Object();
+                    jsonObj.username = $("input[name=reg_username]").val();
+                    jsonObj.password = $("input[name=reg_password]").val();
+                    jsonObj.first_name = $("input[name=reg_firstName]").val();
+                    jsonObj.last_name = $("input[name=reg_lastName]").val();
+                    jsonObj.email = $("input[name=reg_email]").val();
+                    console.log($(".ui.selection.dropdown.clients").dropdown('get text'));
+                    console.log($(".ui.selection.dropdown.clients").dropdown('get value'));
+                    jsonObj.company = $(".ui.selection.dropdown.clients").dropdown('get text');
+                    jsonObj.user_type = 0;
+                    jsonObj.clientId = $(".ui.selection.dropdown.clients").dropdown('get value');
 
-                var json = JSON.stringify(jsonObj);
-                $.ajax({
-                    type: "POST",
-                    url: "http://localhost:54367/api/user/register",
-                    contentType: "application/json; charset=utf-8",
-                    data: json,
-                    success: function (data) {
-                        console.log(data);
-                        $("#btn_register").removeClass("disabled loading");
-                        window.location.href = "/account/account-created";
-                    },
-                    error: function (data) {
-                        console.log(data);
-                        $("#btn_register").removeClass("disabled loading");
-                    }
-                });
-            }
-            else {
-                console.log("Form invalid");
+                    var json = JSON.stringify(jsonObj);
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:54367/api/user/register",
+                        contentType: "application/json; charset=utf-8",
+                        data: json,
+                        success: function (data) {
+                            console.log(data);
+                            $("#btn_register").removeClass("disabled loading");
+                            window.location.href = "/account/account-created";
+                        },
+                        error: function (data) {
+                            console.log(data);
+                            $("#btn_register").removeClass("disabled loading");
+                        }
+                    });
+                }
+                else {
+                    console.log("Form invalid");
+                }
             }
         }
     });
@@ -352,41 +405,63 @@
 
     var timer;
     $("input[name=reg_username]").on('input', function (e) {
+
         var input = $(this);
         var val = input.val();
 
-        if (input.data("lastval") !== val) {
-            input.data("lastval", val);
-
-            $("#input_group_username").addClass("loading");
+        if (/\s/.test(val))
+        {
             clearError(USERNAME);
-            clearTimeout(timer);
-            timer = setTimeout(function () {
-                if (input.val() !== "") {
-                    $.ajax({
-                        type: "GET",
-                        url: "http://localhost:54367/api/data/CheckName?q=" + input.val(),
-                        success: function (data) {
-                            console.log(data);
-                            if (data === true) {
-                                addError("username already taken", USERNAME);
-                                $("#input_group_username").removeClass("loading");
+            addError("Username cannot contain whitespaces", USERNAME);
+            $("#input_group_username").find("i").remove();
+            $("#input_group_username").append('<i class="red close icon"></i>');
+            can_register = false;
+        }
+       
+        else
+        {
+            clearError(USERNAME);
+            if (input.data("lastval") !== val) {
+                input.data("lastval", val);
+
+                $("#input_group_username").addClass("loading");
+                $("#input_group_username").find("i").remove();
+                $("#input_group_username").append('<i class="user icon"></i>');
+                clearError(USERNAME);
+                clearTimeout(timer);
+                timer = setTimeout(function () {
+                    if (input.val() !== "") {
+                        $.ajax({
+                            type: "GET",
+                            url: "http://localhost:54367/api/data/CheckName?q=" + input.val(),
+                            success: function (data) {
+                                console.log(data);
+                                if (data === true) {
+                                    addError("username already taken", USERNAME);
+                                    $("#input_group_username").removeClass("loading");
+                                    $("#input_group_username").find("i").remove();
+                                    $("#input_group_username").append('<i class="red close icon"></i>');
+                                    can_register = false;
+                                }
+                                else {
+                                    clearError(USERNAME);
+                                    $("#input_group_username").removeClass("loading");
+                                    $("#input_group_username").find("i").remove();
+                                    $("#input_group_username").append('<i class="blue check icon"></i>');
+                                    can_register = true;
+                                }
+                            },
+                            error: function (data) {
+                                console.log(data);
                             }
-                            else {
-                                clearError(USERNAME);
-                                $("#input_group_username").removeClass("loading");
-                            }
-                        },
-                        error: function (data) {
-                            console.log(data);
-                        }
-                    });
-                }
-                else {
-                    clearError(USERNAME);
-                    $("#input_group_username").removeClass("loading");
-                }
-            }, 800);
+                        });
+                    }
+                    else {
+                        clearError(USERNAME);
+                        $("#input_group_username").removeClass("loading");
+                    }
+                }, 800);
+            }
         }
     });
 
@@ -562,31 +637,31 @@
 
             '<td>' +
             '<div class="ui transparent input">' +
-            ' <input type="number" placeholder="lower mhz" style="width:100%" name="lower_mhz">' +
+            ' <input type="number" placeholder="(required)" style="width:100%" name="lower_mhz">' +
             '</div>' +
             ' </td>' +
 
             '<td>' +
             '<div class="ui transparent input">' +
-            '<input type="number" placeholder="upper mhz" style="width:100%" name="upper_mhz">' +
+            '<input type="number" placeholder="(required)" style="width:100%" name="upper_mhz">' +
             '</div>' +
             '</td>' +
 
             '<td>' +
             '<div class="ui transparent input">' +
-            '<input type="number" placeholder="power" style="width:100%" name="power">' +
+            '<input type="number" placeholder="" style="width:100%" name="power">' +
             '</div>' +
             '</td>' +
 
             '<td>' +
             '<div class="ui transparent input">' +
-            '<input type="number" placeholder="tolerance" style="width:100%" name="tolerance">' +
+            '<input type="number" placeholder="" style="width:100%" name="tolerance">' +
             '</div>' +
             '</td>' +
 
             '<td>' +
             '<div class="ui transparent input">' +
-            '<input type="text" placeholder="emmission desig..." style="width:100%" name="emmission_desig">' +
+            '<input type="text" placeholder="" style="width:100%" name="emmission_desig">' +
             '</div>' +
             '</td>' +
 

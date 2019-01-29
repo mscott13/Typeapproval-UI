@@ -314,6 +314,7 @@
     <Content Include="Views\SystemAdmin\Index.cshtml" />
     <Content Include="Views\Account\AccountCreated.cshtml" />
     <Content Include="Views\Certificates\SmaCertificate.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

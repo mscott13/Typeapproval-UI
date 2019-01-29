@@ -125,7 +125,7 @@
 
         var step2_html =
 
-            '<div id="context" class="ui raised segment">' +
+            '<div id="context" class="ui segment">' +
             '<div class="ui form">' +
             '<a class="ui grey ribbon label">3. &nbsp Equipment Description</a>' +
             '<div class="inline field">' +
@@ -215,14 +215,14 @@
             '<tr>' +
             '<th class="two wide">Frequency - L (MHz)</th>' +
             '<th class="two wide">Frequency - U (MHz)</th>' +
-            '<th class="two wide">Power</th>' +
+            '<th class="two wide">Power (W)</th>' +
             '<th class="two wide">Frequency Tolerance</th>' +
             '<th class="two wide">Emission Designator</th>' +
             '<th class="two wide">Frequency Type</th>' +
             '</tr>' +
             '</thead>' +
             '<tbody id="table_frequencies">' +
-                writeFrequencies(data.frequencies)+
+            writeFrequencies(data.frequencies) +
             '</tbody>' +
             '</table>' +
             '</div>' +
@@ -230,38 +230,55 @@
             '<div class="field">' +
             '<label>Antenna Type</label>' +
             '<div class="ui input">' +
-            '<input readonly type="text" placeholder="" name="antenna_type" value="' + data.antenna_type+'">' +
+            '<input readonly type="text" placeholder="" name="antenna_type" value="' + data.antenna_type + '">' +
             '</div>' +
             '</div>' +
             '<div class="field">' +
-            '<label>Antenna Gain (db)</label>' +
+            '<label>Antenna Gain (dBi)</label>' +
             '<div class="ui input">' +
-            '<input readonly type="text" placeholder="" name="antenna_gain" value="' + data.antenna_gain+'" >' +
+            '<input readonly type="text" placeholder="" name="antenna_gain" value="' + data.antenna_gain + '" >' +
             '</div>' +
             '</div>' +
             '<div class="field">' +
             '<div class="two fields">' +
             '<div class="field">' +
-            '<label>Channels (khz)</label>' +
+            '<label>Channels (KHz)</label>' +
             '<div class="ui left icon input">' +
-            '<input readonly placeholder="" name="channel" type="text" value="'+data.channel+'">' +
+            '<input readonly placeholder="" name="channel" type="text" value="' + data.channel + '">' +
             '<i class="rss icon"></i>' +
             '</div>' +
             '</div>' +
             '<div class="field">' +
-            '<label>Separation (khz)</label>' +
+            '<label>Separation (KHz)</label>' +
             '<div class="ui left icon input">' +
-            '<input readonly placeholder="" name="separation" type="text" value="'+data.separation+'">' +
+            '<input readonly placeholder="" name="separation" type="text" value="' + data.separation + '">' +
             '<i class="rss icon"></i>' +
             '</div>' +
             '</div>' +
             '</div>' +
             '</div>' +
             '</div>' +
-            '<div class="field">'+
-                '<label>Additional Information</label>'+
-                '<textarea readonly rows="3" name="additional_information">'+data.additional_info+'</textarea>'+
-            '</div>'+
+            '<div class="field">' +
+            '<label>Additional Information</label>' +
+            '<textarea readonly rows="3" name="additional_information">' + data.additional_info + '</textarea>' +
+            '</div>' +
+
+            '<div style="margin-top: 16px !important;" class="two fields">' +
+            '<div class="field">' +
+            '<label>Name of Main Test or Certification Institution<span style="color: red">&nbsp;*</span></label>' +
+            '<div class="ui input">' +
+            '<input autocomplete="new-password" name="institution" type="text" value="' + data.name_of_test + '">' +
+
+            '</div>' +
+            '</div>' +
+            '<div class="field">' +
+            '<label>Country of Mass Production<span class="required-label" style="color: red">&nbsp;*</span></label>' +
+            '<div class="ui input">' +
+            '<input autocomplete="new-password" name="country" type="text" value="' + data.country + '">' +
+
+            '</div>' +
+            '</div>' +
+            '</div>' +
             '</div>' +
             '</div>';
 

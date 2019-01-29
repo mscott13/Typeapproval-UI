@@ -17,21 +17,30 @@
                     var new_psw = $("#reset_new_psw").val();
                     var confirm = $("#reset_confirm_psw").val();
 
-                    if (new_psw !== '') {
-                        if (confirm !== '') {
-                            if (new_psw === confirm) {
-                                reset_psw(user, new_psw);
+                    if (new_psw === '' && confirm === '') {
+                        $("#reset_new_psw").val('genrerate_rand');
+                        $("#reset_new_psw").val('genrerate_rand');
+                        $("#reset_confirm_psw").val('');
+                        reset_psw(user, "");
+                    }
+                    else
+                    {
+                        if (new_psw !== '') {
+                            if (confirm !== '') {
+                                if (new_psw === confirm) {
+                                    reset_psw(user, new_psw);
+                                }
+                                else {
+                                    alert("Passwords do not match");
+                                }
                             }
                             else {
-                                alert("Passwords do not match");
+                                alert("Please confirm the new password");
                             }
                         }
                         else {
-                            alert("Please confirm the new password");
+                            alert("Please enter a new password");
                         }
-                    }
-                    else {
-                        alert("Please enter a new password");
                     }
                     return false;
                 },

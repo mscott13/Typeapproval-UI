@@ -95,26 +95,26 @@
         if (validate())
         {
             var jsonObj = new Object();
-        jsonObj.equipment_type = $("input[name=equipment_type]").val();
-        jsonObj.equipment_description = $("textarea[name=equipment_description]").val();
-        jsonObj.product_identification = $("input[name=product_identification]").val();
-        jsonObj.refNum = $("input[name=refNum]").val();
-        jsonObj.make = $("input[name=make]").val();
-        jsonObj.software = $("input[name=software]").val();
-        jsonObj.type_of_equipment = $(".ui.radio.checkbox.checked").children("input").val();
-        jsonObj.other = $("input[name=other_equipment]").val();
+            jsonObj.equipment_type = $("input[name=equipment_type]").val();
+            jsonObj.equipment_description = $("textarea[name=equipment_description]").val();
+            jsonObj.product_identification = $("input[name=product_identification]").val();
+            jsonObj.refNum = $("input[name=refNum]").val();
+            jsonObj.make = $("input[name=make]").val();
+            jsonObj.software = $("input[name=software]").val();
+            jsonObj.type_of_equipment = $(".ui.radio.checkbox.checked").children("input").val();
+            jsonObj.other = $("input[name=other_equipment]").val();
 
-        var i = 0; var frequencies = [];
-        $("#table_frequencies tr").each(function () {
-            var obj = {};
-            obj["sequence"] = ++i;
-            obj["lower_freq"] = $(this).find("input[name=lower_mhz]").val();
-            obj["upper_freq"] = $(this).find("input[name=upper_mhz]").val();
-            obj["power"] = $(this).find("input[name=power]").val();
-            obj["tolerance"] = $(this).find("input[name=tolerance]").val();
-            obj["emmission_desig"] = $(this).find("input[name=emmission_desig]").val();
-            obj["freq_type"] = $(this).find(".menu").find(".item.active.selected").html();
-            frequencies.push(obj);
+            var i = 0; var frequencies = [];
+            $("#table_frequencies tr").each(function () {
+                var obj = {};
+                obj["sequence"] = ++i;
+                obj["lower_freq"] = $(this).find("input[name=lower_mhz]").val();
+                obj["upper_freq"] = $(this).find("input[name=upper_mhz]").val();
+                obj["power"] = $(this).find("input[name=power]").val();
+                obj["tolerance"] = $(this).find("input[name=tolerance]").val();
+                obj["emmission_desig"] = $(this).find("input[name=emmission_desig]").val();
+                obj["freq_type"] = $(this).find(".menu").find(".item.active.selected").html();
+                frequencies.push(obj);
         });
 
         jsonObj.frequencies = frequencies;
@@ -370,10 +370,15 @@
                     set_equipment_type_checked(data.step2.equipment_types, data.step2.other_equipment);
 
                     var target = $('#table_frequencies');
-                    if (data.step2.frequencies.length > 0)
-                    {
+                    if (data.step2.frequencies.length > 0) {
                         $(target).find("tr").remove();
                     }
+                    else
+                    {
+                        $(target).find("tr").remove();
+                        addRecord(target, "", "", "", "", "", "");
+                    }
+
 
                     for (var i = 0; i < data.step2.frequencies.length; i++)
                     {
@@ -597,6 +602,7 @@
         {
             $('#equipent_types_handle').find('.ui.left.pointing.red.label.equipment').remove();
             $('#equipent_types_handle').append(equipment_types_error);
+            form_valid = false;
         }
 
         

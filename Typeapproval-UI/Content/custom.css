@@ -192,6 +192,15 @@
     overflow-y: auto;
 }
 
+.content-scroll_v2 {
+    margin-top: 25px;
+    width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: calc(100vh - 90px);
+    overflow-y: auto;
+}
+
 .minor-content {
     font-size: 12px;
     color: rgba(0,0,0,.4);

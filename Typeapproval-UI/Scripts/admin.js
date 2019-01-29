@@ -132,7 +132,7 @@
 
         var html = '';
         var step1_html =
-            '<div id="context" class="ui segment">' +
+            '<div id="context" class="ui raised segment">' +
             '<a class="ui grey ribbon label">1. &nbsp Applicant</a>' +
             '<form class="ui form">' +
             '<div class="two fields">' +
@@ -191,43 +191,35 @@
             '</div>' +
             '</div>' +
 
-            '<a class="ui grey ribbon label">2. &nbsp Manufacturer</a>' +
-            '<div class="three fields">' +
-            '<div class="field">' +
-            '<label>Name</label>' +
-            '<div class="ui left icon input">' +
-            '<input readonly id="manufacturer_name" autocomplete="off" placeholder="Name" name="manufacturer_name" type="text" value="' + data.manufacturer_name + '" >' +
-            '<i class="users icon"></i>' +
-            '</div>' +
-            '</div>' +
-            '<div class="field">' +
-            '<label>Telephone<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>' +
-            '<div class="ui left icon input">' +
-            '<input readonly placeholder="eg. 1876-555-5555" name="manufacturer_telephone" type="text" value="' + data.manufacturer_tel + '" >' +
-            '<i class="phone volume icon"></i>' +
-            '</div>' +
-            '</div>' +
-            '<div class="field">' +
-            '<label>Address<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>' +
-            '<div class="ui left icon input">' +
-            '<input readonly placeholder="eg. 12 Beckford Street" name="manufacturer_address" type="text" value="' + data.manufacturer_address + '">' +
-            '<i class="address book icon"></i>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
+            '<a class="ui grey ribbon label">2. &nbsp Manufacturer / Grantee</a>' +
             '<div class="two fields">' +
             '<div class="field">' +
-            '<label>Fax<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>' +
-            '<div class="ui left icon input">' +
-            '<input readonly placeholder="eg. 1876-555-5555" name="manufacturer_fax" type="text" value="' + data.manufacturer_fax + '">' +
-            '<i class="fax icon"></i>' +
-            '</div>' +
+            '<label>Grantee</label>' +
+            '<div class="ui left icon input"><input readonly="" id="manufacturer_name" autocomplete="off" placeholder="Name" name="manufacturer_name" type="text" value="' + data.grantee_name + '"><i class="users icon"></i></div>' +
             '</div>' +
             '<div class="field">' +
-            '<label>Contact Person<span style="margin-left:5px;" class="ui readonly mini label">read only </span>' + '</label>' +
-            '<div class="ui left icon input">' +
-            '<input readonly placeholder="eg. John Brown" name="manufacturer_contact_person" type="text" value="' + data.manufacturer_contact_person + '">' +
-            '<i class="user circle icon"></i>' +
+            '<label>Manufacturer Name<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>' +
+            '<div class="ui left icon input"><input readonly="" placeholder="eg. 1876-555-5555" name="manufacturer_name" type="text" value="' + data.manufacturer_name + '"><i class="phone volume icon"></i></div>' +
+            '</div>' +
+            '</div>' +
+
+            '<div class="field">' +
+            '<label>Address<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>' +
+            '<div class="ui left icon input"><input readonly="" placeholder="eg. 12 Beckford Street" name="manufacturer_address" type="text" value="' + data.grantee_address + '"><i class="address book icon"></i></div>' +
+            '</div>' +
+            '<div class="three  fields">' +
+            '<div class="field">' +
+            '<label>Telephone<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>' +
+            '<div class="ui left icon input"><input readonly="" placeholder="eg. 1876-555-5555" name="manufacturer_telephone" type="text" value="' + data.grantee_tel + '"><i class="phone volume icon"></i></div>' +
+            '</div>' +
+            '<div class="field">' +
+            '<label>Fax<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>' +
+            '<div class="ui left icon input"><input readonly="" placeholder="eg. 1876-555-5555" name="manufacturer_fax" type="text" value="' + data.grantee_fax + '"><i class="fax icon"></i></div>' +
+            '</div>' +
+            '<div class="field">' +
+            '<label>Contact Person<span style="margin-left:5px;" class="ui readonly mini label">read only </span></label>' +
+            '<div class="ui left icon input"><input readonly="" placeholder="eg. John Brown" name="manufacturer_contact_person" type="text" value="' + data.grantee_contact_person + '"><i class="user circle icon"></i></div>' +
+            '</div>' +
             '</div>' +
             '</div>' +
             '</div>' +
@@ -326,7 +318,7 @@
             '<tr>' +
             '<th class="two wide">Frequency - L (MHz)</th>' +
             '<th class="two wide">Frequency - U (MHz)</th>' +
-            '<th class="two wide">Power</th>' +
+            '<th class="two wide">Power (W)</th>' +
             '<th class="two wide">Frequency Tolerance</th>' +
             '<th class="two wide">Emission Designator</th>' +
             '<th class="two wide">Frequency Type</th>' +
@@ -345,7 +337,7 @@
             '</div>' +
             '</div>' +
             '<div class="field">' +
-            '<label>Antenna Gain (db)</label>' +
+            '<label>Antenna Gain (dBi)</label>' +
             '<div class="ui input">' +
             '<input readonly type="text" placeholder="" name="antenna_gain" value="' + data.antenna_gain + '" >' +
             '</div>' +
@@ -353,14 +345,14 @@
             '<div class="field">' +
             '<div class="two fields">' +
             '<div class="field">' +
-            '<label>Channels (khz)</label>' +
+            '<label>Channels (KHz)</label>' +
             '<div class="ui left icon input">' +
             '<input readonly placeholder="" name="channel" type="text" value="' + data.channel + '">' +
             '<i class="rss icon"></i>' +
             '</div>' +
             '</div>' +
             '<div class="field">' +
-            '<label>Separation (khz)</label>' +
+            '<label>Separation (KHz)</label>' +
             '<div class="ui left icon input">' +
             '<input readonly placeholder="" name="separation" type="text" value="' + data.separation + '">' +
             '<i class="rss icon"></i>' +
@@ -378,14 +370,14 @@
             '<div class="field">' +
             '<label>Name of Main Test or Certification Institution<span style="color: red">&nbsp;*</span></label>' +
             '<div class="ui input">' +
-            '<input autocomplete="new-password" name="institution" type="text" value=' + data.name_of_test + '>' +
+            '<input autocomplete="new-password" readonly name="institution" type="text" value="' + data.name_of_test + '">' +
 
             '</div>' +
             '</div>' +
             '<div class="field">' +
             '<label>Country of Mass Production<span class="required-label" style="color: red">&nbsp;*</span></label>' +
             '<div class="ui input">' +
-            '<input autocomplete="new-password" name="country" type="text" value=' + data.country + '>' +
+            '<input autocomplete="new-password" readonly name="country" type="text" value="' + data.country + '">' +
 
             '</div>' +
             '</div>' +
@@ -824,7 +816,7 @@
             data: {},
             success: function (data) {
                 for (var i = 0; i < data.clientUsers.length; i++) {
-                    var html = '<option value="' + data.clientUsers[i].username + '">' + data.clientUsers[i].first_name + ' ' + data.clientUsers[i].last_name + '</option>';
+                    var html = '<option value="' + data.clientUsers[i].username + '">' + data.clientUsers[i].first_name + ' ' + data.clientUsers[i].last_name + " (" + data.clientUsers[i].username+") "+ '</option>';
                     $("#client-dropdown").append(html);
                 }
             },

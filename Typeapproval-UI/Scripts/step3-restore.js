@@ -470,67 +470,98 @@
                         var letter_authorization_files = $("input.file_letter_authorization");
                         var user_manual_files = $("input.file_user_manual");
 
-                        for (var i = 0; i < tech_spec_files.length; i++)
-                        {
-                            var ts_list = ($(tech_spec_files[i]))[0].files;
-                            if (ts_list.length > 0) {
-                                console.log("add files: " + ts_list[0].name);
-                                form_data.append("tech_spec", ts_list[0]);
+                        var required_files_present = false;
+                        if (tech_spec_files.length > 1) {
+                            if (test_report_files.length > 1) {
+                                if (accreditation_files.length > 1) {
+                                    if (letter_authorization_files.length > 1) {
+                                        if (user_manual_files.length > 1)
+                                        {
+                                            required_files_present = true;
+                                        }
+                                        else
+                                        {
+                                            alert("Add User Manual File");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        alert("Add Letter of Authorization File");
+                                    }
+                                }
+                                else
+                                {
+                                    alert("Add Accreditation File");
+                                }
                             }
                             else
                             {
-                                console.log("empty file: " + ts_list);
+                                alert("Add Test Report File");
                             }
                         }
-
-                        for (var j = 0; j < test_report_files.length; j++)
+                        else
                         {
-                            var tr_list = ($(test_report_files[j]))[0].files;
-                            if (tr_list.length > 0) {
-                                console.log("add files: " + tr_list[0].name);
-                                form_data.append("test_report", tr_list[0]);
-                            }
-                            else {
-                                console.log("empty file: " + tr_list);
-                            }
+                            alert("Add Technical Specifications File");
                         }
 
-                        for (var k = 0; k < accreditation_files.length; k++)
-                        {
-                            var a_list = ($(accreditation_files[k]))[0].files;
-                            if (a_list.length > 0) {
-                                console.log("add files: " + a_list[0].name);
-                                form_data.append("accreditation", a_list[0]);
+                        if (required_files_present) {
+                            for (var i = 0; i < tech_spec_files.length; i++) {
+                                var ts_list = ($(tech_spec_files[i]))[0].files;
+                                if (ts_list.length > 0) {
+                                    console.log("add files: " + ts_list[0].name);
+                                    form_data.append("tech_spec", ts_list[0]);
+                                }
+                                else {
+                                    console.log("empty file: " + ts_list);
+                                }
                             }
-                            else {
-                                console.log("empty file: " + a_list);
-                            }
-                        }
 
-                        for (var l = 0; l < letter_authorization_files.length; l++) {
-                            var la_list = ($(letter_authorization_files[l]))[0].files;
-                            if (la_list.length > 0) {
-                                console.log("add files: " + la_list[0].name);
-                                form_data.append("letter_auth", la_list[0]);
+                            for (var j = 0; j < test_report_files.length; j++) {
+                                var tr_list = ($(test_report_files[j]))[0].files;
+                                if (tr_list.length > 0) {
+                                    console.log("add files: " + tr_list[0].name);
+                                    form_data.append("test_report", tr_list[0]);
+                                }
+                                else {
+                                    console.log("empty file: " + tr_list);
+                                }
                             }
-                            else {
-                                console.log("empty file: " + la_list);
-                            }
-                        }
 
-                        for (var m = 0; m < user_manual_files.length; m++) {
-                            var um_list = ($(user_manual_files[m]))[0].files;
-                            if (um_list.length > 0) {
-                                console.log("add files: " + um_list[0].name);
-                                form_data.append("user_man", um_list[0]);
+                            for (var k = 0; k < accreditation_files.length; k++) {
+                                var a_list = ($(accreditation_files[k]))[0].files;
+                                if (a_list.length > 0) {
+                                    console.log("add files: " + a_list[0].name);
+                                    form_data.append("accreditation", a_list[0]);
+                                }
+                                else {
+                                    console.log("empty file: " + a_list);
+                                }
                             }
-                            else {
-                                console.log("empty file: " + um_list);
-                            }
-                        }
-                        ///////////////////////////////////////////////////////////////////////
 
-                        $.ajax({
+                            for (var l = 0; l < letter_authorization_files.length; l++) {
+                                var la_list = ($(letter_authorization_files[l]))[0].files;
+                                if (la_list.length > 0) {
+                                    console.log("add files: " + la_list[0].name);
+                                    form_data.append("letter_auth", la_list[0]);
+                                }
+                                else {
+                                    console.log("empty file: " + la_list);
+                                }
+                            }
+
+                            for (var m = 0; m < user_manual_files.length; m++) {
+                                var um_list = ($(user_manual_files[m]))[0].files;
+                                if (um_list.length > 0) {
+                                    console.log("add files: " + um_list[0].name);
+                                    form_data.append("user_man", um_list[0]);
+                                }
+                                else {
+                                    console.log("empty file: " + um_list);
+                                }
+                            }
+                            ///////////////////////////////////////////////////////////////////////
+
+                            $.ajax({
                                 type: "POST",
                                 url: "http://localhost:54367/api/upload/multiple",
                                 processData: false,
@@ -553,6 +584,11 @@
                                     }
                                 }
                             });
+                        }
+                        else
+                        {
+                            btn_finish.removeClass('disabled loading');
+                        }
                         
                     }
                     else {

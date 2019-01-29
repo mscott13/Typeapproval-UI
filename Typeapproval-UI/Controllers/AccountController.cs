@@ -22,6 +22,13 @@ namespace Typeapproval_UI.Controllers
         }
 
         [HttpGet]
+        [Route("account/reset")]
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [HttpGet]
         [Route("account/login")]
         [Route("account")]
         public ActionResult Login()
