@@ -20,7 +20,9 @@ namespace Typeapproval_UI
 
         protected void Application_BeginRequest()
         {
-           
+            HttpContext.Current.Response.AddHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            HttpContext.Current.Response.AddHeader("Pragma", "no-cache");
+            HttpContext.Current.Response.AddHeader("Expires", "0");
         }
     }
 }

@@ -144,7 +144,6 @@ namespace Typeapproval_UI.Controllers
             }
         }
 
-        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         [HttpGet]
         [Route("new/step-2")]
         public ActionResult Step2()
@@ -159,7 +158,6 @@ namespace Typeapproval_UI.Controllers
             }
         }
 
-        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         [HttpGet]
         [Route("new/step-3")]
         public ActionResult Step3()
