@@ -8,6 +8,7 @@
 @section Scripts{
     <script src="~/Scripts/feed.js?t=@DateTime.Now.Millisecond.ToString()"></script>
     <script src="~/Scripts/dom-to-image.js"></script>
+    <script src="~/Scripts/session.js"></script>
 }
 
 @section Styles{
@@ -15,218 +16,217 @@
     <link href="~/Content/custom.css?t=@DateTime.Now.Millisecond.ToString()" rel="stylesheet" />
 }
 
-    <div class="content-scroll_v2">
-        <div id="client_main_content" class="ui container">
-            <div class="ui grid">
-                <div style="padding-left:20px; padding-right:20px;" class="sixteen wide column">
-                    <div class="ui grid">
-                        <div class="row">
-                            <div style="padding-right:0px" class="five wide column">
-                                <div class="ui fluid card">
-                                    <div class="center aligned content">
-                                        <div class="blue ui statistic">
-                                            <div class="grey label">
-                                                Licensed Applications
-                                            </div>
-                                            <div class="value">
-                                                @Model.licensed_app_count
-                                            </div>
+<div class="content-scroll_v2">
+    <div id="client_main_content" class="ui container">
+        <div class="ui grid">
+            <div style="padding-left:20px; padding-right:20px;" class="sixteen wide column">
+                <div class="ui grid">
+                    <div class="row">
+                        <div style="padding-right:0px" class="five wide column">
+                            <div class="ui fluid card">
+                                <div class="center aligned content">
+                                    <div class="blue ui statistic">
+                                        <div class="grey label">
+                                            Licensed Applications
                                         </div>
-                                    </div>
-                                    <div class="extra center aligned italic_content content">
-                                        Licensed applications counter is based on data over a 30 day period.
+                                        <div class="value">
+                                            @Model.licensed_app_count
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="six wide column">
-                                <div class="ui fluid card">
-                                    <div class="center aligned content">
-                                        <div class="blue ui statistic">
-                                            <div class="grey label">
-                                                Pending Approval
-                                            </div>
-                                            <div class="value">
-                                                @Model.pending_app_count
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="extra center aligned italic_content content">
-                                        Pending approval applications counter is based on data over a 30 day period.
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="padding-left:0px" class="five wide column">
-                                <div class="ui fluid card">
-                                    <div class="center aligned content">
-                                        <div class="blue ui statistic">
-                                            <div class="grey label">
-                                                Not Submitted
-                                            </div>
-                                            <div class="value">
-                                                @Model.incomplete_app_count
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="extra center aligned italic_content content">
-                                        Unsubmitted applications counter is based on data over a 30 day period.
-                                    </div>
+                                <div class="extra center aligned italic_content content">
+                                    Licensed applications counter is based on data over a 30 day period.
                                 </div>
                             </div>
                         </div>
-                        <div class="row row_override_v1">
-                            <div class="sixteen wide column">
-                                <div class="ui aligned segment">
-                                    <h5 class="ui header">
-                                        <div class="content">
-                                            <i class="blue large icon calendar check"></i>
-                                            Licensed Applications
+                        <div class="six wide column">
+                            <div class="ui fluid card">
+                                <div class="center aligned content">
+                                    <div class="blue ui statistic">
+                                        <div class="grey label">
+                                            Pending Approval
                                         </div>
-                                    </h5>
-                                    <div class="ui divider"></div>
-                                    <table id="licensed_cert_table" class="ui striped table">
-                                        <thead>
-                                            <tr>
-                                                <th>Application ID</th>
-                                                <th>Manufacturer</th>
-                                                <th>Model</th>
-                                                <th>Created Date</th>
-                                                <th>Licensed Date</th>
-                                                <th>Author</th>
-                                                <th>Category</th>
-                                                <th>License</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="client-records">
+                                        <div class="value">
+                                            @Model.pending_app_count
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="extra center aligned italic_content content">
+                                    Pending approval applications counter is based on data over a 30 day period.
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding-left:0px" class="five wide column">
+                            <div class="ui fluid card">
+                                <div class="center aligned content">
+                                    <div class="blue ui statistic">
+                                        <div class="grey label">
+                                            Not Submitted
+                                        </div>
+                                        <div class="value">
+                                            @Model.incomplete_app_count
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="extra center aligned italic_content content">
+                                    Unsubmitted applications counter is based on data over a 30 day period.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row_override_v1">
+                        <div class="sixteen wide column">
+                            <div class="ui aligned segment">
+                                <h5 class="ui header">
+                                    <div class="content">
+                                        <i class="blue large icon calendar check"></i>
+                                        Licensed Applications
+                                    </div>
+                                </h5>
+                                <div class="ui divider"></div>
+                                <table id="licensed_cert_table" class="ui striped table">
+                                    <thead>
+                                        <tr>
+                                            <th>Application ID</th>
+                                            <th>Manufacturer</th>
+                                            <th>Model</th>
+                                            <th>Created Date</th>
+                                            <th>Licensed Date</th>
+                                            <th>Author</th>
+                                            <th>Category</th>
+                                            <th>License</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="client-records">
 
-                                            @if (Model.licensedApplications.Count > 0)
-                                            {
-                                                for (int i = 0; i < Model.licensedApplications.Count; i++)
-                                                {
-                                                    <tr>
-                                                        <td><a data-appid="@Model.recentActivities[i].application_id" class="form_preview link_override_v2"><b>@Model.licensedApplications[i].application_id</b></a></td>
-                                                        <td>@Model.licensedApplications[i].manufacturer</td>
-                                                        <td>@Model.licensedApplications[i].model</td>
-                                                        <td>@Model.licensedApplications[i].created_date</td>
-                                                        <td>@Model.licensedApplications[i].licensed_date</td>
-                                                        <td>@Model.licensedApplications[i].author</td>
-                                                        <td>@Model.licensedApplications[i].category</td>
-                                                        <td><i data-appid="@Model.licensedApplications[i].application_id" class="blue file alternate link icon license_view"></i></td>
-                                                    </tr>
-                                                }
-                                            }
-                                            else
+                                        @if (Model.licensedApplications.Count > 0)
+                                        {
+                                            for (int i = 0; i < Model.licensedApplications.Count; i++)
                                             {
                                                 <tr>
-                                                    <td colspan="8">No licensed applications found on your account.</td>
+                                                    <td><a data-appid="@Model.recentActivities[i].application_id" class="form_preview link_override_v2"><b>@Model.licensedApplications[i].application_id</b></a></td>
+                                                    <td>@Model.licensedApplications[i].manufacturer</td>
+                                                    <td>@Model.licensedApplications[i].model</td>
+                                                    <td>@Model.licensedApplications[i].created_date</td>
+                                                    <td>@Model.licensedApplications[i].licensed_date</td>
+                                                    <td>@Model.licensedApplications[i].author</td>
+                                                    <td>@Model.licensedApplications[i].category</td>
+                                                    <td><i data-appid="@Model.licensedApplications[i].application_id" class="blue file alternate link icon license_view"></i></td>
                                                 </tr>
                                             }
-
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <div style="margin-bottom: 10px !important;" class="ui aligned segment">
-                                    <h5 class="ui header">
-                                        <div class="content">
-                                            <i class="blue large icon clock"></i>
-                                            Recent Activity
-                                        </div>
-                                    </h5>
-                                    <div class="ui divider"></div>
-                                    <table id="recent_activity_table" class="ui striped table">
-                                        <thead>
+                                        }
+                                        else
+                                        {
                                             <tr>
-                                                <th>Application ID</th>
-                                                <th>Manufacturer</th>
-                                                <th>Model</th>
-                                                <th>Created Date</th>
-                                                <th>Licensed Date</th>
-                                                <th>Author</th>
-                                                <th>Category</th>
-                                                <th>Status</th>
+                                                <td colspan="8">No licensed applications found on your account.</td>
                                             </tr>
-                                        </thead>
-                                        <tbody id="client-records">
-                                            @if (Model.recentActivities.Count > 0)
-                                            {
-                                                for (int i = 0; i < Model.recentActivities.Count; i++)
-                                                {
-                                                    <tr>
-                                                        @if (Model.recentActivities[i].status == Typeapproval_UI.Commons.Constants.INCOMPLETE_TYPE)
-                                                        {
-                                                            <td><a class="link_override_v2" href="/new/step-1?edit=@Model.recentActivities[i].application_id&status=@Model.recentActivities[i].status"><b>@Model.recentActivities[i].application_id</b></a></td>
-                                                        }
-                                                        else if (Model.recentActivities[i].status == Typeapproval_UI.Commons.Constants.PENDING_RESUBMISSION)
-                                                        {
-                                                            <td><a class="link_override_v2" href="/new/step-1?edit=@Model.recentActivities[i].application_id&status=@Model.recentActivities[i].status"><b>@Model.recentActivities[i].application_id</b></a></td>
-                                                        }
-                                                        else
-                                                        {
-                                                            <td><a style="cursor:pointer" data-appid="@Model.recentActivities[i].application_id" class="form_preview link_override_v2"><b>@Model.recentActivities[i].application_id</b></a></td>
-                                                        }
+                                        }
 
-                                                        <td>@Model.recentActivities[i].manufacturer</td>
-                                                        <td>@Model.recentActivities[i].model</td>
-                                                        <td>@Model.recentActivities[i].created_date</td>
+                                    </tbody>
+                                </table>
+                            </div>
 
-                                                        @if (Model.recentActivities[i].licensed_date == "1/1/1900")
-                                                        {
-                                                            <td>--</td>
-                                                        }
-                                                        else
-                                                        {
-                                                            <td>@Model.recentActivities[i].licensed_date</td>
-                                                        }
-
-                                                        <td>@Model.recentActivities[i].author</td>
-
-                                                        @switch (Model.recentActivities[i].category)
-                                                        {
-                                                            case Typeapproval_UI.Commons.Constants.TYPE_APPROVAL:
-                                                                <td class="default_app_type">TYPE APPROVAL</td>
-                                                                break;
-                                                        }
-
-                                                        @switch (Model.recentActivities[i].status)
-                                                        {
-                                                            case Typeapproval_UI.Commons.Constants.INCOMPLETE_TYPE:
-                                                                <td class="status_incomplete">@Model.recentActivities[i].status</td>
-                                                                break;
-                                                            case Typeapproval_UI.Commons.Constants.PENDING_TYPE:
-                                                                <td class="status_pending">@Model.recentActivities[i].status</td>
-                                                                break;
-                                                            case Typeapproval_UI.Commons.Constants.INVOICED_TYPE:
-                                                                <td class="status_invoiced">@Model.recentActivities[i].status</td>
-                                                                break;
-                                                            case Typeapproval_UI.Commons.Constants.REJECTED:
-                                                                <td class="status_rejected">@Model.recentActivities[i].status</td>
-                                                                break;
-                                                            case Typeapproval_UI.Commons.Constants.LICENSED_TYPE:
-                                                                <td class="status_licensed">@Model.recentActivities[i].status</td>
-                                                                break;
-                                                            case Typeapproval_UI.Commons.Constants.SUBMITTED_TYPE:
-                                                                <td class="status_submitted">@Model.recentActivities[i].status</td>
-                                                                break;
-                                                            case Typeapproval_UI.Commons.Constants.PENDING_RESUBMISSION:
-                                                                <td class="status_resubmit">INCOMPLETE</td>
-                                                                break;
-                                                            default:
-                                                                <td>@Model.recentActivities[i].status</td>
-                                                                break;
-                                                        }
-
-                                                    </tr>
-                                                }
-                                            }
-                                            else
+                            <div style="margin-bottom: 10px !important;" class="ui aligned segment">
+                                <h5 class="ui header">
+                                    <div class="content">
+                                        <i class="blue large icon clock"></i>
+                                        Recent Activity
+                                    </div>
+                                </h5>
+                                <div class="ui divider"></div>
+                                <table id="recent_activity_table" class="ui striped table">
+                                    <thead>
+                                        <tr>
+                                            <th>Application ID</th>
+                                            <th>Manufacturer</th>
+                                            <th>Model</th>
+                                            <th>Created Date</th>
+                                            <th>Licensed Date</th>
+                                            <th>Author</th>
+                                            <th>Category</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="client-records">
+                                        @if (Model.recentActivities.Count > 0)
+                                        {
+                                            for (int i = 0; i < Model.recentActivities.Count; i++)
                                             {
                                                 <tr>
-                                                    <td colspan="8">No recent activity found on your account</td>
+                                                    @if (Model.recentActivities[i].status == Typeapproval_UI.Commons.Constants.INCOMPLETE_TYPE)
+                                                    {
+                                                        <td><a class="link_override_v2" href="/new/step-1?edit=@Model.recentActivities[i].application_id&status=@Model.recentActivities[i].status"><b>@Model.recentActivities[i].application_id</b></a></td>
+                                                    }
+                                                    else if (Model.recentActivities[i].status == Typeapproval_UI.Commons.Constants.PENDING_RESUBMISSION)
+                                                    {
+                                                        <td><a class="link_override_v2" href="/new/step-1?edit=@Model.recentActivities[i].application_id&status=@Model.recentActivities[i].status"><b>@Model.recentActivities[i].application_id</b></a></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td><a style="cursor:pointer" data-appid="@Model.recentActivities[i].application_id" class="form_preview link_override_v2"><b>@Model.recentActivities[i].application_id</b></a></td>
+                                                    }
+
+                                                    <td>@Model.recentActivities[i].manufacturer</td>
+                                                    <td>@Model.recentActivities[i].model</td>
+                                                    <td>@Model.recentActivities[i].created_date</td>
+
+                                                    @if (Model.recentActivities[i].licensed_date == "1/1/1900")
+                                                    {
+                                                        <td>--</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>@Model.recentActivities[i].licensed_date</td>
+                                                    }
+
+                                                    <td>@Model.recentActivities[i].author</td>
+
+                                                    @switch (Model.recentActivities[i].category)
+                                                    {
+                                                        case Typeapproval_UI.Commons.Constants.TYPE_APPROVAL:
+                                                            <td class="default_app_type">TYPE APPROVAL</td>
+                                                            break;
+                                                    }
+
+                                                    @switch (Model.recentActivities[i].status)
+                                                    {
+                                                        case Typeapproval_UI.Commons.Constants.INCOMPLETE_TYPE:
+                                                            <td class="status_incomplete">@Model.recentActivities[i].status</td>
+                                                            break;
+                                                        case Typeapproval_UI.Commons.Constants.PENDING_TYPE:
+                                                            <td class="status_pending">@Model.recentActivities[i].status</td>
+                                                            break;
+                                                        case Typeapproval_UI.Commons.Constants.INVOICED_TYPE:
+                                                            <td class="status_invoiced">@Model.recentActivities[i].status</td>
+                                                            break;
+                                                        case Typeapproval_UI.Commons.Constants.REJECTED:
+                                                            <td class="status_rejected">@Model.recentActivities[i].status</td>
+                                                            break;
+                                                        case Typeapproval_UI.Commons.Constants.LICENSED_TYPE:
+                                                            <td class="status_licensed">@Model.recentActivities[i].status</td>
+                                                            break;
+                                                        case Typeapproval_UI.Commons.Constants.SUBMITTED_TYPE:
+                                                            <td class="status_submitted">@Model.recentActivities[i].status</td>
+                                                            break;
+                                                        case Typeapproval_UI.Commons.Constants.PENDING_RESUBMISSION:
+                                                            <td class="status_resubmit">INCOMPLETE</td>
+                                                            break;
+                                                        default:
+                                                            <td>@Model.recentActivities[i].status</td>
+                                                            break;
+                                                    }
+
                                                 </tr>
                                             }
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td colspan="8">No recent activity found on your account</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -234,3 +234,4 @@
             </div>
         </div>
     </div>
+</div>

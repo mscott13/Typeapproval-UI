@@ -7,29 +7,7 @@
     const PASSWORD = 'grp_password';
     const CONFIRM = 'grp_confirm';
 
-    
-    var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
-
-    //Zero the idle timer on mouse movement.
-    $(this).mousemove(function (e) {
-        idleTime = 0;
-        console.log(e);
-    });
-    $(this).keypress(function (e) {
-        idleTime = 0;
-        console.log(e);
-    });
-
-
-    function timerIncrement() {
-        idleTime = idleTime + 1;
-        if (idleTime > 19) { // 20 minutes
-            console.log("Session timer expired");
-        }
-    }
-
     var can_register = false;
-
     $("#reset-password").click(function () {
         window.location = "/account/reset";
     });

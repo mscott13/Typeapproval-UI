@@ -41,7 +41,7 @@
                             <td>@item.Description</td>
                             <td>@item.Address2</td>
                             <td>@item.Remarks</td>
-                            <td>@item.issueDate</td>
+                            <td>@item.issueDate.ToString("MM/dd/yyyy")</td>
                             <td><a href="/certificates-sma?approval_id=@item.approval_id"><i class="file alternate icon"></i></a></td>
                         </tr>
                     }

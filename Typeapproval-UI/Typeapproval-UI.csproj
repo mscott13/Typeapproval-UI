@@ -157,6 +157,7 @@
     <Compile Include="Controllers\NewController.cs" />
     <Compile Include="Controllers\SavedController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\SystemAdminController.cs" />
     <Compile Include="Database\SLW_DatabaseInfo.cs" />
@@ -273,6 +274,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\saved-apps.js" />
     <Content Include="Scripts\semantic.js" />
+    <Content Include="Scripts\session.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\staff.js" />
     <Content Include="Scripts\step1-restore.js" />
@@ -316,7 +318,9 @@
     <Content Include="Views\Certificates\SmaCertificate.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Session\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

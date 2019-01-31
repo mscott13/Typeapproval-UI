@@ -17,5 +17,10 @@ namespace Typeapproval_UI
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        protected void Application_BeginRequest()
+        {
+           
+        }
     }
 }
