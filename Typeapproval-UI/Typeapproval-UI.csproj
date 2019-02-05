@@ -280,6 +280,7 @@
     <Content Include="Scripts\step2-restore.js" />
     <Content Include="Scripts\step3-restore.js" />
     <Content Include="favicon.ico" />
+    <Content Include="Scripts\step4-restore.js" />
     <Content Include="Scripts\sysadmin.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -316,6 +317,7 @@
     <Content Include="Views\Account\AccountCreated.cshtml" />
     <Content Include="Views\Certificates\SmaCertificate.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\New\Step4.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Session\" />

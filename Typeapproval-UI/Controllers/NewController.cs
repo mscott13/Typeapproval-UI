@@ -15,7 +15,6 @@ namespace Typeapproval_UI.Controllers
 {
     public class NewController : Controller
     {
-        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         [HttpGet]
         [Route("new/step-1")]
         public ActionResult Step1(string from, string preview, string edit, string status)
@@ -125,11 +124,7 @@ namespace Typeapproval_UI.Controllers
                 }
                 else
                 {
-                    //if (Session["manufacturer_name"] != null)
-                    //{
-                    //    var s = Session["manufacturer_name"].ToString();
-                    //    Session["selected_grantee"] = Session["manufacturer_name"].ToString();
-                    //}
+                    //...
                 }
 
                 SLW_DatabaseInfo db = new SLW_DatabaseInfo();
@@ -174,6 +169,20 @@ namespace Typeapproval_UI.Controllers
         }
 
         [HttpGet]
+        [Route("new/step-4")]
+        public ActionResult Step4()
+        {
+            if (Session["key"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("", "account");
+            }
+        }
+
+        [HttpGet]
         [Route("new/edit")]
         public ActionResult Edit(string application_id, string status)
         {
@@ -201,6 +210,21 @@ namespace Typeapproval_UI.Controllers
             {
                 string result = response.Content.ReadAsStringAsync().Result;
                 return Json(new { responseText = "unavailable" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        [Route("new/set-app-id")]
+        public ActionResult SetApplicationId(string appid)
+        {
+            if (appid != null && appid != "")
+            {
+                Session["application_id"] = appid;
+                return Json(new { responseText = "set" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { responseText = "not_set" }, JsonRequestBehavior.AllowGet);
             }
         }
 

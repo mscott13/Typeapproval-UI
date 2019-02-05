@@ -1,5 +1,9 @@
 ﻿$(document).ready(function () {
 
+    $("input, textarea").keyup(function () {
+        $('.ui.blue.button.save_app.s2').text("Save for later (Ctrl-S)");
+    });
+
     $(window).bind('keydown', function (event) {
         if (event.ctrlKey || event.metaKey) {
             switch (String.fromCharCode(event.which).toLowerCase()) {
@@ -20,6 +24,7 @@
     $("#popup_fcc").popup();
 
     $('.ui.blue.button.save_app.s2').click(function () {
+        $("input, textarea").blur();
             var btn_save = $(this);
             $(btn_save).addClass("disabled loading");
 

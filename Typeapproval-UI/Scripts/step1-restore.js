@@ -1,5 +1,9 @@
 ﻿$(document).ready(function () {
 
+    $("input").keyup(function () {
+        $('.ui.blue.button.save_app.s1').text("Save for later (Ctrl-S)");
+    });
+
     $(window).bind('keydown', function (event) {
         if (event.ctrlKey || event.metaKey) {
             switch (String.fromCharCode(event.which).toLowerCase()) {
@@ -33,7 +37,7 @@
     /////////////////////// Saving data to session /////////////////////////
 
     $('.ui.blue.button.save_app.s1').click(function () {
-        
+        $("input").blur();
         if (validate()) {
             var btn_save = $(this);
             $(btn_save).addClass("disabled loading");
