@@ -274,7 +274,6 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\saved-apps.js" />
     <Content Include="Scripts\semantic.js" />
-    <Content Include="Scripts\session.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\staff.js" />
     <Content Include="Scripts\step1-restore.js" />
