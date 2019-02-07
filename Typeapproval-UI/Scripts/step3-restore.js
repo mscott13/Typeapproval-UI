@@ -444,7 +444,7 @@
             html +
             '</div>';
 
-        $(raw).insertAfter('.ui.tiny.three.top.attached.steps');
+        $(raw).insertAfter('.ui.tiny.four.top.attached.steps');
     }
     
 

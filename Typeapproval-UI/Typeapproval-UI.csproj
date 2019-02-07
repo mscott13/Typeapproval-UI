@@ -318,6 +318,7 @@
     <Content Include="Views\Certificates\SmaCertificate.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\New\Step4.cshtml" />
+    <Content Include="Views\Search\Input.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Session\" />

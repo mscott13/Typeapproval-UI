@@ -124,7 +124,7 @@
                         <div class="ui form">
                             <a class="ui grey ribbon label">3. &nbsp Equipment Description</a>
                             <div class="inline field">
-                                <label>Type of equipment (modem, telefax, telephone) <span class="required-label" style="color: red">&nbsp;*</span></label>
+                                <label>Type of Equipment <span class="required-label" style="color: red">&nbsp;*</span></label>
                                 <div class="ui left icon input">
                                     <input  name="equipment_type" type="text">
                                     <i class="microchip icon"></i>
@@ -132,7 +132,7 @@
                             </div>
                             <div class="one field">
                                 <div class="field">
-                                    <label>Brief description of the equipment (to be used in the list of approved equipment and in the certificate of approval)<span class="required-label" style="color: red">&nbsp;*</span></label>
+                                    <label>Brief Functional Description of Equipment (to be used on the certificate of approval)<span class="required-label" style="color: red">&nbsp;*</span></label>
                                     <textarea rows="3" name="equipment_description"></textarea>
                                 </div>
 
@@ -146,7 +146,7 @@
                                     </div>
                                 </div>
                                 <div class="twelve wide field">
-                                    <label>Product identification (Model number and designation) together with version number.<span class="required-label" style="color: red">&nbsp;*</span></label>
+                                    <label>Model Number<span class="required-label" style="color: red">&nbsp;*</span></label>
                                     <div class="ui left icon input">
                                         <input  name="product_identification" type="text">
                                         <i class="language icon"></i>
@@ -155,41 +155,6 @@
                             </div>
                             <div class="fields">
 
-                            </div>
-
-                            <div id="equipent_types_handle" class="inline fields">
-                                <label>Type of equipment<span class="required-label" style="color: red">&nbsp;*</span></label>
-
-                                <div class="field">
-                                    <div class="ui radio checkbox equipment_types">
-                                        <input type="radio" name="equipment_types" tabindex="0" class="hidden" value="Transmitter">
-                                        <label>Transmitter</label>
-                                    </div>
-                                </div>
-                                <div class="field">
-                                    <div class="ui radio checkbox equipment_types">
-                                        <input type="radio" name="equipment_types" tabindex="0" class="hidden" value="Receiver">
-                                        <label>Receiver</label>
-                                    </div>
-                                </div>
-                                <div class="field">
-                                    <div class="ui radio checkbox equipment_types">
-                                        <input type="radio" name="equipment_types" tabindex="0" class="hidden" value="Transceiver">
-                                        <label>Transceiver</label>
-                                    </div>
-                                </div>
-                                <div class="field">
-                                    <div class="ui radio checkbox equipment_types">
-                                        <input type="radio" name="equipment_types" tabindex="0" class="hidden" value="Other">
-                                        <label>Other</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="one field">
-                                <div class="ui left icon disabled input">
-                                    <input  name="other_equipment" type="text">
-                                    <i class="microchip icon"></i>
-                                </div>
                             </div>
                             <div class="one field">
                                 <label>Frequency information<span  class="required-label" style="color: red">&nbsp;*</span></label>
@@ -202,7 +167,6 @@
                                             <th class="two wide">Power (W)</th>
                                             <th class="two wide">Frequency Tolerance (+/-)</th>
                                             <th class="two wide">Emission Designator</th>
-                                            <th class="two wide">Frequency Type</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table_frequencies">
@@ -238,58 +202,11 @@
                                                     <input type="text"  style="width:100%" name="emmission_desig">
                                                 </div>
                                             </td>
-                                            <td>
-                                                <div class="ui fluid dropdown freq_type">
-                                                    <div class="text"></div>
-                                                    <i class="dropdown icon"></i>
-                                                    <div class="menu">
-                                                        <div class="item">R</div>
-                                                        <div class="item">T</div>
-                                                    </div>
-                                                </div>
-                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="three fields">
-                                <div class="field">
-                                    <label>Antenna Type<span class="required-label" style="color: red">&nbsp;*</span></label>
-                                    <div class="ui left icon input">
-                                        <input name="antenna_type" type="text">
-                                        <i class="microchip icon"></i>
-                                    </div>
-                                </div>
-                                <div class="field">
-                                    <label>Antenna Gain (dBi)</label>
-                                    <div class="ui input">
-                                        <input type="text" name="antenna_gain">
-                                    </div>
-                                </div>
-                                <div class="field">
-                                    <div class="two fields">
-                                        <div class="field">
-                                            <label>Channels (KHz)</label>
-                                            <div class="ui left icon input">
-                                                <input  name="channel" type="text">
-                                                <i class="rss icon"></i>
-                                            </div>
-                                        </div>
-                                        <div class="field">
-                                            <label>Separation (KHz)</label>
-                                            <div class="ui left icon input">
-                                                <input  name="separation" type="text">
-                                                <i class="rss icon"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <label>Additional Information<span class="required-label" style="color: red">&nbsp;*</span><span><a id="popup_fcc" data-variation="mini" data-content="Enter the FCC ID of the equipment. eg. FCC ID BCGA1846" style="cursor:pointer; margin-left: 5px"><i class="grey question circle outline icon"></i></a></span></label>
-                                <textarea rows="3" name="additional_information"></textarea>
-                            </div>
-
+                           
                             <div style="margin-top: 16px !important;" class="two fields">
                                 <div class="field">
                                     <label>Name of Main Test or Certification Institution<span style="color: red">&nbsp;*</span></label>

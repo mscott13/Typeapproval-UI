@@ -32,11 +32,8 @@
             jsonObj.equipment_type = $("input[name=equipment_type]").val();
             jsonObj.equipment_description = $("textarea[name=equipment_description]").val();
             jsonObj.product_identification = $("input[name=product_identification]").val();
-            jsonObj.refNum = $("input[name=refNum]").val();
             jsonObj.make = $("input[name=make]").val();
-            jsonObj.software = $("input[name=software]").val();
-            jsonObj.type_of_equipment = $(".ui.radio.checkbox.checked").children("input").val();
-            jsonObj.other = $("input[name=other_equipment]").val();
+          
 
             var i = 0; var frequencies = [];
             $("#table_frequencies tr").each(function () {
@@ -47,16 +44,10 @@
                 obj["power"] = $(this).find("input[name=power]").val();
                 obj["tolerance"] = $(this).find("input[name=tolerance]").val();
                 obj["emmission_desig"] = $(this).find("input[name=emmission_desig]").val();
-                obj["freq_type"] = $(this).find(".menu").find(".item.active.selected").html();
                 frequencies.push(obj);
             });
 
             jsonObj.frequencies = frequencies;
-            jsonObj.antenna_type = $("input[name=antenna_type]").val();
-            jsonObj.antenna_gain = $("input[name=antenna_gain]").val();
-            jsonObj.channel = $("input[name=channel]").val();
-            jsonObj.separation = $("input[name=separation]").val();
-            jsonObj.additional_info = $("textarea[name=additional_information]").val();
             jsonObj.name_of_test = $("input[name=institution]").val();
             jsonObj.country = $("input[name=country]").val();
 
@@ -103,11 +94,7 @@
             jsonObj.equipment_type = $("input[name=equipment_type]").val();
             jsonObj.equipment_description = $("textarea[name=equipment_description]").val();
             jsonObj.product_identification = $("input[name=product_identification]").val();
-            jsonObj.refNum = $("input[name=refNum]").val();
             jsonObj.make = $("input[name=make]").val();
-            jsonObj.software = $("input[name=software]").val();
-            jsonObj.type_of_equipment = $(".ui.radio.checkbox.checked").children("input").val();
-            jsonObj.other = $("input[name=other_equipment]").val();
 
             var i = 0; var frequencies = [];
             $("#table_frequencies tr").each(function () {
@@ -118,16 +105,10 @@
                 obj["power"] = $(this).find("input[name=power]").val();
                 obj["tolerance"] = $(this).find("input[name=tolerance]").val();
                 obj["emmission_desig"] = $(this).find("input[name=emmission_desig]").val();
-                obj["freq_type"] = $(this).find(".menu").find(".item.active.selected").html();
                 frequencies.push(obj);
         });
 
         jsonObj.frequencies = frequencies;
-        jsonObj.antenna_type = $("input[name=antenna_type]").val();
-        jsonObj.antenna_gain = $("input[name=antenna_gain]").val();
-        jsonObj.channel = $("input[name=channel]").val();
-        jsonObj.separation = $("input[name=separation]").val();
-        jsonObj.additional_info = $("textarea[name=additional_information]").val();
         jsonObj.name_of_test = $("input[name=institution]").val();
         jsonObj.country = $("input[name=country]").val();
 
@@ -154,7 +135,7 @@
             html +
             '</div>';
 
-        $(raw).insertAfter('.ui.tiny.three.top.attached.steps');
+        $(raw).insertAfter('.ui.tiny.four.top.attached.steps');
     }
 
     $('body').on('click', '.ui.divided.selection.list .item', function () {
@@ -229,12 +210,6 @@
         }
     }
 
-    $('.ui.fluid.selection.dropdown.equipment').dropdown({
-        onChange: function (val) {
-            set_fee_code_options(val);
-        }
-    });
-
     $('.ui.fluid.selection.dropdown.fee_code').dropdown({
         onChange: function (val) {
            
@@ -251,23 +226,8 @@
         }
     });
 
-    $('.ui.radio.checkbox.equipment_types').checkbox({
-        onChecked: function ()
-        {
-            if ($(this).val() === 'Other')
-            {
-                $("input[name=other_equipment]").val('');
-                $("input[name=other_equipment]").parent().removeClass('disabled');
-            }
-            else
-            {
-                $("input[name=other_equipment]").val('');
-                $("input[name=other_equipment]").parent().addClass('disabled');
-            }
-        }
-    });
 
-    function addRecord(target, lower_freq, upper_freq, power, freq_tol, emmision_desig, freq_type) {
+    function addRecord(target, lower_freq, upper_freq, power, freq_tol, emmision_desig) {
 
         var html =
             '<tr>' +
@@ -308,50 +268,6 @@
             '</div>' +
             '</td>';
 
-        if (freq_type === 'R') {
-            html +=
-
-                '<td>' +
-                '<div class="ui fluid dropdown freq_type">' +
-                '<div class="text">' + freq_type + '</div>' +
-                '<i class="dropdown icon"></i>' +
-                '<div class="menu">' +
-                '<div class="item active selected">R</div>' +
-                '<div class="item">T</div>' +
-                '</div>' +
-                '</div>' +
-                '</td>';
-        }
-        else if (freq_type === 'T') {
-            html +=
-
-                '<td>' +
-                '<div class="ui fluid dropdown freq_type">' +
-                '<div class="text">' + freq_type + '</div>' +
-                '<i class="dropdown icon"></i>' +
-                '<div class="menu">' +
-                '<div class="item">R</div>' +
-                '<div class="item active selected">T</div>' +
-                '</div>' +
-                '</div>' +
-                '</td>';
-        }
-        else
-        {
-            html +=
-
-            '<td>' +
-                '<div class="ui fluid dropdown freq_type">' +
-                '<div class="text"></div>' +
-                '<i class="dropdown icon"></i>' +
-                '<div class="menu">' +
-                '<div class="item">R</div>' +
-                '<div class="item">T</div>' +
-                '</div>' +
-                '</div>' +
-                '</td>';
-        }
-
         html+= '</tr>';
         $(target).append(html);
     }
@@ -367,13 +283,8 @@
                     $('input[name=equipment_type]').val(data.step2.equipment_type);
                     $("textarea[name=equipment_description]").val(data.step2.equipment_description);
                     $("input[name=product_identification]").val(data.step2.product_identification);
-                    $("input[name=refNum]").val(data.step2.ref_num);
                     $("input[name=make]").val(data.step2.make);
-                    $("input[name=make]").val(data.step2.make);
-                    $("input[name=software]").val(data.step2.software);
-                    $("input[name=antenna_type]").val(data.step2.antenna_type);
-                    set_equipment_type_checked(data.step2.equipment_types, data.step2.other_equipment);
-
+                   
                     var target = $('#table_frequencies');
                     if (data.step2.frequencies.length > 0) {
                         $(target).find("tr").remove();
@@ -381,7 +292,7 @@
                     else
                     {
                         $(target).find("tr").remove();
-                        addRecord(target, "", "", "", "", "", "");
+                        addRecord(target, "", "", "", "", "");
                     }
 
 
@@ -392,9 +303,7 @@
                         var power           = data.step2.frequencies[i].power;
                         var tolerance       = data.step2.frequencies[i].tolerance;
                         var emmission_desig = data.step2.frequencies[i].emmission_desig;
-                        var freq_type       = data.step2.frequencies[i].freq_type;
-
-                        addRecord(target, lower_freq, upper_freq, power, tolerance, emmission_desig, freq_type);
+                        addRecord(target, lower_freq, upper_freq, power, tolerance, emmission_desig);
                     }
 
                     $('.ui.fluid.dropdown.freq_type').dropdown({
@@ -402,10 +311,6 @@
                         }
                     });
 
-                    $("input[name=antenna_gain]").val(data.step2.antenna_gain);
-                    $("input[name=channel]").val(data.step2.channels);
-                    $("input[name=separation]").val(data.step2.separation);
-                    $("textarea[name=additional_information]").val(data.step2.additional_info);
                     $("input[name=institution]").val(data.step2.name_of_test);
                     $("input[name=country]").val(data.step2.country);
                    
@@ -438,123 +343,6 @@
         });
     }
 
-    function set_equipment_type_checked(type, other)
-    {
-        var radio_options = $('#equipent_types_handle .ui.radio.checkbox');
-        $.each(radio_options, function (i, object) {
-            if ($(object).find("input").val() === type) {
-                $(object).checkbox('check');
-                console.log("checked: " + type);
-
-                if (type === 'Other')
-                {
-                    $("input[name=other_equipment]").val(other);
-                    $("input[name=other_equipment]").removeClass('disabled');
-                }
-            }
-        });
-    }
-
-    function set_equipment_comm_type(type)
-    {
-        var comm_options = $('#equipment_type_dropdown .menu .item');
-        $.each(comm_options, function (i, object) {
-            if ($(object).text() === type)
-            {
-                var span_text = $(object).parent().parent().find(".text");
-                $(object).addClass('active selected');
-
-                $(span_text).text(type);
-                $(span_text).removeClass('default');
-
-            }
-            else
-            {
-                console.log($(object).text());
-            }
-        });
-    }
-
-    function set_fee_code_type(type)
-    {
-        var fee_code_options = $('#fee_code_dropdown .menu .item');
-        $.each(fee_code_options, function (i, object) {
-            if ($(object).text() === type) {
-                var span_text = $(object).parent().parent().find(".text");
-                $(object).addClass('active selected');
-
-                $(span_text).text(type);
-                $(span_text).removeClass('default');
-            }
-            else
-            {
-                console.log($(object).text());
-            }
-        });
-    }
-
-    function set_fee_code_options(type)
-    {
-        var fee_code_dropdown = $('.ui.fluid.selection.dropdown.fee_code');
-        var span_text = $(fee_code_dropdown).find('.text');
-        var menu_holder = $(fee_code_dropdown).find('.menu');
-
-        var html = '';
-
-        switch (type)
-        {
-            case "pabx":
-                html =
-                    '<div class="item">PABX with less than 24 ports</div>' +
-                    '<div class="item">PABX with than 128-256 ports</div>' +
-                    '<div class="item">PABX with than 24-48 ports</div>' +
-                    '<div class="item">PABX with than 48-128 ports</div>' +
-                    '<div class="item">PABX with more than 256 ports</div>';
-                break;
-            case "satellite systems":
-                html =
-                    '<div class="item">Satellite Earth Station</div>' +
-                    '<div class="item">VSAT Terminals</div>';
-                break;
-            case "radio systems":
-                html =
-                    '<div class="item">Low Power Devices</div>' +
-                    '<div class="item">Radio Interface Equipment</div>' +
-                    '<div class="item">Radio Transmitters</div>' +
-                    '<div class="item">Wireless MicroPhones</div>';
-                break;
-            case "telecomms equipment":
-                html =
-                    '<div class="item">Answering Machines</div>' +
-                    '<div class="item">Basic Telephones</div>' +
-                    '<div class="item">Cordless Telephones</div>' +
-                    '<div class="item">Dealership</div>' +
-                    '<div class="item">Facsimile</div>' +
-                    '<div class="item">FM Transmitters</div>' +
-                    '<div class="item">Ham Radios</div>' +
-                    '<div class="item">Modems</div>' +
-                    '<div class="item">Multiplex Equipment (Voice/Data)</div>' +
-                    '<div class="item">Others</div>' +
-                    '<div class="item">Satcom</div>';
-                break;
-            case "miscellaneous":
-                html =
-                    '<div class="item">Alarm Systems</div>' +
-                    '<div class="item">Other</div>' +
-                    '<div class="item">Renewal for TA</div>' +
-                    '<div class="item">Sticker Fee</div>' +
-                    '<div class="item">TA Fee with Wire Transfer Charge</div>';
-                break;
-            default:
-                html = '<div class="item">Empty</div>';
-                break;
-        }
-
-        $(menu_holder).find('.item').remove();
-        $(span_text).text("Select Type");
-        $(menu_holder).append(html);
-    }
-
     function validate()
     {
         var form_valid = true;
@@ -584,39 +372,6 @@
             form_valid = false;
         }
 
-        if ($("textarea[name=additional_information]").val() === '')
-        {
-            $("textarea[name=additional_information]").addClass("input-error");
-            form_valid = false;
-        }
-
-        var equipment_types_error =
-            '<div class="ui left pointing red label equipment">' +
-            'Choose an equipment type' +
-            '</div>';
-
-        var checked = false;
-        var radio_options = $('#equipent_types_handle .ui.radio.checkbox');
-        $.each(radio_options, function (i, object) {
-            if ($(object).hasClass('checked')) {
-                checked = true;
-            }
-        });
-
-        if (!checked)
-        {
-            $('#equipent_types_handle').find('.ui.left.pointing.red.label.equipment').remove();
-            $('#equipent_types_handle').append(equipment_types_error);
-            form_valid = false;
-        }
-
-        
-        if ($("input[name=antenna_type]").val() === '')
-        {
-            $("input[name=antenna_type]").addClass('error');
-            form_valid = false;
-        }
-         
         $("#table_frequencies tr").each(function () {
           
             if ($(this).find("input[name=lower_mhz]").val() === '')

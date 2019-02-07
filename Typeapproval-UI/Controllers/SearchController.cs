@@ -57,5 +57,11 @@ namespace Typeapproval_UI.Controllers
             }
             return View(typeApprovals);
         }
+
+        [Route("search-categories")]
+        public ActionResult Input()
+        {
+            return View();
+        }
     }
 }

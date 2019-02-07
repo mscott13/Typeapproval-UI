@@ -26,10 +26,7 @@
             console.log(text);
             console.log(value);
 
-            $("input[name=grantee_telephone]").val($($item).data("tel"));
             $("input[name=grantee_address]").val($($item).data("addr"));
-            $("input[name=grantee_fax]").val($($item).data("fax"));
-            $("input[name=grantee_contact_person]").val($($item).data("person"));
         },
         wrapSelection: false
     });
@@ -38,7 +35,6 @@
 
     $('.ui.blue.button.save_app.s1').click(function () {
         $("input").blur();
-        if (validate()) {
             var btn_save = $(this);
             $(btn_save).addClass("disabled loading");
 
@@ -47,16 +43,11 @@
             jsonObj.applicant_tel = $("input[name=applicant_telephone]").val();
             jsonObj.applicant_address = $("input[name=applicant_address]").val();
             jsonObj.applicant_fax = $("input[name=applicant_fax]").val();
-            jsonObj.applicant_city_town = $("input[name=applicant_city_town]").val();
             jsonObj.applicant_contact_person = $("input[name=applicant_contact_person]").val();
-            jsonObj.applicant_nationality = $("input[name=applicant_nationality]").val();
 
             jsonObj.grantee_name = $(".ui.selection.dropdown.grantees").dropdown('get text');
             jsonObj.manufacturer_name = $("input[name=manufacturer_name]").val();
-            jsonObj.grantee_tel = $("input[name=grantee_telephone]").val();
             jsonObj.grantee_address = $("input[name=grantee_address]").val();
-            jsonObj.grantee_fax = $("input[name=grantee_fax]").val();
-            jsonObj.grantee_contact_person = $("input[name=grantee_contact_person]").val();
 
             var json = JSON.stringify(jsonObj);
 
@@ -93,11 +84,7 @@
                     console.log(data);
                 }
             });
-        }
-        else
-        {
-            //do something here if needed
-        }
+        
     });
     /////////////////////// Saving data to session /////////////////////////
 
@@ -106,27 +93,11 @@
             onApprove: function () {
                 var grantee_name = $("#grant_name").val();
                 var grantee_address = $("#grant_address").val();
-                var grantee_telephone = $("#grant_telephone").val();
-                var grantee_fax = $("#grant_fax").val();
-                var grantee_person = $("#grant_person").val();
 
                 if (grantee_name !== '') {
-                    if (grantee_address !== '') {
-                        if (grantee_telephone !== '') {
-                            var grant_name_exist = $(".ui.selection.dropdown.grantees").dropdown('get item', grantee_name);
-                            if (!grant_name_exist) {
-                                add_grantee(grantee_name, grantee_address, grantee_telephone, grantee_fax, grantee_person);
-                            }
-                            else
-                            {
-                                alert('This grantee already exists');
-                            }
-                            
-                        }
-                        else
-                        {
-                            alert("Please provide a grantee telephone");
-                        }
+                    if (grantee_address !== '')
+                    {
+                        add_grantee(grantee_name, grantee_address); 
                     }
                     else
                     {
@@ -143,24 +114,18 @@
                 setTimeout(function () {
                     $("#grant_name").val('');
                     $("#grant_address").val('');
-                    $("#grant_telephone").val('');
-                    $("#grant_fax").val('');
-                    $("#grant_person").val('');
                 }, 500);
                 return true;
             }
         }).modal('show');
     });
 
-    function add_grantee(grantee_name, grantee_address, grantee_telephone, grantee_fax, grantee_person)
+    function add_grantee(grantee_name, grantee_address)
     {
         $("#btn-addgrant-apply").addClass("disabled loading");
         var jsonObj = new Object();
         jsonObj.name = grantee_name;
-        jsonObj.telephone = grantee_telephone;
         jsonObj.address = grantee_address;
-        jsonObj.fax = grantee_fax;
-        jsonObj.contact_person = grantee_person;
 
         var json = JSON.stringify(jsonObj);
         $.ajax({
@@ -170,7 +135,7 @@
             data: json,
             success: function (data) {
                 console.log(data);
-                $(".ui.selection.dropdown.grantees").find(".menu").append('<div class="item" data-addr="' + data.address + '" data-tel="' + data.telephone + '" data-fax="' + data.fax + '" data-person="' + data.contact_person + '" data-value="' + data.name + '">' + data.name + '</div>');
+                $(".ui.selection.dropdown.grantees").find(".menu").append('<div class="item" data-addr="' + data.address +'" data-value="' + data.name + '">' + data.name + '</div>');
                 $(".ui.selection.dropdown.grantees").dropdown('refresh');
                 $(".ui.selection.dropdown.grantees").dropdown('set selected', data.name);
                 $("#add_grantee").modal('hide');
@@ -186,23 +151,19 @@
 
     $('#step1_to_next').click(function () {
 
-        if (validate()) {
+        if (validate())
+        {
             var jsonObj = new Object();
             jsonObj.applicant_name = $("input[name=applicant_name]").val();
             jsonObj.applicant_tel = $("input[name=applicant_telephone]").val();
             jsonObj.applicant_address = $("input[name=applicant_address]").val();
             jsonObj.applicant_fax = $("input[name=applicant_fax]").val();
-            jsonObj.applicant_city_town = $("input[name=applicant_city_town]").val();
             jsonObj.applicant_contact_person = $("input[name=applicant_contact_person]").val();
-            jsonObj.applicant_nationality = $("input[name=applicant_nationality]").val();
 
             jsonObj.grantee_name = $(".ui.selection.dropdown.grantees").dropdown('get text');
             jsonObj.manufacturer_name = $("input[name=manufacturer_name]").val();
-            jsonObj.grantee_tel = $("input[name=grantee_telephone]").val();
             jsonObj.grantee_address = $("input[name=grantee_address]").val();
-            jsonObj.grantee_fax = $("input[name=grantee_fax]").val();
-            jsonObj.grantee_contact_person = $("input[name=grantee_contact_person]").val();
-
+            
             var json = JSON.stringify(jsonObj);
             $.ajax({
                 type: "POST",
@@ -244,11 +205,11 @@
 
     function addApplicationStatus(html) {
         var raw = '<div class="ui attached warning message application">' +
-            '<i class="info icon"></i>' +
+            '<i class="info icon"></i>'+
             html +
             '</div>';
 
-        $(raw).insertAfter('.ui.tiny.three.top.attached.steps');
+        $(raw).insertAfter('.ui.tiny.four.top.attached.steps');
     }
 
     $.ajax({
@@ -313,10 +274,7 @@
                 if (data.data_present) {
                     $(".ui.selection.dropdown.grantees").dropdown('set selected', data.step1.grantee_name);
                     $("input[name=manufacturer_name]").val(data.step1.manufacturer_name);
-                    $("input[name=grantee_telephone]").val(data.step1.grantee_tel);
                     $("input[name=grantee_address]").val(data.step1.grantee_address);
-                    $("input[name=grantee_fax]").val(data.step1.grantee_fax);
-                    $("input[name=grantee_contact_person]").val(data.step1.grantee_contact_person);
 
                     if (data.step1.application_id !== '') {
                         if ($('.ui.small.attached.warning.message.application').length === 0) {
@@ -355,15 +313,10 @@
                     $("input[name=applicant_telephone]").val(data.step1.applicant_telephone);
                     $("input[name=applicant_address]").val(data.step1.applicant_address);
                     $("input[name=applicant_fax]").val(data.step1.applicant_fax);
-                    $("input[name=applicant_city_town]").val(data.step1.applicant_city_town);
                     $("input[name=applicant_contact_person]").val(data.step1.applicant_contact_person);
-                    $("input[name=applicant_nationality]").val(data.step1.applicant_nationality);
 
                     $("input[name=manufacturer_name]").val(data.step1.manufacturer_name);
-                    $("input[name=grantee_telephone]").val(data.step1.grantee_tel);
                     $("input[name=grantee_address]").val(data.step1.grantee_address);
-                    $("input[name=grantee_fax]").val(data.step1.grantee_fax);
-                    $("input[name=grantee_contact_person]").val(data.step1.grantee_contact_person);
 
                     if (data.step1.application_id !== '') {
                         if ($('.ui.small.attached.warning.message.application').length === 0) {
@@ -406,12 +359,7 @@
             form_valid = false;
         }
 
-
-        if ($("input[name=grantee_telephone]").val() === '')
-        {
-            $("input[name=grantee_telephone]").addClass('input-error');
-            form_valid = false;
-        }
+      
         return form_valid;
     }
 

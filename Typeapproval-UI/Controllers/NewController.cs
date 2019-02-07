@@ -52,9 +52,7 @@ namespace Typeapproval_UI.Controllers
                             objEmpty.telephone = "";
                             objEmpty.address = "";
                             objEmpty.fax = "";
-                            objEmpty.cityTown = "";
                             objEmpty.contactPerson = "";
-                            objEmpty.nationality = "";
                         }
                         else
                         {
@@ -62,9 +60,7 @@ namespace Typeapproval_UI.Controllers
                             Session["applicant_tel"] = (string)obj.telephone;
                             Session["applicant_address"] = (string)obj.address;
                             Session["applicant_fax"] = (string)obj.fax;
-                            Session["applicant_city_town"] = (string)obj.cityTown;
                             Session["applicant_contact_person"] = (string)obj.contactPerson;
-                            Session["applicant_nationality"] = (string)obj.nationality;
                         }
 
                     }
@@ -264,29 +260,15 @@ namespace Typeapproval_UI.Controllers
             Session["applicant_tel"] = form.applicant_tel;
             Session["applicant_address"] = form.applicant_address;
             Session["applicant_fax"] = form.applicant_fax;
-            Session["applicant_city_town"] = form.applicant_city_town;
             Session["applicant_contact_person"] = form.applicant_contact_person;
-            Session["applicant_nationality"] = form.applicant_nationality;
 
             Session["manufacturer_name"] = form.manufacturer_name;
             Session["grantee_name"] = form.grantee_name;
-            Session["grantee_tel"] = form.grantee_tel;
             Session["grantee_address"] = form.grantee_address;
-            Session["grantee_fax"] = form.grantee_fax;
-            Session["grantee_contact_person"] = form.grantee_contact_person;
             Session["equipment_type"] = form.equipment_type;
             Session["equipment_description"] = form.equipment_description;
             Session["product_identification"] = form.product_identification;
-            Session["refNum"] = form.refNum;
             Session["make"] = form.make;
-            Session["software"] = form.software;
-            Session["type_of_equipment"] = form.type_of_equipment;
-            Session["other"] = form.other;
-            Session["antenna_type"] = form.antenna_type;
-            Session["antenna_gain"] = form.antenna_gain;
-            Session["channel"] = form.channel;
-            Session["separation"] = form.separation;
-            Session["additional_info"] = form.additional_info;
             Session["frequencies"] = form.frequencies;
             Session["name_of_test"] = form.name_of_test;
             Session["country"] = form.country;
@@ -302,16 +284,11 @@ namespace Typeapproval_UI.Controllers
             Session["applicant_tel"] = form.applicant_tel;
             Session["applicant_address"] = form.applicant_address;
             Session["applicant_fax"] = form.applicant_fax;
-            Session["applicant_city_town"] = form.applicant_city_town;
             Session["applicant_contact_person"] = form.applicant_contact_person;
-            Session["applicant_nationality"] = form.applicant_nationality;
 
             Session["manufacturer_name"] = form.manufacturer_name;
             Session["grantee_name"] = form.grantee_name;
-            Session["grantee_tel"] = form.grantee_tel;
             Session["grantee_address"] = form.grantee_address;
-            Session["grantee_fax"] = form.grantee_fax;
-            Session["grantee_contact_person"] = form.grantee_contact_person;
 
             return Json(new { success = true, responseText = "state saved" }, JsonRequestBehavior.AllowGet);
         }
@@ -324,16 +301,7 @@ namespace Typeapproval_UI.Controllers
             Session["equipment_type"] = form.equipment_type;
             Session["equipment_description"] = form.equipment_description;
             Session["product_identification"] = form.product_identification;
-            Session["refNum"] = form.refNum;
             Session["make"] = form.make;
-            Session["software"] = form.software;
-            Session["type_of_equipment"] = form.type_of_equipment;
-            Session["other"] = form.other;
-            Session["antenna_type"] = form.antenna_type;
-            Session["antenna_gain"] = form.antenna_gain;
-            Session["channel"] = form.channel;
-            Session["separation"] = form.separation;
-            Session["additional_info"] = form.additional_info;
             Session["frequencies"] = form.frequencies;
             Session["name_of_test"] = form.name_of_test;
             Session["country"] = form.country;
@@ -358,16 +326,11 @@ namespace Typeapproval_UI.Controllers
             step1.applicant_telephone = Session["applicant_tel"].ToString(); ;
             step1.applicant_fax = Session["applicant_fax"].ToString();
             step1.applicant_address = Session["applicant_address"].ToString();
-            step1.applicant_city_town = Session["applicant_city_town"].ToString();
             step1.applicant_contact_person = Session["applicant_contact_person"].ToString();
-            step1.applicant_nationality = Session["applicant_nationality"].ToString();
 
             step1.manufacturer_name = Session["manufacturer_name"].ToString();
             step1.grantee_name = Session["grantee_name"].ToString();
-            step1.grantee_tel = Session["grantee_tel"].ToString();
             step1.grantee_address = Session["grantee_address"].ToString();
-            step1.grantee_fax = Session["grantee_fax"].ToString();
-            step1.grantee_contact_person = Session["grantee_contact_person"].ToString();
 
             if (Session["application_id"] != null)
             {
@@ -389,16 +352,7 @@ namespace Typeapproval_UI.Controllers
             step2.equipment_type = Session["equipment_type"].ToString();
             step2.equipment_description = Session["equipment_description"].ToString();
             step2.product_identification = Session["product_identification"].ToString();
-            step2.ref_num = Session["refNum"].ToString();
             step2.make = Session["make"].ToString();
-            step2.software = Session["software"].ToString();
-            step2.equipment_types = Session["type_of_equipment"].ToString();
-            step2.other_equipment = Session["other"].ToString();
-            step2.antenna_type = Session["antenna_type"].ToString();
-            step2.antenna_gain = Session["antenna_gain"].ToString();
-            step2.channels = Session["channel"].ToString();
-            step2.separation = Session["separation"].ToString();
-            step2.additional_info = Session["additional_info"].ToString();
             step2.frequencies = (List<Frequency>)Session["frequencies"];
             step2.name_of_test = Session["name_of_test"].ToString();
             step2.country = Session["country"].ToString();
@@ -472,30 +426,16 @@ namespace Typeapproval_UI.Controllers
             form.applicant_tel = Session["applicant_tel"].ToString();
             form.applicant_address = Session["applicant_address"].ToString();
             form.applicant_fax = Session["applicant_fax"].ToString();
-            form.applicant_city_town = Session["applicant_city_town"].ToString();
             form.applicant_contact_person = Session["applicant_contact_person"].ToString();
-            form.applicant_nationality = Session["applicant_nationality"].ToString();
 
             form.manufacturer_name = Session["manufacturer_name"].ToString();
             form.grantee_name = Session["grantee_name"].ToString();
-            form.grantee_tel = Session["grantee_tel"].ToString();
             form.grantee_address = Session["grantee_address"].ToString();
-            form.grantee_fax = Session["grantee_fax"].ToString();
-            form.grantee_contact_person = Session["grantee_contact_person"].ToString();
 
             form.equipment_type = Session["equipment_type"].ToString();
             form.equipment_description = Session["equipment_description"].ToString();
             form.product_identification = Session["product_identification"].ToString();
-            form.refNum = Session["refNum"].ToString();
             form.make = Session["make"].ToString();
-            form.software = Session["software"].ToString();
-            form.type_of_equipment = Session["type_of_equipment"].ToString();
-            form.other = Session["other"].ToString();
-            form.antenna_type = Session["antenna_type"].ToString();
-            form.antenna_gain = Session["antenna_gain"].ToString();
-            form.channel = Session["channel"].ToString();
-            form.separation = Session["separation"].ToString();
-            form.additional_info = Session["additional_info"].ToString();
             form.name_of_test = Session["name_of_test"].ToString();
             form.country = Session["country"].ToString();
             form.frequencies = (List<Frequency>)Session["frequencies"];
@@ -552,30 +492,16 @@ namespace Typeapproval_UI.Controllers
                 form.applicant_tel = Session["applicant_tel"].ToString();
                 form.applicant_address = Session["applicant_address"].ToString();
                 form.applicant_fax = Session["applicant_fax"].ToString();
-                form.applicant_city_town = Session["applicant_city_town"].ToString();
                 form.applicant_contact_person = Session["applicant_contact_person"].ToString();
-                form.applicant_nationality = Session["applicant_nationality"].ToString();
 
                 form.manufacturer_name = Session["manufacturer_name"].ToString();
                 form.grantee_name = Session["grantee_name"].ToString();
-                form.grantee_tel = Session["grantee_tel"].ToString();
                 form.grantee_address = Session["grantee_address"].ToString();
-                form.grantee_fax = Session["grantee_fax"].ToString();
-                form.grantee_contact_person = Session["grantee_contact_person"].ToString();
 
                 form.equipment_type = Session["equipment_type"].ToString();
                 form.equipment_description = Session["equipment_description"].ToString();
                 form.product_identification = Session["product_identification"].ToString();
-                form.refNum = Session["refNum"].ToString();
                 form.make = Session["make"].ToString();
-                form.software = Session["software"].ToString();
-                form.type_of_equipment = Session["type_of_equipment"].ToString();
-                form.other = Session["other"].ToString();
-                form.antenna_type = Session["antenna_type"].ToString();
-                form.antenna_gain = Session["antenna_gain"].ToString();
-                form.channel = Session["channel"].ToString();
-                form.separation = Session["separation"].ToString();
-                form.additional_info = Session["additional_info"].ToString();
                 form.name_of_test = Session["name_of_test"].ToString();
                 form.country = Session["country"].ToString();
                 form.frequencies = (List<Frequency>)Session["frequencies"];
@@ -643,20 +569,12 @@ namespace Typeapproval_UI.Controllers
                 Session["applicant_fax"] = "";
             }
 
-            if (Session["applicant_city_town"] == null)
-            {
-                Session["applicant_city_town"] = "";
-            }
 
             if (Session["applicant_contact_person"] == null)
             {
                 Session["applicant_contact_person"] = "";
             }
 
-            if (Session["applicant_nationality"] == null)
-            {
-                Session["applicant_nationality"] = "";
-            }
 
 
             if (Session["manufacturer_name"] == null)
@@ -671,11 +589,7 @@ namespace Typeapproval_UI.Controllers
                 initialized = false;
             }
 
-            if (Session["grantee_tel"] == null)
-            {
-                Session["grantee_tel"] = "";
-                initialized = false;
-            }
+           
 
             if (Session["grantee_address"] == null)
             {
@@ -683,17 +597,6 @@ namespace Typeapproval_UI.Controllers
                 initialized = false;
             }
 
-            if (Session["grantee_fax"] == null)
-            {
-                Session["grantee_fax"] = "";
-                initialized = false;
-            }
-
-            if (Session["grantee_contact_person"] == null)
-            {
-                Session["grantee_contact_person"] = "";
-                initialized = false;
-            }
             return initialized;
         }
 
@@ -718,11 +621,6 @@ namespace Typeapproval_UI.Controllers
                 initialized = false;
             }
 
-            if (Session["refNum"] == null)
-            {
-                Session["refNum"] = "";
-                initialized = false;
-            }
 
             if (Session["make"] == null)
             {
@@ -730,55 +628,6 @@ namespace Typeapproval_UI.Controllers
                 initialized = false;
             }
 
-            if (Session["software"] == null)
-            {
-                Session["software"] = "";
-                initialized = false;
-            }
-
-            if (Session["type_of_equipment"] == null)
-            {
-                Session["type_of_equipment"] = "";
-                initialized = false;
-            }
-
-            if (Session["other"] == null)
-
-            {
-                Session["other"] = "";
-                initialized = false;
-            }
-
-            if (Session["antenna_type"] == null)
-            {
-                Session["antenna_type"] = "";
-                initialized = false;
-            }
-
-            if (Session["antenna_gain"] == null)
-            {
-                Session["antenna_gain"] = "";
-                initialized = false;
-            }
-
-            if (Session["channel"] == null)
-            {
-                Session["channel"] = "";
-                initialized = false;
-            }
-
-            if (Session["separation"] == null)
-            {
-                Session["separation"] = "";
-                initialized = false;
-            }
-
-
-            if (Session["additional_info"] == null)
-            {
-                Session["additional_info"] = "";
-                initialized = false;
-            }
 
             if (Session["name_of_test"] == null)
             {
@@ -835,12 +684,13 @@ namespace Typeapproval_UI.Controllers
                 status = false;
             }
 
-            if (form.grantee_tel == null || form.grantee_tel == "")
+
+            if (form.grantee_address == null || form.grantee_address == "")
             {
                 status = false;
             }
 
-            if (form.grantee_address == null || form.grantee_address == "")
+            if (form.manufacturer_name == null || form.manufacturer_name == "")
             {
                 status = false;
             }
@@ -864,24 +714,6 @@ namespace Typeapproval_UI.Controllers
 
 
             if (form.make == null || form.make == "")
-            {
-                status = false;
-            }
-
-            if (form.type_of_equipment == null || form.type_of_equipment == "")
-            {
-                status = false;
-            }
-
-            else if (form.type_of_equipment == "Others")
-            {
-                if (form.other == null || form.other == "")
-                {
-                    status = false;
-                }
-            }
-
-            if (form.antenna_type == null || form.antenna_type == "")
             {
                 status = false;
             }
@@ -911,40 +743,22 @@ namespace Typeapproval_UI.Controllers
             Session.Remove("applicant_tel");
             Session.Remove("applicant_address");
             Session.Remove("applicant_fax");
-            Session.Remove("applicant_city_town");
             Session.Remove("applicant_contact_person");
-            Session.Remove("applicant_nationality");
 
             Session.Remove("save_state");
             Session.Remove("application_id");
             Session.Remove("manufacturer_name");
             Session.Remove("grantee_name");
-            Session.Remove("grantee_tel");
             Session.Remove("grantee_address");
-            Session.Remove("grantee_fax");
-            Session.Remove("grantee_contact_person");
 
             Session.Remove("equipment_type");
             Session.Remove("equipment_description");
             Session.Remove("product_identification");
-            Session.Remove("refNum");
             Session.Remove("make");
-            Session.Remove("software");
-            Session.Remove("type_of_equipment");
-            Session.Remove("other");
-            Session.Remove("antenna_type");
-            Session.Remove("antenna_gain");
-            Session.Remove("channel");
-            Session.Remove("separation");
-            Session.Remove("aspect");
-            Session.Remove("compatibility");
-            Session.Remove("security");
-            Session.Remove("equipment_comm_type");
-            Session.Remove("fee_code");
+           
             Session.Remove("frequencies");
             Session.Remove("name_of_test");
             Session.Remove("country");
-            Session.Remove("additional_info");
             Session.Remove("view_mode");
         }
     }

@@ -118,10 +118,18 @@ namespace Typeapproval_UI.Controllers
         {
             if (Session["key"] != null)
             {
-                Models.ApplicationFile application = GetFilePath(file);
-                byte[] fileBytes = System.IO.File.ReadAllBytes(application.path);
-                Response.AppendHeader("Content-Disposition", "inline; filename=\"" + application.filename+"\"");
-                return File(fileBytes, "application/pdf");
+                try
+                {
+                    Models.ApplicationFile application = GetFilePath(file);
+                    byte[] fileBytes = System.IO.File.ReadAllBytes(application.path);
+                    Response.AppendHeader("Content-Disposition", "inline; filename=\"" + application.filename + "\"");
+                    return File(fileBytes, "application/pdf");
+                }
+                catch (Exception e)
+                {
+                    return null;
+                }
+                
             }
             else
             {
@@ -134,9 +142,16 @@ namespace Typeapproval_UI.Controllers
         {
             if (Session["key"] != null)
             {
-                Models.ApplicationFile application = GetFilePath(file);
-                byte[] fileBytes = System.IO.File.ReadAllBytes(application.path);
-                return File(fileBytes, "application/pdf", application.filename);
+                try
+                {
+                    Models.ApplicationFile application = GetFilePath(file);
+                    byte[] fileBytes = System.IO.File.ReadAllBytes(application.path);
+                    return File(fileBytes, "application/pdf", application.filename);
+                }
+                catch (Exception e)
+                {
+                    return null;
+                }
             }
             else
             {

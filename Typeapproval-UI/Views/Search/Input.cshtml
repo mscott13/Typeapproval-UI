@@ -1,0 +1,61 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Certificate Lookup</title>
+    <link href="~/Content/semantic.css" rel="stylesheet" />
+    <link href="~/Content/site.css" rel="stylesheet" />
+    <link href="~/Content/custom.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="search_form_container">
+        <div class="logo">
+            <img src="~/Content/images/Spectrum-Management-Authority.png" draggable="false" />
+        </div>
+        <div class="ui tiny form">
+            <div class="ui stacked segment">
+                <div class="ui medium header">
+                    Certificate Lookup
+                    <div class="sub header">Search by any of the four categories below.</div>
+                </div>
+
+                <div class="ui form">
+                    <div class="field">
+                        <label>Dealer</label>
+                        <input type="text" name="search_dealer" placeholder="e.g. DELL">
+                    </div>
+                    <div class="field">
+                        <label>Model</label>
+                        <input type="text" name="search_model" placeholder="e.g. C-UAS-DEL1">
+                    </div>
+                    <div class="field">
+                        <label>Make</label>
+                        <input type="text" name="search_make" placeholder="">
+                    </div>
+                    <div class="field">
+                        <label>Remarks</label>
+                        <input type="text" name="first-name" placeholder="e.g. FCC ID: EW4DWMW016">
+                    </div>
+                    <div class="field">
+                        <button id="search_cert" class="ui fluid blue button">
+                            <i class="search icon"></i>
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/semantic.js"></script>
+    <script src="~/Scripts/site.js"></script>
+    <script src="~/Scripts/jquery.marcopolo.min.js"></script>
+</body>
+</html>

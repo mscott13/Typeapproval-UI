@@ -20,7 +20,6 @@ namespace Typeapproval_UI.Models
             Frequency frequency = new Frequency();
             frequency.application_id = "00000";
             frequency.emmission_desig = "";
-            frequency.freq_type = "R";
             frequency.lower_freq = "2410";
             frequency.upper_freq = "2510";
             frequency.power = "0.00000100";
