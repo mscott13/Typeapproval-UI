@@ -27,29 +27,22 @@
                         <div class="field">
                             <label>Username</label>
                             <div id="input_group_username" class="ui left icon input">
-                                <input spellcheck="false" placeholder="user" name="reg_username" type="text">
+                                <input spellcheck="false" placeholder="" name="reg_username" type="text">
                                 <i class="user icon"></i>
                             </div>
 
                         </div>
                         <div class="field">
-                            <label>Client company<span style="margin-left:5px; font-style:italic; font-weight:100 !important; float:right; color:dimgrey;">company not found? add it <a style="cursor:pointer" id="add-company">here</a></span></label>
-                            <div class="ui selection dropdown clients">
-                                <input type="hidden" name="gender">
-                                <i class="dropdown icon"></i>
-                                <div class="default text">Select company</div>
-                                <div class="menu">
-                                    @for (int i = 0; i < Model.Count; i++)
-                                    {
-                                        <div class="item" data-value="@Model[i].clientId">@Model[i].name</div>
-                                    }
-                                </div>
+                            <label>Client company<span style="margin-left:5px; font-style:italic; font-weight:100 !important; float:right; color:dimgrey;">not listed? add it <a style="cursor:pointer" id="add-company">here</a></span></label>
+                            <div id="client_companies" class="ui left icon input">
+                                <input spellcheck="false" placeholder="" name="client_companies" type="text">
+                                <i class="building icon"></i>
                             </div>
                         </div>
                         <div class="field">
                             <label>Email address</label>
                             <div id="input_group_email" class="ui left icon input">
-                                <input placeholder="jbrown@hotmail.com" name="reg_email" type="text">
+                                <input placeholder="" name="reg_email" type="text">
                                 <i class="at icon"></i>
                             </div>
                         </div>
@@ -57,14 +50,14 @@
                             <div class="field">
                                 <label>First name</label>
                                 <div id="input_group_fname" class="ui left icon input">
-                                    <input placeholder="John" name="reg_firstName" type="text">
+                                    <input placeholder="" name="reg_firstName" type="text">
                                     <i class="quote left icon"></i>
                                 </div>
                             </div>
                             <div class="field">
                                 <label>Last name</label>
                                 <div id="input_group_lname" class="ui right icon input">
-                                    <input placeholder="Brown" name="reg_lastName" type="text">
+                                    <input placeholder="" name="reg_lastName" type="text">
                                     <i class="quote right icon"></i>
                                 </div>
                             </div>
@@ -143,5 +136,204 @@
     <script src="~/Scripts/semantic.js"></script>
     <script src="~/Scripts/jquery.marcopolo.min.js"></script>
     <script src="~/Scripts/site.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var can_register = false;
+
+            $("#btn_register").click(function () {
+
+                if (can_register) {
+                    if ($("input[name=reg_password]").val() === $("input[name=reg_confirmPassword]").val()) {
+
+                        var valid = $('#register_form').form('is valid');
+                        if (valid) {
+                            $("#btn_register").addClass("disabled loading");
+
+                            var jsonObj = new Object();
+                            jsonObj.username = $("input[name=reg_username]").val();
+                            jsonObj.password = $("input[name=reg_password]").val();
+                            jsonObj.first_name = $("input[name=reg_firstName]").val();
+                            jsonObj.last_name = $("input[name=reg_lastName]").val();
+                            jsonObj.email = $("input[name=reg_email]").val();
+                            console.log($(".ui.selection.dropdown.clients").dropdown('get text'));
+                            console.log($(".ui.selection.dropdown.clients").dropdown('get value'));
+                            jsonObj.company = $("input[name=client_companies]").val();
+                            jsonObj.user_type = 0;
+                            jsonObj.clientId = $(".ui.selection.dropdown.clients").dropdown('get value');
+
+                            var json = JSON.stringify(jsonObj);
+                            $.ajax({
+                                type: "POST",
+                                url: "http://localhost:54367/api/user/register",
+                                contentType: "application/json; charset=utf-8",
+                                data: json,
+                                success: function (data) {
+                                    console.log(data);
+                                    $("#btn_register").removeClass("disabled loading");
+                                    window.location.href = "/account/account-created";
+                                },
+                                error: function (data) {
+                                    console.log(data);
+                                    $("#btn_register").removeClass("disabled loading");
+                                }
+                            });
+                        }
+                        else {
+                            console.log("Form invalid");
+                        }
+                    }
+                }
+            });
+
+            var timer;
+            $("input[name=reg_username]").on('input', function (e) {
+
+                var input = $(this);
+                var val = input.val();
+
+                if (/\s/.test(val)) {
+                    clearError(USERNAME);
+                    addError("Username cannot contain whitespaces", USERNAME);
+                    $("#input_group_username").find("i").remove();
+                    $("#input_group_username").append('<i class="red close icon"></i>');
+                    can_register = false;
+                }
+
+                else {
+                    clearError(USERNAME);
+                    if (input.data("lastval") !== val) {
+                        input.data("lastval", val);
+
+                        $("#input_group_username").addClass("loading");
+                        $("#input_group_username").find("i").remove();
+                        $("#input_group_username").append('<i class="user icon"></i>');
+                        clearError(USERNAME);
+                        clearTimeout(timer);
+                        timer = setTimeout(function () {
+                            if (input.val() !== "") {
+                                $.ajax({
+                                    type: "GET",
+                                    url: "http://localhost:54367/api/data/CheckName?q=" + input.val(),
+                                    success: function (data) {
+                                        console.log(data);
+                                        if (data === true) {
+                                            addError("username already taken", USERNAME);
+                                            $("#input_group_username").removeClass("loading");
+                                            $("#input_group_username").find("i").remove();
+                                            $("#input_group_username").append('<i class="red close icon"></i>');
+                                            can_register = false;
+                                        }
+                                        else {
+                                            clearError(USERNAME);
+                                            $("#input_group_username").removeClass("loading");
+                                            $("#input_group_username").find("i").remove();
+                                            $("#input_group_username").append('<i class="blue check icon"></i>');
+                                            can_register = true;
+                                        }
+                                    },
+                                    error: function (data) {
+                                        console.log(data);
+                                    }
+                                });
+                            }
+                            else {
+                                clearError(USERNAME);
+                                $("#input_group_username").removeClass("loading");
+                            }
+                        }, 800);
+                    }
+                }
+            });
+
+            $("#register_form").form({
+                keyboardShortcuts: false,
+                fields: {
+                    reg_username: {
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'A username must be provided'
+                            }
+                        ]
+                    },
+                    reg_clients: {
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Company name required'
+                            }
+                        ]
+                    },
+                    reg_email: {
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Email is required'
+                            }
+                        ]
+                    },
+                    reg_firstName: {
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'First name required'
+                            }
+                        ]
+                    },
+                    reg_lastName: {
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Last name required'
+                            }
+                        ]
+                    },
+                    client_companies: {
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Required field'
+                            }
+                        ]
+                    },
+                    reg_password: {
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Password required'
+                            }
+                        ]
+                    },
+
+                    reg_confirmPassword: {
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Password confirmation required'
+                            }
+                        ]
+                    }
+
+                }
+            });
+
+            $("input[name=client_companies]").marcoPolo({
+                url: "http://localhost:54367/api/data/ClientCompanyList",
+                delay: 50,
+                required: true,
+                formatItem: function (data, $item) {
+                    return data.name;
+                },
+                onSelect: function (data, $item) {
+                    $("input[name=client_companies]").val(data.name);
+                    $("input[name=client_companies]").attr("data-clientid", data.clientId);
+                },
+                formatError: function ($item, jqXHR, textStatus, errorThrown) {
+                    var e = errorThrown;
+                }
+            });
+        });
+    </script>
 </body>
 </html>

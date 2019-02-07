@@ -7,7 +7,7 @@
     const PASSWORD = 'grp_password';
     const CONFIRM = 'grp_confirm';
 
-    var can_register = false;
+ 
     $("#reset-password").click(function () {
         window.location = "/account/reset";
     });
@@ -290,52 +290,6 @@
         }
     });
 
-    $("#btn_register").click(function () {
-
-        if (can_register)
-        {
-            if ($("input[name=reg_password]").val() === $("input[name=reg_confirmPassword]").val()) {
-
-                var valid = $('#register_form').form('is valid');
-                if (valid) {
-                    $("#btn_register").addClass("disabled loading");
-
-                    var jsonObj = new Object();
-                    jsonObj.username = $("input[name=reg_username]").val();
-                    jsonObj.password = $("input[name=reg_password]").val();
-                    jsonObj.first_name = $("input[name=reg_firstName]").val();
-                    jsonObj.last_name = $("input[name=reg_lastName]").val();
-                    jsonObj.email = $("input[name=reg_email]").val();
-                    console.log($(".ui.selection.dropdown.clients").dropdown('get text'));
-                    console.log($(".ui.selection.dropdown.clients").dropdown('get value'));
-                    jsonObj.company = $(".ui.selection.dropdown.clients").dropdown('get text');
-                    jsonObj.user_type = 0;
-                    jsonObj.clientId = $(".ui.selection.dropdown.clients").dropdown('get value');
-
-                    var json = JSON.stringify(jsonObj);
-                    $.ajax({
-                        type: "POST",
-                        url: "http://localhost:54367/api/user/register",
-                        contentType: "application/json; charset=utf-8",
-                        data: json,
-                        success: function (data) {
-                            console.log(data);
-                            $("#btn_register").removeClass("disabled loading");
-                            window.location.href = "/account/account-created";
-                        },
-                        error: function (data) {
-                            console.log(data);
-                            $("#btn_register").removeClass("disabled loading");
-                        }
-                    });
-                }
-                else {
-                    console.log("Form invalid");
-                }
-            }
-        }
-    });
-
     $("#btn_login").click(function () {
         $("#btn_login").addClass("disabled loading");
         clearLoginError();
@@ -379,68 +333,6 @@
                 $("#btn_login").removeClass("disabled loading");
             }
         });
-    });
-
-    var timer;
-    $("input[name=reg_username]").on('input', function (e) {
-
-        var input = $(this);
-        var val = input.val();
-
-        if (/\s/.test(val))
-        {
-            clearError(USERNAME);
-            addError("Username cannot contain whitespaces", USERNAME);
-            $("#input_group_username").find("i").remove();
-            $("#input_group_username").append('<i class="red close icon"></i>');
-            can_register = false;
-        }
-       
-        else
-        {
-            clearError(USERNAME);
-            if (input.data("lastval") !== val) {
-                input.data("lastval", val);
-
-                $("#input_group_username").addClass("loading");
-                $("#input_group_username").find("i").remove();
-                $("#input_group_username").append('<i class="user icon"></i>');
-                clearError(USERNAME);
-                clearTimeout(timer);
-                timer = setTimeout(function () {
-                    if (input.val() !== "") {
-                        $.ajax({
-                            type: "GET",
-                            url: "http://localhost:54367/api/data/CheckName?q=" + input.val(),
-                            success: function (data) {
-                                console.log(data);
-                                if (data === true) {
-                                    addError("username already taken", USERNAME);
-                                    $("#input_group_username").removeClass("loading");
-                                    $("#input_group_username").find("i").remove();
-                                    $("#input_group_username").append('<i class="red close icon"></i>');
-                                    can_register = false;
-                                }
-                                else {
-                                    clearError(USERNAME);
-                                    $("#input_group_username").removeClass("loading");
-                                    $("#input_group_username").find("i").remove();
-                                    $("#input_group_username").append('<i class="blue check icon"></i>');
-                                    can_register = true;
-                                }
-                            },
-                            error: function (data) {
-                                console.log(data);
-                            }
-                        });
-                    }
-                    else {
-                        clearError(USERNAME);
-                        $("#input_group_username").removeClass("loading");
-                    }
-                }, 800);
-            }
-        }
     });
 
     $("input[name=reg_confirmPassword]").on('input', function (e) {
