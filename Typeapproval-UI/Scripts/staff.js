@@ -76,16 +76,8 @@
             '<input readonly placeholder="eg. 1876-555-5555" name="fax" type="text" value="' + data.applicant_fax + '">' +
             '<i class="fax icon"></i>' +
             '</div>' +
+
             '</div>' +
-            '<div class="field">' +
-            '<label>City/Town</label>' +
-            '<div class="ui left icon input">' +
-            '<input readonly placeholder="eg. Kingston" name="address" type="text" value="' + data.applicant_city_town + '">' +
-            '<i class="map marker alternate icon"></i>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="two fields">' +
             '<div class="field">' +
             '<label>Contact Person</label>' +
             '<div class="ui left icon input">' +
@@ -93,16 +85,11 @@
             '<i class="user circle icon"></i>' +
             '</div>' +
             '</div>' +
-            '<div class="field">' +
-            '<label>Nationality</label>' +
-            '<div class="ui left icon input">' +
-            '<input readonly placeholder="eg. Jamaica" name="address" type="text" value="' + data.applicant_nationality + '">' +
-            '<i class="globe icon"></i>' +
-            '</div>' +
-            '</div>' +
+
             '</div>' +
 
-            '<a class="ui grey ribbon label">2. &nbsp Manufacturer / Grantee</a>' +
+
+            '<a class="ui grey ribbon label">2. &nbsp Grantee / Manufacturer</a>' +
             '<div class="two fields">' +
             '<div class="field">' +
             '<label>Grantee</label>' +
@@ -118,21 +105,7 @@
             '<label>Address<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>' +
             '<div class="ui left icon input"><input readonly="" placeholder="eg. 12 Beckford Street" name="manufacturer_address" type="text" value="' + data.grantee_address + '"><i class="address book icon"></i></div>' +
             '</div>' +
-            '<div class="three  fields">' +
-            '<div class="field">' +
-            '<label>Telephone<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>' +
-            '<div class="ui left icon input"><input readonly="" placeholder="eg. 1876-555-5555" name="manufacturer_telephone" type="text" value="' + data.grantee_tel + '"><i class="phone volume icon"></i></div>' +
-            '</div>' +
-            '<div class="field">' +
-            '<label>Fax<span style="margin-left:5px;" class="ui readonly mini label">read only</span></label>' +
-            '<div class="ui left icon input"><input readonly="" placeholder="eg. 1876-555-5555" name="manufacturer_fax" type="text" value="' + data.grantee_fax + '"><i class="fax icon"></i></div>' +
-            '</div>' +
-            '<div class="field">' +
-            '<label>Contact Person<span style="margin-left:5px;" class="ui readonly mini label">read only </span></label>' +
-            '<div class="ui left icon input"><input readonly="" placeholder="eg. John Brown" name="manufacturer_contact_person" type="text" value="' + data.grantee_contact_person + '"><i class="user circle icon"></i></div>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
+
             '</div>' +
             '</form>' +
             '</div>';
@@ -156,23 +129,8 @@
             '</div>' +
 
             '</div>' +
-            '<div class="one field">' +
-            '<div class="field">' +
-            '<label>Product identification (Model number and designation) together with version number.</label>' +
-            '<div class="ui left icon input">' +
-            '<input readonly placeholder="eg. OUS00-0569" name="product_identification" type="text" value="' + data.product_identification + '">' +
-            '<i class="language icon"></i>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="fields">' +
-            '<div class="three wide field">' +
-            '<label>Ref #</label>' +
-            '<div class="ui left icon input">' +
-            '<input readonly placeholder="eg. 1000232" name="refNum" type="text" value="' + data.refNum + '">' +
-            '<i class="user circle icon"></i>' +
-            '</div>' +
-            '</div>' +
+
+            '<div class="two fields">' +
             '<div class="four wide field">' +
             '<label>Make</label>' +
             '<div class="ui left icon input">' +
@@ -180,48 +138,22 @@
             '<i class="barcode icon"></i>' +
             '</div>' +
             '</div>' +
-            '<div class="nine wide field">' +
-            '<label>Software (if any) - number and model designation of version</label>' +
+
+            '<div class="twelve wide field">' +
+            '<div class="field">' +
+            '<label>Model Number</label>' +
             '<div class="ui left icon input">' +
-            '<input readonly placeholder="eg. 1byone" name="software" type="text" value="' + data.software + '">' +
-            '<i class="barcode icon"></i>' +
+            '<input readonly placeholder="eg. OUS00-0569" name="product_identification" type="text" value="' + data.product_identification + '">' +
+            '<i class="language icon"></i>' +
             '</div>' +
             '</div>' +
             '</div>' +
 
-            '<div id="equipent_types_handle" class="inline fields">' +
-            '<label>Type of equipment</label>' +
-            '<div class="field">' +
-            '<div class="ui radio checkbox equipment_types">' +
-            '<input readonly type="radio" name="equipment_types" tabindex="0" class="hidden" value="Transmitter">' +
-            '<label>Transmitter</label>' +
+
+
             '</div>' +
-            '</div>' +
-            '<div class="field">' +
-            '<div class="ui radio checkbox equipment_types">' +
-            '<input readonly type="radio" name="equipment_types" tabindex="0" class="hidden" value="Receiver">' +
-            '<label>Receiver</label>' +
-            '</div>' +
-            '</div>' +
-            '<div class="field">' +
-            '<div class="ui radio checkbox equipment_types">' +
-            '<input readonly type="radio" name="equipment_types" tabindex="0" class="hidden" value="Transceiver">' +
-            '<label>Transceiver</label>' +
-            '</div>' +
-            '</div>' +
-            '<div class="field">' +
-            '<div class="ui radio checkbox equipment_types">' +
-            '<input readonly type="radio" name="equipment_types" tabindex="0" class="hidden" value="Other">' +
-            '<label>Other</label>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="one field">' +
-            '<div class="ui left icon disabled input">' +
-            '<input readonly placeholder="Other equipment" name="other_equipment" type="text" value="' + data.other + '">' +
-            '<i class="microchip icon"></i>' +
-            '</div>' +
-            '</div>' +
+
+
             '<div class="one field">' +
             '<label>Frequency information</label>' +
             '<table class="ui celled table">' +
@@ -232,7 +164,6 @@
             '<th class="two wide">Power (W)</th>' +
             '<th class="two wide">Frequency Tolerance</th>' +
             '<th class="two wide">Emission Designator</th>' +
-            '<th class="two wide">Frequency Type</th>' +
             '</tr>' +
             '</thead>' +
             '<tbody id="table_frequencies">' +
@@ -240,56 +171,21 @@
             '</tbody>' +
             '</table>' +
             '</div>' +
-            '<div class="three fields">' +
-            '<div class="field">' +
-            '<label>Antenna Type</label>' +
-            '<div class="ui input">' +
-            '<input readonly type="text" placeholder="" name="antenna_type" value="' + data.antenna_type + '">' +
-            '</div>' +
-            '</div>' +
-            '<div class="field">' +
-            '<label>Antenna Gain (dBi)</label>' +
-            '<div class="ui input">' +
-            '<input readonly type="text" placeholder="" name="antenna_gain" value="' + data.antenna_gain + '" >' +
-            '</div>' +
-            '</div>' +
-            '<div class="field">' +
-            '<div class="two fields">' +
-            '<div class="field">' +
-            '<label>Channels (KHz)</label>' +
-            '<div class="ui left icon input">' +
-            '<input readonly placeholder="" name="channel" type="text" value="' + data.channel + '">' +
-            '<i class="rss icon"></i>' +
-            '</div>' +
-            '</div>' +
-            '<div class="field">' +
-            '<label>Separation (KHz)</label>' +
-            '<div class="ui left icon input">' +
-            '<input readonly placeholder="" name="separation" type="text" value="' + data.separation + '">' +
-            '<i class="rss icon"></i>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="field">' +
-            '<label>Additional Information</label>' +
-            '<textarea readonly rows="3" name="additional_information">' + data.additional_info + '</textarea>' +
-            '</div>' +
+
 
             '<div style="margin-top: 16px !important;" class="two fields">' +
             '<div class="field">' +
             '<label>Name of Main Test or Certification Institution<span style="color: red">&nbsp;*</span></label>' +
             '<div class="ui input">' +
-            '<input autocomplete="new-password" name="institution" type="text" value="' + data.name_of_test+'">' +
-           
+            '<input autocomplete="new-password" name="institution" type="text" value="' + data.name_of_test + '">' +
+
             '</div>' +
             '</div>' +
             '<div class="field">' +
             '<label>Country of Mass Production<span class="required-label" style="color: red">&nbsp;*</span></label>' +
             '<div class="ui input">' +
-            '<input autocomplete="new-password" name="country" type="text" value="' + data.country+'">' +
-            
+            '<input autocomplete="new-password" name="country" type="text" value="' + data.country + '">' +
+
             '</div>' +
             '</div>' +
             '</div>' +
@@ -340,11 +236,6 @@
                 '<td>' +
                 '<div class="ui transparent input">' +
                 '<input readonly type="text" placeholder="emmission desig..." style="width:100%" name="emmission_desig" value="' + data[i].emmission_desig + '">' +
-                '</div>' +
-                '</td>' +
-                '<td>' +
-                '<div class="ui transparent input">' +
-                '<input readonly type="text" placeholder="frequency type" style="width:100%" name="freq_type" value="' + data[i].freq_type + '">' +
                 '</div>' +
                 '</td>' +
                 '</tr>';
