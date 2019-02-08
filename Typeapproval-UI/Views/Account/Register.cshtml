@@ -28,22 +28,22 @@
                             <label>Username</label>
                             <div id="input_group_username" class="ui left icon input">
                                 <input spellcheck="false" placeholder="" name="reg_username" type="text">
-                                <i class="user icon"></i>
+                                <i class="grey circle user icon"></i>
                             </div>
 
                         </div>
                         <div class="field">
-                            <label>Client company<span style="margin-left:5px; font-style:italic; font-weight:100 !important; float:right; color:dimgrey;">not listed? add it <a style="cursor:pointer" id="add-company">here</a></span></label>
+                            <label>Applicant name<span style="margin-left:5px; font-style:italic; font-weight:100 !important; float:right; color:dimgrey;">not listed? add it <a style="cursor:pointer" id="add-company">here</a></span></label>
                             <div id="client_companies" class="ui left icon input">
                                 <input spellcheck="false" placeholder="" name="client_companies" type="text">
-                                <i class="building icon"></i>
+                                <i class="grey building icon"></i>
                             </div>
                         </div>
                         <div class="field">
                             <label>Email address</label>
                             <div id="input_group_email" class="ui left icon input">
                                 <input placeholder="" name="reg_email" type="text">
-                                <i class="at icon"></i>
+                                <i class="grey at icon"></i>
                             </div>
                         </div>
                         <div class="two fields">
@@ -51,14 +51,14 @@
                                 <label>First name</label>
                                 <div id="input_group_fname" class="ui left icon input">
                                     <input placeholder="" name="reg_firstName" type="text">
-                                    <i class="quote left icon"></i>
+                                    <i class="grey quote left icon"></i>
                                 </div>
                             </div>
                             <div class="field">
                                 <label>Last name</label>
                                 <div id="input_group_lname" class="ui right icon input">
                                     <input placeholder="" name="reg_lastName" type="text">
-                                    <i class="quote right icon"></i>
+                                    <i class="grey quote right icon"></i>
                                 </div>
                             </div>
                         </div>
@@ -67,14 +67,14 @@
                                 <label>Password</label>
                                 <div id="input_group_password" class="ui left icon input">
                                     <input placeholder="" name="reg_password" type="password">
-                                    <i class="lock open icon"></i>
+                                    <i class="grey lock open icon"></i>
                                 </div>
                             </div>
                             <div class="field">
                                 <label>Confirm password</label>
                                 <div id="input_group_confirm" class="ui left icon input">
                                     <input placeholder="" name="reg_confirmPassword" type="password">
-                                    <i class="lock icon"></i>
+                                    <i class="grey lock icon"></i>
                                 </div>
                             </div>
                         </div>
@@ -91,13 +91,13 @@
 
     <div id="add_company" class="ui tiny modal">
         <div class="header">
-            <i class="building icon"></i>Add Company
+            <i class="building icon"></i>New Applicant
         </div>
         <div class="content">
             <form class="ui form">
                 <div class="two fields">
                     <div class="field">
-                        <label>Company name</label>
+                        <label>Applicant name</label>
                         <input type="text" id="company_name" placeholder="">
                     </div>
                     <div class="field">
@@ -139,6 +139,14 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+
+            const USERNAME = 'grp_username';
+            const EMAIL = 'grp_email';
+            const FNAME = 'grp_fname';
+            const LNAME = 'grp_lname';
+            const PASSWORD = 'grp_password';
+            const CONFIRM = 'grp_confirm';
+
             var can_register = false;
 
             $("#btn_register").click(function () {
@@ -156,11 +164,9 @@
                             jsonObj.first_name = $("input[name=reg_firstName]").val();
                             jsonObj.last_name = $("input[name=reg_lastName]").val();
                             jsonObj.email = $("input[name=reg_email]").val();
-                            console.log($(".ui.selection.dropdown.clients").dropdown('get text'));
-                            console.log($(".ui.selection.dropdown.clients").dropdown('get value'));
                             jsonObj.company = $("input[name=client_companies]").val();
                             jsonObj.user_type = 0;
-                            jsonObj.clientId = $(".ui.selection.dropdown.clients").dropdown('get value');
+                            jsonObj.clientId = $("input[name=client_companies]").data("clientid");
 
                             var json = JSON.stringify(jsonObj);
                             $.ajax({
@@ -205,9 +211,8 @@
                     if (input.data("lastval") !== val) {
                         input.data("lastval", val);
 
-                        $("#input_group_username").addClass("loading");
                         $("#input_group_username").find("i").remove();
-                        $("#input_group_username").append('<i class="user icon"></i>');
+                        $("#input_group_username").append('<i class="grey circle user icon"></i>');
                         clearError(USERNAME);
                         clearTimeout(timer);
                         timer = setTimeout(function () {
@@ -318,10 +323,167 @@
                 }
             });
 
+            $("#add-company").click(function () {
+                $("#add_company").modal({
+                    onApprove: function () {
+                        var company_name = $("#company_name").val();
+                        var company_address = $("#company_address").val();
+                        var company_telephone = $("#company_telephone").val();
+                        var company_fax = $("#company_fax").val();
+                        var company_person = $("#company_person").val();
+
+                        if (company_name !== '') {
+                            if (company_address !== '') {
+                                if (company_telephone !== '')
+                                {
+                                    add_company(company_name, company_address, company_telephone, company_fax, company_person);
+                                }
+                                else {
+                                    alert('Please enter a company telephone');
+                                }
+                            }
+                            else {
+                                alert('Please enter a company address');
+                            }
+                        }
+                        else {
+                            alert('Please enter a company name');
+                        }
+
+                        return false;
+                    },
+                    onDeny: function () {
+                        setTimeout(function () {
+
+                            $("#company_name").val('');
+                            $("#company_address").val('');
+                            $("#company_telephone").val('');
+                            $("#company_fax").val('');
+                            $("#company_person").val('');
+
+                        }, 500);
+                        return true;
+                    }
+                }).modal('show');
+            });
+
+            function add_company(company_name, company_address, company_telephone, company_fax, company_person) {
+                $("#btn-addcompany-apply").addClass("disabled loading");
+                var jsonObj = new Object();
+                jsonObj.name = company_name;
+                jsonObj.telephone = company_telephone;
+                jsonObj.address = company_address;
+                jsonObj.fax = company_fax;
+                jsonObj.cityTown = "";
+                jsonObj.contactPerson = company_person;
+                jsonObj.nationality = "";
+
+                var json = JSON.stringify(jsonObj);
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:54367/api/data/NewCompany",
+                    contentType: "application/json; charset=utf-8",
+                    data: json,
+                    success: function (data) {
+                        $("#add_company").modal('hide');
+                        $("input[name=client_companies]").val(company_name).data("clientid", data);
+                        $("#btn-addcompany-apply").removeClass("disabled loading");
+                        setTimeout(function () {
+
+                            $("#company_name").val('');
+                            $("#company_address").val('');
+                            $("#company_telephone").val('');
+                            $("#company_fax").val('');
+                            $("#company_person").val('');
+
+                        }, 500);
+                    },
+                    error: function (data) {
+                        $("#btn-addcompany-apply").removeClass("disabled loading");
+                    }
+                });
+            }
+
+
+            $("input[name=reg_confirmPassword]").on('input', function (e) {
+                var input = $(this);
+                var val = input.val();
+
+                if (input.data("lastval") !== val) {
+                    input.data("lastval", val);
+
+                    clearError(PASSWORD);
+                    clearError(CONFIRM);
+
+                    clearTimeout(timer);
+                    timer = setTimeout(function () {
+                        if ($("input[name=reg_password]").val() !== $("input[name=reg_confirmPassword]").val()) {
+                            addError("Passwords do not match", PASSWORD);
+                            addError("Passwords do not match", CONFIRM);
+                        }
+                        else {
+                            clearError(PASSWORD);
+                            clearError(CONFIRM);
+                        }
+                    }, 800);
+                }
+            });
+
+            function clearError(target) {
+                switch (target) {
+                    case USERNAME:
+                        $('#' + USERNAME).remove();
+                        break;
+                    case EMAIL:
+                        $('#' + EMAIL).remove();
+                        break;
+                    case FNAME:
+                        $('#' + FNAME).remove();
+                        break;
+                    case LNAME:
+                        $('#' + LNAME).remove();
+                        break;
+                    case PASSWORD:
+                        $('#' + PASSWORD).remove();
+                        break;
+                    case CONFIRM:
+                        $('#' + CONFIRM).remove();
+                        break;
+                }
+            }
+
+            function addError(message, target) {
+                var html = ' <div id=' + target + ' class="ui pointing basic red label" > ' +
+                    message +
+                    '</div >';
+
+                switch (target) {
+                    case USERNAME:
+                        $(html).insertAfter("#input_group_username");
+                        break;
+                    case EMAIL:
+                        $(html).insertAfter("#input_group_email");
+                        break;
+                    case FNAME:
+                        $(html).insertAfter("#input_group_fname");
+                        break;
+                    case LNAME:
+                        $(html).insertAfter("#input_group_lname");
+                        break;
+                    case PASSWORD:
+                        $(html).insertAfter("#input_group_password");
+                        break;
+                    case CONFIRM:
+                        $(html).insertAfter("#input_group_confirm");
+                        break;
+                }
+            }
+
             $("input[name=client_companies]").marcoPolo({
                 url: "http://localhost:54367/api/data/ClientCompanyList",
                 delay: 50,
                 required: true,
+                cache: false,
                 formatItem: function (data, $item) {
                     return data.name;
                 },

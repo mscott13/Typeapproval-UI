@@ -53,7 +53,7 @@ namespace Typeapproval_UI.Database
             {
                 while (reader.Read())
                 {
-                    manufacturers.Add(new Manufacturer(reader["Dealer"].ToString(), reader["Address2"].ToString(), reader["TelNum"].ToString(), reader["FaxNum"].ToString(), ""));
+                    manufacturers.Add(new Manufacturer(reader["Dealer"].ToString(), reader["Address2"].ToString()));
                 }
             }
             reader.Close();
@@ -79,7 +79,7 @@ namespace Typeapproval_UI.Database
             {
                 while (reader.Read())
                 {
-                    manufacturers.Add(new Manufacturer(reader["dealer"].ToString(), reader["address"].ToString(), reader["telephone"].ToString(), reader["fax"].ToString(), reader["contact_person"].ToString()));
+                    manufacturers.Add(new Manufacturer(reader["dealer"].ToString(), reader["address"].ToString()));
                 }
             }
 

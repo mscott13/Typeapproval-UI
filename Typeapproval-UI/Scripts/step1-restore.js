@@ -1,5 +1,7 @@
-﻿$(document).ready(function () {
-
+﻿$(document).ready(function ()
+{
+    var current_selection = "";
+    var no_result = false;
     $("input").keyup(function () {
         $('.ui.blue.button.save_app.s1').text("Save for later (Ctrl-S)");
     });
@@ -45,7 +47,7 @@
             jsonObj.applicant_fax = $("input[name=applicant_fax]").val();
             jsonObj.applicant_contact_person = $("input[name=applicant_contact_person]").val();
 
-            jsonObj.grantee_name = $(".ui.selection.dropdown.grantees").dropdown('get text');
+            jsonObj.grantee_name = $("input[name=grantee_name]").val();
             jsonObj.manufacturer_name = $("input[name=manufacturer_name]").val();
             jsonObj.grantee_address = $("input[name=grantee_address]").val();
 
@@ -135,9 +137,9 @@
             data: json,
             success: function (data) {
                 console.log(data);
-                $(".ui.selection.dropdown.grantees").find(".menu").append('<div class="item" data-addr="' + data.address +'" data-value="' + data.name + '">' + data.name + '</div>');
-                $(".ui.selection.dropdown.grantees").dropdown('refresh');
-                $(".ui.selection.dropdown.grantees").dropdown('set selected', data.name);
+                $("input[name=grantee_name]").val(data.name);
+                $("input[name=grantee_address]").val(data.address);
+               
                 $("#add_grantee").modal('hide');
                 $("#btn-addgrant-apply").removeClass("disabled loading");
                 alert('Grantee added to list. Selected: ' + grantee_name);
@@ -160,7 +162,7 @@
             jsonObj.applicant_fax = $("input[name=applicant_fax]").val();
             jsonObj.applicant_contact_person = $("input[name=applicant_contact_person]").val();
 
-            jsonObj.grantee_name = $(".ui.selection.dropdown.grantees").dropdown('get text');
+            jsonObj.grantee_name = $("input[name=grantee_name]").val();
             jsonObj.manufacturer_name = $("input[name=manufacturer_name]").val();
             jsonObj.grantee_address = $("input[name=grantee_address]").val();
             
@@ -271,8 +273,10 @@
             type: "GET",
             url: "/retrieve/step-1",
             success: function (data) {
-                if (data.data_present) {
-                    $(".ui.selection.dropdown.grantees").dropdown('set selected', data.step1.grantee_name);
+                if (data.data_present)
+                {
+                    current_selection = data.step1.grantee_name;
+                    $("input[name=grantee_name]").val(data.step1.grantee_name);
                     $("input[name=manufacturer_name]").val(data.step1.manufacturer_name);
                     $("input[name=grantee_address]").val(data.step1.grantee_address);
 
@@ -302,19 +306,23 @@
         });
     }
 
+
+
     function restore_step1_v2() {
         $.ajax({
             type: "GET",
             url: "/retrieve/step-1",
             success: function (data) {
-                if (data.data_present) {
-                    $(".ui.selection.dropdown.grantees").dropdown('set selected', data.step1.grantee_name);
+                if (data.data_present)
+                {
                     $("input[name=applicant_name]").val(data.step1.applicant_name);
                     $("input[name=applicant_telephone]").val(data.step1.applicant_telephone);
                     $("input[name=applicant_address]").val(data.step1.applicant_address);
                     $("input[name=applicant_fax]").val(data.step1.applicant_fax);
                     $("input[name=applicant_contact_person]").val(data.step1.applicant_contact_person);
 
+                    current_selection = data.step1.grantee_name;
+                    $("input[name=grantee_name]").val(data.step1.grantee_name);
                     $("input[name=manufacturer_name]").val(data.step1.manufacturer_name);
                     $("input[name=grantee_address]").val(data.step1.grantee_address);
 
@@ -326,7 +334,7 @@
                                 ' Application saved with ID: <b>' + data.step1.application_id + '</b>' +
                                 '</div>';
 
-                            $(attatched_header).insertAfter('.ui.tiny.three.top.attached.steps');
+                            $(attatched_header).insertAfter('.ui.tiny.four.top.attached.steps');
                         }
                         else {
                             var html =
@@ -362,6 +370,51 @@
       
         return form_valid;
     }
+    
+    $("input[name=grantee_name]").marcoPolo({
+        url: "http://localhost:54367/api/data/ManufacturersDetail",
+        delay: 50,
+        cache: false,
+        required: false,
+        formatItem: function (data, $item) {
+            return data.name;
+        },
+        onSelect: function (data, $item)
+        {
+            $("input[name=grantee_name]").val(data.name);
+            $("input[name=grantee_address]").val(data.address);
+            current_selection = data.name;
+        },
+        formatError: function ($item, jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        },
+        onNoResults: function (i, $item)
+        {
+            no_result = true;
+        }
+    });
+
+    $("input[name=grantee_name]").on("input", function () {
+        if ($(this).val() === '')
+        {
+            $("input[name=grantee_name]").val("");
+            $("input[name=grantee_address]").val("");
+        }
+    });
+
+    $("input[name=grantee_name]").on("change", function () {
+        if (no_result) 
+        {
+            $("input[name=grantee_name]").val("");
+            $("input[name=grantee_address]").val("");
+            no_result = false;
+        }
+
+        if ($(this).val() !== current_selection) {
+            $("input[name=grantee_name]").val("");
+            $("input[name=grantee_address]").val("");
+        }
+    });
 
     restore_step1();
 });

@@ -1,13 +1,5 @@
 ﻿$(document).ready(function () {
 
-    const USERNAME = 'grp_username';
-    const EMAIL = 'grp_email';
-    const FNAME = 'grp_fname';
-    const LNAME = 'grp_lname';
-    const PASSWORD = 'grp_password';
-    const CONFIRM = 'grp_confirm';
-
- 
     $("#reset-password").click(function () {
         window.location = "/account/reset";
     });
@@ -101,101 +93,6 @@
             }
         });
 
-    $("#add-company").click(function () {
-        $("#add_company").modal({
-            onApprove: function () {
-                var company_name = $("#company_name").val();
-                var company_address = $("#company_address").val();
-                var company_telephone = $("#company_telephone").val();
-                var company_fax = $("#company_fax").val();
-                var company_person = $("#company_person").val();
-
-                if (company_name !== '') {
-                    if (company_address !== '') {
-                        if (company_telephone !== '') {
-                            var c_name_exist = $(".ui.selection.dropdown.clients").dropdown('get item', company_name);
-                            if (!c_name_exist) {
-                                add_company(company_name, company_address, company_telephone, company_fax, company_person);
-                            }
-                            else
-                            {
-                                alert("This company name already exists");
-                            }
-                           
-                        }
-                        else
-                        {
-                            alert('Please enter a company telephone');
-                        }
-                    }
-                    else
-                    {
-                        alert('Please enter a company address');
-                    }
-                }
-                else
-                {
-                    alert('Please enter a company name');
-                }
-
-                return false;
-            },
-            onDeny: function () {
-                setTimeout(function () {
-
-                    $("#company_name").val('');
-                    $("#company_address").val('');
-                    $("#company_telephone").val('');
-                    $("#company_fax").val('');
-                    $("#company_person").val('');
-
-                }, 500);
-                return true;
-            }
-        }).modal('show');
-    });
-
-    function add_company(company_name, company_address, company_telephone, company_fax, company_person) {
-        $("#btn-addcompany-apply").addClass("disabled loading");
-        var jsonObj = new Object();
-        jsonObj.name = company_name;
-        jsonObj.telephone = company_telephone;
-        jsonObj.address = company_address;
-        jsonObj.fax = company_fax;
-        jsonObj.cityTown = "";
-        jsonObj.contactPerson = company_person;
-        jsonObj.nationality = "";
-
-        var json = JSON.stringify(jsonObj);
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:54367/api/data/NewCompany",
-            contentType: "application/json; charset=utf-8",
-            data: json,
-            success: function (data) {
-                $("#add_company").modal('hide');
-                $(".ui.selection.dropdown.clients").find(".menu").append("<div class='item' data-value='" + data + "'>" + company_name + "</div>");
-                $(".ui.selection.dropdown.clients").dropdown('get text');
-                $(".ui.selection.dropdown.clients").dropdown('refresh');
-                $(".ui.selection.dropdown.clients").dropdown('set selected', data);
-                $("#btn-addcompany-apply").removeClass("disabled loading");
-                setTimeout(function () {
-
-                    $("#company_name").val('');
-                    $("#company_address").val('');
-                    $("#company_telephone").val('');
-                    $("#company_fax").val('');
-                    $("#company_person").val('');
-
-                }, 500);    
-            },
-            error: function (data) {
-                $("#btn-addcompany-apply").removeClass("disabled loading");
-            }
-        });
-    }
-   
-
     $('.ui.button.cancel_app').click(function () {
         console.log("cancelling application...");
 
@@ -226,69 +123,7 @@
         $('#upload_files').trigger('click');
     });
 
-    $("#register_form").form({
-        keyboardShortcuts: false,
-        fields: {
-            reg_username: {
-                rules: [
-                    {
-                        type: 'empty',
-                        prompt: 'A username must be provided'
-                    }
-                ]
-            },
-            reg_clients: {
-                rules: [
-                    {
-                        type: 'empty',
-                        prompt: 'Company name required'
-                    }
-                ]
-            },
-            reg_email: {
-                rules: [
-                    {
-                        type: 'empty',
-                        prompt: 'Email is required'
-                    }
-                ]
-            },
-            reg_firstName: {
-                rules: [
-                    {
-                        type: 'empty',
-                        prompt: 'First name required'
-                    }
-                ]
-            },
-            reg_lastName: {
-                rules: [
-                    {
-                        type: 'empty',
-                        prompt: 'Last name required'
-                    }
-                ]
-            },
-            reg_password: {
-                rules: [
-                    {
-                        type: 'empty',
-                        prompt: 'Password required'
-                    }
-                ]
-            },
-
-            reg_confirmPassword: {
-                rules: [
-                    {
-                        type: 'empty',
-                        prompt: 'Password confirmation required'
-                    }
-                ]
-            }
-
-        }
-    });
+    
 
     $("#btn_login").click(function () {
         $("#btn_login").addClass("disabled loading");
@@ -333,30 +168,6 @@
                 $("#btn_login").removeClass("disabled loading");
             }
         });
-    });
-
-    $("input[name=reg_confirmPassword]").on('input', function (e) {
-        var input = $(this);
-        var val = input.val();
-
-        if (input.data("lastval") !== val) {
-            input.data("lastval", val);
-
-            clearError(PASSWORD);
-            clearError(CONFIRM);
-
-            clearTimeout(timer);
-            timer = setTimeout(function () {
-                if ($("input[name=reg_password]").val() !== $("input[name=reg_confirmPassword]").val()) {
-                    addError("Passwords do not match", PASSWORD);
-                    addError("Passwords do not match", CONFIRM);
-                }
-                else {
-                    clearError(PASSWORD);
-                    clearError(CONFIRM);
-                }
-            }, 800);
-        }
     });
 
     $('#sign_out').click(function () {
@@ -442,28 +253,7 @@
         }
     }
 
-    function clearError(target) {
-        switch (target) {
-            case USERNAME:
-                $('#' + USERNAME).remove();
-                break;
-            case EMAIL:
-                $('#' + EMAIL).remove();
-                break;
-            case FNAME:
-                $('#' + FNAME).remove();
-                break;
-            case LNAME:
-                $('#' + LNAME).remove();
-                break;
-            case PASSWORD:
-                $('#' + PASSWORD).remove();
-                break;
-            case CONFIRM:
-                $('#' + CONFIRM).remove();
-                break;
-        }
-    }
+  
 
     function displayLoginError(message) {
         var html = '<div id="login_error" class="ui small negative floating message">' +
@@ -534,18 +324,6 @@
             '<input type="text" placeholder="" style="width:100%" name="emmission_desig">' +
             '</div>' +
             '</td>' +
-
-            '<td>' +
-            '<div class="ui fluid dropdown">' +
-            '<div class="text"></div>' +
-            '<i class="dropdown icon"></i>' +
-            '<div class="menu">' +
-            '<div class="item">R</div>' +
-            '<div class="item">T</div>' +
-            '</div>' +
-            '</div>' +
-            '</td>' +
-
             ' </tr>';
         $(target).append(html);
         $('.ui.dropdown').dropdown();

@@ -170,47 +170,9 @@
                             <div class="two fields">
                                 <div class="field">
                                     <label>Grantee Name<span class="required-label" style="color: red">&nbsp;*</span> <span style="margin-left:5px; font-style:italic; font-weight:100 !important; float:right; color:dimgrey;">not listed? add it <a style="cursor:pointer" id="add-grantee">here</a></span></label>
-
-                                    <div class="ui selection dropdown grantees">
-                                        <input type="hidden" name="gender">
-                                        <i class="dropdown icon"></i>
-                                        @if (Session["grantee_name"] != null)
-                                        {
-                                            <div class="text">
-                                                @Session["grantee_name"].ToString()
-                                            </div>
-
-                                        }
-                                        else
-                                        {
-                                            <div class="default text">
-                                                Select grantee
-                                            </div>
-                                        }
-
-                                        <div class="menu">
-                                            @if (Session["grantee_name"] != null)
-                                            {
-                                                for (int i = 0; i < Model.Count; i++)
-                                                {
-                                                    if (Model[i].name == Session["grantee_name"].ToString())
-                                                    {
-                                                        <div class="item active selected" data-addr="@Model[i].address" data-tel="@Model[i].telephone" data-fax="@Model[i].fax" data-person="@Model[i].contact_person" data-value="@Model[i].name">@Model[i].name</div>
-                                                    }
-                                                    else
-                                                    {
-                                                        <div class="item" data-addr="@Model[i].address" data-tel="@Model[i].telephone" data-fax="@Model[i].fax" data-person="@Model[i].contact_person" data-value="@Model[i].name">@Model[i].name</div>
-                                                    }
-                                                }
-                                            }
-                                            else
-                                            {
-                                                for (int i = 0; i < Model.Count; i++)
-                                                {
-                                                    <div class="item" data-addr="@Model[i].address" data-tel="@Model[i].telephone" data-fax="@Model[i].fax" data-person="@Model[i].contact_person" data-value="@Model[i].name">@Model[i].name</div>
-                                                }
-                                            }
-                                        </div>
+                                    <div class="ui left icon input">
+                                        <input id="grantee_name" data-purpose="update_save_btn" autocomplete="off" placeholder="Name" name="grantee_name" type="text">
+                                        <i class="users icon"></i>
                                     </div>
                                 </div>
 
@@ -219,11 +181,11 @@
                                     <div class="ui left icon input">
                                         @if (mode == "preview")
                                         {
-                                            <input readonly name="manufacturer_name" type="text">
+                                            <input readonly name="manufacturer_name" type="text" placeholder="Manufacturer name">
                                         }
                                         else
                                         {
-                                            <input name="manufacturer_name" type="text">
+                                            <input name="manufacturer_name" type="text"  placeholder="Manufacturer name">
                                         }
                                         <i class="user circle icon"></i>
                                     </div>
@@ -235,11 +197,11 @@
                                     <div class="ui left icon input">
                                         @if (mode == "preview")
                                         {
-                                            <input readonly name="grantee_address" type="text">
+                                            <input readonly name="grantee_address" type="text" placeholder="Address">
                                         }
                                         else
                                         {
-                                            <input name="grantee_address" type="text">
+                                            <input name="grantee_address" type="text" placeholder="Address">
                                         }
                                         <i class="address book icon"></i>
                                     </div>
