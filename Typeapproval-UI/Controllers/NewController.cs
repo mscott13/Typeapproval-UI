@@ -123,11 +123,8 @@ namespace Typeapproval_UI.Controllers
                     //...
                 }
 
-                SLW_DatabaseInfo db = new SLW_DatabaseInfo();
-                List<Manufacturer> manufacturers = db.GetManufacturers("");
-
                 var str = Session["application_id"];
-                return View(manufacturers);
+                return View();
             }
             else
             {

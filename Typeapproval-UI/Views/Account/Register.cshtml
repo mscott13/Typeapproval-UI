@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>Create account</title>
     <link href="~/Content/register.css" rel="stylesheet" />
+    <link href="~/Content/overrides.css" rel="stylesheet" />
     <link href="~/Content/semantic.css" rel="stylesheet" />
     <link href="~/Content/search_result_styles.css" rel="stylesheet" />
 </head>
@@ -86,14 +87,14 @@
                             <div class="field">
                                 <label>Password</label>
                                 <div id="input_group_password" class="ui left icon input">
-                                    <input placeholder="" name="reg_password" type="password">
+                                    <input placeholder="( required )" name="reg_password" type="password">
                                     <i class="grey lock open icon"></i>
                                 </div>
                             </div>
                             <div class="field">
                                 <label>Confirm password</label>
                                 <div id="input_group_confirm" class="ui left icon input">
-                                    <input placeholder="" name="reg_confirmPassword" type="password">
+                                    <input placeholder="( required )" name="reg_confirmPassword" type="password">
                                     <i class="grey lock icon"></i>
                                 </div>
                             </div>
@@ -167,14 +168,17 @@
             const PASSWORD = 'grp_password';
             const CONFIRM = 'grp_confirm';
             var can_register = false;
-            var type_selected = "company"; //default
+            var type_selected = "company"; //default selection
 
             $(".ui.radio.checkbox").checkbox({
-                onChecked: function () {
+                onChecked: function ()
+                {
+                    $("input").removeClass("input-error");
                     if ($(this).data("type") === "individual") {
                         console.log("individual");
                         type_selected = "individual";
                         set_individual_fields();
+                       
                     }
                     else
                     {
@@ -185,44 +189,77 @@
                 }
             });
 
-            $("#btn_register").click(function () {
-
+            $("#btn_register").click(function ()
+            {
                 if (can_register) {
-                    if ($("input[name=reg_password]").val() === $("input[name=reg_confirmPassword]").val()) {
+                    if ($("input[name=reg_password]").val() === $("input[name=reg_confirmPassword]").val())
+                    {
+                        if (type_selected === "company")
+                        {
+                            if (validate_company())
+                            {
+                                $("#btn_register").addClass("disabled loading");
+                                var jsonObj = new Object();
+                                jsonObj.username = $("input[name=reg_username]").val();
+                                jsonObj.password = $("input[name=reg_password]").val();
+                                jsonObj.first_name = $("input[name=reg_firstName]").val();
+                                jsonObj.last_name = $("input[name=reg_lastName]").val();
+                                jsonObj.email = $("input[name=reg_email]").val();
+                                jsonObj.company = $("input[name=client_companies]").val();
+                                jsonObj.user_role = 0;
+                                jsonObj.clientId = $("input[name=client_companies]").data("clientid");
 
-                        var valid = $('#register_form').form('is valid');
-                        if (valid) {
-                            $("#btn_register").addClass("disabled loading");
-
-                            var jsonObj = new Object();
-                            jsonObj.username = $("input[name=reg_username]").val();
-                            jsonObj.password = $("input[name=reg_password]").val();
-                            jsonObj.first_name = $("input[name=reg_firstName]").val();
-                            jsonObj.last_name = $("input[name=reg_lastName]").val();
-                            jsonObj.email = $("input[name=reg_email]").val();
-                            jsonObj.company = $("input[name=client_companies]").val();
-                            jsonObj.user_type = 0;
-                            jsonObj.clientId = $("input[name=client_companies]").data("clientid");
-
-                            var json = JSON.stringify(jsonObj);
-                            $.ajax({
-                                type: "POST",
-                                url: "http://localhost:54367/api/user/register",
-                                contentType: "application/json; charset=utf-8",
-                                data: json,
-                                success: function (data) {
-                                    console.log(data);
-                                    $("#btn_register").removeClass("disabled loading");
-                                    window.location.href = "/account/account-created";
-                                },
-                                error: function (data) {
-                                    console.log(data);
-                                    $("#btn_register").removeClass("disabled loading");
-                                }
-                            });
+                                var json = JSON.stringify(jsonObj);
+                                $.ajax({
+                                    type: "POST",
+                                    url: "http://localhost:54367/api/user/RegisterCompanyUser",
+                                    contentType: "application/json; charset=utf-8",
+                                    data: json,
+                                    success: function (data) {
+                                        console.log(data);
+                                        $("#btn_register").removeClass("disabled loading");
+                                        window.location.href = "/account/account-created";
+                                    },
+                                    error: function (data) {
+                                        console.log(data);
+                                        $("#btn_register").removeClass("disabled loading");
+                                    }
+                                });
+                            }
                         }
-                        else {
-                            console.log("Form invalid");
+                        else
+                        {
+                            if (validate_individual())
+                            {
+                                $("#btn_register").addClass("disabled loading");
+                                var jsonObj = new Object();
+                                jsonObj.username = $("input[name=reg_username]").val();
+                                jsonObj.password = $("input[name=reg_password]").val();
+                                jsonObj.first_name = $("input[name=reg_firstName]").val();
+                                jsonObj.last_name = $("input[name=reg_lastName]").val();
+                                jsonObj.email = $("input[name=reg_email]").val();
+                                jsonObj.address = $("input[name=reg_individual_address]").val();
+                                jsonObj.telephone = $("input[name=reg_individual_tel]").val();
+                                jsonObj.fax = $("input[name=reg_individual_fax]").val();
+                                jsonObj.user_role = 0;
+
+                                var json = JSON.stringify(jsonObj);
+                                $.ajax({
+                                    type: "POST",
+                                    url: "http://localhost:54367/api/user/RegisterIndividualUser",
+                                    contentType: "application/json; charset=utf-8",
+                                    data: json,
+                                    success: function (data) {
+                                        console.log(data);
+                                        $("#btn_register").removeClass("disabled loading");
+                                        window.location.href = "/account/account-created";
+                                    },
+                                    error: function (data) {
+                                        console.log(data);
+                                        $("#btn_register").removeClass("disabled loading");
+                                    }
+                                });
+                            }
                         }
                     }
                 }
@@ -241,8 +278,8 @@
                     $("#input_group_username").append('<i class="red close icon"></i>');
                     can_register = false;
                 }
-
-                else {
+                else
+                {
                     clearError(USERNAME);
                     if (input.data("lastval") !== val) {
                         input.data("lastval", val);
@@ -261,6 +298,13 @@
                                         if (data === true) {
                                             addError("username already taken", USERNAME);
                                             $("#input_group_username").removeClass("loading");
+                                            $("#input_group_username").find("i").remove();
+                                            $("#input_group_username").append('<i class="red close icon"></i>');
+                                            can_register = false;
+                                        }
+                                        else if (val.length < 4) {
+                                            clearError(USERNAME);
+                                            addError("Username must have at least 4 characters", USERNAME);
                                             $("#input_group_username").find("i").remove();
                                             $("#input_group_username").append('<i class="red close icon"></i>');
                                             can_register = false;
@@ -284,78 +328,6 @@
                             }
                         }, 800);
                     }
-                }
-            });
-
-            $("#register_form").form({
-                keyboardShortcuts: false,
-                fields: {
-                    reg_username: {
-                        rules: [
-                            {
-                                type: 'empty',
-                                prompt: 'A username must be provided'
-                            }
-                        ]
-                    },
-                    reg_clients: {
-                        rules: [
-                            {
-                                type: 'empty',
-                                prompt: 'Company name required'
-                            }
-                        ]
-                    },
-                    reg_email: {
-                        rules: [
-                            {
-                                type: 'empty',
-                                prompt: 'Email is required'
-                            }
-                        ]
-                    },
-                    reg_firstName: {
-                        rules: [
-                            {
-                                type: 'empty',
-                                prompt: 'First name required'
-                            }
-                        ]
-                    },
-                    reg_lastName: {
-                        rules: [
-                            {
-                                type: 'empty',
-                                prompt: 'Last name required'
-                            }
-                        ]
-                    },
-                    client_companies: {
-                        rules: [
-                            {
-                                type: 'empty',
-                                prompt: 'Required field'
-                            }
-                        ]
-                    },
-                    reg_password: {
-                        rules: [
-                            {
-                                type: 'empty',
-                                prompt: 'Password required'
-                            }
-                        ]
-                    },
-
-                    reg_confirmPassword: {
-                        rules: [
-                            {
-                                type: 'empty',
-                                prompt: 'Password confirmation required'
-                            }
-                        ]
-                    }
-
                 }
             });
 
@@ -576,6 +548,96 @@
                     '</div>';
 
                 $(html).insertAfter("#name_grp");
+            }
+
+            function validate_individual()
+            {
+                var form_valid = true;
+
+                if ($("input[name=reg_username]").val() === '') {
+                    $("input[name=reg_username]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_firstName]").val() === '') {
+                    $("input[name=reg_firstName]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_lastName]").val() === '') {
+                    $("input[name=reg_lastName]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_email]").val() === '') {
+                    $("input[name=reg_email]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_individual_address]").val() === '') {
+                    $("input[name=reg_individual_address]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_individual_tel]").val() === '') {
+                    $("input[name=reg_individual_tel]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_password]").val() === '') {
+                    $("input[name=reg_password]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_confirmPassword]").val() === '') {
+                    $("input[name=reg_confirmPassword]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                return form_valid;
+            }
+
+            function validate_company()
+            {
+                var form_valid = true;
+
+                if ($("input[name=reg_username]").val() === '')
+                {
+                    $("input[name=reg_username]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=client_companies]").val() === '') {
+                    $("input[name=client_companies]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_firstName]").val() === '') {
+                    $("input[name=reg_firstName]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_lastName]").val() === '') {
+                    $("input[name=reg_lastName]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_email]").val() === '') {
+                    $("input[name=reg_email]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_password]").val() === '') {
+                    $("input[name=reg_password]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_confirmPassword]").val() === '') {
+                    $("input[name=reg_confirmPassword]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                return form_valid;
             }
         });
     </script>
