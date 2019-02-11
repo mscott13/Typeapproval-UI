@@ -27,39 +27,59 @@
                         <div class="field">
                             <label>Username</label>
                             <div id="input_group_username" class="ui left icon input">
-                                <input spellcheck="false" placeholder="" name="reg_username" type="text">
+                                <input spellcheck="false" placeholder="( required )" name="reg_username" type="text">
                                 <i class="grey circle user icon"></i>
                             </div>
 
                         </div>
-                        <div class="field">
-                            <label>Applicant name<span style="margin-left:5px; font-style:italic; font-weight:100 !important; float:right; color:dimgrey;">not listed? add it <a style="cursor:pointer" id="add-company">here</a></span></label>
+                        <div class="inline fields">
+                            <label>Register as: </label>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="user_type" data-type="company" checked="checked">
+                                    <label>A Client Company</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" data-type="individual" name="user_type">
+                                    <label>An Individual</label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="company_search" class="field">
+                            <label>Client company<span style="margin-left:5px; font-style:italic; font-weight:100 !important; float:right; color:dimgrey;">not listed? add it <a style="cursor:pointer" id="add-company">here</a></span></label>
                             <div id="client_companies" class="ui left icon input">
-                                <input spellcheck="false" placeholder="" name="client_companies" type="text">
+                                <input spellcheck="false" placeholder="( required )" name="client_companies" type="text">
                                 <i class="grey building icon"></i>
                             </div>
                         </div>
-                        <div class="field">
-                            <label>Email address</label>
-                            <div id="input_group_email" class="ui left icon input">
-                                <input placeholder="" name="reg_email" type="text">
-                                <i class="grey at icon"></i>
-                            </div>
-                        </div>
-                        <div class="two fields">
+
+                        <div id="name_grp" class="two fields">
                             <div class="field">
                                 <label>First name</label>
                                 <div id="input_group_fname" class="ui left icon input">
-                                    <input placeholder="" name="reg_firstName" type="text">
+                                    <input placeholder="( required )" name="reg_firstName" type="text">
                                     <i class="grey quote left icon"></i>
                                 </div>
                             </div>
                             <div class="field">
                                 <label>Last name</label>
                                 <div id="input_group_lname" class="ui right icon input">
-                                    <input placeholder="" name="reg_lastName" type="text">
+                                    <input placeholder="( required )" name="reg_lastName" type="text">
                                     <i class="grey quote right icon"></i>
                                 </div>
+                            </div>
+                        </div>
+
+
+                        <div class="field">
+                            <label>Email address</label>
+                            <div id="input_group_email" class="ui left icon input">
+                                <input placeholder="( required )" name="reg_email" type="text">
+                                <i class="grey at icon"></i>
                             </div>
                         </div>
                         <div class="two fields">
@@ -98,11 +118,11 @@
                 <div class="two fields">
                     <div class="field">
                         <label>Applicant name</label>
-                        <input type="text" id="company_name" placeholder="">
+                        <input type="text" id="company_name" placeholder="( required )">
                     </div>
                     <div class="field">
                         <label>Address</label>
-                        <input type="text" id="company_address" placeholder="">
+                        <input type="text" id="company_address" placeholder="( required )">
                     </div>
                 </div>
                 <div class="three fields">
@@ -112,7 +132,7 @@
                     </div>
                     <div class="field">
                         <label>Telephone</label>
-                        <input type="text" id="company_telephone" placeholder="">
+                        <input type="text" id="company_telephone" placeholder="( required )">
                     </div>
                     <div class="field">
                         <label>Fax</label>
@@ -146,8 +166,24 @@
             const LNAME = 'grp_lname';
             const PASSWORD = 'grp_password';
             const CONFIRM = 'grp_confirm';
-
             var can_register = false;
+            var type_selected = "company"; //default
+
+            $(".ui.radio.checkbox").checkbox({
+                onChecked: function () {
+                    if ($(this).data("type") === "individual") {
+                        console.log("individual");
+                        type_selected = "individual";
+                        set_individual_fields();
+                    }
+                    else
+                    {
+                        type_selected = "company";
+                        console.log("company");
+                        unset_individual_fields();
+                    }
+                }
+            });
 
             $("#btn_register").click(function () {
 
@@ -495,6 +531,52 @@
                     var e = errorThrown;
                 }
             });
+
+            function unset_individual_fields()
+            {
+                $(".individual_container").remove();
+                $("#company_search").show();
+            }
+
+
+            function set_individual_fields()
+            {
+                $("#company_search").hide();
+                $(".individual_container").remove();
+                var html =
+                    '<div class="individual_container">' +
+                    '<div class="field">' +
+                    '<div class="field">' +
+                    '<label>Address</label>' +
+                    '<div id="" class="ui left icon input">' +
+                    '<input placeholder="( required )" name="reg_individual_address" type="text">' +
+                    '<i class="grey address card icon"></i>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="field">' +
+
+                    '</div>' +
+                    '</div>' +
+                    '<div class="two fields">' +
+                    '<div class="field">' +
+                    '<label>Telephone</label>' +
+                    '<div id="" class="ui left icon input">' +
+                    '<input placeholder="( required )" name="reg_individual_tel" type="text">' +
+                    '<i class="grey phone icon"></i>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="field">' +
+                    '<label>Fax</label>' +
+                    '<div id="" class="ui left icon input">' +
+                    '<input placeholder="" name="reg_individual_fax" type="text">' +
+                    '<i class="grey fax icon"></i>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+
+                $(html).insertAfter("#name_grp");
+            }
         });
     </script>
 </body>
