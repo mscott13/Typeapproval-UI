@@ -11,9 +11,12 @@
 
     $("#btn-reset-user").click(function () {
         if (current_record !== null) {
-            var user = $(current_record).find("td:first-child").text().trim();
+            var user = $(current_record).children().eq(1).text().trim();
+            $("#reset_password .header").html("Reset Password (" + user + ")");
             $("#reset_password").modal({
+                closable: false,
                 onApprove: function () {
+                    
                     var new_psw = $("#reset_new_psw").val();
                     var confirm = $("#reset_confirm_psw").val();
 
@@ -48,6 +51,7 @@
                     setTimeout(function () {
                         $("#reset_new_psw").val('');
                         $("#reset_confirm_psw").val('');
+                        $("#reset_password .header").html("Reset Password");
                     }, 500);
                     return true;
                 }
@@ -72,6 +76,7 @@
                 $("#btn-resetpsw-change").removeClass("disabled loading");
                 alert("Password was reset sucessfully");
                 $("#reset_password").modal('hide');
+                $("#reset_password .header").html("Reset Password");
 
                 setTimeout(function () {
                     $("#reset_new_psw").val('');
@@ -227,7 +232,7 @@
         jsonObj.last_name = last_name;
         jsonObj.password = password;
         jsonObj.email = email;
-        jsonObj.user_type = role;
+        jsonObj.user_role = role;
         jsonObj.send_credentials = send_credentials;
 
         $.ajax({
@@ -260,8 +265,10 @@
 
     function add_user_record(username, name, user_type, email, created_date, last_detected_activity)
     {
-        var html = '<tr>' +
-            '<td> <input style="margin-right: 8px;" type="checkbox" class="check_task" /> ' + username + '</td>' +
+        var html =
+            '<tr>' +
+            '<td>' +'<input style="margin-right: 8px;" type="checkbox" class="check_task" /> '+'</td>'+
+            '<td>' + username + '</td>' +
             '<td>' + name + '</td>' +
             '<td>' + last_detected_activity + '</td>' +
             '<td>' + user_type + '</td>' +

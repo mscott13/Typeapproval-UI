@@ -102,7 +102,7 @@
                                         {
                                             for (int i = 0; i < Model.licensedApplications.Count; i++)
                                             {
-                                                <tr>
+                                                <tr style="cursor: pointer">
                                                     <td><a data-appid="@Model.recentActivities[i].application_id" class="form_preview link_override_v2"><b>@Model.licensedApplications[i].application_id</b></a></td>
                                                     <td>@Model.licensedApplications[i].manufacturer</td>
                                                     <td>@Model.licensedApplications[i].model</td>
@@ -116,7 +116,7 @@
                                         }
                                         else
                                         {
-                                            <tr>
+                                            <tr style="cursor: pointer">
                                                 <td colspan="8">No licensed applications found on your account.</td>
                                             </tr>
                                         }
@@ -151,7 +151,7 @@
                                         {
                                             for (int i = 0; i < Model.recentActivities.Count; i++)
                                             {
-                                                <tr>
+                                                <tr style="cursor: pointer">
                                                     @if (Model.recentActivities[i].status == Typeapproval_UI.Commons.Constants.INCOMPLETE_TYPE)
                                                     {
                                                         <td><a class="link_override_v2" href="/new/step-1?edit=@Model.recentActivities[i].application_id&status=@Model.recentActivities[i].status"><b>@Model.recentActivities[i].application_id</b></a></td>
@@ -220,7 +220,7 @@
                                         }
                                         else
                                         {
-                                            <tr>
+                                            <tr style="cursor: pointer">
                                                 <td colspan="8">No recent activity found on your account</td>
                                             </tr>
                                         }

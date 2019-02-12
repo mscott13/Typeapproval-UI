@@ -216,13 +216,13 @@
 }
 
 .search_form_container {
-    position: absolute;
     margin: auto;
-    top: 200px;
-    right: 0;
-    left: 0;
+ 
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
     width: 410px;
-    height: 370px;
+    height: auto;
 }
 
 .logo img {

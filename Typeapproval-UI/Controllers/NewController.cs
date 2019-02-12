@@ -61,6 +61,7 @@ namespace Typeapproval_UI.Controllers
                             Session["applicant_address"] = (string)obj.address;
                             Session["applicant_fax"] = (string)obj.fax;
                             Session["applicant_contact_person"] = (string)obj.contactPerson;
+                            Session["user_type"] = (string)obj.user_type;
                         }
 
                     }
@@ -163,10 +164,11 @@ namespace Typeapproval_UI.Controllers
 
         [HttpGet]
         [Route("new/step-4")]
-        public ActionResult Step4()
+        public ActionResult Step4(string appid)
         {
             if (Session["key"] != null)
             {
+                ViewBag.appid = appid;
                 return View();
             }
             else
@@ -219,6 +221,14 @@ namespace Typeapproval_UI.Controllers
             {
                 return Json(new { responseText = "not_set" }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpPost]
+        [Route("new/clear-form")]
+        public ActionResult ClearForm()
+        {
+            ClearFormSession();
+            return new HttpStatusCodeResult(200, "form cleared");
         }
 
         [HttpGet]
@@ -757,6 +767,7 @@ namespace Typeapproval_UI.Controllers
             Session.Remove("name_of_test");
             Session.Remove("country");
             Session.Remove("view_mode");
+            Session.Remove("user_type");
         }
     }
 }

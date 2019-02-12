@@ -454,6 +454,8 @@ namespace Typeapproval_UI.Controllers
             {
                 case Commons.Constants.USER_TYPE_ADMINISTRATOR:
                     return RedirectToAction("", "admin");
+                case Commons.Constants.USER_TYPE_SYS_ADMINISTRATOR:
+                    return RedirectToAction("", "sysadmin");
                 case Commons.Constants.USER_TYPE_STAFF:
                     return RedirectToAction("", "staff");
                 case Commons.Constants.USER_TYPE_CLIENT:

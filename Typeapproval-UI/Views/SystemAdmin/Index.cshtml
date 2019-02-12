@@ -209,8 +209,8 @@
                             </button>
 
                             <div style="margin-right: 5px" class="ui right floated mini icon buttons">
-                                <button id="btn-delete-user"   class="ui button"><i class="trash alternate icon"></i></button>
-                                <button id="btn-edit-user"  class="ui button"><i class="edit icon"></i></button>
+                                <button id="btn-delete-user"   class="ui disabled button"><i class="trash alternate icon"></i></button>
+                                <button id="btn-edit-user"  class="ui disabled button"><i class="edit icon"></i></button>
                                 <button id="btn-reset-user"   class="ui button"><i class="key icon"></i></button>
                             </div>
                         </div>
@@ -221,6 +221,7 @@
                     <table class="ui striped small table">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>Username</th>
                                 <th>Name</th>
                                 <th>Last seen</th>
@@ -235,7 +236,8 @@
                                 for (int i = 0; i < Model.userDetails.Count; i++)
                                 {
                                     <tr>
-                                        <td><input style="margin-right: 8px;" type="checkbox" class="check_task" /> @Model.userDetails[i].username</td>
+                                        <td><input style="margin-right: 8px;" type="checkbox" class="check_task" /></td>
+                                        <td>@Model.userDetails[i].username</td>
                                         <td>@Model.userDetails[i].fullname</td>
                                         <td>@Model.userDetails[i].last_detected_activity</td>
                                         <td>@Model.userDetails[i].user_type</td>

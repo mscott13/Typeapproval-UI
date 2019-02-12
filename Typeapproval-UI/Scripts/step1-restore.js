@@ -355,18 +355,36 @@
     function validate()
     {
         var form_valid = true;
-        if ($("input[name=manufacturer_name]").val() === '')
-        {
+
+        if ($("input[name=applicant_name]").val() === '') {
+            $("input[name=applicant_name]").addClass('input-error');
+            form_valid = false;
+        }
+
+        if ($("input[name=applicant_telephone]").val() === '') {
+            $("input[name=applicant_telephone]").addClass('input-error');
+            form_valid = false;
+        }
+
+        if ($("input[name=applicant_address]").val() === '') {
+            $("input[name=applicant_address]").addClass('input-error');
+            form_valid = false;
+        }
+
+        if ($("input[name=grantee_name]").val() === '') {
+            $("input[name=grantee_name]").addClass('input-error');
+            form_valid = false;
+        }
+
+        if ($("input[name=manufacturer_name]").val() === ''){
             $("input[name=manufacturer_name]").addClass('input-error');
             form_valid = false;
         }
 
-         if ($("input[name=grantee_address]").val() === '')
-        {
+         if ($("input[name=grantee_address]").val() === ''){
             $("input[name=grantee_address]").addClass('input-error');
             form_valid = false;
         }
-
       
         return form_valid;
     }

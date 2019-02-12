@@ -79,6 +79,8 @@ namespace Typeapproval_UI.Controllers
         public ActionResult CreateUser(Models.NewUser param)
         {
             param.company = "Spectrum Management Authority, Jamaica";
+            param.clientId = 11698;
+
             if (Session["key"] != null)
             {
                 param.access_key = Session["key"].ToString();
@@ -88,7 +90,7 @@ namespace Typeapproval_UI.Controllers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 var content = new StringContent(JsonConvert.SerializeObject(param), Encoding.UTF8, "application/json");
-                HttpResponseMessage response = client.PostAsync("RegisterV2", content).Result;
+                HttpResponseMessage response = client.PostAsync("RegisterCompanyUserV2", content).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     string result = response.Content.ReadAsStringAsync().Result;

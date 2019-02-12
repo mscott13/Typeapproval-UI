@@ -478,19 +478,13 @@
                         if (tech_spec_files.length > 1) {
                             if (test_report_files.length > 1) {
                                 if (accreditation_files.length > 1) {
-                                    if (letter_authorization_files.length > 1) {
-                                        if (user_manual_files.length > 1)
-                                        {
-                                            required_files_present = true;
-                                        }
-                                        else
-                                        {
-                                            alert("Add User Manual File");
-                                        }
+                                    if (user_manual_files.length > 1)
+                                    {
+                                        required_files_present = true;
                                     }
                                     else
                                     {
-                                        alert("Add Letter of Authorization File");
+                                        alert("Add User Manual File");
                                     }
                                 }
                                 else
@@ -554,7 +548,7 @@
                             }
 
                             for (var m = 0; m < user_manual_files.length; m++) {
-                                var um_list = ($(user_manual_files[m]))[0].files;
+                                var um_list = $(user_manual_files[m])[0].files;
                                 if (um_list.length > 0) {
                                     console.log("add files: " + um_list[0].name);
                                     form_data.append("user_man", um_list[0]);
@@ -574,7 +568,7 @@
                                 success: function (data) {
                                     console.log(data);
                                     btn_finish.removeClass('disabled loading');
-                                    set_application_id(data);
+                                    clear_form(data);
                                 },
                                 error: function (data) {
                                     console.log(data);
@@ -649,6 +643,22 @@
             },
             error: function (data) {
                 console.log("appid not set");
+                window.location = "/home";
+            }
+        });
+    }
+
+    function clear_form(appid)
+    {
+        $.ajax({
+            type: "POST",
+            url: "/new/clear-form?appid=" + appid,
+            contentType: 'application/json',
+            data: {},
+            success: function (data) {
+                window.location = "/new/step-4?appid=" + appid;
+            },
+            error: function (data) {
                 window.location = "/home";
             }
         });

@@ -61,6 +61,7 @@ namespace Typeapproval_UI.Controllers
                 Session.Remove("additional_info");
                 Session.Remove("view_mode");
                 Session.Remove("selected_manufacturer");
+                Session.Remove("user_type");
 
                 if (Convert.ToInt32(Session["user_type"]) == Commons.Constants.USER_TYPE_CLIENT)
                 {

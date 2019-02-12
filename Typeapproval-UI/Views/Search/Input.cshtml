@@ -6,11 +6,12 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+   
     <title>Certificate Lookup</title>
     <link href="~/Content/semantic.css" rel="stylesheet" />
     <link href="~/Content/site.css" rel="stylesheet" />
     <link href="~/Content/custom.css" rel="stylesheet" />
+    <link href="~/Content/search_result_styles.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -28,19 +29,31 @@
                 <div class="ui form">
                     <div class="field">
                         <label>Dealer</label>
-                        <input type="text" name="search_dealer" placeholder="e.g. DELL">
+                        <div id="search_dealer" class="ui left icon input">
+                            <input spellcheck="false" placeholder="e.g. Dell Computer Corporation" name="search_dealer" type="text">
+                            <i class="grey industry icon"></i>
+                        </div>
                     </div>
                     <div class="field">
                         <label>Model</label>
-                        <input type="text" name="search_model" placeholder="e.g. C-UAS-DEL1">
+                        <div id="search_model" class="ui left icon input">
+                            <input spellcheck="false" placeholder="e.g. S-00168" name="search_model" type="text">
+                            <i class="grey barcode icon"></i>
+                        </div>
                     </div>
                     <div class="field">
                         <label>Make</label>
-                        <input type="text" name="search_make" placeholder="">
+                        <div id="search_make" class="ui left icon input">
+                            <input spellcheck="false" placeholder="e.g. Lear Corporation" name="search_make" type="text">
+                            <i class="grey building icon"></i>
+                        </div>
                     </div>
                     <div class="field">
                         <label>Remarks</label>
-                        <input type="text" name="first-name" placeholder="e.g. FCC ID: EW4DWMW016">
+                        <div id="search_remarks" class="ui left icon input">
+                            <input placeholder="e.g.  FCC ID: A3LSMG350H" spellcheck="false" name="search_remarks" type="text">
+                            <i class="grey qrcode icon"></i>
+                        </div>
                     </div>
                     <div class="field">
                         <button id="search_cert" class="ui fluid blue button">
@@ -57,5 +70,85 @@
     <script src="~/Scripts/semantic.js"></script>
     <script src="~/Scripts/site.js"></script>
     <script src="~/Scripts/jquery.marcopolo.min.js"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("input[name=search_dealer]").marcoPolo({
+                url: "http://localhost:54367/api/search/manufacturers",
+                delay: 50,
+                cache: false,
+                required: false,
+                formatItem: function (data, $item) {
+                    return data;
+                },
+                onSelect: function (data, $item) {
+                    $("input[name=search_dealer]").val(data);
+                },
+                formatError: function ($item, jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
+
+            $("input[name=search_model]").marcoPolo({
+                url: "http://localhost:54367/api/search/models",
+                delay: 50,
+                cache: false,
+                required: false,
+                formatItem: function (data, $item) {
+                    return data;
+                },
+                onSelect: function (data, $item) {
+                    $("input[name=search_model]").val(data);
+                },
+                formatError: function ($item, jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
+
+            $("input[name=search_make]").marcoPolo({
+                url: "http://localhost:54367/api/search/make",
+                delay: 50,
+                cache: false,
+                required: false,
+                formatItem: function (data, $item) {
+                    return data;
+                },
+                onSelect: function (data, $item) {
+                    $("input[name=search_make]").val(data);
+                },
+                formatError: function ($item, jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
+
+
+            $("input[name=search_remarks]").marcoPolo({
+                url: "http://localhost:54367/api/search/remarks",
+                delay: 50,
+                cache: false,
+                required: false,
+                formatItem: function (data, $item) {
+                    return data;
+                },
+                onSelect: function (data, $item) {
+                    $("input[name=search_remarks]").val(data);
+                },
+                formatError: function ($item, jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
+
+            $("#search_cert").click(function () {
+                var dealer = $("input[name=search_dealer]").val();
+                var model = $("input[name=search_model]").val();
+                var make = $("input[name=search_make]").val();
+                var remarks = $("input[name=search_remarks]").val();
+
+                window.location = "http://localhost:3348/search?dealer=" + dealer + "&model=" + model + "&make=" + make + "&remarks=" + remarks;
+            });
+
+        });
+    </script>
 </body>
 </html>

@@ -541,3 +541,4 @@ C:\Users\Mark Scott\Desktop\Git repositories\Typeapproval-UI\Typeapproval-UI\obj
 C:\Users\Mark Scott\Desktop\Git repositories\Typeapproval-UI\Typeapproval-UI\obj\Debug\Typeapproval-UI.csproj.CopyComplete
 C:\Users\Mark Scott\Desktop\Git repositories\Typeapproval-UI\Typeapproval-UI\obj\Debug\Typeapproval-UI.dll
 C:\Users\Mark Scott\Desktop\Git repositories\Typeapproval-UI\Typeapproval-UI\obj\Debug\Typeapproval-UI.pdb
+C:\Users\Mark Scott\Desktop\Git repositories\Typeapproval-UI\Typeapproval-UI\obj\Debug\Typeapproval-UI.csprojAssemblyReference.cache

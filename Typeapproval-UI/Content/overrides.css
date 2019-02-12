@@ -276,6 +276,7 @@ u {
 .check_task
 {
     cursor: pointer;
+    margin-top: 5px;
 }
 
 #client-records tr:hover {

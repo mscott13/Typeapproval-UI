@@ -78,6 +78,7 @@ namespace Typeapproval_UI.Controllers
                 Session.Remove("country");
                 Session.Remove("additional_info");
                 Session.Remove("selected_manufacturer");
+                Session.Remove("user_type");
                 return View();
             }
         }
