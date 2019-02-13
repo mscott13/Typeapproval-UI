@@ -58,7 +58,7 @@ namespace Typeapproval_UI.Controllers
             return View(typeApprovals);
         }
 
-        [Route("search-categories")]
+        [Route("certificate-lookup")]
         public ActionResult Input()
         {
             return View();

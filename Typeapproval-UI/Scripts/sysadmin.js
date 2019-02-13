@@ -248,10 +248,12 @@
 
                 setTimeout(function () {
 
-                    $("#setting_email").val('');
-                    $("#setting_password").val('');
-                    $("#setting_host").val('');
-                    $("#setting_port").val('');
+                    $("#u_username").val('');
+                    $("#u_fname").val('');
+                    $("#u_lname").val('');
+                    $("#u_email").val('');
+                    $("#u_password").val('');
+                    $("#u_confirm").val('');
                     remove_cuser_msg();
                 }, 500);
                 

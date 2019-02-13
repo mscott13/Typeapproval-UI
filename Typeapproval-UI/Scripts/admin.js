@@ -561,7 +561,7 @@
 
                 var htm =
                     "<tr id='fallback_msg_ongoing'>" +
-                    "<td colspan = 3>No ongoing applications found.</td>" +
+                    "<td colspan = 3>No assigned applications found.</td>" +
                     "</tr>";
 
                 if ($("#tbl_ongoing tbody tr").length === 0) {
@@ -774,7 +774,7 @@
 
                     var htm =
                         "<tr id='fallback_msg_ongoing'>" +
-                        "<td colspan = 3>No ongoing applications found.</td>" +
+                        "<td colspan = 3>No assigned applications found.</td>" +
                         "</tr>";
 
                     if ($("#tbl_ongoing tbody tr").length === 0) {

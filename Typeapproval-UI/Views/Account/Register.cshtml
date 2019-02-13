@@ -112,13 +112,13 @@
 
     <div id="add_company" class="ui tiny modal">
         <div class="header">
-            <i class="building icon"></i>New Applicant
+            <i class="building icon"></i>New Company
         </div>
         <div class="content">
             <form class="ui form">
                 <div class="two fields">
                     <div class="field">
-                        <label>Applicant name</label>
+                        <label>Company Name</label>
                         <input type="text" id="company_name" placeholder="( required )">
                     </div>
                     <div class="field">
@@ -378,20 +378,19 @@
             function add_company(company_name, company_address, company_telephone, company_fax, company_person) {
                 $("#btn-addcompany-apply").addClass("disabled loading");
                 var jsonObj = new Object();
+                jsonObj.clientId = 0;
                 jsonObj.name = company_name;
                 jsonObj.telephone = company_telephone;
                 jsonObj.address = company_address;
                 jsonObj.fax = company_fax;
-                jsonObj.cityTown = "";
                 jsonObj.contactPerson = company_person;
-                jsonObj.nationality = "";
-
                 var json = JSON.stringify(jsonObj);
+
                 $.ajax({
                     type: "POST",
                     url: "http://localhost:54367/api/data/NewCompany",
                     contentType: "application/json; charset=utf-8",
-                    data: json,
+                    data: JSON.stringify(jsonObj),
                     success: function (data) {
                         $("#add_company").modal('hide');
                         $("input[name=client_companies]").val(company_name).data("clientid", data);
