@@ -160,7 +160,7 @@
                 }
                 else {
                     $("#btn_login").removeClass("disabled loading");
-                    displayLoginError("Check your login credentials then try again.");
+                    displayLoginError("Authentication failed. Check your login credentials then try again.");
                 }
             },
             error: function (data) {
@@ -256,7 +256,7 @@
   
 
     function displayLoginError(message) {
-        var html = '<div id="login_error" class="ui small negative floating message">' +
+        var html = '<div id="login_error" class="ui small red floating message">' +
             ' <p>' + message + '</p>' +
             '</div>';
 
