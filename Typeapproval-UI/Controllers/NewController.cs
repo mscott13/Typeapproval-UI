@@ -726,21 +726,6 @@ namespace Typeapproval_UI.Controllers
             }
 
             #endregion
-
-            #region frequency_details
-            for (int i = 0; i < form.frequencies.Count; i++)
-            {
-                if (form.frequencies[i].lower_freq == null || form.frequencies[i].lower_freq == "")
-                {
-                    status = false;
-                }
-
-                if (form.frequencies[i].upper_freq == null || form.frequencies[i].upper_freq == "")
-                {
-                    status = false;
-                }
-            }
-            #endregion
             return status;
         }
 

@@ -240,13 +240,13 @@
 
             '<td>' +
             '<div class="ui transparent input">' +
-            ' <input type="number" placeholder="(required)" style="width:100%" name="lower_mhz" value=' + lower_freq + '>' +
+            ' <input type="number"  style="width:100%" name="lower_mhz" value=' + lower_freq + '>' +
             '</div>' +
             ' </td>' +
 
             '<td>' +
             '<div class="ui transparent input">' +
-            '<input type="number" placeholder="(required)" style="width:100%" name="upper_mhz" value=' + upper_freq + '>' +
+            '<input type="number"  style="width:100%" name="upper_mhz" value=' + upper_freq + '>' +
             '</div>' +
             '</td>' +
 
@@ -371,22 +371,6 @@
             $("input[name=make]").addClass('input-error');
             form_valid = false;
         }
-
-        $("#table_frequencies tr").each(function () {
-          
-            if ($(this).find("input[name=lower_mhz]").val() === '')
-            {
-                $(this).find("input[name=lower_mhz]").addClass('input-error');
-                form_valid = false;
-            }
-
-            if ($(this).find("input[name=upper_mhz]").val() === '')
-            {
-                $(this).find("input[name=upper_mhz]").addClass('input-error');
-                form_valid = false;
-            } 
-        });
-
 
         if ($('input[name=institution]').val() === '')
         {

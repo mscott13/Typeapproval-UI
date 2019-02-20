@@ -478,14 +478,7 @@
                         if (tech_spec_files.length > 1) {
                             if (test_report_files.length > 1) {
                                 if (accreditation_files.length > 1) {
-                                    if (user_manual_files.length > 1)
-                                    {
-                                        required_files_present = true;
-                                    }
-                                    else
-                                    {
-                                        alert("Add User Manual File");
-                                    }
+                                    required_files_present = true;
                                 }
                                 else
                                 {

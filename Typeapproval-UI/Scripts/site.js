@@ -297,13 +297,13 @@
 
             '<td>' +
             '<div class="ui transparent input">' +
-            ' <input type="number" placeholder="(required)" style="width:100%" name="lower_mhz">' +
+            ' <input type="number" style="width:100%" name="lower_mhz">' +
             '</div>' +
             ' </td>' +
 
             '<td>' +
             '<div class="ui transparent input">' +
-            '<input type="number" placeholder="(required)" style="width:100%" name="upper_mhz">' +
+            '<input type="number"  style="width:100%" name="upper_mhz">' +
             '</div>' +
             '</td>' +
 

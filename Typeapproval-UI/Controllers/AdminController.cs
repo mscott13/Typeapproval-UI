@@ -23,6 +23,12 @@ namespace Typeapproval_UI.Controllers
                     adminDashboard.unassignedTasks = GetUnassignedTasks();
                     adminDashboard.ongoingTasks = GetOngoingTasks();
                     ViewBag.Title = "Task Manager";
+
+                    if (adminDashboard.engineerUsers == null || adminDashboard.unassignedTasks == null || adminDashboard.ongoingTasks == null)
+                    {
+                        Session.Clear();
+                        return RedirectToAction("", "account");
+                    }
                     return View(adminDashboard);
                 }
                 else
