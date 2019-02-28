@@ -151,11 +151,11 @@
         height: 100%;
     }
 
-.ui.table thead tr:first-child > th {
+/*.ui.table thead tr:first-child > th {
     position: sticky !important;
     top: 0;
     z-index: 2;
-}
+}*/
 
 #main_content {
     overflow: hidden;
