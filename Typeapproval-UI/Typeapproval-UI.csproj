@@ -275,6 +275,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Review.js" />
     <Content Include="Scripts\saved-apps.js" />
     <Content Include="Scripts\semantic.js" />
     <Content Include="Scripts\site.js" />
@@ -322,6 +323,7 @@
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\New\Step4.cshtml" />
     <Content Include="Views\Search\Input.cshtml" />
+    <Content Include="Views\New\Review.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Session\" />

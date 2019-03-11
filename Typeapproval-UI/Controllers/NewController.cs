@@ -163,6 +163,20 @@ namespace Typeapproval_UI.Controllers
         }
 
         [HttpGet]
+        [Route("new/review")]
+        public ActionResult Review()
+        {
+            if (Session["key"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("", "account");
+            }
+        }
+
+        [HttpGet]
         [Route("new/step-4")]
         public ActionResult Step4(string appid)
         {

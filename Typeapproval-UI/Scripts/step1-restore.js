@@ -211,7 +211,7 @@
             html +
             '</div>';
 
-        $(raw).insertAfter('.ui.tiny.four.top.attached.steps');
+        $(raw).insertAfter('#steps');
     }
 
     $.ajax({
@@ -334,7 +334,7 @@
                                 ' Application saved with ID: <b>' + data.step1.application_id + '</b>' +
                                 '</div>';
 
-                            $(attatched_header).insertAfter('.ui.tiny.four.top.attached.steps');
+                            $(attatched_header).insertAfter('#steps');
                         }
                         else {
                             var html =

@@ -135,7 +135,7 @@
             html +
             '</div>';
 
-        $(raw).insertAfter('.ui.tiny.four.top.attached.steps');
+        $(raw).insertAfter('#steps');
     }
 
     $('body').on('click', '.ui.divided.selection.list .item', function () {
