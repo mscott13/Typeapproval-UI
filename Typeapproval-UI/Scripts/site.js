@@ -161,6 +161,7 @@
                 else {
                     $("#btn_login").removeClass("disabled loading");
                     displayLoginError("Authentication failed. Check your login credentials then try again.");
+                    $("input[name=reg_password]").val("");
                 }
             },
             error: function (data) {

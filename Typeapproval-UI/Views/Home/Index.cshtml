@@ -20,7 +20,7 @@
         <div class="ui grid">
             <div style="padding-left:20px; padding-right:20px;" class="sixteen wide column">
                 <div class="ui grid">
-                    <div class="row">
+                    <div style="margin-top:5px;" class="row">
                         <div style="padding-right:0px" class="five wide column">
                             <div class="ui  raised fluid card">
                                 <div class="center aligned content">
@@ -196,19 +196,19 @@
                                                             <td class="status_pending">@Model.recentActivities[i].status</td>
                                                             break;
                                                         case Typeapproval_UI.Commons.Constants.INVOICED_TYPE:
-                                                            <td class="status_invoiced">@Typeapproval_UI.Commons.Constants.PENDING_TYPE</td>
+                                                            <td class="status_invoiced">@Model.recentActivities[i].status</td>
                                                             break;
                                                         case Typeapproval_UI.Commons.Constants.REJECTED:
                                                             <td class="status_rejected">@Model.recentActivities[i].status</td>
                                                             break;
                                                         case Typeapproval_UI.Commons.Constants.LICENSED_TYPE:
-                                                            <td class="status_licensed">@Typeapproval_UI.Commons.Constants.PENDING_TYPE</td>
+                                                             <td class="status_licensed">@Model.recentActivities[i].status</td>
                                                             break;
                                                         case Typeapproval_UI.Commons.Constants.SUBMITTED_TYPE:
                                                             <td class="status_submitted">@Model.recentActivities[i].status</td>
                                                             break;
                                                         case Typeapproval_UI.Commons.Constants.PENDING_RESUBMISSION:
-                                                            <td class="status_resubmit">INCOMPLETE</td>
+                                                        <td class="status_resubmit">@Model.recentActivities[i].status</td>
                                                             break;
                                                         default:
                                                             <td>@Model.recentActivities[i].status</td>
