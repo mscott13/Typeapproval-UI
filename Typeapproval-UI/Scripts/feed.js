@@ -162,14 +162,14 @@
             '<div class="field">' +
             '<label>Name of Main Test or Certification Institution<span style="color: red">&nbsp;*</span></label>' +
             '<div class="ui input">' +
-            '<input autocomplete="new-password" name="institution" type="text" value="' + data.name_of_test + '">' +
+            '<input autocomplete="new-password" readonly name="institution" type="text" value="' + data.name_of_test + '">' +
 
             '</div>' +
             '</div>' +
             '<div class="field">' +
             '<label>Country of Mass Production<span class="required-label" style="color: red">&nbsp;*</span></label>' +
             '<div class="ui input">' +
-            '<input autocomplete="new-password" name="country" type="text" value="' + data.country + '">' +
+            '<input autocomplete="new-password" readonly name="country" type="text" value="' + data.country + '">' +
 
             '</div>' +
             '</div>' +
