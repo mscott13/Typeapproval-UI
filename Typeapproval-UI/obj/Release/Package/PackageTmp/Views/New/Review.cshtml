@@ -1,0 +1,347 @@
+﻿
+@{
+    ViewData["Title"] = "New application";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+    <script src="~/Scripts/step1-restore.js"></script>
+}
+
+@section Styles{
+    <link href="~/Content/overrides.css" rel="stylesheet" />
+}
+
+@{
+    var mode = "";
+    if (Session["view_mode"] == null)
+    {
+        mode = "";
+    }
+    else if (Session["view_mode"].ToString() == "preview")
+    {
+        mode = "preview";
+    }
+    else if (Session["view_mode"].ToString() == "edit")
+    {
+        mode = "edit";
+    }
+}
+
+
+<div class="ui container override">
+    <div style="padding-left:10px !important; padding-right: 10px !important;" class="ui grid">
+        <div class="four wide column">
+            <div class="ui sticky _form">
+                <div class="ui ignored small info message">
+                    <div class="header">
+                        Form controls
+                    </div>
+                    <p>This section allows you to <b>save</b> an incomplete application for later use. </p>
+                </div>
+                @{
+                    if (mode == "preview")
+                    {
+                        <div class="fluid ui tiny buttons">
+                            <button class="ui disabled blue button save_app s1">Save for later (Ctrl-S)</button>
+                        </div>
+                    }
+                    else if (mode == "edit")
+                    {
+                        if (Session["save_state"] != null)
+                        {
+                            <div class="fluid ui tiny buttons">
+                                <button class="ui blue button save_app s1">Update (Ctrl-S)</button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="fluid ui tiny buttons">
+                                <button class="ui blue button save_app s1">Save for later (Ctrl-S)</button>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="fluid ui tiny buttons">
+                            <button class="ui blue button save_app s1">Save for later (Ctrl-S)</button>
+                        </div>
+                    }
+                }
+                <div class="ui fluid card">
+                    <div class="content">
+                        <h4 class="ui header">
+                            Saved Applications
+                        </h4>
+                    </div>
+                    <div id="savedDocs" class="content">
+                        <div class="ui tiny active centered inline text loader saved-docs">Getting info...</div>
+                    </div>
+                </div>
+
+                <div class="ui fluid card">
+                    <div class="content">
+                        <h4 class="ui header">
+                            Attatched Files
+                        </h4>
+                    </div>
+                    <div id="attatchedFiles" class="content">
+                        <div class="files-container">
+                        </div>
+                        <div class="ui tiny active centered inline text loader attatched-files">Getting info...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="twelve wide column">
+            <div class="ui one column grid">
+                <div class="column">
+                    <div id="steps" class="ui tiny five top attached steps">
+                        <div class="disabled step">
+                            <i class="address card icon"></i>
+                            <div class="content">
+                                <div class="title">Applicant</div>
+                                <div class="description">Enter applicant details</div>
+                            </div>
+                        </div>
+                        <div class="disabled step">
+                            <i class="hdd icon"></i>
+                            <div class="content">
+                                <div class="title">Equipment</div>
+                                <div class="description">Description of Equipment</div>
+                            </div>
+                        </div>
+                        <div class="disabled step">
+                            <i class="upload icon"></i>
+                            <div class="content">
+                                <div class="title">Upload</div>
+                                <div class="description">Add files relevant to this application</div>
+                            </div>
+                        </div>
+                        <div class="active step">
+                            <i class="blue file alternate icon"></i>
+                            <div class="content">
+                                <div class="title">Review</div>
+                                <div class="description">Review and confirm application</div>
+                            </div>
+                        </div>
+                        <div class="disabled step">
+                            <i class="check icon"></i>
+                            <div class="content">
+                                <div class="title">Completed</div>
+                                <div class="description">Application submitted</div>
+                            </div>
+                        </div>
+                    </div>
+                    @if (Session["application_id"] != null)
+                    {
+                        <div class="ui small attached warning message application">
+                            <i class="info icon"></i>
+                            Application saved with ID: <b>@Session["application_id"].ToString()</b>
+                        </div>
+                    }
+
+                    <div id="context" class="ui attached raised segment">
+                        <a class="ui grey ribbon label">1. &nbsp Applicant</a>
+                        <form class="ui form s1">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Name</label>
+                                    <div class="ui left icon input">
+                                        <input readonly name="applicant_name" placeholder="( required )" type="text" value="@Session["applicant_name"].ToString()">
+                                        <i class="user icon"></i>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Telephone</label>
+                                    <div class="ui left icon input">
+                                        <input name="applicant_telephone" type="text" placeholder="( required )" value="@Session["applicant_tel"].ToString()">
+                                        <i class="phone volume icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="three fields">
+                                <div class="field">
+                                    <label>Address</label>
+                                    <div class="ui left icon input">
+                                        <input name="applicant_address" type="text" placeholder="( required )" value="@Session["applicant_address"].ToString()">
+                                        <i class="address book icon"></i>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Fax</label>
+                                    <div class="ui left icon input">
+                                        <input name="applicant_fax" type="text" value="@Session["applicant_fax"].ToString()">
+                                        <i class="fax icon"></i>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Contact Person</label>
+                                    <div class="ui left icon input">
+                                        <input name="applicant_contact_person" type="text" value="@Session["applicant_contact_person"].ToString()">
+                                        <i class="user circle icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <a class="ui grey ribbon label">2. &nbsp Grantee / Manufacturer</a>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Grantee Name<span class="required-label" style="color: red">&nbsp;*</span> <span style="margin-left:5px; font-style:italic; font-weight:100 !important; float:right; color:dimgrey;">not listed? add it <a style="cursor:pointer" id="add-grantee">here</a></span></label>
+                                    <div class="ui left icon input">
+                                        <input id="grantee_name" data-purpose="update_save_btn" autocomplete="off" placeholder="( required )" name="grantee_name" type="text">
+                                        <i class="users icon"></i>
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <label>Manufacturer Name<span class="required-label" style="color: red">&nbsp;*</span></label>
+                                    <div class="ui left icon input">
+                                        @if (mode == "preview")
+                                        {
+                                            <input readonly name="manufacturer_name" type="text" placeholder="( required )">
+                                        }
+                                        else
+                                        {
+                                            <input name="manufacturer_name" type="text" placeholder="( required )">
+                                        }
+                                        <i class="user circle icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="field">
+                                    <label>Grantee Address<span class="required-label" style="color: red">&nbsp;*</span></label>
+                                    <div class="ui left icon input">
+                                        @if (mode == "preview")
+                                        {
+                                            <input readonly name="grantee_address" type="text" placeholder="( required )">
+                                        }
+                                        else
+                                        {
+                                            <input name="grantee_address" type="text" placeholder="( required )">
+                                        }
+                                        <i class="address book icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="context2" class="ui clearing attached raised segment">
+                        <div class="ui form">
+                            <a class="ui grey ribbon label">3. &nbsp Equipment Description</a>
+                            <div class="inline field">
+                                <label>Type of Equipment <span class="required-label" style="color: red">&nbsp;*</span></label>
+                                <div class="ui left icon input">
+                                    <input placeholder="( required )" name="equipment_type" type="text">
+                                    <i class="microchip icon"></i>
+                                </div>
+                            </div>
+                            <div class="one field">
+                                <div class="field">
+                                    <label>Brief Functional Description of Equipment (to be used on the certificate of approval)<span class="required-label" style="color: red">&nbsp;*</span></label>
+                                    <textarea rows="3" placeholder="( required )" name="equipment_description"></textarea>
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="four wide field">
+                                    <label>Make<span class="required-label" style="color: red">&nbsp;*</span></label>
+                                    <div class="ui left icon input">
+                                        <input placeholder="( required )" name="make" type="text">
+                                        <i class="barcode icon"></i>
+                                    </div>
+                                </div>
+                                <div class="twelve wide field">
+                                    <label>Model Number<span class="required-label" style="color: red">&nbsp;*</span></label>
+                                    <div class="ui left icon input">
+                                        <input placeholder="( required )" name="product_identification" type="text">
+                                        <i class="language icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fields">
+                            </div>
+                            <div class="one field">
+                                <label>Frequency information</label>
+                                <table class="ui compact celled definition table">
+                                    <thead>
+                                        <tr>
+                                            <th class="two wide"></th>
+                                            <th class="two wide">Frequency - L (MHz)</th>
+                                            <th class="two wide">Frequency - U (MHz)</th>
+                                            <th class="two wide">Power (W)</th>
+                                            <th class="two wide">Frequency Tolerance (+/-)</th>
+                                            <th class="two wide">Emission Designator</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table_frequencies">
+                                        <tr>
+                                            <td class="collapsing">
+                                                <div class="ui fluid tiny icon buttons">
+                                                    <button class="ui button delete_record"><i class="minus icon"></i></button>
+                                                    <button class="ui button add_record"><i class="add icon"></i></button>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="ui transparent input">
+                                                    <input type="number" style="width:100%" name="lower_mhz">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="ui transparent input">
+                                                    <input type="number" style="width:100%" name="upper_mhz">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="ui transparent input">
+                                                    <input type="number" style="width:100%" name="power">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="ui transparent input">
+                                                    <input type="number" style="width:100%" name="tolerance">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="ui transparent input">
+                                                    <input type="text" style="width:100%" name="emmission_desig">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div style="margin-top: 16px !important;" class="two fields">
+                                <div class="field">
+                                    <label>Name of Main Test or Certification Institution<span style="color: red">&nbsp;*</span></label>
+                                    <div class="ui input">
+                                        <input placeholder="( required )" autocomplete="new-password" name="institution" type="text">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Country of Mass Production<span class="required-label" style="color: red">&nbsp;*</span></label>
+                                    <div class="ui input">
+                                        <input placeholder="( required )" autocomplete="new-password" name="country" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="one field">
+                                <button id="step2_to_next" type="button" class="ui tiny right floated right labeled icon button">
+                                    <i class="right arrow icon"></i>
+                                    Next
+                                </button>
+                                <button id="step2_to_prev" type="button" class="ui tiny left floated left labeled icon button">
+                                    <i class="left arrow icon"></i>
+                                    Previous
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

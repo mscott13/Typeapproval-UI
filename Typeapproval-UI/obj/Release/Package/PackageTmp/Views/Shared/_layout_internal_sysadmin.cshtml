@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/semantic.css" rel="stylesheet" />
+    <link href="~/Content/site.css?t=@DateTime.Now.Millisecond" rel="stylesheet" />
+    <link href="~/Content/custom.css?t=@DateTime.Now.Millisecond.ToString()" rel="stylesheet" />
+    <link href="~/Content/search_result_styles.css?t=@DateTime.Now.Millisecond" rel="stylesheet" />
+    @RenderSection("styles", false)
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="sidenav">
+        <div class="ui vertical inverted fluid menu">
+            <a href="/admin" class="item">
+                <i class="home icon"></i>
+                Administration
+            </a>
+            <div class="item">
+                <div class="header">Account Management</div>
+                <div class="menu">
+                    <a id="change-password" class="item">Change password</a>
+                </div>
+            </div>
+            <div class="item">
+                <div class="header">Other</div>
+                <div class="menu">
+                    <a id="email-setting" class="item">Email setting</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div style="border: none !important; margin-bottom: 0px !important;" class="ui borderless large menu">
+            <div style="font-size: 17px !important;" class="header item">
+                <i>@ViewBag.Title</i>
+            </div>
+            <div style="font-size: 13px !important; font-style: italic !important;" class="right menu">
+                <div class="ui item">
+                    Signed in as:&nbsp;&nbsp;<b>@Session["name"]</b>
+                </div>
+                <div style="margin-right: 15px !important;" class="ui item">
+                    <button id="sign_out" class="tiny ui basic button">
+                        <i class="icon power off"></i>
+                        Sign out
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        @RenderBody()
+
+        <div id="change_password" class="ui mini modal">
+            <div class="header">
+                Change Password
+            </div>
+            <div class="content">
+                <form id="psw-form" class="ui equal width form">
+                    <div class="field">
+                        <label>Old Password</label>
+                        <input id="old_psw" type="password">
+                    </div>
+                    <div class="fields">
+                        <div class="field">
+                            <label>New Password</label>
+                            <input id="new_psw" type="password">
+                        </div>
+                        <div class="field">
+                            <label>Confirm Password</label>
+                            <input id="confirm_psw" type="password">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="actions">
+                <div class="ui mini cancel button">
+                    Cancel
+                </div>
+                <div id="btn-password-change" class="ui mini right labeled icon blue ok button">
+                    Update
+                    <i class="checkmark icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div id="email_setting" class="ui mini modal">
+            <div class="header">
+                <i class="envelope icon"></i> Update Email
+            </div>
+            <div class="content">
+
+                <div class="ui icon tiny info message">
+                    <i class="info icon"></i>
+                    <div class="content">
+                        <div class="header">
+                            Please note
+                        </div>
+                        <p>The emailing feature integrates with <a target="_blank" href="http://postmarkapp.com">Postmark</a>, ensure that your email has been configured there before entering it here.</p>
+                    </div>
+                </div>
+
+                <form id="email-form" class="ui equal width form">
+                    <div class="field">
+                        <label>Email address</label>
+                        <input id="setting_email" placeholder="( required )" type="email">
+                    </div>
+                    <div class="field">
+                        <label>Company</label>
+                        <input id="setting_company" placeholder="( required )" type="text" />
+                    </div>
+                </form>
+            </div>
+            <div class="actions">
+                <div class="ui mini cancel button">
+                    Cancel
+                </div>
+                <div id="btn-email-update" class="ui mini right labeled icon blue ok button">
+                    Update
+                    <i class="checkmark icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div id="create_user" class="ui mini modal">
+            <div class="header">
+                <i class="users icon"></i> Create User
+            </div>
+            <div class="content">
+                <form id="user-form" class="ui equal width form">
+                    <div class="field">
+                        <label>Username</label>
+                        <input id="u_username" placeholder="( required )" type="text">
+                    </div>
+                    <div class="fields">
+                        <div class="field">
+                            <label>First Name</label>
+                            <input id="u_fname" placeholder="( required )" type="text">
+                        </div>
+                        <div class="field">
+                            <label>Last Name</label>
+                            <input id="u_lname" placeholder="( required )" type="text">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Email Address</label>
+                        <input id="u_email" placeholder="( required )" type="text" />
+                    </div>
+
+                    <div class="field">
+                        <label>Role</label>
+                        <select id="role_dropdown" class="ui dropdown">
+                            <option value="">Select role</option>
+                            <option value="1">Engineer</option>
+                            <option value="9">Admin</option>
+                            <option value="10">System Admin</option>
+                        </select>
+                    </div>
+
+                    <div class="fields">
+                        <div class="field">
+                            <label>Password</label>
+                            <input id="u_password" placeholder="( required )" type="password" />
+                        </div>
+                        <div class="field">
+                            <label> Confirm Password</label>
+                            <input id="u_confirm" placeholder="( required )" type="password" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="actions">
+                <div class="ui mini cancel button">
+                    Cancel
+                </div>
+                <div id="btn-create-user" class="ui mini right labeled icon blue ok button">
+                    Create
+                    <i class="plus icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div id="reset_password" class="ui mini modal">
+            <div class="header">
+                Reset Password
+            </div>
+            <div class="content">
+                <div class="ui tiny info message">
+                    <ul class="list">
+                        <li>Choose a new password for this user account or leave fields blank to generate a <b>hidden</b> password. This will replace the old one. Everything else about this user remains the same.</li>
+                    </ul>
+                </div>
+
+                <form id="form" class="ui equal width form">
+                    <div class="fields">
+                        <div class="field">
+                            <label>New Password</label>
+                            <input id="reset_new_psw" type="password">
+                        </div>
+                        <div class="field">
+                            <label>Confirm Password</label>
+                            <input id="reset_confirm_psw" type="password">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="actions">
+                <div class="ui mini cancel button">
+                    Cancel
+                </div>
+                <div id="btn-resetpsw-change" class="ui mini right labeled icon blue ok button">
+                    Reset
+                    <i class="checkmark icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="overlay-notify">
+
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/semantic.js"></script>
+    <script src="~/Scripts/jquery.marcopolo.min.js"></script>
+    <script src="~/Scripts/site.js?t=@DateTime.Now.Millisecond"></script>
+    <script src="~/Scripts/sysadmin.js"></script>
+    @RenderSection("Scripts", false)
+</body>
+</html>

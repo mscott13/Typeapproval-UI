@@ -91,7 +91,7 @@ namespace Typeapproval_UI.Controllers
             if (ModelState.IsValid)
             {
                 var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:54367/api/user/");
+                client.BaseAddress = new Uri("http://server-erp2.sma.gov.jm:1786/api/user/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -159,7 +159,7 @@ namespace Typeapproval_UI.Controllers
                 param.access_key = Session["key"].ToString();
 
                 var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:54367/api/user/");
+                client.BaseAddress = new Uri("http://server-erp2.sma.gov.jm:1786/api/user/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -185,7 +185,7 @@ namespace Typeapproval_UI.Controllers
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:54367/api/data/ClientCompanyList?q="+ clientCompany);
+                client.BaseAddress = new Uri("http://server-erp2.sma.gov.jm:1786/api/data/ClientCompanyList?q=" + clientCompany);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 

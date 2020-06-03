@@ -66,7 +66,7 @@ namespace Typeapproval_UI.Controllers
                 if (Convert.ToInt32(Session["user_type"]) == Commons.Constants.USER_TYPE_CLIENT)
                 {
                     var client = new HttpClient();
-                    client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                    client.BaseAddress = new Uri("http://server-erp2.sma.gov.jm:1786/api/data/");
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     var content = new StringContent(JsonConvert.SerializeObject(Session["key"].ToString()), Encoding.UTF8, "application/json");
@@ -98,7 +98,7 @@ namespace Typeapproval_UI.Controllers
             if (Session["key"] != null)
             {
                 var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                client.BaseAddress = new Uri("http://server-erp2.sma.gov.jm:1786/api/data/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 var content = new StringContent(JsonConvert.SerializeObject(Session["key"].ToString()), Encoding.UTF8, "application/json");
@@ -128,7 +128,7 @@ namespace Typeapproval_UI.Controllers
             if (Session["key"] != null)
             {
                 var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                client.BaseAddress = new Uri("http://server-erp2.sma.gov.jm:1786/api/data/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 var content = new StringContent(JsonConvert.SerializeObject(Session["key"].ToString()), Encoding.UTF8, "application/json");
@@ -158,7 +158,7 @@ namespace Typeapproval_UI.Controllers
             if (Session["key"] != null)
             {
                 var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                client.BaseAddress = new Uri("http://server-erp2.sma.gov.jm:1786/api/data/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 var content = new StringContent(JsonConvert.SerializeObject(Session["key"].ToString()), Encoding.UTF8, "application/json");

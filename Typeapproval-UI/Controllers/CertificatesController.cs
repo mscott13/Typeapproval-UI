@@ -25,7 +25,7 @@ namespace Typeapproval_UI.Controllers
                 _param.access_key = Session["key"].ToString();
 
                 var _client = new HttpClient();
-                _client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                _client.BaseAddress = new Uri("http://server-erp2.sma.gov.jm:1786/api/data/");
                 _client.DefaultRequestHeaders.Accept.Clear();
                 _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -60,7 +60,7 @@ namespace Typeapproval_UI.Controllers
                 _param.approval_id = approval_id;
 
                 var _client = new HttpClient();
-                _client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                _client.BaseAddress = new Uri("http://server-erp2.sma.gov.jm:1786/api/data/");
                 _client.DefaultRequestHeaders.Accept.Clear();
                 _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 

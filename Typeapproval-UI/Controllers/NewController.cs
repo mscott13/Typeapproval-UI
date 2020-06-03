@@ -31,7 +31,7 @@ namespace Typeapproval_UI.Controllers
                 {
                     #region load default information
                     var client = new HttpClient();
-                    client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                    client.BaseAddress = new Uri("http://server-erp2.sma.gov.jm:1786/api/data/");
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -83,7 +83,7 @@ namespace Typeapproval_UI.Controllers
                     _param.status = status;
 
                     var _client = new HttpClient();
-                    _client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                    _client.BaseAddress = new Uri("http://server-erp2.sma.gov.jm:1786/api/data/");
                     _client.DefaultRequestHeaders.Accept.Clear();
                     _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -105,7 +105,7 @@ namespace Typeapproval_UI.Controllers
                     _param.mode = "preview";
 
                     var _client = new HttpClient();
-                    _client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                    _client.BaseAddress = new Uri("http://server-erp2.sma.gov.jm:1786/api/data/");
                     _client.DefaultRequestHeaders.Accept.Clear();
                     _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -202,7 +202,7 @@ namespace Typeapproval_UI.Controllers
             param.access_key = Session["key"].ToString();
 
             var client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+            client.BaseAddress = new Uri("http://server-erp2.sma.gov.jm:1786/api/data/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -255,7 +255,7 @@ namespace Typeapproval_UI.Controllers
             param.mode = "preview";
 
             var client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+            client.BaseAddress = new Uri("http://server-erp2.sma.gov.jm:1786/api/data/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -531,7 +531,7 @@ namespace Typeapproval_UI.Controllers
                 #endregion
 
                 var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+                client.BaseAddress = new Uri("http://server-erp2.sma.gov.jm:1786/api/data/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 

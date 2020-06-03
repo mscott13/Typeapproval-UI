@@ -1,0 +1,206 @@
+﻿@model Typeapproval_UI.Models.AdminDashboard
+
+@{
+    ViewBag.Title = "Task Management";
+    Layout = "~/Views/Shared/_layout_internal_admin.cshtml";
+}
+
+@section Styles{
+    <link href="~/Content/overrides.css?t=@DateTime.Now.Millisecond.ToString()" rel="stylesheet" />
+}
+
+@section Scripts{
+    <script src="~/Scripts/admin.js"></script>
+}
+
+<div style="min-width: 1000px !important; max-width: 3500px !important; padding-top: 10px !important;" class="ui fluid container">
+    <div style="padding-left: 0px !important; padding-right:0px !important; margin-left: 0; margin-right: 0;" class="ui grid">
+        <div style="padding: 5px !important;" class="seven wide column">
+            <table id="tbl_unassigned" class="ui small celled table">
+                <thead class="thead_custom">
+                    <tr>
+                        <th colspan="3">
+                            Unassigned Applications
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Application ID</th>
+                        <th>Created Date</th>
+                        <th>Submitted By</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.unassignedTasks.Count > 0)
+                    {
+                        for (int i = 0; i < Model.unassignedTasks.Count; i++)
+                        {
+                            <tr data-appid="@Model.unassignedTasks[i].application_id">
+                                <td><input type="checkbox" class="check_task" value="" /> &nbsp;&nbsp; <a data-appid="@Model.unassignedTasks[i].application_id" style="cursor: pointer;" class="app_view"><i class="file alternate outline icon"></i>@Model.unassignedTasks[i].application_id</a></td>
+                                <td>@Model.unassignedTasks[i].created_date</td>
+                                <td>@Model.unassignedTasks[i].submitted_by</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr id="fallback_msg_unassigned">
+                            <td colspan="3">No unassigned applications found.</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot class="full-width">
+                    <tr>
+                        <td colspan="3">
+                            <div style="margin-left: 0px; margin-right: 0px;" class="ui grid">
+                                <div class="row row_override_v2">
+                                    <div style="padding:0;" class="sixteen wide column">
+                                        <div id="unassigned_action_dropdown" class="ui selection dropdown">
+                                            <input type="hidden" name="user">
+                                            <i class="dropdown icon"></i>
+                                            <div class="default text">Choose action</div>
+                                            <div class="menu">
+                                                <div class="item" data-value="assign_engineer">
+                                                    Assign To Engineer
+                                                </div>
+                                                <div class="item" data-value="delete">
+                                                    Reject
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                         <div id="assign_engineer_select" class="ui search selection dropdown display_invisible">
+                                            <input type="hidden" name="country">
+                                            <i class="dropdown icon"></i>
+                                            <div class="default text">Choose Engineer</div>
+                                            <div class="menu">
+                                                @for (int i = 0; i < Model.engineerUsers.Count; i++)
+                                                {
+                                                    <div class="item" data-value="@Model.engineerUsers[i].username">@Model.engineerUsers[i].name</div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              
+                                <div class="row">
+                                    <div style="padding:0;" class="sixteen wide column">
+                                        <button id="btn_unassigned_apply" class="ui mini right floated disabled button"><i class="check icon"></i>Apply</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div style="padding: 5px !important;" class="nine wide column">
+            <table id="tbl_ongoing" class="ui small celled table">
+                <thead class="thead_custom">
+                    <tr>
+                        <th colspan="5">
+                            Assigned Applications
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Application ID</th>
+                        <th>Created Date</th>
+                        <th>Assigned To</th>
+                        <th>Date Assigned</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.ongoingTasks.Count > 0)
+                    {
+                        for (int i = 0; i < Model.ongoingTasks.Count; i++)
+                        {
+                    <tr data-appid="@Model.ongoingTasks[i].application_id">
+                        <td><input type="checkbox" class="check_task" value="" /> &nbsp;&nbsp; <a data-appid="@Model.ongoingTasks[i].application_id" class="app_view" style="cursor: pointer;"><i class="file alternate outline icon"></i>@Model.ongoingTasks[i].application_id</a></td>
+                        <td>@Model.ongoingTasks[i].created_date</td>
+                        <td>@Model.ongoingTasks[i].assigned_to</td>
+                        <td>@Model.ongoingTasks[i].date_assigned</td>
+                        @switch (Model.ongoingTasks[i].status)
+                        {
+                            case Typeapproval_UI.Commons.Constants.INCOMPLETE_TYPE:
+                                <td class="status_incomplete">@Model.ongoingTasks[i].status</td>
+                                break;
+                            case Typeapproval_UI.Commons.Constants.PENDING_TYPE:
+                                <td class="status_pending">@Model.ongoingTasks[i].status</td>
+                                break;
+                            case Typeapproval_UI.Commons.Constants.PENDING_RESUBMISSION:
+                                <td class="status_resubmit">@Model.ongoingTasks[i].status</td>
+                                break;
+                            case Typeapproval_UI.Commons.Constants.INVOICED_TYPE:
+                                <td class="status_invoiced">@Model.ongoingTasks[i].status</td>
+                                break;
+                            case Typeapproval_UI.Commons.Constants.REJECTED:
+                                <td class="status_rejected">@Model.ongoingTasks[i].status</td>
+                                break;
+                            case Typeapproval_UI.Commons.Constants.LICENSED_TYPE:
+                                <td class="status_licensed">@Model.ongoingTasks[i].status</td>
+                                break;
+                            case Typeapproval_UI.Commons.Constants.SUBMITTED_TYPE:
+                                <td class="status_submitted">@Model.ongoingTasks[i].status</td>
+                                break;
+                            default:
+                                <td>@Model.ongoingTasks[i].status</td>
+                                break;
+                        }
+                    </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr id="fallback_msg_ongoing">
+                            <td  colspan="5"> No assigned applications found.</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot class="full-width">
+                    <tr>
+                        <td colspan="5">
+                           <div style="margin-left:0px; margin-right: 0px;" class="ui grid">
+                               <div class="row row_override_v2">
+                                   <div style="padding:0;" class="sixteen wide column">
+
+                                       <div id="ongoing_action_dropdown" class="ui selection dropdown">
+                                           <input type="hidden" name="user">
+                                           <i class="dropdown icon"></i>
+                                           <div class="default text">Choose action</div>
+                                           <div class="menu">
+                                               <div class="item" data-value="reassign_engineer">
+                                                   Reassign To Engineer
+                                               </div>
+                                               <div class="item" data-value="move_unassigned">
+                                                   Move to unassigned
+                                               </div>
+                                           </div>
+                                       </div>
+
+                                       <div id="reassign_engineer_select" class="ui search selection dropdown display_invisible">
+                                           <input type="hidden" name="country">
+                                           <i class="dropdown icon"></i>
+                                           <div class="default text">Choose Engineer</div>
+                                           <div class="menu">
+                                               @for (int i = 0; i < Model.engineerUsers.Count; i++)
+                                               {
+                                                   <div class="item" data-value="@Model.engineerUsers[i].username">@Model.engineerUsers[i].name</div>
+                                               }
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="row">
+                                   <div style="padding:0;" class="sixteen wide column">
+                                       <button id="btn_ongoing_apply" class="ui mini right floated disabled button"><i class="check icon"></i>Apply</button>
+                                   </div>
+                               </div>
+                           </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

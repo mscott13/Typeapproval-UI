@@ -1,0 +1,261 @@
+﻿@model Typeapproval_UI.Models.SysAdminMainWrapper
+
+@{
+    Layout = "~/Views/Shared/_layout_internal_sysadmin.cshtml";
+}
+
+@section Styles{
+    <link href="~/Content/overrides.css" rel="stylesheet" />
+}
+
+@section Scripts{
+}
+
+<div id="main_content" style="margin-left: 0px !important; margin-right: 0 !important; width:100% !important; padding-top:10px" class="ui fluid container">
+    <div style="margin-left:0; margin-right:0; margin-top:0; height:100% !important;min-height:0;" class="ui grid">
+        <div class="row">
+            <div class="four wide column">
+               <div class="ui grid">
+                   <div class="row">
+                       <div class="sixteen wide column">
+                           <h4 class="ui header">
+                               <i class="blue history icon"></i>
+                               <div class="content">
+                                   Log preview
+                               </div>
+                           </h4>
+                       </div>
+                   </div>
+               </div>
+                <div style="margin-top:33px;" class="content-scroll">
+                    <div class="ui relaxed divided list">
+                        @if (Model.userActivities.Count > 0)
+                        {
+                            for (int x = 0; x < Model.userActivities.Count; x++)
+                            {
+                                switch (Model.userActivities[x].type)
+                                {
+                                    case Typeapproval_UI.Commons.Constants.ACTIVITY_SUBMISSION_TYPE:
+                                        <div class="item">
+                                            <i class="small tasks middle aligned icon"></i>
+                                            <div class="content">
+                                                <div class="header">Submission</div>
+                                                <div class="description"><a>@Model.userActivities[x].username</a> submitted application <b>@Model.userActivities[x].description</b></div>
+                                                <div class="minor-content">
+                                                    @Model.userActivities[x].date
+                                                </div>
+                                            </div>
+                                        </div>
+                                        break;
+                                    case Typeapproval_UI.Commons.Constants.ACTIVITY_NEW_ONGOING:
+                                        <div class="item">
+                                            <i class="small tasks middle aligned icon"></i>
+                                            <div class="content">
+                                                <div class="header">Task Assignment</div>
+                                                <div class="description"><a>@Model.userActivities[x].username</a> assigned application <b>@Model.userActivities[x].description</b> to <a>@Model.userActivities[x].extras</a></div>
+                                                <div class="minor-content">
+                                                    @Model.userActivities[x].date
+                                                </div>
+                                            </div>
+                                        </div>
+                                        break;
+                                    case Typeapproval_UI.Commons.Constants.ACTIVITY_CREATE_ACCOUNT:
+                                        <div class="item">
+                                            <i class="small tasks middle aligned icon"></i>
+                                            <div class="content">
+                                                <div class="header">Create User</div>
+                                                <div class="description">A new account was created, user: <a>@Model.userActivities[x].username</a></div>
+                                                <div class="minor-content">
+                                                    @Model.userActivities[x].date
+                                                </div>
+                                            </div>
+                                        </div>
+                                        break;
+                                    case Typeapproval_UI.Commons.Constants.ACTIVITY_SET_EMAIL:
+                                        <div class="item">
+                                            <i class="small tasks middle aligned icon"></i>
+                                            <div class="content">
+                                                <div class="header">Email</div>
+                                                <div class="description"><a>@Model.userActivities[x].username</a> updated email preference to: <i><b>@Model.userActivities[x].description</b></i></div>
+                                                <div class="minor-content">
+                                                    @Model.userActivities[x].date
+                                                </div>
+                                            </div>
+                                        </div>
+                                        break;
+                                    case Typeapproval_UI.Commons.Constants.ACTIVITY_ERROR:
+                                        <div class="item">
+                                            <i class="small tasks middle aligned icon"></i>
+                                            <div class="content">
+                                                <div class="header">Error</div>
+                                                <div class="description"><i>@Model.userActivities[x].description</i></div>
+                                                <div class="minor-content">
+                                                    @Model.userActivities[x].date
+                                                </div>
+                                            </div>
+                                        </div>
+                                        break;
+                                    case Typeapproval_UI.Commons.Constants.ACTIVITY_LOGIN:
+                                        <div class="item">
+                                            <i class="small tasks middle aligned icon"></i>
+                                            <div class="content">
+                                                <div class="header">Login</div>
+                                                <div class="description"><a>@Model.userActivities[x].username</a> attempted to login, status: <b>@Model.userActivities[x].description</b></div>
+                                                <div class="minor-content">
+                                                    @Model.userActivities[x].date
+                                                </div>
+                                            </div>
+                                        </div>
+                                        break;
+                                    case Typeapproval_UI.Commons.Constants.ACTIVITY_NEW_APPLICATION_TYPE:
+                                        <div class="item">
+                                            <i class="small tasks middle aligned icon"></i>
+                                            <div class="content">
+                                                <div class="header">New Application</div>
+                                                <div class="description"><a>@Model.userActivities[x].username</a> created application <b>@Model.userActivities[x].description</b></div>
+                                                <div class="minor-content">
+                                                    @Model.userActivities[x].date
+                                                </div>
+                                            </div>
+                                        </div>
+                                        break;
+                                    case Typeapproval_UI.Commons.Constants.ACTIVITY_UPDATE:
+                                        <div class="item">
+                                            <i class="small tasks middle aligned icon"></i>
+                                            <div class="content">
+                                                <div class="header">Update</div>
+                                                <div class="description"><a>@Model.userActivities[x].username</a> updated application <b>@Model.userActivities[x].description</b></div>
+                                                <div class="minor-content">
+                                                    @Model.userActivities[x].date
+                                                </div>
+                                            </div>
+                                        </div>
+                                        break;
+                                    case Typeapproval_UI.Commons.Constants.ACTIVITY_REJECT_UNASSIGNED:
+                                        <div class="item">
+                                            <i class="small tasks middle aligned icon"></i>
+                                            <div class="content">
+                                                <div class="header">Application Rejected</div>
+                                                <div class="description"><a>@Model.userActivities[x].username</a> rejected <b>@Model.userActivities[x].description</b></div>
+                                                <div class="minor-content">
+                                                    @Model.userActivities[x].date
+                                                </div>
+                                            </div>
+                                        </div>
+                                        break;
+
+                                    case Typeapproval_UI.Commons.Constants.ACTIVITY_MOVE_UNASSAIGNED:
+                                        <div class="item">
+                                            <i class="small tasks middle aligned icon"></i>
+                                            <div class="content">
+                                                <div class="header">Unassigned</div>
+                                                <div class="description"><a>@Model.userActivities[x].username</a> moved application <b>@Model.userActivities[x].description</b> to <i>unassigned</i></div>
+                                                <div class="minor-content">
+                                                    @Model.userActivities[x].date
+                                                </div>
+                                            </div>
+                                        </div>
+                                        break;
+                                    case Typeapproval_UI.Commons.Constants.ACTIVITY_ASSIGN_TASK:
+                                        <div class="item">
+                                            <i class="small tasks middle aligned icon"></i>
+                                            <div class="content">
+                                                <div class="header">Task Assignment</div>
+                                                <div class="description"><a>@Model.userActivities[x].username</a> assigned application <b>@Model.userActivities[x].description</b> to <a>@Model.userActivities[x].extras</a></div>
+                                                <div class="minor-content">
+                                                    @Model.userActivities[x].date
+                                                </div>
+                                            </div>
+                                        </div>
+                                        break;
+                                    case Typeapproval_UI.Commons.Constants.ACTIVITY_REASSIGN_TASK:
+                                        <div class="item">
+                                            <i class="small tasks middle aligned icon"></i>
+                                            <div class="content">
+                                                <div class="header">Task Re-assignment</div>
+                                                <div class="description"><a>@Model.userActivities[x].username</a> re-assigned application <b>@Model.userActivities[x].description</b> to <a>@Model.userActivities[x].extras</a></div>
+                                                <div class="minor-content">
+                                                    @Model.userActivities[x].date
+                                                </div>
+                                            </div>
+                                        </div>
+                                        break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <p>No activities yet</p>
+                        }
+                    </div>
+
+                </div>
+            </div>
+            <div style="padding-right:20px; padding-left:0px" class="twelve wide column">
+                <div class="ui grid">
+                    <div class="row">
+                        <div class="four wide column">
+                            <h4 class="ui header">
+                                <i class="blue users icon"></i>
+                                <div class="content">
+                                    All users
+                                </div>
+                            </h4>
+                        </div>
+                        <div style="" class="twelve wide column">
+                            <button id="btn-new-user" class="ui blue mini right floated  button">
+                                <i class="plus icon"></i>
+                                New user
+                            </button>
+
+                            <div style="margin-right: 5px" class="ui right floated mini icon buttons">
+                                <button id="btn-delete-user"   class="ui disabled button"><i class="trash alternate icon"></i></button>
+                                <button id="btn-edit-user"  class="ui disabled button"><i class="edit icon"></i></button>
+                                <button id="btn-reset-user"   class="ui button"><i class="key icon"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-scroll">
+                    <table class="ui striped small table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Username</th>
+                                <th>Name</th>
+                                <th>Last seen</th>
+                                <th>Role</th>
+                                <th>Email</th>
+                                <th>Created date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="staff-task-records">
+                            @if (Model.userDetails.Count > 0)
+                            {
+                                for (int i = 0; i < Model.userDetails.Count; i++)
+                                {
+                                    <tr>
+                                        <td><input style="margin-right: 8px;" type="checkbox" class="check_task" /></td>
+                                        <td>@Model.userDetails[i].username</td>
+                                        <td>@Model.userDetails[i].fullname</td>
+                                        <td>@Model.userDetails[i].last_detected_activity</td>
+                                        <td>@Model.userDetails[i].user_type</td>
+                                        <td>@Model.userDetails[i].email</td>
+                                        <td>@Model.userDetails[i].created_date</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr class="row_hover">
+                                    <td style="text-align:center" colspan="6">No users found</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

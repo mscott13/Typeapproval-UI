@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Typeapproval_UI.Models.ClientCompany>
+﻿@model List<Typeapproval_UI.Models.ClientCompany>
 @{
     Layout = null;
 }
@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>Create account</title>
     <link href="~/Content/register.css" rel="stylesheet" />
+    <link href="~/Content/overrides.css" rel="stylesheet" />
     <link href="~/Content/semantic.css" rel="stylesheet" />
     <link href="~/Content/search_result_styles.css" rel="stylesheet" />
 </head>
@@ -27,54 +28,74 @@
                         <div class="field">
                             <label>Username</label>
                             <div id="input_group_username" class="ui left icon input">
-                                <input spellcheck="false" placeholder="jbrown" name="reg_username" type="text">
-                                <i class="user icon"></i>
+                                <input spellcheck="false" placeholder="( required )" name="reg_username" type="text">
+                                <i class="grey circle user icon"></i>
                             </div>
-                           
+
                         </div>
-                        <div class="field">
-                            <label>Client company<span style="margin-left:5px; font-style:italic; font-weight:100 !important; float:right; color:dimgrey;">company not found? add it <a href="#">here</a></span></label>
-                            <div id="input_group_client_companies" class="ui left icon input">
-                                <input id="search_clients" placeholder="eg. Digicel" name="reg_clients" type="text">
-                                <i class="building icon"></i>
+                        <div class="inline fields">
+                            <label>Register as: </label>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="user_type" data-type="company" checked="checked">
+                                    <label>A Client Company</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" data-type="individual" name="user_type">
+                                    <label>An Individual</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="field">
-                            <label>Email address</label>
-                            <div id="input_group_email" class="ui left icon input">
-                                <input placeholder="jbrown@hotmail.com" name="reg_email" type="text">
-                                <i class="at icon"></i>
+
+
+                        <div id="company_search" class="field">
+                            <label>Client company<span style="margin-left:5px; font-style:italic; font-weight:100 !important; float:right; color:dimgrey;">not listed? add it <a style="cursor:pointer" id="add-company">here</a></span></label>
+                            <div id="client_companies" class="ui left icon input">
+                                <input spellcheck="false" placeholder="( required )" name="client_companies" type="text">
+                                <i class="grey building icon"></i>
                             </div>
                         </div>
-                        <div class="two fields">
+
+                        <div id="name_grp" class="two fields">
                             <div class="field">
                                 <label>First name</label>
                                 <div id="input_group_fname" class="ui left icon input">
-                                    <input placeholder="John" name="reg_firstName" type="text">
-                                    <i class="quote left icon"></i>
+                                    <input placeholder="( required )" name="reg_firstName" type="text">
+                                    <i class="grey quote left icon"></i>
                                 </div>
                             </div>
                             <div class="field">
                                 <label>Last name</label>
                                 <div id="input_group_lname" class="ui right icon input">
-                                    <input placeholder="Brown" name="reg_lastName" type="text">
-                                    <i class="quote right icon"></i>
+                                    <input placeholder="( required )" name="reg_lastName" type="text">
+                                    <i class="grey quote right icon"></i>
                                 </div>
+                            </div>
+                        </div>
+
+
+                        <div class="field">
+                            <label>Email address</label>
+                            <div id="input_group_email" class="ui left icon input">
+                                <input placeholder="( required )" name="reg_email" type="text">
+                                <i class="grey at icon"></i>
                             </div>
                         </div>
                         <div class="two fields">
                             <div class="field">
                                 <label>Password</label>
                                 <div id="input_group_password" class="ui left icon input">
-                                    <input placeholder="" name="reg_password" type="password">
-                                    <i class="lock open icon"></i>
+                                    <input placeholder="( required )" name="reg_password" type="password">
+                                    <i class="grey lock open icon"></i>
                                 </div>
                             </div>
                             <div class="field">
                                 <label>Confirm password</label>
                                 <div id="input_group_confirm" class="ui left icon input">
-                                    <input placeholder="" name="reg_confirmPassword" type="password">
-                                    <i class="lock icon"></i>
+                                    <input placeholder="( required )" name="reg_confirmPassword" type="password">
+                                    <i class="grey lock icon"></i>
                                 </div>
                             </div>
                         </div>
@@ -89,9 +110,535 @@
         </div>
     </div>
 
+    <div id="add_company" class="ui tiny modal">
+        <div class="header">
+            <i class="building icon"></i>New Company
+        </div>
+        <div class="content">
+            <form class="ui form">
+                <div class="two fields">
+                    <div class="field">
+                        <label>Company Name</label>
+                        <input type="text" id="company_name" placeholder="( required )">
+                    </div>
+                    <div class="field">
+                        <label>Address</label>
+                        <input type="text" id="company_address" placeholder="( required )">
+                    </div>
+                </div>
+                <div class="three fields">
+                    <div class="field">
+                        <label>Contact Person</label>
+                        <input type="text" id="company_person" placeholder="">
+                    </div>
+                    <div class="field">
+                        <label>Telephone</label>
+                        <input type="text" id="company_telephone" placeholder="( required )">
+                    </div>
+                    <div class="field">
+                        <label>Fax</label>
+                        <input type="text" id="company_fax" placeholder="">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="actions">
+            <div class="ui mini cancel button">
+                Cancel
+            </div>
+            <div id="btn-addcompany-apply" class="ui mini right labeled icon blue ok button">
+                Add company
+                <i class="plus icon"></i>
+            </div>
+        </div>
+    </div>
+
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/semantic.js"></script>
     <script src="~/Scripts/jquery.marcopolo.min.js"></script>
     <script src="~/Scripts/site.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            const USERNAME = 'grp_username';
+            const EMAIL = 'grp_email';
+            const FNAME = 'grp_fname';
+            const LNAME = 'grp_lname';
+            const PASSWORD = 'grp_password';
+            const CONFIRM = 'grp_confirm';
+            var can_register = false;
+            var type_selected = "company"; //default selection
+
+            $(".ui.radio.checkbox").checkbox({
+                onChecked: function ()
+                {
+                    $("input").removeClass("input-error");
+                    if ($(this).data("type") === "individual") {
+                        console.log("individual");
+                        type_selected = "individual";
+                        set_individual_fields();
+                       
+                    }
+                    else
+                    {
+                        type_selected = "company";
+                        console.log("company");
+                        unset_individual_fields();
+                    }
+                }
+            });
+
+            $("#btn_register").click(function ()
+            {
+                if (can_register) {
+                    if ($("input[name=reg_password]").val() === $("input[name=reg_confirmPassword]").val())
+                    {
+                        if (type_selected === "company")
+                        {
+                            if (validate_company())
+                            {
+                                $("#btn_register").addClass("disabled loading");
+                                var jsonObj = new Object();
+                                jsonObj.username = $("input[name=reg_username]").val();
+                                jsonObj.password = $("input[name=reg_password]").val();
+                                jsonObj.first_name = $("input[name=reg_firstName]").val();
+                                jsonObj.last_name = $("input[name=reg_lastName]").val();
+                                jsonObj.email = $("input[name=reg_email]").val();
+                                jsonObj.company = $("input[name=client_companies]").val();
+                                jsonObj.user_role = 0;
+                                jsonObj.clientId = $("input[name=client_companies]").data("clientid");
+
+                                var json = JSON.stringify(jsonObj);
+                                $.ajax({
+                                    type: "POST",
+                                    url: "http://server-erp2.sma.gov.jm:1786/api/user/RegisterCompanyUser",
+                                    contentType: "application/json; charset=utf-8",
+                                    data: json,
+                                    success: function (data) {
+                                        console.log(data);
+                                        $("#btn_register").removeClass("disabled loading");
+                                        window.location.href = "/account/account-created";
+                                    },
+                                    error: function (data) {
+                                        console.log(data);
+                                        $("#btn_register").removeClass("disabled loading");
+                                    }
+                                });
+                            }
+                        }
+                        else
+                        {
+                            if (validate_individual())
+                            {
+                                $("#btn_register").addClass("disabled loading");
+                                var jsonObj = new Object();
+                                jsonObj.username = $("input[name=reg_username]").val();
+                                jsonObj.password = $("input[name=reg_password]").val();
+                                jsonObj.first_name = $("input[name=reg_firstName]").val();
+                                jsonObj.last_name = $("input[name=reg_lastName]").val();
+                                jsonObj.email = $("input[name=reg_email]").val();
+                                jsonObj.address = $("input[name=reg_individual_address]").val();
+                                jsonObj.telephone = $("input[name=reg_individual_tel]").val();
+                                jsonObj.fax = $("input[name=reg_individual_fax]").val();
+                                jsonObj.user_role = 0;
+
+                                var json = JSON.stringify(jsonObj);
+                                $.ajax({
+                                    type: "POST",
+                                    url: "http://server-erp2.sma.gov.jm:1786/api/user/RegisterIndividualUser",
+                                    contentType: "application/json; charset=utf-8",
+                                    data: json,
+                                    success: function (data) {
+                                        console.log(data);
+                                        $("#btn_register").removeClass("disabled loading");
+                                        window.location.href = "/account/account-created";
+                                    },
+                                    error: function (data) {
+                                        console.log(data);
+                                        $("#btn_register").removeClass("disabled loading");
+                                    }
+                                });
+                            }
+                        }
+                    }
+                }
+            });
+
+            var timer;
+            $("input[name=reg_username]").on('input', function (e) {
+
+                var input = $(this);
+                var val = input.val();
+
+                if (/\s/.test(val)) {
+                    clearError(USERNAME);
+                    addError("Username cannot contain whitespaces", USERNAME);
+                    $("#input_group_username").find("i").remove();
+                    $("#input_group_username").append('<i class="red close icon"></i>');
+                    can_register = false;
+                }
+                else
+                {
+                    clearError(USERNAME);
+                    if (input.data("lastval") !== val) {
+                        input.data("lastval", val);
+
+                        $("#input_group_username").find("i").remove();
+                        $("#input_group_username").append('<i class="grey circle user icon"></i>');
+                        clearError(USERNAME);
+                        clearTimeout(timer);
+                        timer = setTimeout(function () {
+                            if (input.val() !== "") {
+                                $.ajax({
+                                    type: "GET",
+                                    url: "http://server-erp2.sma.gov.jm:1786/api/data/CheckName?q=" + input.val(),
+                                    success: function (data) {
+                                        console.log(data);
+                                        if (data === true) {
+                                            addError("username already taken", USERNAME);
+                                            $("#input_group_username").removeClass("loading");
+                                            $("#input_group_username").find("i").remove();
+                                            $("#input_group_username").append('<i class="red close icon"></i>');
+                                            can_register = false;
+                                        }
+                                        else if (val.length < 4) {
+                                            clearError(USERNAME);
+                                            addError("Username must have at least 4 characters", USERNAME);
+                                            $("#input_group_username").find("i").remove();
+                                            $("#input_group_username").append('<i class="red close icon"></i>');
+                                            can_register = false;
+                                        }
+                                        else {
+                                            clearError(USERNAME);
+                                            $("#input_group_username").removeClass("loading");
+                                            $("#input_group_username").find("i").remove();
+                                            $("#input_group_username").append('<i class="blue check icon"></i>');
+                                            can_register = true;
+                                        }
+                                    },
+                                    error: function (data) {
+                                        console.log(data);
+                                    }
+                                });
+                            }
+                            else {
+                                clearError(USERNAME);
+                                $("#input_group_username").removeClass("loading");
+                            }
+                        }, 800);
+                    }
+                }
+            });
+
+            $("#add-company").click(function () {
+                $("#add_company").modal({
+                    onApprove: function () {
+                        var company_name = $("#company_name").val();
+                        var company_address = $("#company_address").val();
+                        var company_telephone = $("#company_telephone").val();
+                        var company_fax = $("#company_fax").val();
+                        var company_person = $("#company_person").val();
+
+                        if (company_name !== '') {
+                            if (company_address !== '') {
+                                if (company_telephone !== '')
+                                {
+                                    add_company(company_name, company_address, company_telephone, company_fax, company_person);
+                                }
+                                else {
+                                    alert('Please enter a company telephone');
+                                }
+                            }
+                            else {
+                                alert('Please enter a company address');
+                            }
+                        }
+                        else {
+                            alert('Please enter a company name');
+                        }
+
+                        return false;
+                    },
+                    onDeny: function () {
+                        setTimeout(function () {
+
+                            $("#company_name").val('');
+                            $("#company_address").val('');
+                            $("#company_telephone").val('');
+                            $("#company_fax").val('');
+                            $("#company_person").val('');
+
+                        }, 500);
+                        return true;
+                    }
+                }).modal('show');
+            });
+
+            function add_company(company_name, company_address, company_telephone, company_fax, company_person) {
+                $("#btn-addcompany-apply").addClass("disabled loading");
+                var jsonObj = new Object();
+                jsonObj.clientId = 0;
+                jsonObj.name = company_name;
+                jsonObj.telephone = company_telephone;
+                jsonObj.address = company_address;
+                jsonObj.fax = company_fax;
+                jsonObj.contactPerson = company_person;
+                var json = JSON.stringify(jsonObj);
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://server-erp2.sma.gov.jm:1786/api/data/NewCompany",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(jsonObj),
+                    success: function (data) {
+                        $("#add_company").modal('hide');
+                        $("input[name=client_companies]").val(company_name).data("clientid", data);
+                        $("#btn-addcompany-apply").removeClass("disabled loading");
+                        setTimeout(function () {
+
+                            $("#company_name").val('');
+                            $("#company_address").val('');
+                            $("#company_telephone").val('');
+                            $("#company_fax").val('');
+                            $("#company_person").val('');
+
+                        }, 500);
+                    },
+                    error: function (data) {
+                        $("#btn-addcompany-apply").removeClass("disabled loading");
+                    }
+                });
+            }
+
+
+            $("input[name=reg_confirmPassword]").on('input', function (e) {
+                var input = $(this);
+                var val = input.val();
+
+                if (input.data("lastval") !== val) {
+                    input.data("lastval", val);
+
+                    clearError(PASSWORD);
+                    clearError(CONFIRM);
+
+                    clearTimeout(timer);
+                    timer = setTimeout(function () {
+                        if ($("input[name=reg_password]").val() !== $("input[name=reg_confirmPassword]").val()) {
+                            addError("Passwords do not match", PASSWORD);
+                            addError("Passwords do not match", CONFIRM);
+                        }
+                        else {
+                            clearError(PASSWORD);
+                            clearError(CONFIRM);
+                        }
+                    }, 800);
+                }
+            });
+
+            function clearError(target) {
+                switch (target) {
+                    case USERNAME:
+                        $('#' + USERNAME).remove();
+                        break;
+                    case EMAIL:
+                        $('#' + EMAIL).remove();
+                        break;
+                    case FNAME:
+                        $('#' + FNAME).remove();
+                        break;
+                    case LNAME:
+                        $('#' + LNAME).remove();
+                        break;
+                    case PASSWORD:
+                        $('#' + PASSWORD).remove();
+                        break;
+                    case CONFIRM:
+                        $('#' + CONFIRM).remove();
+                        break;
+                }
+            }
+
+            function addError(message, target) {
+                var html = ' <div id=' + target + ' class="ui pointing basic red label" > ' +
+                    message +
+                    '</div >';
+
+                switch (target) {
+                    case USERNAME:
+                        $(html).insertAfter("#input_group_username");
+                        break;
+                    case EMAIL:
+                        $(html).insertAfter("#input_group_email");
+                        break;
+                    case FNAME:
+                        $(html).insertAfter("#input_group_fname");
+                        break;
+                    case LNAME:
+                        $(html).insertAfter("#input_group_lname");
+                        break;
+                    case PASSWORD:
+                        $(html).insertAfter("#input_group_password");
+                        break;
+                    case CONFIRM:
+                        $(html).insertAfter("#input_group_confirm");
+                        break;
+                }
+            }
+
+            $("input[name=client_companies]").marcoPolo({
+                url: "http://server-erp2.sma.gov.jm:1786/api/data/ClientCompanyList",
+                delay: 50,
+                required: true,
+                cache: false,
+                formatItem: function (data, $item) {
+                    return data.name;
+                },
+                onSelect: function (data, $item) {
+                    $("input[name=client_companies]").val(data.name);
+                    $("input[name=client_companies]").attr("data-clientid", data.clientId);
+                },
+                formatError: function ($item, jqXHR, textStatus, errorThrown) {
+                    var e = errorThrown;
+                }
+            });
+
+            function unset_individual_fields()
+            {
+                $(".individual_container").remove();
+                $("#company_search").show();
+            }
+
+
+            function set_individual_fields()
+            {
+                $("#company_search").hide();
+                $(".individual_container").remove();
+                var html =
+                    '<div class="individual_container">' +
+                    '<div class="field">' +
+                    '<div class="field">' +
+                    '<label>Address</label>' +
+                    '<div id="" class="ui left icon input">' +
+                    '<input placeholder="( required )" name="reg_individual_address" type="text">' +
+                    '<i class="grey address card icon"></i>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="field">' +
+
+                    '</div>' +
+                    '</div>' +
+                    '<div class="two fields">' +
+                    '<div class="field">' +
+                    '<label>Telephone</label>' +
+                    '<div id="" class="ui left icon input">' +
+                    '<input placeholder="( required )" name="reg_individual_tel" type="text">' +
+                    '<i class="grey phone icon"></i>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="field">' +
+                    '<label>Fax</label>' +
+                    '<div id="" class="ui left icon input">' +
+                    '<input placeholder="" name="reg_individual_fax" type="text">' +
+                    '<i class="grey fax icon"></i>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+
+                $(html).insertAfter("#name_grp");
+            }
+
+            function validate_individual()
+            {
+                var form_valid = true;
+
+                if ($("input[name=reg_username]").val() === '') {
+                    $("input[name=reg_username]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_firstName]").val() === '') {
+                    $("input[name=reg_firstName]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_lastName]").val() === '') {
+                    $("input[name=reg_lastName]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_email]").val() === '') {
+                    $("input[name=reg_email]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_individual_address]").val() === '') {
+                    $("input[name=reg_individual_address]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_individual_tel]").val() === '') {
+                    $("input[name=reg_individual_tel]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_password]").val() === '') {
+                    $("input[name=reg_password]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_confirmPassword]").val() === '') {
+                    $("input[name=reg_confirmPassword]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                return form_valid;
+            }
+
+            function validate_company()
+            {
+                var form_valid = true;
+
+                if ($("input[name=reg_username]").val() === '')
+                {
+                    $("input[name=reg_username]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=client_companies]").val() === '') {
+                    $("input[name=client_companies]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_firstName]").val() === '') {
+                    $("input[name=reg_firstName]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_lastName]").val() === '') {
+                    $("input[name=reg_lastName]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_email]").val() === '') {
+                    $("input[name=reg_email]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_password]").val() === '') {
+                    $("input[name=reg_password]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                if ($("input[name=reg_confirmPassword]").val() === '') {
+                    $("input[name=reg_confirmPassword]").addClass('input-error');
+                    form_valid = false;
+                }
+
+                return form_valid;
+            }
+        });
+    </script>
 </body>
 </html>

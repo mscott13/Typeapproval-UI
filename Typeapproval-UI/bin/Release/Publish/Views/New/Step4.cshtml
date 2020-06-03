@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewData["Title"] = "Application Submitted";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+    <script src="~/Scripts/step4-restore.js"></script>
+}
+
+@section Styles{
+
+    <link href="~/Content/overrides.css" rel="stylesheet" />
+}
+
+<div class="ui container override">
+    <div style="padding-left:10px !important; padding-right: 10px !important;" class="ui grid">
+        <div class="two wide column">
+
+        </div>
+        <div class="twelve wide column">
+            <div class="ui one column grid">
+                <div class="column">
+                    <div class="ui tiny four top attached steps">
+                        <div class="disabled step">
+                            <i class="address card icon"></i>
+                            <div class="content">
+                                <div class="title">Applicant Information</div>
+                                <div class="description">Enter applicant details</div>
+                            </div>
+                        </div>
+                        <div class="disabled step">
+                            <i class="hdd icon"></i>
+                            <div class="content">
+                                <div class="title">Equipment Info</div>
+                                <div class="description">Description of Equipment</div>
+                            </div>
+                        </div>
+                        <div class="disabled step">
+                            <i class="upload icon"></i>
+                            <div class="content">
+                                <div class="title">Upload Files</div>
+                                <div class="description">Add files relevant to this application</div>
+                            </div>
+                        </div>
+                        <div class="active step">
+                            <i class="blue check icon"></i>
+                            <div class="content">
+                                <div class="title">Completed</div>
+                                <div class="description">Application submitted</div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div id="context" class="ui clearing attached raised segment">
+
+                        <div class="ui small icon message">
+                            <i class="blue check icon"></i>
+                            <div class="content">
+                                <div class="header">
+                                    Application Submitted
+                                </div>
+                                <p>Your application has been submitted successfully. Application ID: <b>@ViewBag.appid</b>. The application will be processed once payment is made.</p>
+                            </div>
+                        </div>
+
+                        <div class="ui form">
+                            <div class="ui form">
+                                <div class="one field">
+                                    <button id="btn_finish" type="button" class="ui tiny right floated blue button">
+                                        Finish
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="two wide column">
+
+        </div>
+    </div>
+</div>
+

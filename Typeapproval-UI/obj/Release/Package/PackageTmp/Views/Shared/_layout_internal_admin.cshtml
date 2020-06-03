@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/semantic.css" rel="stylesheet" />
+    <link href="~/Content/site.css?t=@DateTime.Now.Millisecond" rel="stylesheet" />
+    <link href="~/Content/custom.css?t=@DateTime.Now.Millisecond.ToString()" rel="stylesheet" />
+    <link href="~/Content/search_result_styles.css?t=@DateTime.Now.Millisecond" rel="stylesheet" />
+    @RenderSection("styles", false)
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="sidenav">
+        <div class="ui vertical inverted fluid menu">
+            <a href="/admin" class="item">
+                <i class="home icon"></i>
+                Task Manager
+            </a>
+            <div class="item">
+                <div class="header">Account Management</div>
+                <div class="menu">
+                    <a id="change-password" class="item">Change Password</a>
+                </div>
+            </div>
+            <div class="item">
+                <div class="header">Other</div>
+                <div class="menu">
+                    <a id="grant-resumit" class="item">Grant Resubmission</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div style="border: none !important" class="ui borderless large menu">
+            <div style="font-size: 17px !important;" class="header item">
+                <i>@ViewBag.Title</i>
+            </div>
+            <div style="font-size: 13px !important; font-style: italic !important;" class="right menu">
+                <div class="ui item">
+                    Signed in as:&nbsp;&nbsp;<b>@Session["name"]</b>
+                </div>
+                <div style="margin-right: 15px !important;" class="ui item">
+                    <button id="sign_out" class="tiny ui basic button">
+                        <i class="icon power off"></i>
+                        Sign out
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-scrollable">
+            @RenderBody()
+        </div>
+
+        <div id="client_resubmit" class="ui mini modal">
+            <div class="header">
+                Client Resubmission
+            </div>
+            <div class="content">
+                <form class="ui form">
+                    <div class="field">
+                        <label>Select Client</label>
+                        <select id="client-dropdown" class="ui search dropdown">
+                            <option value="">Client</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Application</label>
+                        <select id="application-dropdown" class="ui search dropdown">
+                            <option value="">Application</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="actions">
+                <div class="ui mini cancel button">
+                    Cancel
+                </div>
+                <div id="btn-resubmit-apply" class="ui mini right labeled icon blue ok button">
+                    Apply
+                    <i class="checkmark icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div id="change_password" class="ui mini modal">
+            <div class="header">
+               Change Password
+            </div>
+            <div class="content">
+                <form id="form" class="ui equal width form">
+                    <div class="field">
+                        <label>Old Password</label>
+                        <input id="old_psw" placeholder="( required )" type="password">
+                    </div>
+                    <div class="fields">
+                        <div class="field">
+                            <label>New Password</label>
+                            <input id="new_psw" placeholder="( required )" type="password">
+                        </div>
+                        <div class="field">
+                            <label>Confirm Password</label>
+                            <input id="confirm_psw" placeholder="( required )" type="password">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="actions">
+                <div class="ui mini cancel button">
+                    Cancel
+                </div>
+                <div id="btn-password-change" class="ui mini right labeled icon blue ok button">
+                    Change
+                    <i class="checkmark icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div id="confirm_delete" class="ui mini modal">
+            <div class="ui header">
+                Reject Confirmation
+            </div>
+            <div class="content">
+                <p>Are you sure you want to reject this application?</p>
+            </div>
+            <div class="actions">
+                <div class="ui mini cancel button">
+                    Cancel
+                </div>
+                <div class="ui mini red ok button">
+                    Reject
+                </div>
+            </div>
+        </div>
+
+        <div class="overlay-notify">
+
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/semantic.js"></script>
+    <script src="~/Scripts/jquery.marcopolo.min.js"></script>
+    <script src="~/Scripts/site.js?t=@DateTime.Now.Millisecond"></script>
+    @RenderSection("Scripts", false)
+</body>
+</html>

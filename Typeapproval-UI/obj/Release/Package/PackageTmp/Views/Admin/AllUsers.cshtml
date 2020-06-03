@@ -1,0 +1,51 @@
+﻿@model  List<Typeapproval_UI.Models.UserDetails>
+
+@{
+    Layout = "~/Views/Shared/_layout_internal_admin.cshtml";
+}
+
+<div id="main_content" style="margin-left: 0px !important; margin-right: 0 !important; width:100% !important; height: 100% !important;" class="ui fluid container">
+    <table style="border-radius:0 !important; border:none !important;" class="ui small padded table">
+        <thead class="thead_custom">
+            <tr>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Role</th>
+                <th>Email</th>
+                <th>Created Date</th>
+                <th>Last Activity</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody id="staff-task-records">
+            @if (Model.Count > 0)
+            {
+                for (int i = 0; i < Model.Count; i++)
+                {
+            <tr>
+                <td>@Model[i].username</td>
+                <td>@Model[i].first_name</td>
+                <td>@Model[i].last_name</td>
+                <td>@Model[i].user_type</td>
+                <td>@Model[i].email</td>
+                <td>@Model[i].created_date</td>
+                <td>@Model[i].last_detected_activity</td>
+                <td style="text-align: center;"><i class="grey pencil alternate icon"></i></td>
+                <td style="text-align: center"><i class="red trash alternate icon"></i></td>
+            </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td style="text-align: center;" colspan="8">
+                       No users found... very strange indeed.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

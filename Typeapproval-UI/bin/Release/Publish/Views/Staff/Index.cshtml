@@ -1,0 +1,92 @@
+﻿@model List<Typeapproval_UI.Models.AssignedTask>
+
+@{
+    Layout = "~/Views/Shared/_layout_internal_staff.cshtml";
+}
+
+@section Styles{
+    <link href="~/Content/overrides.css" rel="stylesheet" />
+}
+
+@section Scripts{
+}
+
+<div id="main_content" style="margin-left: 0px !important; margin-right: 0 !important; width:100% !important;" class="ui fluid container">
+    <div class="left-content">
+        <table style="border-radius:0 !important; border:none !important;" class="ui small padded table">
+            <thead class="thead_custom">
+                <tr>
+                    <th style="width:10px !important;"></th>
+                    <th>Application ID</th>
+                    <th>Created Date</th>
+                    <th>Date Assigned</th>
+                    <th>Assigned By</th>
+                    <th>Author</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="staff-task-records">
+                @if (Model.Count > 0)
+                {
+                    for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr data-appid="@Model[i].application_id">
+                            <td><input type="radio" class="check_task"></td>
+                            <td><a class="link-bold app_view" data-application="@Model[i].application_id"><i class="file alternate outline icon"></i>@Model[i].application_id</a></td>
+                            <td>@Model[i].created_date</td>
+                            <td>@Model[i].assigned_date</td>
+                            <td>@Model[i].administrator</td>
+                            <td>@Model[i].submitted_by</td>
+
+                            @switch (Model[i].status)
+                            {
+                                case Typeapproval_UI.Commons.Constants.INCOMPLETE_TYPE:
+                                    <td class="status_incomplete">@Model[i].status</td>
+                                    break;
+                                case Typeapproval_UI.Commons.Constants.PENDING_TYPE:
+                                    <td class="status_pending">@Model[i].status</td>
+                                    break;
+                                case Typeapproval_UI.Commons.Constants.INVOICED_TYPE:
+                                    <td class="status_invoiced">@Model[i].status</td>
+                                    break;
+                                case Typeapproval_UI.Commons.Constants.REJECTED:
+                                    <td class="status_rejected">@Model[i].status</td>
+                                    break;
+                                case Typeapproval_UI.Commons.Constants.LICENSED_TYPE:
+                                    <td class="status_licensed">@Model[i].status</td>
+                                    break;
+                                case Typeapproval_UI.Commons.Constants.SUBMITTED_TYPE:
+                                    <td class="status_submitted">@Model[i].status</td>
+                                    break;
+                                default:
+                                    <td>@Model[i].status</td>
+                                    break;
+                            }
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td style="text-align: center;" colspan="8">
+                            <p style="background-color: #FFDC69; padding: 2px 10px; display: inline;">You have no assigned tasks as yet. Try again later...</p>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="right-content">
+        <h2 style="margin: 10px !important;" class="ui small icon center aligned header">
+            <div class="content">
+                Application Files
+                <div class="sub header">View all uploaded files for the selected application</div>
+            </div>
+        </h2>
+
+        <div class="ui divider"></div>
+        <div class="files-container">
+            <p style="text-align:center;"><i class="grey info circle icon"></i>Select a record to view file details</p>
+        </div>
+    </div>
+</div>

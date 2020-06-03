@@ -1,0 +1,114 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Main</title>
+    <link href="~/Content/semantic.css?t=@DateTime.Now.Millisecond.ToString()" rel="stylesheet" />
+    <link href="~/Content/custom.css?t=@DateTime.Now.Millisecond.ToString()" rel="stylesheet" />
+    <link href="~/Content/overrides.css?t=@DateTime.Now.Millisecond.ToString()" rel="stylesheet" />
+    <link href="~/Content/site.css?t=@DateTime.Now.Millisecond.ToString()" rel="stylesheet" />
+</head>
+<body>
+    <div class="ui tiny secondary  menu">
+        <div class="ui item">
+            <div class="header item">
+                <i class="blue th icon"></i>
+                Main
+            </div>
+        </div>
+        <div class="right menu">
+            <div class="ui item">
+                Signed in as:&nbsp;&nbsp;<i><b>@Session["name"]</b></i>
+            </div>
+            <div style="margin-right: 15px !important;" class="ui item">
+                <a style="text-decoration:underline !important; cursor:pointer !important;" id="sign_out">Sign out</a>
+            </div>
+        </div>
+    </div>
+    <div style="padding-top:10vh;" class="ui container">
+        <div class="grid_shadow">
+            <div class="ui three column internally celled grid">
+                <div class="row row_override_v1">
+                    <div style="padding:0 !important;" class="column">
+                        <div id="dashboard" class="grid_item">
+                            <h2 class="ui blue icon center aligned medium header">
+                                <i class="th large icon"></i>
+                                <div class="content">
+                                    Dashboard
+                                    <div style="margin-top:10px;" class="sub header font-size-adjust"><i>Shows at a glance information about currently active applications</i></div>
+                                </div>
+                            </h2>
+                        </div>
+                    </div>
+                    <div style="padding:0 !important;" class="column">
+                        <div id="type_approval" class="grid_item">
+                            <h2 class="ui blue icon center aligned medium header">
+                                <i class="file alternate icon"></i>
+                                <div class="content">
+                                    Type Approvals
+                                    <div style="margin-top:10px;" class="sub header font-size-adjust"><i>Create a new type approval application</i></div>
+                                </div>
+                            </h2>
+                        </div>
+                    </div>
+                    <div style="padding:0 !important;" class="column">
+                        <div id="marine_license" class="grid_item">
+                            <h2 class="ui disabled blue icon center aligned medium header">
+                                <i class="file alternate icon"></i>
+                                <div class="content">
+                                    Marine License
+                                    <div style="margin-top:10px;" class="sub header font-size-adjust"><i>Create a new marine license application</i></div>
+                                </div>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row_override_v1">
+                    <div style="padding:0 !important;" class="column">
+                        <div id="microwave" class="grid_item">
+                            <h2 class="ui disabled blue icon center aligned medium header">
+                                <i class="file alternate icon"></i>
+                                <div class="content">
+                                    Fixed-Link Licence
+                                    <div style="margin-top:10px;" class="sub header font-size-adjust"><i>Create a new microwave application</i></div>
+                                </div>
+                            </h2>
+                        </div>
+                    </div>
+                    <div style="padding:0 !important;" class="column">
+                        <div id="private_radio" class="grid_item">
+                            <h2 class="ui blue disabled icon center aligned medium header">
+                                <i class="file alternate icon"></i>
+                                <div class="content">
+                                    Private Radio Licence
+                                    <div style="margin-top:10px;" class="sub header font-size-adjust"><i>Create a new private radio application</i></div>
+                                </div>
+                            </h2>
+                        </div>
+                    </div>
+                    <div style="padding:0 !important;" class="column">
+                        <div id="account_settings" class="grid_item">
+                            <h2 class="ui disabled blue icon center aligned medium header">
+                                <i class="settings icon"></i>
+                                <div class="content">
+                                    Account Settings
+                                    <div style="margin-top:10px;" class="sub header font-size-adjust"><i>Edit your personal profile and application preferences here</i></div>
+                                </div>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/semantic.js"></script>
+    <script src="~/Scripts/grid.js"></script>
+    <script src="~/Scripts/site.js"></script>
+</body>
+</html>

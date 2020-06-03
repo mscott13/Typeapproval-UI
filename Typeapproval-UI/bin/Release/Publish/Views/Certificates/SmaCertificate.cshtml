@@ -1,0 +1,225 @@
+﻿@model Typeapproval_UI.Models.Certificate
+
+@{
+    ViewBag.Title = "Certificate";
+    Layout = null;
+}
+
+<!Doctype html>
+<html>
+<head>
+    <link href="~/Content/semantic.css" rel="stylesheet" />
+    <link href="~/Content/overrides.css" rel="stylesheet" />
+    <link href="~/Content/custom.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="ui container override cert">
+        <div style="padding-top:20px" class="ui grid">
+            <div class="row">
+                <div style="padding: 0px !important" class="two wide column">
+
+                </div>
+                <div style="padding: 0px !important" class="twelve wide column">
+                    <div class="grid_shadow">
+
+                    </div>
+                    <div style="background-image:url(/Content/images/sample-watermark-png-3.png); background-repeat:no-repeat; background-size:contain; background-position:center;" *@ class="ui raised segment">
+                        <div class="ui grid">
+                            <div style="padding-top:18px !important;" class="row row_override_v3">
+                                <div class="sixteen wide column">
+                                    <img style="width:125px !important;" class="ui small centered image" src="~/Content/images/jarms2.jpg">
+                                </div>
+                            </div>
+                            <div class="row row_override_v1">
+                                <div class="sixteen wide column">
+                                    <p class="grant-bold-content_v1">GRANT OF EQUIPMENT AUTHORIZATION</p>
+                                </div>
+                            </div>
+                            <div style="margin-top:8px;" class="row row_override_v1">
+                                <div class="sixteen wide column">
+                                    <p class="grant-bold-content_v2">Type Approval Certification</p>
+                                </div>
+                            </div>
+                            <div style="margin-top:6px;" class="row row_override_v1">
+                                <div class="sixteen wide column">
+                                    <p class="grant-bold-content_v3">Issued by</p>
+                                </div>
+                            </div>
+                            <div style="margin-top:20px;" class="row row_override_v1">
+                                <div class="sixteen wide column">
+                                    <p class="grant-bold-content_v3">Spectrum Management Authority<br />13-19 Harbour Street, Kingston,<br />Jamaica</p>
+                                </div>
+                            </div>
+
+                            <div style="margin-top:20px; margin-left:120px;" class="row row_override_v1">
+                                <div class="sixteen wide column">
+                                    <p class="grant-bold-content_v4">@Model.manufacturer_name</p>
+                                </div>
+                            </div>
+                            <div style="margin-top:8px; margin-left:120px;" class="row row_override_v1">
+                                <div class="sixteen wide column">
+                                    <p class="grant-bold-content_v4">@Model.manufacturer_address</p>
+                                </div>
+                            </div>
+                            <div style="margin-top:40px;" class="row row_override_v1">
+                                <div class="sixteen wide column">
+                                    <p style="font-size: 18px !important;" class="grant-bold-content_v2"><i>NOT TRANSFERABLE</i></p>
+                                </div>
+                            </div>
+                            <div style="margin-top:15px;" class="row row_override_v1">
+                                <div class="three wide column">
+
+                                </div>
+                                <div class="ten wide column">
+                                    <p style="text-align: left !important;" class="grant-bold-content_v3">
+                                        EQUIPMENT AUTHORIZATION is hereby issued to the
+                                        Named GRANTEE, and is VALID ONLY for the equipment
+                                        identified in this document for use under provisions of the
+                                        Radio and Telegraph Control (Exemptions) Regulations,1973.
+                                    </p>
+                                </div>
+                                <div class="three wide column">
+
+                                </div>
+                            </div>
+                            <div style="margin-top:35px;" class="row row_override_v1">
+                                <div class="three wide column">
+
+                                </div>
+                                <div class="four wide column">
+                                    <p style="text-align: left !important;" class="grant-bold-content_v4">
+                                        Equipment Identifier:
+                                    </p>
+                                </div>
+                                <div class="nine wide column">
+                                    <p style="text-align: left !important; padding-left:25px; padding-right:100px !important; font-size:15px !important;" class="grant-bold-content_v3">
+                                        @Model.product_identification
+                                    </p>
+                                </div>
+                            </div>
+                            <div style="margin-top:18px;" class="row row_override_v1">
+                                <div class="three wide column">
+
+                                </div>
+                                <div class="four wide column">
+                                    <p style="text-align: left !important;" class="grant-bold-content_v4">
+                                        Name of Grantee:
+                                    </p>
+                                </div>
+                                <div class="nine wide column">
+                                    <p style="text-align: left !important; padding-left:25px; padding-right:100px !important; font-size:15px !important;" class="grant-bold-content_v3">
+                                        @Model.manufacturer_name
+                                    </p>
+                                </div>
+                            </div>
+                            <div style="margin-top:18px;" class="row row_override_v1">
+                                <div class="three wide column">
+
+                                </div>
+                                <div class="four wide column">
+                                    <p style="text-align: left !important;" class="grant-bold-content_v4">
+                                        Equipment Description:
+                                    </p>
+                                </div>
+                                <div class="nine wide column">
+                                    <p style="text-align: left !important; padding-left:25px; padding-right:100px !important; font-size:15px !important;" class="grant-bold-content_v3">
+                                        @Model.equipment_description
+                                    </p>
+                                </div>
+                            </div>
+                            <div style="margin-top:13px;" class="row row_override_v1">
+                                <div class="one wide column">
+
+                                </div>
+
+                                <div style="padding-left: 27px !important; padding-right: 27px !important;" class="fourteen wide column">
+                                    <table style="width:100%;" class="cert_table_border">
+                                        <thead>
+                                            <tr>
+                                                <th>Authorization Notes</th>
+                                                <th>
+                                                    Frequency<br />Range (MHz)
+                                                </th>
+                                                <th>
+                                                    Output<br />(Watts)
+                                                </th>
+                                                <th>
+                                                    Frequency<br />Tolerance
+                                                </th>
+                                                <th>
+                                                    Emission<br />Designator
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for (int i = 0; i < Model.frequencies.Count; i++)
+                                            {
+                                            <tr>
+                                                @if (i == 0)
+                                                {
+                                                    <td>@Model.remarks</td>
+                                                    <td>@Model.frequencies[i].lower_freq - @Model.frequencies[i].upper_freq</td>
+                                                    <td>@Model.frequencies[i].power</td>
+                                                    <td>@Model.frequencies[i].tolerance</td>
+                                                    <td>@Model.frequencies[i].emmission_desig</td>
+                                                }
+                                                else
+                                                {
+                                                    <td> </td>
+                                                    <td>@Model.frequencies[i].lower_freq - @Model.frequencies[i].upper_freq</td>
+                                                    <td>@Model.frequencies[i].power</td>
+                                                    <td>@Model.frequencies[i].tolerance</td>
+                                                    <td>@Model.frequencies[i].emmission_desig</td>
+                                                }
+                                            </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="one wide column">
+                                </div>
+                            </div>
+
+                            <div style="padding-top: 200px !important; padding-left:80px !important; padding-right:80px !important;" class="row row_override_v1">
+                                <div class="four wide column">
+                                    <p>Authorized By:</p>
+                                </div>
+                                <div class="four wide column">
+
+                                </div>
+                                <div class="four wide column">
+
+                                </div>
+                                <div class="four wide column">
+                                    <p>Date of Grant:</p>
+                                </div>
+                            </div>
+                            <div style="padding-top: 50px !important; padding-left:80px !important; padding-right:80px !important; padding-bottom: 20px !important;" class="row row_override_v1">
+                                <div class="four wide column">
+                                    <p class="grant-bold-content_v5">The Postmaster General</p>
+                                </div>
+                                <div class="four wide column">
+
+                                </div>
+                                <div class="four wide column">
+
+                                </div>
+                                <div class="four wide column">
+                                    <p class="grant-bold-content_v5"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="padding: 0px !important" class="two wide column">
+
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/semantic.js"></script>
+</body>
+</html>
+

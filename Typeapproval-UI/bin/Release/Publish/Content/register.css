@@ -1,0 +1,57 @@
+﻿@font-face {
+    font-family: 'Roboto-Regular';
+    src: url('../fonts/Roboto/Roboto-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Roboto-Black';
+    src: url('../fonts/Roboto/Roboto-Black.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Roboto-Thin';
+    src: url('../fonts/Roboto/Roboto-Thin.ttf') format('truetype');
+}
+
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    padding: 20px;
+    /*background-image: url('backgrounds/dust_scratches.png') !important;
+    background-repeat: repeat !important;*/
+    background-color: #EFF2EF !important;
+}
+
+.register_form_container {
+    position: absolute;
+    margin: auto;
+    top: 100px;
+    right: 0;
+    bottom: 350px;
+    left: 0;
+    width: 470px;
+    height: 370px;
+}
+
+.register_form_controls {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+.logo img {
+    display: inline-block;
+    width: 180px;
+}
+
+.logo {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}

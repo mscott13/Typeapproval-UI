@@ -50,7 +50,7 @@ namespace Typeapproval_UI.Controllers
             Session.Remove("selected_manufacturer");
 
             var client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+            client.BaseAddress = new Uri("http://server-erp2.sma.gov.jm:1786/api/data/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -75,7 +75,7 @@ namespace Typeapproval_UI.Controllers
         public ActionResult GetFeed()
         {
             var client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:54367/api/data/");
+            client.BaseAddress = new Uri("http://server-erp2.sma.gov.jm:1786/api/data/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 

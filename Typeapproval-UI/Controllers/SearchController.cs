@@ -36,7 +36,7 @@ namespace Typeapproval_UI.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:54367/api/search/");
+                client.BaseAddress = new Uri("http://server-erp2.sma.gov.jm:1786/api/search/");
                 var response = client.GetAsync("TypeApprovalDetails?Dealer=" + dealer + "&" + "Model=" + model + "&"+ "make="+make+"&"+"remarks="+remarks);
                 response.Wait();
 
